@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/title_margin_side"
+                android:layout_marginRight="@dimen/title_margin_side"
+                android:layout_marginTop="@dimen/title_margin_top"
+                android:gravity="center"
+                android:textAppearance="@style/Title"
+                android:text="@string/help"/>
+
+            <ImageView
+                android:id="@+id/help_logo"
+                android:layout_width="@dimen/help_logo_width"
+                android:layout_height="@dimen/help_logo_height"
+                android:src="@drawable/help_logo"
+                android:layout_below="@id/title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="42dp"/>
+
+            <TextView
+                android:id="@+id/help_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/help_logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:textSize="@dimen/help_version_text_size"
+                android:textColor="@color/text_default"
+                android:text="v.6.0.1"
+                fontPath="fonts/OpenSans-Regular.ttf"
+                tools:ignore="MissingPrefix"/>
+
+            <RelativeLayout
+                android:id="@+id/help_recent_trips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/help_recent_trips_margin_top"
+                android:layout_marginLeft="@dimen/help_recent_trips_margin_side"
+                android:layout_marginRight="@dimen/help_recent_trips_margin_side"
+                android:layout_below="@id/help_version"
+                android:background="@drawable/background_recap_info"
+                android:elevation="@dimen/help_recent_trips_elevation">
+
+                <TextView
+                    android:id="@+id/help_recent_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/help_recent_title_margin_side"
+                    android:layout_marginRight="@dimen/help_recent_title_margin_side"
+                    android:layout_marginTop="@dimen/help_recent_title_margin_top"
+                    android:text="@string/get_help_with_recent_trips"
+                    android:textSize="@dimen/help_recent_title_text_size"
+                    android:textColor="@color/black"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"/>
+
+                <View
+                    android:id="@+id/gradient"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/help_gradient_height"
+                    android:layout_marginTop="@dimen/help_gradient_margin_top"
+                    android:layout_below="@id/help_recent_title"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/help_trips_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gradient"
+                    android:layout_marginBottom="@dimen/help_trips_container_margin_bottom"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/help_questions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/help_recent_trips"
+                android:layout_marginTop="@dimen/help_questions_margin_top"
+                android:layout_marginLeft="@dimen/help_items_margin_left"
+                android:layout_marginRight="@dimen/help_items_margin_left">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/help_items_text_size"
+                    android:text="@string/frequently_asked_questions"
+                    android:layout_toLeftOf="@id/questions_icon"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"/>
+                
+                <ImageView
+                    android:id="@+id/questions_icon"
+                    android:layout_width="@dimen/right_arrow_width"
+                    android:layout_height="@dimen/right_arrow_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right"
+                    android:scaleType="fitXY"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/help_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/help_questions"
+                android:layout_marginTop="@dimen/help_questions_margin_top"
+                android:layout_marginLeft="@dimen/help_items_margin_left"
+                android:layout_marginRight="@dimen/help_items_margin_left">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/help_items_text_size"
+                    android:text="@string/terms_of_services"
+                    android:layout_toLeftOf="@id/terms_icon"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"/>
+
+                <ImageView
+                    android:id="@+id/terms_icon"
+                    android:layout_width="@dimen/right_arrow_width"
+                    android:layout_height="@dimen/right_arrow_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right"
+                    android:scaleType="fitXY"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/support_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/help_terms"
+                android:layout_marginTop="@dimen/help_questions_margin_top"
+                android:layout_marginLeft="@dimen/help_items_margin_left"
+                android:layout_marginRight="@dimen/help_items_margin_left"
+                android:layout_marginBottom="96dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/help_items_text_size"
+                    android:text="@string/contact_support"
+                    android:layout_toLeftOf="@id/support_icon"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"/>
+
+                <ImageView
+                    android:id="@+id/support_icon"
+                    android:layout_width="@dimen/right_arrow_width"
+                    android:layout_height="@dimen/right_arrow_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right"
+                    android:scaleType="fitXY"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/part_back_button"/>
+
+</RelativeLayout>

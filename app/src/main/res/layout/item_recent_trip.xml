@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/help_recent_margin_side"
+        android:clipToPadding="false">
+
+        <RelativeLayout
+            android:id="@+id/icon_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:layout_marginTop="@dimen/help_recent_margin_top"
+            android:layout_marginBottom="@dimen/help_recent_margin_top"
+            android:layout_marginLeft="@dimen/help_recent_margin_side"
+            android:background="@drawable/background_white_circle">
+
+            <ImageView
+                android:id="@+id/recent_user_icon"
+                android:layout_width="@dimen/recent_user_icon_size"
+                android:layout_height="@dimen/recent_user_icon_size"/>
+            
+            <View
+                android:id="@+id/recent_active"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/background_green_circle"
+                android:layout_alignRight="@id/recent_user_icon"/>
+
+        </RelativeLayout>
+        
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/right_arrow_width"
+            android:layout_height="@dimen/right_arrow_height"
+            android:src="@drawable/arrow_right"
+            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/recent_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/arrow"
+            android:layout_marginRight="@dimen/recent_amount_margin_right"
+            android:layout_marginTop="@dimen/recent_amount_margin_top"
+            android:textColor="@color/black"
+            android:textSize="@dimen/recent_amount_text_size"
+            android:gravity="right"
+            fontPath="fonts/OpenSans-Bold.ttf"
+            tools:ignore="MissingPrefix"/>
+
+        <TextView
+            android:id="@+id/recent_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/arrow"
+            android:layout_marginRight="@dimen/recent_amount_margin_right"
+            android:layout_below="@id/recent_amount"
+            android:layout_marginTop="@dimen/recent_distance_margin_top"
+            android:textColor="@color/black"
+            android:gravity="right"
+            android:textSize="@dimen/recent_distance_text_size"
+            fontPath="fonts/OpenSans-Regular.ttf"
+            tools:ignore="MissingPrefix"/>
+
+        <TextView
+            android:id="@+id/recent_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/icon_container"
+            android:layout_marginLeft="@dimen/recent_date_margin_left"
+            android:layout_alignBaseline="@id/recent_amount"
+            android:layout_toLeftOf="@id/recent_amount"
+            android:layout_marginRight="@dimen/recent_date_margin_right"
+            fontPath="fonts/OpenSans-Regular.ttf"
+            tools:ignore="MissingPrefix"
+            android:textColor="@color/black"
+            android:lines="1"
+            android:textSize="@dimen/recent_date_text_size"/>
+
+        <TextView
+            android:id="@+id/recent_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/icon_container"
+            android:layout_marginLeft="@dimen/recent_date_margin_left"
+            android:layout_alignBaseline="@id/recent_distance"
+            android:layout_toLeftOf="@id/recent_distance"
+            android:layout_marginRight="@dimen/recent_date_margin_right"
+            fontPath="fonts/OpenSans-Regular.ttf"
+            tools:ignore="MissingPrefix"
+            android:textColor="@color/text_default"
+            android:lines="1"
+            android:textSize="@dimen/recent_message_text_size"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

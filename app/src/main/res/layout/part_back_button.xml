@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/backButton"
+    android:layout_width="@dimen/back_button_size"
+    android:layout_height="@dimen/back_button_size"
+    android:background="@drawable/background_back_button"
+    android:layout_marginLeft="@dimen/back_button_margin_left"
+    android:layout_marginBottom="@dimen/back_button_margin_bottom"
+    android:layout_alignParentBottom="true"
+    android:elevation="@dimen/back_button_elevation">
+
+    <ImageView
+        android:layout_width="@dimen/back_button_width"
+        android:layout_height="@dimen/back_button_height"
+        android:src="@drawable/back_icon"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

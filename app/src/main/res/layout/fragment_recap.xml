@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/recap_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recap_gradient_height"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/title_margin_side"
+                android:layout_marginRight="@dimen/title_margin_side"
+                android:layout_marginTop="@dimen/title_margin_top"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textAppearance="@style/Title"
+                android:text="@string/recap"/>
+
+            <TextView
+                android:id="@+id/recap_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_marginTop="@dimen/recap_date_margin_top"
+                android:textColor="@color/white"
+                android:textSize="@dimen/recap_date_text_size"
+                android:text="@string/recap_date_example"
+                android:gravity="center"
+                fontPath="fonts/OpenSans-Regular.ttf"
+                tools:ignore="MissingPrefix"/>
+
+            <TextView
+                android:id="@+id/recap_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/recap_description_margin_side"
+                android:layout_marginRight="@dimen/recap_description_margin_side"
+                android:layout_marginTop="@dimen/recap_description_margin_top"
+                android:layout_below="@id/recap_date"
+                android:textColor="@color/white"
+                android:textSize="@dimen/recap_description_text_size"
+                android:text="@string/recap_description_example"
+                fontPath="fonts/OpenSans-Regular.ttf"
+                tools:ignore="MissingPrefix"/>
+
+            <LinearLayout
+                android:id="@+id/recap_info_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recap_info_container_height"
+                android:layout_marginTop="@dimen/recap_info_container_margin_top"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/recap_info_container_margin_side"
+                android:layout_marginRight="@dimen/recap_info_container_margin_side"
+                android:background="@drawable/background_recap_info"
+                android:elevation="@dimen/recap_info_container_elevation">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/recap_shared_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/recap_info_number_text_margin_top"
+                        android:textColor="@color/black"
+                        android:text="6"
+                        android:textSize="@dimen/recap_info_number_text_size"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"/>
+
+                    <TextView
+                        android:id="@+id/recap_shared_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/recap_shared_count"
+                        android:layout_marginTop="@dimen/recap_info_label_margin_top"
+                        android:text="@string/link_shared"
+                        android:textSize="@dimen/recap_info_label_text_size"
+                        android:textColor="@color/text_default"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix,SmallSp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/recap_info_separator"
+                    android:background="@color/recap_info_separator_color"
+                    android:layout_marginTop="@dimen/recap_info_separator_margin_top"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/recap_signup_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/recap_info_number_text_margin_top"
+                        android:textColor="@color/black"
+                        android:text="4"
+                        android:textSize="@dimen/recap_info_number_text_size"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"/>
+
+                    <TextView
+                        android:id="@+id/recap_sighup_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/recap_signup_count"
+                        android:layout_marginTop="@dimen/recap_info_label_margin_top"
+                        android:text="@string/account_sign_up"
+                        android:textSize="@dimen/recap_info_label_text_size"
+                        android:textColor="@color/text_default"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix,SmallSp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/recap_info_separator"
+                    android:background="@color/recap_info_separator_color"
+                    android:layout_marginTop="@dimen/recap_info_separator_margin_top"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/recap_trips_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/recap_info_number_text_margin_top"
+                        android:textColor="@color/black"
+                        android:text="7"
+                        android:textSize="@dimen/recap_info_number_text_size"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"/>
+
+                    <TextView
+                        android:id="@+id/recap_trips_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/recap_trips_count"
+                        android:layout_marginTop="@dimen/recap_info_label_margin_top"
+                        android:text="@string/friends_trips"
+                        android:textSize="@dimen/recap_info_label_text_size"
+                        android:textColor="@color/text_default"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recap_graph_container_height"
+                android:layout_below="@id/recap_info_container"
+                android:layout_marginTop="@dimen/recap_graph_container_margin_top"
+                android:layout_marginLeft="@dimen/recap_info_container_margin_side"
+                android:layout_marginRight="@dimen/recap_info_container_margin_side"
+                android:background="@drawable/background_recap_info"
+                android:elevation="@dimen/recap_graph_container_elevation"
+                android:layout_marginBottom="96dp">
+
+                <TextView
+                    android:id="@+id/recap_graph_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/recap_graph_title_text_size"
+                    android:layout_marginTop="@dimen/recap_graph_title_margin"
+                    android:layout_marginLeft="@dimen/recap_graph_title_margin"
+                    android:text="Month Rewards"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"/>
+
+                <Spinner
+                    android:id="@+id/recap_graph_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/recap_graph_title_margin"
+                    android:entries="@array/recap_graph_spinner_items"
+                    android:spinnerMode="dropdown"/>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/recap_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/recap_graph_title"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginLeft="@dimen/recap_chart_margin_side"
+                    android:layout_marginRight="@dimen/recap_chart_margin_side"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/recap_chart"
+                    android:layout_alignRight="@id/recap_chart"
+                    android:layout_marginTop="@dimen/legend_margin_top"
+                    android:layout_marginRight="@dimen/legend_margin_right">
+
+                    <RelativeLayout
+                        android:id="@+id/legend_first_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:id="@+id/legend_friends_icon"
+                            android:layout_width="@dimen/legend_icon_size"
+                            android:layout_height="@dimen/legend_icon_size"
+                            android:background="@drawable/background_legend_blue"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/legend_friends"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_default"
+                            android:textSize="@dimen/legend_friends_text_size"
+                            android:layout_toRightOf="@id/legend_friends_icon"
+                            android:layout_marginLeft="@dimen/chart_legend_text_margin_left"
+                            android:text="@string/friends_trips"
+                            fontPath="fonts/OpenSans-Regular.ttf"
+                            tools:ignore="MissingPrefix"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/legend_first_line">
+
+                        <View
+                            android:id="@+id/legend_links_icon"
+                            android:layout_width="@dimen/legend_icon_size"
+                            android:layout_height="@dimen/legend_icon_size"
+                            android:background="@drawable/background_legend_red"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/legend_links"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_default"
+                            android:textSize="@dimen/legend_friends_text_size"
+                            android:layout_toRightOf="@id/legend_links_icon"
+                            android:layout_marginLeft="@dimen/chart_legend_text_margin_left"
+                            android:text="@string/link_shared"
+                            fontPath="fonts/OpenSans-Regular.ttf"
+                            tools:ignore="MissingPrefix"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/part_back_button"/>
+
+</RelativeLayout>

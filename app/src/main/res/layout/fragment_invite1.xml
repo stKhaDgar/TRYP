@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".screens.invite1.Invite1Fragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/title_margin_side"
+        android:layout_marginRight="@dimen/title_margin_side"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:gravity="center"
+        android:textAppearance="@style/Title"
+        android:text="@string/invite_friends_title"/>
+
+    <LinearLayout
+        android:id="@+id/tabsInvite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/tabs_invite_margin_top"
+        android:layout_below="@id/title">
+
+        <RelativeLayout
+            android:id="@+id/tabsInviteIcon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="@dimen/tabs_invite_icon_1_size"
+                android:layout_height="@dimen/tabs_invite_icon_1_size"
+                android:src="@drawable/invite_icon_1"
+                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+
+            <View
+                android:layout_width="@dimen/invite_badge_size"
+                android:layout_height="@dimen/invite_badge_size"
+                android:background="@drawable/background_invite_tabs_badge"
+                android:layout_alignRight="@id/icon1" />
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="@dimen/tabs_invite_icons_space"
+            android:layout_height="0dp"/>
+
+        <RelativeLayout
+            android:id="@+id/tabsInviteIcon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="@dimen/tabs_invite_icon_2_width"
+                android:layout_height="@dimen/tabs_invite_icon_2_height"
+                android:src="@drawable/invite_icon_2"
+                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+
+            <View
+                android:layout_width="@dimen/invite_badge_size"
+                android:layout_height="@dimen/invite_badge_size"
+                android:background="@drawable/background_invite_tabs_badge"
+                android:layout_alignRight="@id/icon2"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="@dimen/tabs_invite_icons_space"
+            android:layout_height="0dp"/>
+
+        <RelativeLayout
+            android:id="@+id/tabsInviteIcon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="@dimen/tabs_invite_icon_3_size"
+                android:layout_height="@dimen/tabs_invite_icon_3_size"
+                android:src="@drawable/invite_icon_3"
+                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+
+            <View
+                android:layout_width="@dimen/invite_badge_size"
+                android:layout_height="@dimen/invite_badge_size"
+                android:background="@drawable/background_invite_tabs_badge"
+                android:layout_alignRight="@id/icon3"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabsInvite"
+        android:layout_above="@id/backButton"
+        android:layout_marginTop="@dimen/invite_2_content_margin_top"
+        android:layout_marginBottom="@dimen/invite_2_content_margin_side">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/got_friends_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/invite_1_content_margin"
+                android:layout_marginRight="@dimen/invite_1_content_margin"
+                android:layout_marginTop="@dimen/invite_1_friends_margin_top"
+                android:gravity="center"
+                android:textSize="@dimen/invite_1_friends_text_size"
+                android:textColor="@color/black"
+                fontPath="fonts/OpenSans-Regular.ttf"
+                tools:ignore="MissingPrefix"
+                android:text="@string/invite_1_got_friends"/>
+
+            <TextView
+                android:id="@+id/invite_1_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/invite_1_content_margin"
+                android:layout_marginRight="@dimen/invite_1_content_margin"
+                android:layout_marginTop="@dimen/invite_1_text_margin_top"
+                android:textColor="@color/black"
+                android:layout_below="@id/got_friends_tv"
+                android:gravity="center"
+                android:textSize="@dimen/invite_1_text_size"
+                fontPath="fonts/OpenSans-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:text="@string/invite_1_tv"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image_invite1"
+                android:layout_width="@dimen/invite_1_image_width"
+                android:layout_height="@dimen/invite_1_image_height"
+                android:layout_below="@id/invite_1_text"
+                android:src="@drawable/invite_1_friends"
+                android:layout_marginLeft="@dimen/invite_1_content_margin"
+                android:layout_marginRight="@dimen/invite_1_content_margin"
+                android:layout_marginTop="@dimen/invite_1_image_margin_top"
+                android:layout_centerHorizontal="true"
+                app:riv_corner_radius="@dimen/invite_1_image_corner"/>
+
+            <LinearLayout
+                android:id="@+id/invite_1_block_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_invite1"
+                android:layout_marginLeft="@dimen/invite_1_buttons_margin_side"
+                android:layout_marginRight="@dimen/invite_1_buttons_margin_side"
+                android:layout_marginTop="@dimen/invite_1_buttons_margin_top"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:id="@+id/invite_1_twitter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/invite_1_actions_padding_top">
+
+                    <ImageView
+                        android:id="@+id/twitter_img"
+                        android:layout_width="@dimen/invite_1_twitter_image_width"
+                        android:layout_height="@dimen/invite_1_twitter_image_height"
+                        android:src="@drawable/twitter_img"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/invite_1_action_margin_top"
+                        android:layout_below="@id/twitter_img"
+                        android:textColor="@color/text_default"
+                        android:gravity="center_horizontal"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"
+                        android:text="@string/invite_1_twitter"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/invite_1_message"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/invite_1_actions_padding_top">
+
+                    <ImageView
+                        android:id="@+id/message_img"
+                        android:layout_width="@dimen/message_image_size"
+                        android:layout_height="@dimen/message_image_size"
+                        android:src="@drawable/messages_img"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/message_img"
+                        android:textColor="@color/text_default"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/invite_1_action_margin_top"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"
+                        android:text="@string/invite_1_message"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/invite_1_whatsapp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/invite_1_actions_padding_top">
+
+                    <ImageView
+                        android:id="@+id/whatsapp_img"
+                        android:layout_width="@dimen/whatsapp_image_size"
+                        android:layout_height="@dimen/whatsapp_image_size"
+                        android:src="@drawable/whatsapp_img"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/whatsapp_img"
+                        android:textColor="@color/text_default"
+                        android:layout_marginTop="@dimen/invite_1_action_margin_top"
+                        android:gravity="center_horizontal"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"
+                        android:text="@string/invite_1_whatsapp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/invite_1_more"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:clipToPadding="false"
+                    android:paddingTop="@dimen/invite_1_actions_padding_top">
+
+                    <RelativeLayout
+                        android:id="@+id/more_img"
+                        android:layout_width="@dimen/image_more_size"
+                        android:layout_height="@dimen/image_more_size"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/background_back_button"
+                        android:elevation="@dimen/back_button_elevation">
+
+                        <ImageView
+                            android:layout_width="@dimen/more_image_content_size"
+                            android:layout_height="@dimen/more_image_content_size"
+                            android:src="@drawable/invite_more_icon"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/more_img"
+                        android:textColor="@color/text_default"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/invite_1_action_margin_top"
+                        fontPath="fonts/OpenSans-Regular.ttf"
+                        tools:ignore="MissingPrefix"
+                        android:text="@string/invite_1_more"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/invite_1_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invite_1_block_button"
+                android:layout_marginLeft="@dimen/invite_1_content_margin"
+                android:layout_marginRight="@dimen/invite_1_content_margin"
+                android:layout_marginTop="@dimen/invite_1_share_title_margin_top"
+                android:textColor="@color/black"
+                android:textSize="@dimen/invite_1_share_text_size"
+                fontPath="fonts/OpenSans-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:text="@string/invite_1_share"/>
+
+            <RelativeLayout
+                android:id="@+id/invite_1_cope_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invite_1_share"
+                android:layout_marginLeft="@dimen/invite_1_content_margin"
+                android:layout_marginRight="@dimen/invite_1_content_margin"
+                android:layout_marginTop="@dimen/invite_1_cope_link_margin_top">
+
+                <TextView
+                    android:id="@+id/invite_1_share_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/share_button"
+                    android:layout_marginRight="@dimen/invite_1_share_link_margin_right"
+                    android:text="@string/copied"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"
+                    android:background="@drawable/background_share_text"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/share_button"
+                    android:layout_width="@dimen/share_button_size"
+                    android:layout_height="@dimen/share_button_size"
+                    android:src="@drawable/invite_share_button"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invite_1_cope_link"
+                android:layout_marginLeft="@dimen/invite_1_content_margin"
+                android:layout_marginRight="@dimen/invite_1_content_margin"
+                android:layout_marginTop="@dimen/invite_1_bottom_text_margin_top"
+                android:layout_marginBottom="@dimen/invite_1_bottom_text_margin_bottom"
+                android:gravity="center"
+                android:textSize="@dimen/invite_1_bottom_text_size"
+                fontPath="fonts/OpenSans-Regular.ttf"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/black"
+                android:text="@string/invite_1_invite"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/part_back_button"/>
+
+</RelativeLayout>

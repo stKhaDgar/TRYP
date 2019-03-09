@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/title_margin_side"
+        android:layout_marginRight="@dimen/title_margin_side"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:gravity="center"
+        android:textAppearance="@style/Title"
+        android:text="@string/legal"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_above="@id/backButton"
+        android:layout_marginTop="@dimen/legal_scroll_margin_top"
+        android:layout_marginLeft="@dimen/legal_scroll_margin_side"
+        android:layout_marginRight="@dimen/legal_scroll_margin_side"
+        android:layout_marginBottom="@dimen/legal_scroll_margin_bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:textColor="@color/text_default"
+            android:text="@string/legal_text"
+            android:layout_marginRight="@dimen/legal_text_margin_side"
+            android:layout_marginLeft="@dimen/legal_text_margin_side"
+            android:textSize="@dimen/legal_text_size"
+            fontPath="fonts/OpenSans-Regular.ttf"
+            tools:ignore="MissingPrefix"/>
+
+    </ScrollView>
+
+    <include layout="@layout/part_back_button"/>
+
+</RelativeLayout>

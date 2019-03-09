@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="@dimen/notification_promo_time_corner" />
+    <solid android:color="@color/notification_promo_time"/>
+    <padding
+        android:left="@dimen/notification_promo_time_margin_side"
+        android:right="@dimen/notification_promo_time_margin_side"
+        android:bottom="@dimen/notification_promo_time_margin_top"
+        android:top="@dimen/notification_promo_time_margin_top"/>
+</shape>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="intro_line_width">4dp</dimen>
+    <dimen name="trip_item_width">140dp</dimen>
+    <dimen name="trip_avatar_iv_size">80dp</dimen>
+    <dimen name="map_navigation_btn_size">48dp</dimen>
+    <dimen name="map_bacl_btn_margin_bottom">24dp</dimen>
+
+    <!-- Screens Title -->
+    <dimen name="title_margin_side">16dp</dimen>
+    <dimen name="title_margin_top">20dp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+
+    <!-- Back button  -->
+    <dimen name="back_button_size">48dp</dimen>
+    <dimen name="back_button_width">21sp</dimen>
+    <dimen name="back_button_height">11dp</dimen>
+    <dimen name="back_button_margin_left">32dp</dimen>
+    <dimen name="back_button_margin_bottom">32dp</dimen>
+    <dimen name="back_button_elevation">8dp</dimen>
+
+    <!-- Invite (all) -->
+    <dimen name="tabs_invite_margin_top">27dp</dimen>
+    <dimen name="tabs_invite_icon_container_padding">5dp</dimen>
+    <dimen name="tabs_invite_icon_1_size">45dp</dimen>
+    <dimen name="tabs_invite_icon_3_size">45dp</dimen>
+    <dimen name="tabs_invite_icon_2_height">45dp</dimen>
+    <dimen name="tabs_invite_icon_2_width">42dp</dimen>
+    <dimen name="tabs_invite_icons_space">22dp</dimen>
+    <dimen name="invite_badge_size">12dp</dimen>
+    <dimen name="invite_badge_elevation">4dp</dimen>
+
+    <!-- Invite 1 (Share) -->
+    <dimen name="invite_1_content_margin">32dp</dimen>
+    <dimen name="invite_1_friends_margin_top">10dp</dimen>
+    <dimen name="invite_1_friends_text_size">24sp</dimen>
+    <dimen name="invite_1_text_margin_top">6dp</dimen>
+    <dimen name="invite_1_text_size">14sp</dimen>
+    <dimen name="invite_1_image_width">312dp</dimen>
+    <dimen name="invite_1_image_height">184dp</dimen>
+    <dimen name="invite_1_image_margin_top">12dp</dimen>
+    <dimen name="invite_1_image_corner">6dp</dimen>
+    <dimen name="invite_1_buttons_margin_side">16dp</dimen>
+    <dimen name="invite_1_buttons_margin_top">10dp</dimen>
+    <dimen name="invite_1_twitter_image_width">54dp</dimen>
+    <dimen name="invite_1_twitter_image_height">53dp</dimen>
+    <dimen name="invite_1_action_margin_top">11dp</dimen>
+    <dimen name="invite_1_actions_padding_top">10dp</dimen>
+    <dimen name="message_image_size">53dp</dimen>
+    <dimen name="whatsapp_image_size">53dp</dimen>
+    <dimen name="image_more_size">53dp</dimen>
+    <dimen name="more_image_content_size">19dp</dimen>
+    <dimen name="invite_1_share_title_margin_top">19dp</dimen>
+    <dimen name="invite_1_share_text_size">14sp</dimen>
+    <dimen name="invite_1_cope_link_margin_top">11dp</dimen>
+    <dimen name="invite_1_share_link_margin_right">7dp</dimen>
+    <dimen name="share_button_size">47dp</dimen>
+    <dimen name="invite_1_bottom_text_margin_top">13dp</dimen>
+    <dimen name="invite_1_bottom_text_margin_bottom">24dp</dimen>
+    <dimen name="invite_1_bottom_text_size">13sp</dimen>
+
+    <!-- Invite 2 (Friends) -->
+    <dimen name="invite_2_content_margin_top">10dp</dimen>
+    <dimen name="invite_2_already_here_text_size">13sp</dimen>
+    <dimen name="invite_2_content_margin_side">16dp</dimen>
+    <dimen name="invite_2_here_container_margin_top">12dp</dimen>
+    <dimen name="invite_2_invite_text_margin_top">16dp</dimen>
+    <dimen name="item_invite_friends_icon_size">46dp</dimen>
+    <dimen name="item_invite_friends_icon_margin_top">9dp</dimen>
+    <dimen name="item_invite_friends_icon_margin_left">11dp</dimen>
+    <dimen name="item_invite_actionContainer_margin_right">16dp</dimen>
+    <dimen name="item_invite_text_margin_side">14dp</dimen>
+    <dimen name="item_invite_phone_margin_top">6dp</dimen>
+    <dimen name="item_invite_title_margin_top">10dp</dimen>
+    <dimen name="item_invite_text_size">13sp</dimen>
+    <dimen name="not_invited_container_text_size">12sp</dimen>
+    <dimen name="background_not_invited_padding_side">16dp</dimen>
+    <dimen name="background_not_invited_padding_top">6dp</dimen>
+    <dimen name="followed_container_size">28dp</dimen>
+    <dimen name="item_invite_container_corner">10dp</dimen>
+    <dimen name="item_invite_container_elevation">4dp</dimen>
+    <dimen name="invite_2_here_text_margin_top">30dp</dimen>
+    <dimen name="search_view_margin_top">19dp</dimen>
+    <dimen name="invite_search_icon_size">18dp</dimen>
+    <dimen name="invite_search_icon_margin_right">16dp</dimen>
+    <dimen name="search_view_elevation">8dp</dimen>
+    <dimen name="search_view_margin_side">20dp</dimen>
+    <dimen name="search_view_edititext_margin_side">21dp</dimen>
+    <dimen name="background_search_corner">10dp</dimen>
+    <dimen name="search_view_edititext_margin_top">15dp</dimen>
+    <dimen name="search_view_edititext_text_size">13sp</dimen>
+
+    <!-- Invite 3 (Facebook connect) -->
+    <dimen name="facebook_button_corner">6dp</dimen>
+    <dimen name="facebook_button_height">60dp</dimen>
+    <dimen name="facebook_button_margin_side">27dp</dimen>
+    <dimen name="facebook_icon_size">27dp</dimen>
+    <dimen name="facebook_icon_margin_right">17dp</dimen>
+    <dimen name="facebook_label_text_size">14sp</dimen>
+    <dimen name="invite_3_label_margin_top">20dp</dimen>
+    <dimen name="invite_3_label_margin_side">16dp</dimen>
+    <dimen name="invite_3_label_text_size">13sp</dimen>
+
+    <!-- Legal screen -->
+    <dimen name="legal_scroll_margin_top">28dp</dimen>
+    <dimen name="legal_scroll_margin_side">6dp</dimen>
+    <dimen name="legal_scroll_margin_bottom">16dp</dimen>
+    <dimen name="legal_text_margin_side">25dp</dimen>
+    <dimen name="legal_text_size">16sp</dimen>
+    <dimen name="invite_share_border">6dp</dimen>
+    <dimen name="invite_share_padding_side">16dp</dimen>
+    <dimen name="invite_share_padding_top">15dp</dimen>
+
+    <!-- Notifications -->
+    <dimen name="notifications_container_margin_top">34dp</dimen>
+    <dimen name="notifications_container_margin_bottom">16dp</dimen>
+    <dimen name="notification_content_margin_side">16dp</dimen>
+    <dimen name="notification_content_elevation">4dp</dimen>
+    <dimen name="notification_content_corner">10dp</dimen>
+    <dimen name="notification_icon_size">46dp</dimen>
+    <dimen name="notification_icon_margin_top">9dp</dimen>
+    <dimen name="notification_icon_margin_left">11dp</dimen>
+    <dimen name="notification_time_margin_right">16dp</dimen>
+    <dimen name="notification_time_text_size">12sp</dimen>
+    <dimen name="notification_promo_height">100dp</dimen>
+    <dimen name="notification_promo_time_text_size">13sp</dimen>
+    <dimen name="notification_promo_time_margin_side">10dp</dimen>
+    <dimen name="notification_promo_time_margin_top">5dp</dimen>
+    <dimen name="notification_promo_time_corner">6dp</dimen>
+    <dimen name="notification_promo_time_margin">13dp</dimen>
+    <dimen name="notification_promo_title_text_size">14sp</dimen>
+    <dimen name="notification_promo_title_margin_top">13dp</dimen>
+    <dimen name="notification_promo_text_margin_side">20dp</dimen>
+    <dimen name="notification_promo_description_margin_top">6dp</dimen>
+    <dimen name="notification_promo_description_size">12sp</dimen>
+    <dimen name="notification_copy_button_size">13sp</dimen>
+    <dimen name="notification_copy_button_margin_right">18dp</dimen>
+    <dimen name="notification_copy_button_margin_top">16dp</dimen>
+    <dimen name="notification_copy_button_margin_bottom">13dp</dimen>
+
+    <!-- Recap -->
+    <dimen name="recap_gradient_height">244dp</dimen>
+    <dimen name="recap_date_margin_top">25dp</dimen>
+    <dimen name="recap_date_text_size">36sp</dimen>
+    <dimen name="recap_description_margin_side">16dp</dimen>
+    <dimen name="recap_description_margin_top">18dp</dimen>
+    <dimen name="recap_description_text_size">13sp</dimen>
+    <dimen name="recap_info_corner">10dp</dimen>
+    <dimen name="recap_info_container_margin_side">16dp</dimen>
+    <dimen name="recap_info_container_height">105dp</dimen>
+    <dimen name="recap_info_container_margin_top">192dp</dimen>
+    <dimen name="recap_info_container_elevation">12dp</dimen>
+    <dimen name="recap_info_number_text_size">22sp</dimen>
+    <dimen name="recap_info_number_text_margin_top">19dp</dimen>
+    <dimen name="recap_info_label_margin_top">18dp</dimen>
+    <dimen name="recap_info_label_text_size">11sp</dimen>
+    <dimen name="recap_info_separator">42dp</dimen>
+    <dimen name="recap_info_separator_margin_top">14dp</dimen>
+    <dimen name="recap_graph_container_margin_top">13dp</dimen>
+    <dimen name="recap_graph_container_elevation">6dp</dimen>
+    <dimen name="recap_graph_container_height">244dp</dimen>
+    <dimen name="recap_graph_title_text_size">16sp</dimen>
+    <dimen name="recap_graph_title_margin">22dp</dimen>
+    <dimen name="legend_icon_size">8dp</dimen>
+    <dimen name="legend_friends_text_size">11sp</dimen>
+    <dimen name="chart_legend_text_margin_left">5dp</dimen>
+    <dimen name="recap_chart_margin_side">6dp</dimen>
+    <dimen name="legend_margin_top">22dp</dimen>
+    <dimen name="legend_margin_right">30dp</dimen>
+
+    <!-- Help -->
+    <dimen name="help_logo_width">113dp</dimen>
+    <dimen name="help_logo_height">35dp</dimen>
+    <dimen name="help_version_text_size">16sp</dimen>
+    <dimen name="help_recent_trips_margin_top">24dp</dimen>
+    <dimen name="help_recent_trips_margin_side">16dp</dimen>
+    <dimen name="help_recent_trips_elevation">6dp</dimen>
+    <dimen name="help_recent_title_text_size">18sp</dimen>
+    <dimen name="help_recent_title_margin_top">21dp</dimen>
+    <dimen name="help_recent_title_margin_side">27dp</dimen>
+    <dimen name="help_trips_container_margin_bottom">20dp</dimen>
+    <dimen name="help_gradient_height">16dp</dimen>
+    <dimen name="help_questions_margin_top">24dp</dimen>
+    <dimen name="help_items_margin_left">32dp</dimen>
+    <dimen name="help_items_text_size">13sp</dimen>
+    <dimen name="right_arrow_width">7dp</dimen>
+    <dimen name="right_arrow_height">12dp</dimen>
+    <dimen name="help_recent_margin_side">19dp</dimen>
+    <dimen name="help_recent_margin_top">10dp</dimen>
+    <dimen name="recent_user_icon_size">56dp</dimen>
+    <dimen name="help_gradient_margin_top">17dp</dimen>
+    <dimen name="recent_amount_margin_top">16dp</dimen>
+    <dimen name="recent_amount_text_size">16sp</dimen>
+    <dimen name="recent_amount_margin_right">18dp</dimen>
+    <dimen name="recent_distance_margin_top">5dp</dimen>
+    <dimen name="recent_distance_text_size">12sp</dimen>
+    <dimen name="recent_date_text_size">14sp</dimen>
+    <dimen name="recent_date_margin_left">15dp</dimen>
+    <dimen name="recent_date_margin_right">12dp</dimen>
+    <dimen name="recent_message_text_size">12sp</dimen>
+</resources>

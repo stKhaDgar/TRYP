@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="trip_is_active_color">#4CC966</color>
+    <color name="trip_accent_color">#0172FF</color>
+    <color name="indicator_unchecked_color">#BDBDBD</color>
+    <color name="indicator_checked_color">#4F4F4F</color>
+    <color name="edittext_bottom_line_color">#C4C4C4</color>
+    <color name="unselect_tv_color">#828282</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="invite_badge">#FF0000</color>
+    <color name="text_default">#828282</color>
+    <color name="facebook_background">#3B5999</color>
+    <color name="not_invited_container_text_color">#979797</color>
+    <color name="background_not_invited_stroke_color">#E0E0E0</color>
+    <color name="invited_background">#0172FF</color>
+    <color name="invite_share_stroke">#E0E0E0</color>
+    <color name="notification_promo_time">#0172FF</color>
+    <color name="notification_promo_description_color">#4F4F4F</color>
+    <color name="notification_copy_button">#0172FF</color>
+    <color name="recap_info_separator_color">#E0E0E0</color>
+    <color name="is_active_color">#4CC966</color>
+    <color name="chart_legend_blue">#0172FF</color>
+    <color name="chart_legend_red">#FF0000</color>
+
+    <array name="recap_gradient">
+        <item>#E53E32EA</item>
+        <item>#E57BCFFA</item>
+    </array>
+
+    <array name="help_gradient">
+        <item>#0D000000</item>
+        <item>#0DFFFFFF</item>
+    </array>
+</resources>

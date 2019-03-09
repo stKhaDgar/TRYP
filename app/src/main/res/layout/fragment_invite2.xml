@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/title_margin_side"
+        android:layout_marginRight="@dimen/title_margin_side"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:gravity="center"
+        android:textAppearance="@style/Title"
+        android:text="@string/invite_friends_title"/>
+
+    <LinearLayout
+        android:id="@+id/tabsInvite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/tabs_invite_margin_top"
+        android:layout_below="@id/title">
+
+        <RelativeLayout
+            android:id="@+id/tabsInviteIcon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="@dimen/tabs_invite_icon_1_size"
+                android:layout_height="@dimen/tabs_invite_icon_1_size"
+                android:src="@drawable/invite_icon_1"
+                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+
+            <View
+                android:layout_width="@dimen/invite_badge_size"
+                android:layout_height="@dimen/invite_badge_size"
+                android:background="@drawable/background_invite_tabs_badge"
+                android:layout_alignRight="@id/icon1"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="@dimen/tabs_invite_icons_space"
+            android:layout_height="0dp"/>
+
+        <RelativeLayout
+            android:id="@+id/tabsInviteIcon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="@dimen/tabs_invite_icon_2_width"
+                android:layout_height="@dimen/tabs_invite_icon_2_height"
+                android:src="@drawable/invite_icon_2"
+                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+
+            <View
+                android:layout_width="@dimen/invite_badge_size"
+                android:layout_height="@dimen/invite_badge_size"
+                android:background="@drawable/background_invite_tabs_badge"
+                android:layout_alignRight="@id/icon2"/>
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="@dimen/tabs_invite_icons_space"
+            android:layout_height="0dp"/>
+
+        <RelativeLayout
+            android:id="@+id/tabsInviteIcon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="@dimen/tabs_invite_icon_3_size"
+                android:layout_height="@dimen/tabs_invite_icon_3_size"
+                android:src="@drawable/invite_icon_3"
+                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+
+            <View
+                android:layout_width="@dimen/invite_badge_size"
+                android:layout_height="@dimen/invite_badge_size"
+                android:background="@drawable/background_invite_tabs_badge"
+                android:layout_alignRight="@id/icon3"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabsInvite"
+        android:layout_marginTop="@dimen/invite_2_content_margin_top"
+        android:layout_marginBottom="@dimen/invite_2_content_margin_side"
+        android:layout_above="@id/backButton">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/invite_2_here_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/invite_2_already_here_text_size"
+                android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/invite_2_content_margin_side"
+                android:layout_marginRight="@dimen/invite_2_content_margin_side"
+                android:layout_marginTop="@dimen/invite_2_here_text_margin_top"
+                android:text="@string/invite_2_already_here"
+                fontPath="fonts/OpenSans-Bold.ttf"
+                tools:ignore="MissingPrefix"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/invite_2_here_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invite_2_here_text"
+                android:layout_marginTop="@dimen/invite_2_here_container_margin_top"
+                tools:listitem="@layout/item_invite_friends"
+                tools:itemCount="2"/>
+
+            <TextView
+                android:id="@+id/invite_2_invite_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/invite_2_already_here_text_size"
+                android:textColor="@color/black"
+                android:text="@string/invite_2_invite_text"
+                android:layout_below="@id/invite_2_here_container"
+                android:layout_marginLeft="@dimen/invite_2_content_margin_side"
+                android:layout_marginRight="@dimen/invite_2_content_margin_side"
+                android:layout_marginTop="@dimen/invite_2_invite_text_margin_top"
+                fontPath="fonts/OpenSans-Bold.ttf"
+                tools:ignore="MissingPrefix"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/invite_2_invite_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invite_2_invite_text"
+                android:layout_marginTop="@dimen/invite_2_here_container_margin_top"
+                tools:listitem="@layout/item_invite_friends"
+                tools:itemCount="2"/>
+
+            <RelativeLayout
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/search_view_margin_top"
+                android:layout_marginLeft="@dimen/search_view_margin_side"
+                android:layout_marginRight="@dimen/search_view_margin_side"
+                android:layout_marginTop="@dimen/search_view_margin_top"
+                android:layout_below="@id/invite_2_invite_container"
+                android:background="@drawable/background_search"
+                android:elevation="@dimen/search_view_elevation">
+
+                <EditText
+                    android:id="@+id/search_view_edititext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/invite_search_icon"
+                    android:hint="@string/search_friends_hint"
+                    android:textColorHint="@color/text_default"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/search_view_edititext_text_size"
+                    fontPath="fonts/OpenSans-Regular.ttf"
+                    tools:ignore="MissingPrefix"
+                    android:layout_marginLeft="@dimen/search_view_edititext_margin_side"
+                    android:layout_marginRight="@dimen/search_view_edititext_margin_side"
+                    android:layout_marginTop="@dimen/search_view_edititext_margin_top"
+                    android:layout_marginBottom="@dimen/search_view_edititext_margin_top"/>
+
+                <ImageView
+                    android:id="@+id/invite_search_icon"
+                    android:layout_width="@dimen/invite_search_icon_size"
+                    android:layout_height="@dimen/invite_search_icon_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/invite_search_icon_margin_right"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/search_icon"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/part_back_button"/>
+
+</RelativeLayout>
