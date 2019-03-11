@@ -6,9 +6,11 @@ import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.network.Utils;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class RequestRideBody {
     private String to_lat;
@@ -178,6 +180,9 @@ public class RequestRideBody {
     }
 
     private String formatLocation(double location) {
-        return new DecimalFormat("#.0###").format(location);
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        DecimalFormat df = (DecimalFormat) nf;
+        df.applyPattern("0.0###");
+        return df.format(location);
     }
 }
