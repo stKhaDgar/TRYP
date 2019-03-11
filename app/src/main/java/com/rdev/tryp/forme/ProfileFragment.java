@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     private RecyclerView autoCompleteRv;
     private AppCompatImageView pickLocationBtn;
     private ImageButton back_btn;
-    private TextView mainTextView;
+    private AppCompatEditText mainTextView;
     private CardView cardView;
 
     @SuppressLint("ValidFragment")
@@ -247,7 +247,12 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     @Override
     public void onPlace(AutocompletePrediction prediction) {
 //        mainTextView.setText(prediction.getPrimaryText(null));
-        mainTextView.setText(prediction.getFullText(null));
+        if(adapter.getItemCount() == 1){
+            mainTextView.setText(prediction.getFullText(null));
+        } else {
+            mainTextView.setText(prediction.getPrimaryText(null));
+        }
+        mainTextView.setSelection(mainTextView.length());
         destination.setLocale(prediction.getFullText(null).toString());
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
@@ -272,7 +277,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                             }
 
                             if(adressTv.getText().length() != 0 && adressTv2.getText().length() != 0){
-                                closeKeyboard();
                                 ((ContentActivity) getActivity()).popBackStack();
                                 ((ContentActivity) getActivity()).onDestinationPicked(startPos, destination);
                             }
