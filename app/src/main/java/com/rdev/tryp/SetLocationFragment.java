@@ -21,7 +21,7 @@ public class SetLocationFragment extends Fragment {
         location_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MapActivity) getActivity()).zoomToCurrentLocation();
+                ((ContentActivity) getActivity()).zoomToCurrentLocation();
             }
         });
         return v;

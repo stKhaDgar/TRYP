@@ -2,6 +2,10 @@ package com.rdev.tryp.tryp_car;
 
 import android.view.View;
 
+import com.rdev.tryp.model.DriversItem;
+
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +13,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 class TrypCarAdapter extends FragmentStatePagerAdapter {
 
+    private List<?> drivers;
     public TrypCarAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
@@ -17,25 +22,19 @@ class TrypCarAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         TrypCarFragment fragment;
-        switch (position) {
-            case 0:
-                fragment = new TrypCarFragment(TrypCarFragment.TYPE_TRYP);
-                return fragment;
-            case 1:
-                fragment = new TrypCarFragment(TrypCarFragment.TYPE_TRYP_ASSIST);
-                return fragment;
-            case 2:
-                fragment = new TrypCarFragment(TrypCarFragment.TYPE_TRYP_EXTRA);
-                return fragment;
-            case 3:
-                fragment = new TrypCarFragment(TrypCarFragment.TYPE_TRYP_PRIME);
-                return fragment;
+        if(drivers.isEmpty() || drivers.size() == 0){
+            return null;
         }
-        return null;
+        return new TrypCarFragment((DriversItem) drivers.get(position));
+    }
+
+    public void setDrivers(List<?> drivers){
+        this.drivers = drivers;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return drivers.size();
     }
 }

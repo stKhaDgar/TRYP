@@ -4,50 +4,50 @@
     <group
         android:id="@+id/menu_main"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home"
-            android:title="@string/home" />
+        <!--<item-->
+            <!--android:id="@+id/nav_home"-->
+            <!--android:icon="@drawable/ic_home"-->
+            <!--android:title="@string/home" />-->
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
             android:title="@string/map" />
-        <item
-            android:id="@+id/nav_trip_history"
-            android:icon="@drawable/ic_trip_history"
-            android:title="@string/trip_history" />
-        <item
-            android:id="@+id/nav_payment"
-            android:icon="@drawable/ic_payment"
-            android:title="@string/payment" />
-        <item
-            android:id="@+id/nav_notification"
-            android:icon="@drawable/ic_notification"
-            android:title="@string/notification" />
-        <item
-            android:id="@+id/nav_rewards"
-            android:icon="@drawable/ic_rewards"
-            android:title="@string/rewards" />
-        <item
-            android:id="@+id/nav_emergency_contact"
-            android:icon="@drawable/ic_emergency_contact"
-            android:title="@string/emergency_contact"/>
-        <item
-            android:id="@+id/nav_promotion"
-            android:icon="@drawable/ic_promotion"
-            android:title="@string/promotion" />
-        <item
-            android:id="@+id/nav_invite_friends"
-            android:icon="@drawable/ic_invite_friends"
-            android:title="@string/invite_friends" />
+        <!--<item-->
+            <!--android:id="@+id/nav_trip_history"-->
+            <!--android:icon="@drawable/ic_trip_history"-->
+            <!--android:title="@string/trip_history" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_payment"-->
+            <!--android:icon="@drawable/ic_payment"-->
+            <!--android:title="@string/payment" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_notification"-->
+            <!--android:icon="@drawable/ic_notification"-->
+            <!--android:title="@string/notification" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_rewards"-->
+            <!--android:icon="@drawable/ic_rewards"-->
+            <!--android:title="@string/rewards" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_emergency_contact"-->
+            <!--android:icon="@drawable/ic_emergency_contact"-->
+            <!--android:title="@string/emergency_contact"/>-->
+        <!--<item-->
+            <!--android:id="@+id/nav_promotion"-->
+            <!--android:icon="@drawable/ic_promotion"-->
+            <!--android:title="@string/promotion" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_invite_friends"-->
+            <!--android:icon="@drawable/ic_invite_friends"-->
+            <!--android:title="@string/invite_friends" />-->
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help"
             android:title="@string/help" />
-        <item
-            android:id="@+id/nav_about_us"
-            android:icon="@drawable/ic_about_us"
-            android:title="@string/about_us" />
+        <!--<item-->
+            <!--android:id="@+id/nav_about_us"-->
+            <!--android:icon="@drawable/ic_about_us"-->
+            <!--android:title="@string/about_us" />-->
     </group>
 
     <group

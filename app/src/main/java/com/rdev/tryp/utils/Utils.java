@@ -1,4 +1,4 @@
-package com.rdev.tryp;
+package com.rdev.tryp.utils;
 
 import androidx.fragment.app.FragmentManager;
 

@@ -2,7 +2,7 @@
 <resources>
     <dimen name="intro_line_width">4dp</dimen>
     <dimen name="trip_item_width">140dp</dimen>
-    <dimen name="trip_avatar_iv_size">80dp</dimen>
+    <dimen name="trip_avatar_iv_size">90dp</dimen>
     <dimen name="map_navigation_btn_size">48dp</dimen>
     <dimen name="map_bacl_btn_margin_bottom">24dp</dimen>
 

@@ -19,9 +19,9 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import static com.rdev.tryp.Utils.getCountryCode;
-import static com.rdev.tryp.Utils.getCountryName;
-import static com.rdev.tryp.Utils.getDialingCode;
+import static com.rdev.tryp.utils.Utils.getCountryCode;
+import static com.rdev.tryp.utils.Utils.getCountryName;
+import static com.rdev.tryp.utils.Utils.getDialingCode;
 
 public class EnterPhoneFragment extends Fragment implements View.OnClickListener {
     ImageButton back_btn;

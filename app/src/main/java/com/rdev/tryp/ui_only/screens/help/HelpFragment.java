@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.rdev.tryp.R;
 
@@ -35,6 +36,14 @@ public class HelpFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.help_trips_container);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new RecentTripsAdapter(getContext(), getFakeData()));
+
+        ImageView backBtn = view.findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         return view;
     }

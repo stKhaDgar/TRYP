@@ -13,10 +13,10 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class AutoCompleteAdapter extends RecyclerView.Adapter {
+public class AutoCompleteAdapter extends RecyclerView.Adapter {
     List<AutocompletePrediction> data;
 
-    interface onPlacePicked {
+    public interface onPlacePicked {
         void onPlace(AutocompletePrediction prediction);
     }
 
@@ -59,5 +59,10 @@ class AutoCompleteAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void setData(List<AutocompletePrediction> data){
+        this.data = data;
+        notifyDataSetChanged();
     }
 }

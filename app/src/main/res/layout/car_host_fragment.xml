@@ -6,16 +6,16 @@
     android:layout_height="match_parent">
 
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/detail_viewpager"
-            android:layout_width="300dp"
-            android:layout_height="568dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="#00FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/pageIndicatorView"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline"></androidx.viewpager.widget.ViewPager>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/detail_viewpager"
+        android:layout_width="318dp"
+        android:layout_height="566dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/pageIndicatorView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline"></androidx.viewpager.widget.ViewPager>
 
 
     <com.rd.PageIndicatorView

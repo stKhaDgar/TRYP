@@ -1,6 +1,5 @@
 package com.rdev.tryp.detailFragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -9,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.rdev.tryp.ContentActivity;
-import com.rdev.tryp.MapActivity;
 import com.rdev.tryp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,9 @@ import androidx.viewpager.widget.ViewPager;
 public class DetailHostFragment extends Fragment {
     private ViewPager viewPager;
     private ImageButton back_btn;
-
+    private List<?> drivers = new ArrayList<>();
+    private int currentPos;
+    private HostPagerAdapter adapter;
     private View v;
 
 
@@ -29,8 +32,10 @@ public class DetailHostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.detail_host_fragment, container, false);
         viewPager = v.findViewById(R.id.detail_viewpager);
-        HostPagerAdapter adapter = new HostPagerAdapter(getChildFragmentManager());
+        adapter = new HostPagerAdapter(getChildFragmentManager());
+        adapter.setDrivers(drivers);
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(currentPos);
         viewPager.setPageMargin(dpToPx(8));
         back_btn = v.findViewById(R.id.back_btn);
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +47,13 @@ public class DetailHostFragment extends Fragment {
         return v;
     }
 
-
+    public void setDrivers(List<?> drivers, int currentPos) {
+        this.drivers = drivers;
+        this.currentPos = currentPos;
+        if (adapter != null) {
+            adapter.setDrivers(drivers);
+        }
+    }
 
 
     public int dpToPx(int dp) {

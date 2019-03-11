@@ -11,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rdev.tryp.R;
+import com.rdev.tryp.model.DriversItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 @SuppressLint("ValidFragment")
@@ -22,17 +24,17 @@ public class TrypCarFragment extends Fragment {
 
     private View v;
 
-    int type;
-    TextView tryp_type_tv;
-    ImageView assist_iv;
-    public static final int TYPE_TRYP = 0;
-    public static final int TYPE_TRYP_EXTRA = 1;
-    public static final int TYPE_TRYP_PRIME = 2;
-    public static final int TYPE_TRYP_ASSIST = 3;
+    private DriversItem driver;
+    private TextView tryp_type_tv, num_of_passangers, num_of_baggage, num_of_door_tv, price_tv;
+    private ImageView car_iv;
+    public static final String TYPE_TRYP = "TRYP";
+    public static final String TYPE_TRYP_EXTRA = "TRYP Extra";
+    public static final String TYPE_TRYP_PRIME = "TRYP Assist";
+    public static final String TYPE_TRYP_ASSIST = "TRYP PRIME";
 
     @SuppressLint("ValidFragment")
-    public TrypCarFragment(int type) {
-        this.type = type;
+    public TrypCarFragment(DriversItem driver) {
+        this.driver = driver;
     }
 
     @Nullable
@@ -40,22 +42,19 @@ public class TrypCarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.tryp_car_fragment, container, false);
         tryp_type_tv = v.findViewById(R.id.category_tv);
-        assist_iv = v.findViewById(R.id.assist_iv);
-        switch (type) {
-            case TYPE_TRYP:
-                tryp_type_tv.setText("Tryp");
-                break;
-            case TYPE_TRYP_ASSIST:
-                tryp_type_tv.setText("Tryp Assist");
-                assist_iv.setVisibility(View.VISIBLE);
-                break;
-            case TYPE_TRYP_EXTRA:
-                tryp_type_tv.setText("Tryp Extra");
-                break;
-            case TYPE_TRYP_PRIME:
-                tryp_type_tv.setText("Tryp Prime");
-                break;
-        }
+        car_iv = v.findViewById(R.id.car_iv);
+        num_of_door_tv = v.findViewById(R.id.num_of_door_tv);
+        num_of_baggage = v.findViewById(R.id.num_of_baggage);
+        num_of_passangers = v.findViewById(R.id.num_of_passangers);
+        price_tv = v.findViewById(R.id.price_tv);
+
+        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
+                TrypCarFragment.getImageByType(driver.getCategory())));
+        tryp_type_tv.setText(driver.getCategory());
+        num_of_door_tv.setText("4/4"); //TODO: replace from driver
+        num_of_passangers.setText("" + driver.getMaxPassenger());
+        price_tv.setText("$" + String.valueOf(driver.getFare()));
+        num_of_baggage.setText("" + driver.getMaxLuggage());
 
         CardView trypNowBtn = v.findViewById(R.id.tryp_now_btn);
         trypNowBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,11 +63,14 @@ public class TrypCarFragment extends Fragment {
                 showAlertDialod("Ride request Successful", "Your ride request succesffully send");
             }
         });
+
+
         return v;
     }
 
 
     AlertDialog dialog;
+
     private void showAlertDialod(String title, String message) {
 
         TextView dialog_title_tv;
@@ -92,5 +94,19 @@ public class TrypCarFragment extends Fragment {
         dialog.show();
         dialog_title_tv.setText(title);
         dialog_msg_tv.setText(message);
+    }
+
+    public static int getImageByType(String type) {
+        switch (type) {
+            case TYPE_TRYP:
+                return R.drawable.tryp_car;
+            case TYPE_TRYP_ASSIST:
+                return R.drawable.tryp_asist;
+            case TYPE_TRYP_EXTRA:
+                return R.drawable.tryp_extra;
+            case TYPE_TRYP_PRIME:
+                return R.drawable.tryp_prime;
+        }
+        return R.drawable.tryp_car;
     }
 }

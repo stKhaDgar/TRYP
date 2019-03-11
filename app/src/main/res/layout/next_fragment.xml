@@ -31,7 +31,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             tools:layout_editor_absoluteX="8dp">
 
 
@@ -88,37 +87,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/editText2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/where_to"
-                        android:textColor="#000"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <RelativeLayout
+                    android:id="@+id/next_layout_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="8dp"
-                        android:clickable="true"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/editText2" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:id="@+id/pickLocationBtn"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="21dp"
+                        android:layout_marginBottom="8dp"
+
+                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/where_text_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="66dp"
+                        android:focusableInTouchMode="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_margin="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="where to?" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <ImageButton
@@ -138,9 +148,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     </androidx.cardview.widget.CardView>
 
+
     <ImageButton
+        android:id="@+id/location_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="24dp"
@@ -149,7 +162,6 @@
         android:clickable="true"
         android:elevation="8dp"
         android:focusable="true"
-        android:id="@+id/location_btn"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_location"
         app:layout_constraintBottom_toTopOf="@+id/materialCardView3"

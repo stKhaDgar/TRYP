@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/trip_item_width"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="8dp"
@@ -13,14 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar_iv"
             android:layout_width="@dimen/trip_avatar_iv_size"
             android:layout_height="@dimen/trip_avatar_iv_size"
+            android:padding="2dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/person"
+            android:background="@drawable/ic_ellipse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +87,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:id="@+id/fare"
-                android:text="7$"
+                android:text="$7"
                 android:textColor="#FFF" />
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

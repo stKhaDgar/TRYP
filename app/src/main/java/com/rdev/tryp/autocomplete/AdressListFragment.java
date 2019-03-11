@@ -78,7 +78,7 @@ public class AdressListFragment extends Fragment implements AutoCompleteAdapter.
                         destination.setCoord(new LatLng(dest.getLatitude(), dest.getLongitude()));
                         destination.setLocale(dest.getThoroughfare() + " " + dest.getLocality() + ", "
                                 + dest.getAdminArea() + ", " + dest.getCountryName());
-                        ((ContentActivity) getActivity()).onDestinationPicked(destination);
+                        ((ContentActivity) getActivity()).onDestinationPicked(null, destination);
                     }
                 } else {
                     Toast.makeText(getContext(), "Please enter destination address", Toast.LENGTH_LONG).show();
@@ -86,7 +86,7 @@ public class AdressListFragment extends Fragment implements AutoCompleteAdapter.
             }
         });
 
-//        Autocomplete Realisation
+        //Autocomplete Realisation
         adressTv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -128,7 +128,7 @@ public class AdressListFragment extends Fragment implements AutoCompleteAdapter.
             public void onComplete(@NonNull Task<FetchPlaceResponse> task) {
                 Log.d("tag", task.getResult().getPlace().getName());
                 destination.setCoord(task.getResult().getPlace().getLatLng());
-                ((ContentActivity) getActivity()).onDestinationPicked(destination);
+                ((ContentActivity) getActivity()).onDestinationPicked(null, destination);
             }
         });
     }

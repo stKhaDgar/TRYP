@@ -59,10 +59,13 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.detailFragment.DetailHostFragment;
+import com.rdev.tryp.intro.IntroActivity;
+import com.rdev.tryp.manager.AccountManager;
+import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.trip.TripFragment;
 import com.rdev.tryp.tryp_car.TrypCarHostFragment;
-import com.rdev.tryp.ui_only.screens.forme.ProfileFragment;
+import com.rdev.tryp.forme.ProfileFragment;
 import com.rdev.tryp.ui_only.screens.help.HelpFragment;
 import com.rdev.tryp.ui_only.screens.invite1.Invite1Fragment;
 import com.rdev.tryp.ui_only.screens.invite2.Invite2Fragment;
@@ -70,6 +73,7 @@ import com.rdev.tryp.ui_only.screens.invite3.Invite3Fragment;
 import com.rdev.tryp.ui_only.screens.legal.LegalFragment;
 import com.rdev.tryp.ui_only.screens.notifications.NotificationsFragment;
 import com.rdev.tryp.ui_only.screens.recap.RecapFragment;
+import com.rdev.tryp.utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,8 +104,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     int TYPE_PICK_POSITION = 1;
     int TYPE_VIEWER = 2;
     int type = 2;
+    private String currentLocate;
     AdressListFragment listFragment;
     Marker pickAdressMarker;
+    Marker pickStartMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,7 +255,28 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         isLocationFound = true;
         Geocoder geocoder = new Geocoder(ContentActivity.this);
         List<Address> addressList = geocoder.getFromLocation(currentPos.latitude, currentPos.longitude, 1);
+        currentLocate = addressList.get(0).getAddressLine(0);
         Log.d("tag", addressList.toString());
+        pickUpLocation = currentPos;
+    }
+
+    void updateCurrentLocation(LatLng currentPos) throws IOException {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
+        if (currentPosMarker != null && currentPosMarker.isVisible()) {
+            currentPosMarker.remove();
+        }
+
+        int height = 270;
+        int width = 225;
+
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
+        Bitmap b = bitmapdraw.getBitmap();
+        Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
+
+
+        currentPosMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+        isLocationFound = true;
         pickUpLocation = currentPos;
     }
 
@@ -302,12 +329,42 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     Polyline route;
 
-    public void onDestinationPicked(final TripPlace destination) {
+    public void showDirectionPicker(TripPlace destination) {
+
+        if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                ProfileFragment.class.getName())) {
+            getSupportFragmentManager().popBackStackImmediate(ProfileFragment.class.getName(), 0);
+        } else {
+
+            TripPlace currentPlace = new TripPlace();
+            currentPlace.setCoord(pickUpLocation);
+            currentPlace.setLocale(currentLocate);
+
+            Fragment fragment = new ProfileFragment(currentPlace, destination);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.screenContainer, fragment)
+                    .addToBackStack(ProfileFragment.class.getName())
+                    .commit();
+
+        }
+    }
+
+    public void onDestinationPicked(final TripPlace startPlace, final TripPlace destination) {
         if (pickAdressMarker != null && pickAdressMarker.isVisible()) {
             pickAdressMarker.remove();
         }
+
         if (route != null && route.isVisible()) {
             route.remove();
+        }
+
+        if (startPlace != null) {
+            pickUpLocation = startPlace.getCoord();
+            try {
+                updateCurrentLocation(startPlace.getCoord());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         if (pickUpLocation == null) {
@@ -375,22 +432,25 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                         // Do something
                     }
                 });
+
     }
 
-    public void openCarsFragments() {
+    public void openCarsFragments(List<?> drivers, int currentPos) {
         TrypCarHostFragment fragment = new TrypCarHostFragment();
         fm.beginTransaction()
                 .replace(R.id.container, fragment)
                 .addToBackStack("demand")
                 .commit();
+        fragment.setDrivers(drivers, currentPos);
     }
 
-    public void openDetailHost() {
+    public void openDetailHost(List<?> drivers, int currentPos) {
         DetailHostFragment fragment = new DetailHostFragment();
         fm.beginTransaction()
                 .replace(R.id.container, fragment)
                 .addToBackStack("detail")
                 .commit();
+        fragment.setDrivers(drivers, currentPos);
     }
 
     public void moveCameraTo(LatLng position) {
@@ -433,6 +493,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_MAP = 17;
 
     private DrawerLayout mDrawerLayout;
+    private NavigationView navigationView;
+    NavigationView.OnNavigationItemSelectedListener listener;
 
     public static Intent createIntent(Context context, int content) {
         Intent intent = new Intent(context, ContentActivity.class);
@@ -455,74 +517,75 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public void initMenu() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
 
         ImageView menuIcon = findViewById(R.id.menu_icon);
         menuIcon.setOnClickListener(this);
 
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
+        listener = new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
 
 
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_home:
-                                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_HOME);
-                                break;
-                            case R.id.nav_trip_history:
-                                startFragment(TYPE_TRIP_HISTORY);
-                                break;
-                            case R.id.nav_payment:
-                                Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_PAYMENT);
-                                break;
-                            case R.id.nav_notification:
-                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_NOTIFICATION);
-                                break;
-                            case R.id.nav_rewards:
-                                Toast.makeText(getApplicationContext(), "Rewards", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_REWARDS);
-                                break;
-                            case R.id.nav_emergency_contact:
-                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_EMERGENCY_CONTACT);
-                                break;
-                            case R.id.nav_promotion:
-                                Toast.makeText(getApplicationContext(), "Promotion", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_PROMOTION);
-                                break;
-                            case R.id.nav_invite_friends:
-                                Toast.makeText(getApplicationContext(), "Invite Friends", Toast.LENGTH_SHORT).show();
-                                // startFragment(TYPE_INVITE_FRIENDS);
-                                break;
-                            case R.id.nav_help:
-                                startFragment(TYPE_HELP);
-                                break;
-                            case R.id.nav_about_us:
-                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_ABOUT_US);
-                                break;
+                switch (menuItem.getItemId()) {
+//                            case R.id.nav_home:
+//                                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_HOME);
+//                                break;
+                    case R.id.nav_map:
+                        int count = getSupportFragmentManager().getBackStackEntryCount();
+                        while (count != 1) {
+                            onBackPressed();
+                            count--;
+                        }
+                        break;
+//                    case R.id.nav_trip_history:
+//                        startFragment(TYPE_TRIP_HISTORY);
+//                        break;
+//                            case R.id.nav_payment:
+//                                Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_PAYMENT);
+//                                break;
+//                            case R.id.nav_notification:
+//                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_NOTIFICATION);
+//                                break;
+//                            case R.id.nav_rewards:
+//                                Toast.makeText(getApplicationContext(), "Rewards", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_REWARDS);
+//                                break;
+//                            case R.id.nav_emergency_contact:
+//                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_EMERGENCY_CONTACT);
+//                                break;
+//                            case R.id.nav_promotion:
+//                                Toast.makeText(getApplicationContext(), "Promotion", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_PROMOTION);
+//                                break;
+//                            case R.id.nav_invite_friends:
+//                                Toast.makeText(getApplicationContext(), "Invite Friends", Toast.LENGTH_SHORT).show();
+//                                // startFragment(TYPE_INVITE_FRIENDS);
+//                                break;
+                    case R.id.nav_help:
+                        startFragment(TYPE_HELP);
+                        break;
+//                            case R.id.nav_about_us:
+//                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
+//                                //startFragment(TYPE_ABOUT_US);
+//                                break;
                             case R.id.nav_logout:
                                 Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-                                //startFragment(TYPE_LOGOUT);
+                                signOut();
                                 break;
-                            case R.id.nav_map:
-                                int count = getSupportFragmentManager().getBackStackEntryCount();
-                                while (count != 1) {
-                                    onBackPressed();
-                                    count--;
-                                }
-                                break;
-                            default:
-                        }
-                        return true;
-                    }
-                });
+                    default:
+                }
+                return true;
+            }
+        };
+
+        navigationView.setNavigationItemSelectedListener(listener);
     }
 
     @Override
@@ -559,7 +622,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             case TYPE_NOTIFICATIONS:
                 return new NotificationsFragment();
             case TYPE_TRIP_HISTORY:
-                return new ProfileFragment();
+                return new ProfileFragment(null, null);
             case TYPE_PAYMENT:
                 Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show();
             default:
@@ -647,17 +710,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             .commit();
                 }
                 break;
-            case TYPE_TRIP_HISTORY:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
-                        ProfileFragment.class.getName())) {
-                    getSupportFragmentManager().popBackStackImmediate(ProfileFragment.class.getName(), 0);
-                } else {
-                    Fragment fragment = new ProfileFragment();
-                    transaction.replace(R.id.screenContainer, fragment)
-                            .addToBackStack(ProfileFragment.class.getName())
-                            .commit();
-                }
-                break;
+//            case TYPE_TRIP_HISTORY:
+//                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+//                        ProfileFragment.class.getName())) {
+//                    getSupportFragmentManager().popBackStackImmediate(ProfileFragment.class.getName(), 0);
+//                } else {
+//                    Fragment fragment = new ProfileFragment();
+//                    transaction.replace(R.id.screenContainer, fragment)
+//                            .addToBackStack(ProfileFragment.class.getName())
+//                            .commit();
+//                }
+//                break;
             default:
                 throw new IllegalStateException("Unknown screen type");
         }
@@ -669,5 +732,12 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         if (v.getId() == R.id.menu_icon) {
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
+    }
+
+    private void signOut(){
+        AccountManager.getInstance().signOut();
+        Intent intent = new Intent(ContentActivity.this, IntroActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

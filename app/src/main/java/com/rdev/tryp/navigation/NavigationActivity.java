@@ -3,7 +3,7 @@ package com.rdev.tryp.navigation;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.rdev.tryp.MapActivity;
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.tryp_later.TrypLaterActivity;
@@ -30,27 +30,27 @@ public class NavigationActivity extends AppCompatActivity implements NavigationA
         if (pos == 0) {
             intent = new Intent(this, IntroActivity.class);
         } else if (pos == 1) {
-            intent = new Intent(this, MapActivity.class);
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "tryp");
         } else if (pos == 2) {
-            intent = new Intent(this, MapActivity.class);
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "detail");
         } else if (pos == 3) {
-            intent = new Intent(this, MapActivity.class);
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "f");
         } else if (pos == 4) {
             intent = new Intent(this, TrypLaterActivity.class);
         } else if (pos == 5) {
-            intent = new Intent(this, MapActivity.class);
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "car");
         } else if (pos == 6) {
-            intent = new Intent(this, MapActivity.class);
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "confirm");
         } else if (pos == 7) {
-            intent = new Intent(this, MapActivity.class);
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "set");
-        }else if (pos == 8) {
-            intent = new Intent(this, MapActivity.class);
+        } else if (pos == 8) {
+            intent = new Intent(this, ContentActivity.class);
             intent.putExtra("tag", "connect");
         }
         startActivity(intent);

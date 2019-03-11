@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.manager.AccountManager;
+import com.rdev.tryp.model.Driver;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
@@ -86,18 +88,24 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         favouriteCard.setOnClickListener(this);
         favourite_tv = v.findViewById(R.id.favourite_tv);
         on_demand_tv = v.findViewById(R.id.on_demand_tv);
-        tryp_card_now = v.findViewById(R.id.tryp_now_card);
-        tryp_card_now.setOnClickListener(this);
-        getFavouriteDrivers();
+        ImageView backBtn = v.findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(this);
+        getNearDrivers();
         return v;
     }
 
     private void getFavouriteDrivers() {
 
+        // set UI
+        favourite_tv.setTextColor(Color.WHITE);
+        on_demand_tv.setTextColor(ContextCompat.getColor(getContext(), R.color.unselect_tv_color));
+        onDemandCard.setCardBackgroundColor(Color.WHITE);
+        favouriteCard.setCardBackgroundColor(Color.BLUE);
+
         TripAdapter.OnItemClickListener listener = new TripAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Object item) {
-                ((ContentActivity) getActivity()).openDetailHost();
+                ((ContentActivity) getActivity()).openDetailHost(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
             }
         };
 
@@ -106,7 +114,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<FavouriteDriver> call, Response<FavouriteDriver> response) {
                 drivers = response.body().getData().getDrivers();
-                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, orderInterface, listener);
+                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, orderInterface, listener, getContext());
                 tripRv.setAdapter(tripAdapter);
             }
 
@@ -119,10 +127,17 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     private void getNearDrivers() {
 
+        // set UI
+        onDemandCard.setCardBackgroundColor(Color.BLUE);
+        favouriteCard.setCardBackgroundColor(Color.WHITE);
+        on_demand_tv.setTextColor(Color.WHITE);
+        favourite_tv.setTextColor(ContextCompat.getColor(getContext(), R.color.unselect_tv_color));
+
         TripAdapter.OnItemClickListener listener = new TripAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Object item) {
-                ((ContentActivity) getActivity()).openCarsFragments();
+                ((ContentActivity) getActivity()).openCarsFragments(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
+
             }
         };
 
@@ -131,7 +146,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<NearbyDriver> call, Response<NearbyDriver> response) {
                 drivers = response.body().getData().getDrivers();
 
-                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, orderInterface, listener);
+                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, orderInterface, listener, getContext());
                 tripRv.setAdapter(tripAdapter);
             }
 
@@ -146,27 +161,17 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.on_demand_card:
-                onDemandCard.setCardBackgroundColor(Color.BLUE);
-                favouriteCard.setCardBackgroundColor(Color.WHITE);
-                on_demand_tv.setTextColor(Color.WHITE);
-                favourite_tv.setTextColor(ContextCompat.getColor(getContext(), R.color.unselect_tv_color));
                 getNearDrivers();
                 break;
             case R.id.favourite_card:
-                favourite_tv.setTextColor(Color.WHITE);
-                on_demand_tv.setTextColor(ContextCompat.getColor(getContext(), R.color.unselect_tv_color));
-                onDemandCard.setCardBackgroundColor(Color.WHITE);
-                favouriteCard.setCardBackgroundColor(Color.BLUE);
                 getFavouriteDrivers();
                 break;
-            case R.id.tryp_now_card:
-                if (drivers != null && drivers.size() > 0)
-                    orderTrip(drivers.get(0));
-                break;
-            case R.id.tryp_now_btn :
-                if (drivers != null && drivers.size() > 0)
-                    orderTrip(drivers.get(0));
-                break;
+//            case R.id.tryp_now_card:
+//                if (drivers != null && drivers.size() > 0)
+//                    orderTrip(drivers.get(0));
+//                break;
+            case R.id.back_btn:
+                getActivity().onBackPressed();
         }
     }
 

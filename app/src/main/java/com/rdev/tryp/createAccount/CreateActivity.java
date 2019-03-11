@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.rdev.tryp.WelcomeActivity;
 import com.rdev.tryp.login.LoginActivity;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
-import com.rdev.tryp.MapActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.model.CreateUser;
 import com.rdev.tryp.model.sign_up_response.SignUpResponse;
@@ -36,12 +36,15 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void onFinish() {
+        startActivity(new Intent(this, WelcomeActivity.class));
         finish();
     }
 
     public void goBack() {
         if (fm.getBackStackEntryCount() != 0) {
             fm.popBackStack();
+        }else {
+           onFinish();
         }
     }
 

@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.rdev.tryp.Utils.getCountryName;
-import static com.rdev.tryp.Utils.getDialingCode;
+import static com.rdev.tryp.utils.Utils.getCountryName;
+import static com.rdev.tryp.utils.Utils.getDialingCode;
 
 class PickerAdapter extends RecyclerView.Adapter {
     String[] data;

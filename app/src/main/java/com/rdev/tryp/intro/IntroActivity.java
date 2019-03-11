@@ -9,9 +9,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.rdev.tryp.ContentActivity;
-import com.rdev.tryp.MapActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.WelcomeActivity;
+import com.rdev.tryp.manager.AccountManager;
+import com.rdev.tryp.utils.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,25 +22,23 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Test
-//        Intent intent = new Intent(IntroActivity.this, ContentActivity.class);
-//        intent.putExtra("tag", "f");
-//        startActivity(intent);
-//        finish();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(IntroActivity.this, WelcomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 2000);
+        PreferenceManager.init(this);
 
-
+        if (AccountManager.getInstance().isUserSignIn()) {
+                    Intent intent = new Intent(IntroActivity.this, ContentActivity.class);
+                    intent.putExtra("tag", "f");
+                    startActivity(intent);
+                    finish();
+        } else {
+                    Intent intent = new Intent(IntroActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                    finish();
+        }
     }
 
     @Override
@@ -52,4 +51,5 @@ public class IntroActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
+
 }

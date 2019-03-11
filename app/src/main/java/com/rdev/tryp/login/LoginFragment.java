@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.rdev.tryp.PickerPhoneDialog;
 import com.rdev.tryp.R;
 import com.rdev.tryp.SelectCountryListener;
+import com.rdev.tryp.WelcomeActivity;
 import com.rdev.tryp.createAccount.CreateActivity;
+import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.model.UserPhoneNumber;
 
 import androidx.annotation.NonNull;
@@ -20,9 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import static com.rdev.tryp.Utils.getCountryCode;
-import static com.rdev.tryp.Utils.getCountryName;
-import static com.rdev.tryp.Utils.getDialingCode;
+import static com.rdev.tryp.utils.Utils.getCountryCode;
+import static com.rdev.tryp.utils.Utils.getCountryName;
+import static com.rdev.tryp.utils.Utils.getDialingCode;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
     ImageButton backBtn;
@@ -54,11 +56,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_btn:
-                ((LoginActivity) getActivity()).onFinish();
+                startActivity(new Intent(getContext(), WelcomeActivity.class));
+                getActivity().finish();
                 break;
             case R.id.sign_up_tv:
                 startActivity(new Intent(getContext(), CreateActivity.class));
-                ((LoginActivity) getActivity()).onFinish();
+                getActivity().finish();
                 break;
             case R.id.send_code_card:
                 ((LoginActivity) getActivity()).number.setPhone_number(phone_number_et.getText().toString());

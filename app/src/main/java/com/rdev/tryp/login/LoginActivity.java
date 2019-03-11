@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.rdev.tryp.ContentActivity;
+import com.rdev.tryp.manager.AccountManager;
 import com.rdev.tryp.model.VerifySmsResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
-import com.rdev.tryp.MapActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.model.LoginModel;
 import com.rdev.tryp.model.LoginResponse;
@@ -87,9 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
+                    AccountManager.getInstance().signIn(loginModel.getPhone_number());
                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
                     intent.putExtra("tag", "f");
                     startActivity(intent);
+                    finish();
                 }
 
                 @Override

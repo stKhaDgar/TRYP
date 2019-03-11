@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#0172FF</color>
     <color name="trip_is_active_color">#4CC966</color>
     <color name="trip_accent_color">#0172FF</color>
     <color name="indicator_unchecked_color">#BDBDBD</color>
@@ -26,6 +26,7 @@
     <color name="is_active_color">#4CC966</color>
     <color name="chart_legend_blue">#0172FF</color>
     <color name="chart_legend_red">#FF0000</color>
+    <color name="gray">#E6F8F8F8</color>
 
     <array name="recap_gradient">
         <item>#E53E32EA</item>
