@@ -1,6 +1,7 @@
 package com.rdev.tryp.forme;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -245,7 +246,8 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     @Override
     public void onPlace(AutocompletePrediction prediction) {
-        mainTextView.setText(prediction.getPrimaryText(null));
+//        mainTextView.setText(prediction.getPrimaryText(null));
+        mainTextView.setText(prediction.getFullText(null));
         destination.setLocale(prediction.getFullText(null).toString());
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
@@ -255,9 +257,29 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                 Log.d("tag", task.getResult().getPlace().getName());
                 destination.setCoord(task.getResult().getPlace().getLatLng());
                 if (mainTextView.equals(adressTv2)) {
-                    closeKeyboard();
-                    ((ContentActivity) getActivity()).popBackStack();
-                    ((ContentActivity) getActivity()).onDestinationPicked(startPos, destination);
+                    pickLocationBtn.setOnClickListener(new View.OnClickListener(){
+
+                        @Override
+                        public void onClick(View v) {
+
+                            if (adressTv.getText().length() == 0) {
+                                Toast.makeText(getContext(), "Please enter destination address", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            if (adressTv2.getText().length() == 0) {
+                                Toast.makeText(getContext(), "Please enter destination address", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            if(adressTv.getText().length() != 0 && adressTv2.getText().length() != 0){
+                                closeKeyboard();
+                                ((ContentActivity) getActivity()).popBackStack();
+                                ((ContentActivity) getActivity()).onDestinationPicked(startPos, destination);
+                            }
+
+                        }
+                    });
+//
                 }
                 if (mainTextView.equals(adressTv)) {
                     startPos.setCoord(destination.getCoord());
