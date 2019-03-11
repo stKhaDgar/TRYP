@@ -58,21 +58,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
+import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
+import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.detailFragment.DetailHostFragment;
 import com.rdev.tryp.intro.IntroActivity;
-import com.rdev.tryp.manager.AccountManager;
-import com.rdev.tryp.model.DriversItem;
+import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.trip.TripFragment;
-import com.rdev.tryp.tryp_car.TrypCarHostFragment;
-import com.rdev.tryp.forme.ProfileFragment;
-import com.rdev.tryp.ui_only.screens.help.HelpFragment;
-import com.rdev.tryp.ui_only.screens.invite1.Invite1Fragment;
-import com.rdev.tryp.ui_only.screens.invite2.Invite2Fragment;
-import com.rdev.tryp.ui_only.screens.invite3.Invite3Fragment;
-import com.rdev.tryp.ui_only.screens.legal.LegalFragment;
-import com.rdev.tryp.ui_only.screens.notifications.NotificationsFragment;
-import com.rdev.tryp.ui_only.screens.recap.RecapFragment;
+import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
+import com.rdev.tryp.blocks.forme.ProfileFragment;
+import com.rdev.tryp.blocks.screens.help.HelpFragment;
+import com.rdev.tryp.blocks.screens.invite1.Invite1Fragment;
+import com.rdev.tryp.blocks.screens.invite2.Invite2Fragment;
+import com.rdev.tryp.blocks.screens.invite3.Invite3Fragment;
+import com.rdev.tryp.blocks.screens.legal.LegalFragment;
+import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
+import com.rdev.tryp.blocks.screens.recap.RecapFragment;
 import com.rdev.tryp.utils.Utils;
 
 import java.io.IOException;
@@ -471,6 +472,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+
+
     private static final String EXTRA_CONTENT = "content_key";
 
     public static final int TYPE_RECAP = 0;
@@ -491,6 +494,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_ABOUT_US = 15;
     public static final int TYPE_LOGOUT = 16;
     public static final int TYPE_MAP = 17;
+    public static final int TYPE_FAVORITE = 18;
+
 
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
@@ -552,10 +557,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_NOTIFICATION);
 //                                break;
-//                            case R.id.nav_rewards:
-//                                Toast.makeText(getApplicationContext(), "Rewards", Toast.LENGTH_SHORT).show();
-//                                //startFragment(TYPE_REWARDS);
-//                                break;
+                            case R.id.nav_rewards:
+                                startFragment(TYPE_REWARDS);
+                                break;
 //                            case R.id.nav_emergency_contact:
 //                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_EMERGENCY_CONTACT);
@@ -570,6 +574,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                break;
                     case R.id.nav_help:
                         startFragment(TYPE_HELP);
+                        break;
+                    case R.id.nav_favorite:
+                        startFragment(TYPE_FAVORITE);
                         break;
 //                            case R.id.nav_about_us:
 //                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
@@ -586,6 +593,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         };
 
         navigationView.setNavigationItemSelectedListener(listener);
+
+        // map menu item checked by default on start
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -710,6 +720,28 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             .commit();
                 }
                 break;
+            case TYPE_FAVORITE:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        FavouriteDriversFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(FavouriteDriversFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new FavouriteDriversFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(FavouriteDriversFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_REWARDS:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        RewardProfileFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(RewardProfileFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new RewardProfileFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(RewardProfileFragment.class.getName())
+                            .commit();
+                }
+                break;
 //            case TYPE_TRIP_HISTORY:
 //                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
 //                        ProfileFragment.class.getName())) {
@@ -739,5 +771,14 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(ContentActivity.this, IntroActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() <= 1){
+            finish();
+        }else{
+            super.onBackPressed();
+        }
     }
 }

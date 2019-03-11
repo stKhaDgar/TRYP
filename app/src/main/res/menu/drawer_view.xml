@@ -12,6 +12,10 @@
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
             android:title="@string/map" />
+        <item
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/ic_like_off"
+            android:title="@string/favorite" />
         <!--<item-->
             <!--android:id="@+id/nav_trip_history"-->
             <!--android:icon="@drawable/ic_trip_history"-->
@@ -24,10 +28,10 @@
             <!--android:id="@+id/nav_notification"-->
             <!--android:icon="@drawable/ic_notification"-->
             <!--android:title="@string/notification" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_rewards"-->
-            <!--android:icon="@drawable/ic_rewards"-->
-            <!--android:title="@string/rewards" />-->
+        <item
+            android:id="@+id/nav_rewards"
+            android:icon="@drawable/ic_rewards"
+            android:title="@string/rewards" />
         <!--<item-->
             <!--android:id="@+id/nav_emergency_contact"-->
             <!--android:icon="@drawable/ic_emergency_contact"-->

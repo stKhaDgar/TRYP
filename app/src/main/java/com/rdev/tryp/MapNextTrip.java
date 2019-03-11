@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 public class MapNextTrip extends Fragment implements View.OnClickListener {
 
     private View v;
-    private ImageButton locationBtn, backBtn;
+    private ImageButton locationBtn;
     private ImageView smallImage;
     private RelativeLayout nextBtn;
 
@@ -34,11 +34,9 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
     public void initView() {
         smallImage = v.findViewById(R.id.small_image);
         locationBtn = v.findViewById(R.id.location_btn);
-        backBtn = v.findViewById(R.id.back_btn);
         nextBtn = v.findViewById(R.id.next_layout_btn);
 
         locationBtn.setOnClickListener(this);
-        backBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
 
         setSmallImage();
@@ -56,9 +54,6 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_btn:
-                ((ContentActivity) getActivity()).popBackStack();
-                break;
             case R.id.location_btn:
                 ((ContentActivity) getActivity()).zoomToCurrentLocation();
                 break;

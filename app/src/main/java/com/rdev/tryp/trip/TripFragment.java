@@ -17,8 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
-import com.rdev.tryp.manager.AccountManager;
-import com.rdev.tryp.model.Driver;
+import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
@@ -30,6 +29,7 @@ import com.rdev.tryp.model.ride_responce.RideRequest;
 import com.rdev.tryp.model.ride_responce.RideResponse;
 import com.rdev.tryp.model.status_response.StatusResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -42,6 +42,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP;
+import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_ASSIST;
+import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_EXTRA;
+import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_PRIME;
 
 @SuppressLint("ValidFragment")
 public class TripFragment extends Fragment implements View.OnClickListener {
@@ -146,7 +151,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<NearbyDriver> call, Response<NearbyDriver> response) {
                 drivers = response.body().getData().getDrivers();
 
-                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, orderInterface, listener, getContext());
+                tripAdapter = new TripAdapter(filterDrivers(drivers), TripAdapter.TYPE_CAR, orderInterface, listener, getContext());
                 tripRv.setAdapter(tripAdapter);
             }
 
@@ -155,6 +160,36 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
             }
         });
+    }
+
+    private List<?> filterDrivers(List<DriversItem> drivers){
+        List<DriversItem> newDrivers = new ArrayList<>();
+        for(DriversItem d: drivers){
+            if(d.getCategory().equals(TYPE_TRYP)){
+                newDrivers.add(d);
+                break;
+            }
+        }
+        for(DriversItem d: drivers){
+            if(d.getCategory().equals(TYPE_TRYP_ASSIST)){
+                newDrivers.add(d);
+                break;
+            }
+        }
+        for(DriversItem d: drivers){
+            if(d.getCategory().equals(TYPE_TRYP_EXTRA)){
+                newDrivers.add(d);
+                break;
+            }
+        }
+        for(DriversItem d: drivers){
+            if(d.getCategory().equals(TYPE_TRYP_PRIME)){
+                newDrivers.add(d);
+                break;
+            }
+        }
+
+        return newDrivers;
     }
 
     @Override

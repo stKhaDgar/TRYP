@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.rdev.tryp.model.TripPlace;
+
 import java.util.Set;
 
 public class PreferenceManager {
@@ -67,6 +70,22 @@ public class PreferenceManager {
         Log.i(TAG, "setPrefFloat " + key + "=" + value);
         edit.putFloat(key, value);
         edit.commit();
+    }
+
+    public static void setTripPlace(String key, TripPlace object){
+        Gson gson = new Gson();
+        String json = gson.toJson(object);
+        edit.putString(key, json);
+        edit.commit();
+    }
+
+    public static TripPlace getTripPlace(String key){
+        Gson gson = new Gson();
+        String json = sPref.getString(key, "");
+        if(json.isEmpty()){
+            return null;
+        }
+        return gson.fromJson(json, TripPlace.class);
     }
 
 

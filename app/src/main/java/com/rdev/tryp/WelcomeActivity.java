@@ -11,8 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.rdev.tryp.createAccount.CreateActivity;
-import com.rdev.tryp.login.LoginActivity;
+import com.rdev.tryp.intro.createAccount.CreateActivity;
+import com.rdev.tryp.intro.login.LoginActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

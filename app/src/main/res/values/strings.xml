@@ -87,6 +87,28 @@
 
 
 
+    <string name="confirm_message">Are you sure you want to unfavorite?</string>
+    <string name="confirm">Confirm</string>
+    <string name="favourite_drivers">Favourite Drivers</string>
+    <string name="monthly_recaps">Monthly Recaps</string>
+    <string name="influencer">Influencer</string>
+    <string name="driver">Driver</string>
+    <string name="learn_more">Learn More</string>
+
+    <string name="main">Yes, It\'s weekly residual income</string>
+    <string name="tip_1">Get $50 every driver your refer</string>
+    <string name="image_label">Expand your hustle side</string>
+    <string name="tip_2">As a Tryp Influencer, you get paid every time your referral uses our app. $50 for every driver your refer. Refer 3 drivers in your first 30 days and earn $150.</string>
+
+    <string name="total_tryps">Total Tryps</string>
+    <string name="total_distance">Total Distance</string>
+    <string name="followers">Followers</string>
+    <string name="reward_points">Reward Points</string>
+    <string name="credits">Credits</string>
+
+
+
+
     <array name="recap_graph_spinner_items">
         <item>Weekly</item>
         <item>Else</item>

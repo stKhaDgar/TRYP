@@ -1,27 +1,22 @@
 package com.rdev.tryp.trip;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rdev.tryp.R;
-import com.rdev.tryp.model.Driver;
 import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.tryp_car.TrypCarFragment;
+import com.rdev.tryp.trip.tryp_car.TrypCarFragment;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class TripAdapter extends RecyclerView.Adapter {

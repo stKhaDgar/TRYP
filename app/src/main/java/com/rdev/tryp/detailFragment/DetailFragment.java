@@ -3,6 +3,7 @@ package com.rdev.tryp.detailFragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.rdev.tryp.R;
 import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.tryp_car.TrypCarFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 @SuppressLint("ValidFragment")
@@ -50,8 +49,10 @@ public class DetailFragment extends Fragment {
         user_iv = v.findViewById(R.id.user_iv);
         car_type_tv = v.findViewById(R.id.car_type);
 
-        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
-                TrypCarFragment.getImageByType(driver.getCategory())));
+//        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
+//                TrypCarFragment.getImageByType(driver.getCategory())));
+        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+        Log.i("car_image", driver.getVehicle().getImage());
         tryp_type_tv.setText(driver.getCategory());
         num_of_door_tv.setText("4/4"); //TODO: replace from driver
         num_of_passangers.setText("" + driver.getMaxPassenger());
