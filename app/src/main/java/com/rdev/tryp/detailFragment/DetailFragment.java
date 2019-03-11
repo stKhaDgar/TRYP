@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.model.DriversItem;
+import com.rdev.tryp.trip.TripFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -66,37 +68,9 @@ public class DetailFragment extends Fragment {
         trypNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialod("Ride request Successful", "Your ride request succesffully send");
-
+                TripFragment.orderTrip(getContext(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
             }
         });
         return v;
     }
-
-    AlertDialog dialog;
-    private void showAlertDialod(String title, String message) {
-
-        TextView dialog_title_tv;
-        ImageButton back_btn;
-        TextView dialog_msg_tv;
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.alert_dialog, null);
-        dialog_msg_tv = v.findViewById(R.id.dialog_message);
-        back_btn = v.findViewById(R.id.dialog_back_btn);
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        if (dialog != null) {
-            dialog.dismiss();
-        }
-        dialog_title_tv = v.findViewById(R.id.dialog_title);
-        dialog = new AlertDialog.Builder(getContext())
-                .setView(v).create();
-        dialog.show();
-        dialog_title_tv.setText(title);
-        dialog_msg_tv.setText(message);
-    }
-
 }

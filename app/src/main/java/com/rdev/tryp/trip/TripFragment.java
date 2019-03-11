@@ -2,6 +2,7 @@ package com.rdev.tryp.trip;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,17 +18,18 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
+import com.rdev.tryp.R;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.network.ApiClient;
-import com.rdev.tryp.network.ApiService;
-import com.rdev.tryp.R;
 import com.rdev.tryp.model.NearbyDriver;
+import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.model.favourite_driver.FavouriteDriver;
 import com.rdev.tryp.model.ride_responce.RequestRideBody;
 import com.rdev.tryp.model.ride_responce.RideRequest;
 import com.rdev.tryp.model.ride_responce.RideResponse;
 import com.rdev.tryp.model.status_response.StatusResponse;
+import com.rdev.tryp.network.ApiClient;
+import com.rdev.tryp.network.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,28 +59,21 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     CardView favouriteCard;
     TextView favourite_tv;
     TextView on_demand_tv;
-    CardView tryp_card_now;
-    View.OnClickListener thisFragment = this;
 
     private LatLng currentPosition;
     private LatLng destinationPosition;
     private List<DriversItem> drivers;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        service = ApiClient.getInstance().create(ApiService.class);
+    }
+
     @SuppressLint("ValidFragment")
     public TripFragment(LatLng currentPosition, LatLng destinationPosition) {
         this.currentPosition = currentPosition;
         this.destinationPosition = destinationPosition;
-    }
-
-    interface OrderInterface {
-        void onPriceClick(DriversItem driversItem);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        service = ApiClient.getInstance().create(ApiService.class);
     }
 
     @Nullable
@@ -119,7 +114,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<FavouriteDriver> call, Response<FavouriteDriver> response) {
                 drivers = response.body().getData().getDrivers();
-                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, orderInterface, listener, getContext());
+                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, listener, getContext());
                 tripRv.setAdapter(tripAdapter);
             }
 
@@ -151,7 +146,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<NearbyDriver> call, Response<NearbyDriver> response) {
                 drivers = response.body().getData().getDrivers();
 
-                tripAdapter = new TripAdapter(filterDrivers(drivers), TripAdapter.TYPE_CAR, orderInterface, listener, getContext());
+                tripAdapter = new TripAdapter(filterDrivers(drivers), TripAdapter.TYPE_CAR, listener, getContext());
                 tripRv.setAdapter(tripAdapter);
             }
 
@@ -162,28 +157,28 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private List<?> filterDrivers(List<DriversItem> drivers){
+    private List<?> filterDrivers(List<DriversItem> drivers) {
         List<DriversItem> newDrivers = new ArrayList<>();
-        for(DriversItem d: drivers){
-            if(d.getCategory().equals(TYPE_TRYP)){
+        for (DriversItem d : drivers) {
+            if (d.getCategory().equals(TYPE_TRYP)) {
                 newDrivers.add(d);
                 break;
             }
         }
-        for(DriversItem d: drivers){
-            if(d.getCategory().equals(TYPE_TRYP_ASSIST)){
+        for (DriversItem d : drivers) {
+            if (d.getCategory().equals(TYPE_TRYP_ASSIST)) {
                 newDrivers.add(d);
                 break;
             }
         }
-        for(DriversItem d: drivers){
-            if(d.getCategory().equals(TYPE_TRYP_EXTRA)){
+        for (DriversItem d : drivers) {
+            if (d.getCategory().equals(TYPE_TRYP_EXTRA)) {
                 newDrivers.add(d);
                 break;
             }
         }
-        for(DriversItem d: drivers){
-            if(d.getCategory().equals(TYPE_TRYP_PRIME)){
+        for (DriversItem d : drivers) {
+            if (d.getCategory().equals(TYPE_TRYP_PRIME)) {
                 newDrivers.add(d);
                 break;
             }
@@ -201,22 +196,17 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             case R.id.favourite_card:
                 getFavouriteDrivers();
                 break;
-//            case R.id.tryp_now_card:
-//                if (drivers != null && drivers.size() > 0)
-//                    orderTrip(drivers.get(0));
-//                break;
             case R.id.back_btn:
                 getActivity().onBackPressed();
         }
     }
 
-    OrderInterface orderInterface = this::orderTrip;
-
-    private void orderTrip(DriversItem driversItem) {
-        Geocoder geocoder = new Geocoder(getContext());
+    public static void orderTrip(Context context, DriversItem driversItem, TripPlace start, TripPlace end) {
+        ApiService service = ApiClient.getInstance().create(ApiService.class);
+        Geocoder geocoder = new Geocoder(context);
         try {
-            List<Address> fromAddress = geocoder.getFromLocation(currentPosition.latitude, currentPosition.longitude, 1);
-            List<Address> toAddress = geocoder.getFromLocation(destinationPosition.latitude, destinationPosition.longitude, 1);
+            List<Address> fromAddress = geocoder.getFromLocation(start.getCoord().latitude, start.getCoord().longitude, 1);
+            List<Address> toAddress = geocoder.getFromLocation(end.getCoord().latitude, start.getCoord().longitude, 1);
 
             RequestRideBody requestRideBody = new RequestRideBody(
                     fromAddress.get(0),
@@ -231,16 +221,16 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     RideResponse body = response.body();
                     if (body == null || body.getData() == null) {
                         // for test
-                        showAlertDialod("Ride request Successful", "Your ride request succesffully send");
+                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);
                         //TODO : set to fail
                         //showAlertDialod("Ride request Failed", "Error at trip order. Please try again");
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
-                        showAlertDialod("Ride request Successful", "Your ride request succesffully send");
+                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                updateStatus(rideRequest.getRequestId());
+                                updateStatus(service, context, rideRequest.getRequestId());
                             }
                         }, 3000);
                     }
@@ -253,7 +243,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             });
 
         } catch (Exception ex) {
-            showAlertDialod("Ride request failed", "Error at trip order");
+            showAlertDialod("Ride request failed", "Error at trip order", context);
         }
 
 //        RequestRideBody body = new RequestRideBody(
@@ -271,18 +261,18 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void updateStatus(final String requestId) {
+    private static void updateStatus(ApiService service, Context context, final String requestId) {
         service.ride_request_status(requestId).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if (response.body().getData().getRide().getVoucherNo() != null) {
                     showAlertDialod("Booking successful", "Your booking has been confirmed.\n" +
-                            "Driver will pickup you in 5 minutes.");
+                            "Driver will pickup you in 5 minutes.", context);
                 } else {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            updateStatus(requestId);
+                            updateStatus(service, context, requestId);
                         }
                     }, 3000);
                 }
@@ -296,16 +286,20 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    AlertDialog dialog;
+    private static AlertDialog dialog;
 
-    private void showAlertDialod(String title, String message) {
-
+    private static void showAlertDialod(String title, String message, Context context) {
         TextView dialog_title_tv;
         ImageButton back_btn;
         TextView dialog_msg_tv;
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.alert_dialog, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.alert_dialog, null);
         dialog_msg_tv = v.findViewById(R.id.dialog_message);
         back_btn = v.findViewById(R.id.dialog_back_btn);
+
+
+        dialog = new AlertDialog.Builder(context)
+                .setView(v).create();
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,7 +310,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             dialog.dismiss();
         }
         dialog_title_tv = v.findViewById(R.id.dialog_title);
-        dialog = new AlertDialog.Builder(getContext())
+        dialog = new AlertDialog.Builder(context)
                 .setView(v).create();
         dialog.show();
         dialog_title_tv.setText(title);

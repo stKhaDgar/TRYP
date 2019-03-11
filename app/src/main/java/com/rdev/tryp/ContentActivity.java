@@ -59,6 +59,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
+import com.rdev.tryp.blocks.reward.RewardFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.detailFragment.DetailHostFragment;
 import com.rdev.tryp.intro.IntroActivity;
@@ -109,6 +110,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     AdressListFragment listFragment;
     Marker pickAdressMarker;
     Marker pickStartMarker;
+
+    //route
+    public static TripPlace tripFrom;
+    public static TripPlace tripTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -423,6 +428,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             /**create the camera with bounds and padding to set into map*/
                             final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height / 2, padding);
                             mMap.animateCamera(cu);
+
+                            tripFrom = startPlace;
+                            tripTo = destination;
+
+
                         } else {
                             // Do something
                         }
@@ -549,10 +559,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                    case R.id.nav_trip_history:
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
-//                            case R.id.nav_payment:
-//                                Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
-//                                //startFragment(TYPE_PAYMENT);
-//                                break;
+                    //TODO: set this
+                            case R.id.nav_payment:
+                                //Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
+                                startFragment(TYPE_PAYMENT);
+                                break;
 //                            case R.id.nav_notification:
 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_NOTIFICATION);
@@ -739,6 +750,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new RewardProfileFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(RewardProfileFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_PAYMENT:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        RewardFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(RewardFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new RewardFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(RewardFragment.class.getName())
                             .commit();
                 }
                 break;
