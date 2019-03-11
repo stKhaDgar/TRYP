@@ -53,7 +53,7 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((TextHolder) holder).address_tv.setText(data.get(position).getPrimaryText(null));
+        ((TextHolder) holder).address_tv.setText(data.get(position).getFullText(null));
     }
 
     @Override
