@@ -76,10 +76,8 @@ import com.rdev.tryp.blocks.screens.legal.LegalFragment;
 import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
 import com.rdev.tryp.blocks.screens.recap.RecapFragment;
 import com.rdev.tryp.utils.CurrentLocation;
-import com.rdev.tryp.utils.LocationUpdatedListener;
 import com.rdev.tryp.utils.Utils;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -147,20 +145,28 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
         Fragment fragment;
         String intentTag = intent.getStringExtra("tag");
-        if (intentTag.equals("tryp")) {
-            fragment = new TripFragment(new LatLng(25, 26), new LatLng(25, 27));
-        } else if (intentTag.equals("detail")) {
-            fragment = new DetailHostFragment();
-        } else if (intentTag.equals("car")) {
-            fragment = new TrypCarHostFragment();
-        } else if (intentTag.equals("confirm")) {
-            fragment = new ConfirmFragment();
-        } else if (intentTag.equals("set")) {
-            fragment = new SetLocationFragment();
-        } else if (intentTag.equals("connect")) {
-            fragment = new ConnectFragment();
-        } else {
-            fragment = new MapNextTrip();
+        switch (intentTag) {
+            case "tryp":
+                fragment = new TripFragment(new LatLng(25, 26), new LatLng(25, 27));
+                break;
+            case "detail":
+                fragment = new DetailHostFragment();
+                break;
+            case "car":
+                fragment = new TrypCarHostFragment();
+                break;
+            case "confirm":
+                fragment = new ConfirmFragment();
+                break;
+            case "set":
+                fragment = new SetLocationFragment();
+                break;
+            case "connect":
+                fragment = new ConnectFragment();
+                break;
+            default:
+                fragment = new MapNextTrip();
+                break;
         }
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment)

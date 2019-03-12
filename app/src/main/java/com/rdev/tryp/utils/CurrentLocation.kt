@@ -27,6 +27,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
  * Created by Andrey Berezhnoi on 12.03.2019.
  */
 
+@Suppress("DEPRECATION")
 class CurrentLocation(private val context: Context, private val activity: Activity): PlaceSelectionListener, com.google.android.gms.location.LocationListener{
     private var latLng: String? = null
     private var place: String? = null
@@ -34,14 +35,14 @@ class CurrentLocation(private val context: Context, private val activity: Activi
     private var locationManager: LocationManager? = null
     private var myLL = MyLocationListener()
 
-    private var TAG = "GeoLocation"
+    private var tagConst = "GeoLocation"
 
-    private var REQUEST_LOCATION_CODE = 101
+    private var requestLocationCode = 101
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLocation: Location? = null
     private var mLocationRequest: LocationRequest? = null
-    private val UPDATE_INTERVAL = (2 * 1000).toLong()
-    private val FASTEST_INTERVAL: Long = 2000
+    private val updateInterval = (2 * 1000).toLong()
+    private val fastestInterval: Long = 2000
 
     private var callback: LocationUpdatedListener? = null
 
@@ -89,8 +90,8 @@ class CurrentLocation(private val context: Context, private val activity: Activi
     private fun startLocationUpdates() {
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(UPDATE_INTERVAL)
-                .setFastestInterval(FASTEST_INTERVAL)
+                .setInterval(updateInterval)
+                .setFastestInterval(fastestInterval)
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
@@ -110,7 +111,7 @@ class CurrentLocation(private val context: Context, private val activity: Activi
     private fun buildGoogleApiClient() {
         mGoogleApiClient = GoogleApiClient.Builder(context, object : GoogleApiClient.ConnectionCallbacks{
             override fun onConnected(p0: Bundle?) {
-                Log.e(TAG, "onConnected()")
+                Log.e(tagConst, "onConnected()")
             }
 
             override fun onConnectionSuspended(p0: Int) {}
@@ -151,12 +152,12 @@ class CurrentLocation(private val context: Context, private val activity: Activi
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
                         .setPositiveButton("OK") { _, _ ->
-                            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_CODE)
+                            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), requestLocationCode)
                         }
                         .create()
                         .show()
 
-            } else ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_CODE)
+            } else ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), requestLocationCode)
         }
     }
 
@@ -173,24 +174,24 @@ class CurrentLocation(private val context: Context, private val activity: Activi
     }
 
     override fun onError(p0: Status) {
-        Log.e("FilterLocation", p0?.statusMessage.toString())
+        Log.e("FilterLocation", p0.statusMessage.toString())
     }
 
     inner class MyLocationListener : LocationListener {
         override fun onLocationChanged(location: Location?) {
-            Log.e(TAG, "onLocationChanged()")
+            Log.e(tagConst, "onLocationChanged()")
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            Log.e(TAG, "onStatusChanged()")
+            Log.e(tagConst, "onStatusChanged()")
         }
 
         override fun onProviderEnabled(provider: String?) {
-            Log.e(TAG, "onProviderEnabled()")
+            Log.e(tagConst, "onProviderEnabled()")
         }
 
         override fun onProviderDisabled(provider: String?) {
-            Log.e(TAG, "onProviderDisabled()")
+            Log.e(tagConst, "onProviderDisabled()")
         }
     }
 }
