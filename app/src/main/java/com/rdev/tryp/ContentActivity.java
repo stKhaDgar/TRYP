@@ -75,7 +75,11 @@ import com.rdev.tryp.blocks.screens.invite3.Invite3Fragment;
 import com.rdev.tryp.blocks.screens.legal.LegalFragment;
 import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
 import com.rdev.tryp.blocks.screens.recap.RecapFragment;
+import com.rdev.tryp.utils.CurrentLocation;
+import com.rdev.tryp.utils.LocationUpdatedListener;
 import com.rdev.tryp.utils.Utils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -111,6 +115,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     Marker pickAdressMarker;
     Marker pickStartMarker;
 
+    CurrentLocation currentLocation;
+
     //route
     public static TripPlace tripFrom;
     public static TripPlace tripTo;
@@ -119,6 +125,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+
+        currentLocation = new CurrentLocation(ContentActivity.this, ContentActivity.this);
+        currentLocation.init();
+
         initMenu();
         initMap();
     }
@@ -243,6 +253,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     Marker currentPosMarker;
 
     void updateCurrentLocation(Location location) throws IOException {
+        Log.e("LocationUpdate", location.toString());
         LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
         if (currentPosMarker != null && currentPosMarker.isVisible()) {
@@ -474,15 +485,19 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void zoomToCurrentLocation() {
-        if (pickUpLocation == null) {
-            checkLocationInSettings();
-        } else {
-            LatLng currentPos = new LatLng(pickUpLocation.latitude, pickUpLocation.longitude);
+
+        currentLocation.onStartLocationUpdate(location -> {
+            LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
-        }
+        });
+
+//        if (pickUpLocation == null) {
+//            checkLocationInSettings();
+//        } else {
+//            LatLng currentPos = new LatLng(pickUpLocation.latitude, pickUpLocation.longitude);
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
+//        }
     }
-
-
 
     private static final String EXTRA_CONTENT = "content_key";
 
