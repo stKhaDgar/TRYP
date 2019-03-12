@@ -21,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@SuppressWarnings("NullableProblems")
 public class CreateActivity extends AppCompatActivity {
     public CreateUser createUser;
     FragmentManager fm;

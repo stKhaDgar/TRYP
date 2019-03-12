@@ -23,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@SuppressWarnings("NullableProblems")
 public class LoginActivity extends AppCompatActivity {
     FragmentManager fm;
     ApiService apiService;
@@ -41,10 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         number = new UserPhoneNumber();
         number.setCountry_code("USA");
         number.setDialing_code("1");
-    }
-
-    public void onFinish() {
-        finish();
     }
 
     public void onSendCode() {

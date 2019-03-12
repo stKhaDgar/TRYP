@@ -24,7 +24,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private static final int PERMISSIONS_REQUEST = 1010;
     AppCompatButton login_btn;
     AppCompatButton sign_up_btn;
-    private String TAG="tag";
 
     private boolean isPermissionsGranded = false;
 
@@ -59,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public boolean requestPermissions() {
+        String TAG = "tag";
         if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
             || (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             Log.v(TAG, "Permission is revoked");
