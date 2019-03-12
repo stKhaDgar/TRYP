@@ -19,13 +19,13 @@
         android:name=".MainApplication"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".intro.login.LoginActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".createAccount.CreateActivity"
+            android:name=".intro.createAccount.CreateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".tryp_later.TrypLaterActivity"
+            android:name=".trip.tryp_later.TrypLaterActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".WelcomeActivity"
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui_only.ExamplesActivity"
+        <activity android:name=".blocks.ExamplesActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".ContentActivity"

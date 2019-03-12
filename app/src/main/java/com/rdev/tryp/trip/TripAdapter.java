@@ -1,27 +1,22 @@
 package com.rdev.tryp.trip;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rdev.tryp.R;
-import com.rdev.tryp.model.Driver;
 import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.tryp_car.TrypCarFragment;
+import com.rdev.tryp.trip.tryp_car.TrypCarFragment;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class TripAdapter extends RecyclerView.Adapter {
@@ -32,16 +27,12 @@ class TripAdapter extends RecyclerView.Adapter {
     private OnItemClickListener listener;
     private Context context;
 
-    TripFragment.OrderInterface orderInterface;
-
-
     public interface OnItemClickListener {
         void onItemClick(Object item);
     }
 
-    public TripAdapter(List<?> drivers, int type, TripFragment.OrderInterface orderInterface, OnItemClickListener listener, Context context) {
+    public TripAdapter(List<?> drivers, int type, OnItemClickListener listener, Context context) {
         this.drivers = drivers;
-        this.orderInterface = orderInterface;
         this.type = type;
         this.listener = listener;
         this.context = context;
@@ -124,10 +115,6 @@ class TripAdapter extends RecyclerView.Adapter {
             carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
             carHolder.fare_tv.setText("$" + item.getFare());
-            carHolder.price_card_view.setOnClickListener(v -> {
-                if (orderInterface != null)
-                    orderInterface.onPriceClick(item);
-            });
         } else {
             DriverHolder driverHolder = ((DriverHolder) holder);
             ImageView avatar_iv = driverHolder.avatar_iv;
@@ -138,10 +125,6 @@ class TripAdapter extends RecyclerView.Adapter {
             driver_tv.setText(item.getDriver().getFirstName() + " " + item.getDriver().getLastName());
             category_tv.setText(item.getCategory());
             driverHolder.fare_tv.setText( "$" + item.getFare());
-            driverHolder.price_card_view.setOnClickListener(v -> {
-                if (orderInterface != null)
-                    orderInterface.onPriceClick(item);
-            });
         }
     }
 

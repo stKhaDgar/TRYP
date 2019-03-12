@@ -3,7 +3,6 @@ package com.rdev.tryp.intro;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,7 +10,7 @@ import android.view.WindowManager;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.WelcomeActivity;
-import com.rdev.tryp.manager.AccountManager;
+import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.utils.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;

@@ -3,6 +3,7 @@ package com.rdev.tryp.detailFragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.tryp_car.TrypCarFragment;
+import com.rdev.tryp.trip.TripFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 @SuppressLint("ValidFragment")
@@ -50,8 +51,10 @@ public class DetailFragment extends Fragment {
         user_iv = v.findViewById(R.id.user_iv);
         car_type_tv = v.findViewById(R.id.car_type);
 
-        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
-                TrypCarFragment.getImageByType(driver.getCategory())));
+//        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
+//                TrypCarFragment.getImageByType(driver.getCategory())));
+        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+        Log.i("car_image", driver.getVehicle().getImage());
         tryp_type_tv.setText(driver.getCategory());
         num_of_door_tv.setText("4/4"); //TODO: replace from driver
         num_of_passangers.setText("" + driver.getMaxPassenger());
@@ -65,37 +68,9 @@ public class DetailFragment extends Fragment {
         trypNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialod("Ride request Successful", "Your ride request succesffully send");
-
+                TripFragment.orderTrip(getContext(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
             }
         });
         return v;
     }
-
-    AlertDialog dialog;
-    private void showAlertDialod(String title, String message) {
-
-        TextView dialog_title_tv;
-        ImageButton back_btn;
-        TextView dialog_msg_tv;
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.alert_dialog, null);
-        dialog_msg_tv = v.findViewById(R.id.dialog_message);
-        back_btn = v.findViewById(R.id.dialog_back_btn);
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        if (dialog != null) {
-            dialog.dismiss();
-        }
-        dialog_title_tv = v.findViewById(R.id.dialog_title);
-        dialog = new AlertDialog.Builder(getContext())
-                .setView(v).create();
-        dialog.show();
-        dialog_title_tv.setText(title);
-        dialog_msg_tv.setText(message);
-    }
-
 }

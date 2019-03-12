@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.intro.IntroActivity;
-import com.rdev.tryp.tryp_later.TrypLaterActivity;
+import com.rdev.tryp.trip.tryp_later.TrypLaterActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
