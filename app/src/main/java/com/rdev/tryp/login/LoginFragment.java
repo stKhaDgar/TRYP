@@ -13,8 +13,7 @@ import com.rdev.tryp.PickerPhoneDialog;
 import com.rdev.tryp.R;
 import com.rdev.tryp.SelectCountryListener;
 import com.rdev.tryp.WelcomeActivity;
-import com.rdev.tryp.createAccount.CreateActivity;
-import com.rdev.tryp.intro.IntroActivity;
+import com.rdev.tryp.intro.createAccount.CreateActivity;
 import com.rdev.tryp.model.UserPhoneNumber;
 
 import androidx.annotation.NonNull;

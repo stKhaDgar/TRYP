@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.rdev.tryp.ContentActivity;
-import com.rdev.tryp.manager.AccountManager;
+import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.VerifySmsResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;

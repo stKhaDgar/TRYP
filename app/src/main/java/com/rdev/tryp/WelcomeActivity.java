@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.rdev.tryp.intro.createAccount.CreateActivity;
-import com.rdev.tryp.intro.login.LoginActivity;
+import com.rdev.tryp.login.LoginActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
