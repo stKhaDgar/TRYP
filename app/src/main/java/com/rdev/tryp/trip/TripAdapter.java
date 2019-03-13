@@ -82,6 +82,8 @@ class TripAdapter extends RecyclerView.Adapter {
         TextView driver_tv;
         TextView category_tv;
         TextView fare_tv;
+        TextView num_of_passangers;
+        TextView num_of_baggage;
         CardView price_card_view;
 
         public DriverHolder(@NonNull View itemView) {
@@ -91,6 +93,8 @@ class TripAdapter extends RecyclerView.Adapter {
             category_tv = itemView.findViewById(R.id.driver_category);
             fare_tv = itemView.findViewById(R.id.fare);
             price_card_view = itemView.findViewById(R.id.price_card_view);
+            num_of_passangers = itemView.findViewById(R.id.num_of_passangers);
+            num_of_baggage = itemView.findViewById(R.id.num_of_baggage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
@@ -125,6 +129,8 @@ class TripAdapter extends RecyclerView.Adapter {
             driver_tv.setText(item.getDriver().getFirstName() + " " + item.getDriver().getLastName());
             category_tv.setText(item.getCategory());
             driverHolder.fare_tv.setText( "$" + item.getFare());
+            driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
+            driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
         }
     }
 
