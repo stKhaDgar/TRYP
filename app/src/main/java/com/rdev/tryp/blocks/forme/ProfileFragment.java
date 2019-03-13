@@ -141,6 +141,8 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
         geocoder = new Geocoder(getContext());
 
+        startPos.setCoord(new LatLng(getLocationFromAddress(getContext(), startPos.getLocale()).getLatitude(),
+                getLocationFromAddress(getContext(), startPos.getLocale()).getLongitude()));
         if (startPos == null) {
             startPos = new TripPlace();
         }
