@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 
 import afu.org.checkerframework.checker.nullness.qual.NonNull;
@@ -39,21 +40,17 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_btn:
-                closefragment();
+                ((ContentActivity) getActivity()).goHome();
                 break;
             case R.id.credits_card_view:
                 Toast.makeText(getContext(), "clicked credits", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rewards_points_card_view:
-                Toast.makeText(getContext(), "clicked reward points", Toast.LENGTH_SHORT).show();
+                ((ContentActivity) getActivity()).startFragment(ContentActivity.TYPE_REWARD_POINTS);
                 break;
             case R.id.settings_img:
                 Toast.makeText(getContext(), "clicked settings", Toast.LENGTH_SHORT).show();
                 break;
         }
-    }
-
-    private void closefragment() {
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 }

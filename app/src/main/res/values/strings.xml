@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tryp for passenger</string>
+    <string name="app_name">Tryp Rider</string>
     <string name="tryp_schedule">Tryp Schedule</string>
     <string name="the_first_surge_free_app_that_gives_you">The first surge free app that gives you</string>
     <string name="reward_on_every_ride">reward on every ride</string>
@@ -89,7 +89,7 @@
 
     <string name="confirm_message">Are you sure you want to unfavorite?</string>
     <string name="confirm">Confirm</string>
-    <string name="favourite_drivers">Favourite Drivers</string>
+    <string name="favorite_drivers">Favorite Drivers</string>
     <string name="monthly_recaps">Monthly Recaps</string>
     <string name="influencer">Influencer</string>
     <string name="driver">Driver</string>

@@ -59,9 +59,9 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
-import com.rdev.tryp.blocks.reward.RewardFragment;
+import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
-import com.rdev.tryp.detailFragment.DetailHostFragment;
+import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
@@ -505,6 +505,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_LOGOUT = 16;
     public static final int TYPE_MAP = 17;
     public static final int TYPE_FAVORITE = 18;
+    public static final int TYPE_REWARD_POINTS = 19;
 
 
     private DrawerLayout mDrawerLayout;
@@ -545,25 +546,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 switch (menuItem.getItemId()) {
-//                            case R.id.nav_home:
-//                                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
-//                                //startFragment(TYPE_HOME);
-//                                break;
-                    case R.id.nav_map:
-                        int count = getSupportFragmentManager().getBackStackEntryCount();
-                        while (count != 1) {
-                            onBackPressed();
-                            count--;
-                        }
+                    case R.id.nav_home:
+                        openMap();
                         break;
 //                    case R.id.nav_trip_history:
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
-                    //TODO: set this
-                            case R.id.nav_payment:
-                                //Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
-                                startFragment(TYPE_PAYMENT);
-                                break;
+
+//                            case R.id.nav_payment:
+//                                //Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
+//                                startFragment(TYPE_PAYMENT);
+//                                break;
 //                            case R.id.nav_notification:
 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_NOTIFICATION);
@@ -619,6 +612,18 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
+    private void openMap(){
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        while (count != 1) {
+            onBackPressed();
+            count--;
+        }
+    }
+
+    public void goHome(){
+        navigationView.getMenu().getItem(0).setChecked(true);
+        openMap();
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -651,7 +656,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void startFragment(int type) {
+    public void startFragment(int type) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (type) {
             case TYPE_RECAP:
@@ -753,14 +758,14 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             .commit();
                 }
                 break;
-            case TYPE_PAYMENT:
+            case TYPE_REWARD_POINTS:
                 if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
-                        RewardFragment.class.getName())) {
-                    getSupportFragmentManager().popBackStackImmediate(RewardFragment.class.getName(), 0);
+                        RewardPointsFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(RewardPointsFragment.class.getName(), 0);
                 } else {
-                    Fragment fragment = new RewardFragment();
+                    Fragment fragment = new RewardPointsFragment();
                     transaction.replace(R.id.screenContainer, fragment)
-                            .addToBackStack(RewardFragment.class.getName())
+                            .addToBackStack(RewardPointsFragment.class.getName())
                             .commit();
                 }
                 break;

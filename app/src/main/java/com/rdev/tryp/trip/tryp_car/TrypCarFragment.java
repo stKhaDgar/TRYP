@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rdev.tryp.R;
 import com.rdev.tryp.model.DriversItem;
 
@@ -29,8 +30,8 @@ public class TrypCarFragment extends Fragment {
     private ImageView car_iv;
     public static final String TYPE_TRYP = "TRYP";
     public static final String TYPE_TRYP_EXTRA = "TRYP Extra";
-    public static final String TYPE_TRYP_PRIME = "TRYP Assist";
-    public static final String TYPE_TRYP_ASSIST = "TRYP PRIME";
+    public static final String TYPE_TRYP_PRIME = "TRYP Prime";
+    public static final String TYPE_TRYP_ASSIST = "TRYP Assist";
 
     @SuppressLint("ValidFragment")
     public TrypCarFragment(DriversItem driver) {
@@ -48,6 +49,7 @@ public class TrypCarFragment extends Fragment {
         num_of_passangers = v.findViewById(R.id.num_of_passangers);
         price_tv = v.findViewById(R.id.price_tv);
 
+//        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
         car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
                 TrypCarFragment.getImageByType(driver.getCategory())));
         tryp_type_tv.setText(driver.getCategory());
