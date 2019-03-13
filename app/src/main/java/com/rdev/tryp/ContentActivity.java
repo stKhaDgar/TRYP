@@ -59,6 +59,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
+import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
@@ -554,6 +555,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
+                        openMap();
+                        break;
 //                    case R.id.nav_trip_history:
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
@@ -760,6 +764,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new RewardProfileFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(RewardProfileFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_REWARD_POINTS:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        RewardPointsFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(RewardPointsFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new RewardPointsFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(RewardPointsFragment.class.getName())
                             .commit();
                 }
                 break;
