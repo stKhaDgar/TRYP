@@ -336,7 +336,7 @@
         android:layout_width="@dimen/map_navigation_btn_size"
         android:layout_height="@dimen/map_navigation_btn_size"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/circle_button"
         android:clickable="true"
         android:elevation="5dp"

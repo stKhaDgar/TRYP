@@ -206,7 +206,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         Geocoder geocoder = new Geocoder(context);
         try {
             List<Address> fromAddress = geocoder.getFromLocation(start.getCoord().latitude, start.getCoord().longitude, 1);
-            List<Address> toAddress = geocoder.getFromLocation(end.getCoord().latitude, start.getCoord().longitude, 1);
+            List<Address> toAddress = geocoder.getFromLocation(end.getCoord().latitude, end.getCoord().longitude, 1);
 
             RequestRideBody requestRideBody = new RequestRideBody(
                     fromAddress.get(0),
@@ -220,10 +220,10 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                 public void onResponse(Call<RideResponse> call, final Response<RideResponse> response) {
                     RideResponse body = response.body();
                     if (body == null || body.getData() == null) {
-                        // for test
-                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);
-                        //TODO : set to fail
-                        //showAlertDialod("Ride request Failed", "Error at trip order. Please try again");
+//                        // for test
+//                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);
+//                        //TODO : set to fail
+                        showAlertDialod("Ride request Failed", "Error at trip order. Please try again", context);
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);

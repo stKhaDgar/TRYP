@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.rdev.tryp.utils.Utils.closeKeyboard;
+import static com.rdev.tryp.utils.Utils.showKeyboard;
+
 @SuppressLint("ValidFragment")
 public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onPlacePicked, View.OnClickListener {
 
@@ -84,12 +88,13 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        initHomeWork();
+        initHomeWork(); //TODO: it's for test (must init in settings or another fragment)
         initView();
         initRecentRoutes();
         initAutoComplete();
 
-        //TODO: it's for test (must init in settings or another fragment)
+        adressTv2.requestFocus();
+        showKeyboard(getContext());
 
         return view;
     }
@@ -131,12 +136,9 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                 mainTextView = adressTv2;
             }
         });
-
-
     }
 
     public void initAutoComplete() {
-
         geocoder = new Geocoder(getContext());
 
         if (startPos == null) {
@@ -182,7 +184,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                         destination.setCoord(new LatLng(dest.getLatitude(), dest.getLongitude()));
                         destination.setLocale(dest.getThoroughfare() + " " + dest.getLocality() + ", "
                                 + dest.getAdminArea() + ", " + dest.getCountryName());
-                        closeKeyboard();
+                        closeKeyboard(getContext());
                         onDestination(startPos, destination);
                         saveRouteInRecent(startPos, destination);
                     } else {
@@ -321,7 +323,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_btn:
-                getActivity().onBackPressed();
+                ((ContentActivity)getActivity()).goHome();
                 break;
             case R.id.recent_relative_layout:
                 getRecentFirst();
@@ -380,7 +382,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                     destination.setLocale(prediction.getFullText(null).toString());
 
                     if (!adressTv.getText().toString().isEmpty()) {
-                        closeKeyboard();
+                        closeKeyboard(getContext());
                         onDestination(startPos, destination);
                         saveRouteInRecent(startPos, destination);
                     }
@@ -390,7 +392,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                     startPos.setLocale(prediction.getFullText(null).toString());
 
                     if (!adressTv2.getText().toString().isEmpty()) {
-                        closeKeyboard();
+                        closeKeyboard(getContext());
                         onDestination(startPos, destination);
                         saveRouteInRecent(startPos, destination);
                     }
@@ -431,11 +433,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         to = PreferenceManager.getTripPlace(KEY_RECENT_TO_2);
 
         onDestination(from, to);
-    }
-
-    public void closeKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
     private void initHomeWork() {

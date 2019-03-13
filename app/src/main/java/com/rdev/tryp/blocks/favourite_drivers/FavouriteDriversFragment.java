@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 
 import java.util.ArrayList;
@@ -99,13 +100,9 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
                 onNegativeClick();
                 break;
             case R.id.back_btn:
-                closefragment();
+                ((ContentActivity) getActivity()).goHome();
                 break;
         }
-    }
-
-    private void closefragment() {
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
     public void onPositiveClick() {

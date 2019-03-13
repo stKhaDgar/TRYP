@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Alexey Matrosov on 04.03.2019.
  */
-public class HelpFragment extends Fragment {
+public class HelpFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -38,12 +39,7 @@ public class HelpFragment extends Fragment {
         recyclerView.setAdapter(new RecentTripsAdapter(getContext(), getFakeData()));
 
         ImageView backBtn = view.findViewById(R.id.back_btn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        backBtn.setOnClickListener(this);
 
         return view;
     }
@@ -65,5 +61,13 @@ public class HelpFragment extends Fragment {
         items.add(new RecentTripItem(R.drawable.test_friend_icon, false, "Aug, 11:45 PM", "Cancelled Early", "$2.25", "1.3mi - 7m"));
 
         return items;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_btn:
+                ((ContentActivity) getActivity()).goHome();
+        }
     }
 }

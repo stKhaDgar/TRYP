@@ -9,9 +9,9 @@
             <!--android:icon="@drawable/ic_home"-->
             <!--android:title="@string/home" />-->
         <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/ic_map"
-            android:title="@string/map" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home"/>
         <item
             android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_like_off"
@@ -20,18 +20,18 @@
             <!--android:id="@+id/nav_trip_history"-->
             <!--android:icon="@drawable/ic_trip_history"-->
             <!--android:title="@string/trip_history" />-->
-        <item
-            android:id="@+id/nav_payment"
-            android:icon="@drawable/ic_rewards"
-            android:title="@string/rewards" />
+        <!--<item-->
+            <!--android:id="@+id/nav_payment"-->
+            <!--android:icon="@drawable/ic_payment"-->
+            <!--android:title="@string/payment" />-->
         <!--<item-->
             <!--android:id="@+id/nav_notification"-->
             <!--android:icon="@drawable/ic_notification"-->
             <!--android:title="@string/notification" />-->
         <item
             android:id="@+id/nav_rewards"
-            android:icon="@drawable/ic_home"
-            android:title="@string/home" />
+            android:icon="@drawable/ic_rewards"
+            android:title="@string/rewards" />
         <!--<item-->
             <!--android:id="@+id/nav_emergency_contact"-->
             <!--android:icon="@drawable/ic_emergency_contact"-->
