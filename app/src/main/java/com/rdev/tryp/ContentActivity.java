@@ -59,9 +59,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
-import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
-import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
@@ -148,9 +146,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         switch (intentTag) {
             case "tryp":
                 fragment = new TripFragment(new LatLng(25, 26), new LatLng(25, 27));
-                break;
-            case "detail":
-                fragment = new DetailHostFragment();
                 break;
             case "car":
                 fragment = new TrypCarHostFragment();
@@ -473,15 +468,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         fragment.setDrivers(drivers, currentPos);
     }
 
-    public void openDetailHost(List<?> drivers, int currentPos) {
-        DetailHostFragment fragment = new DetailHostFragment();
-        fm.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack("detail")
-                .commit();
-        fragment.setDrivers(drivers, currentPos);
-    }
-
     public void moveCameraTo(LatLng position) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 17));
     }
@@ -568,9 +554,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 switch (menuItem.getItemId()) {
-                    case R.id.nav_home:
-                        openMap();
-                        break;
 //                    case R.id.nav_trip_history:
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
@@ -777,17 +760,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new RewardProfileFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(RewardProfileFragment.class.getName())
-                            .commit();
-                }
-                break;
-            case TYPE_REWARD_POINTS:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
-                        RewardPointsFragment.class.getName())) {
-                    getSupportFragmentManager().popBackStackImmediate(RewardPointsFragment.class.getName(), 0);
-                } else {
-                    Fragment fragment = new RewardPointsFragment();
-                    transaction.replace(R.id.screenContainer, fragment)
-                            .addToBackStack(RewardPointsFragment.class.getName())
                             .commit();
                 }
                 break;
