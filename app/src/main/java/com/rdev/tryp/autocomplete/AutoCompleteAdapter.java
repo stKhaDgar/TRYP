@@ -31,10 +31,12 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
     class TextHolder extends RecyclerView.ViewHolder {
 
         TextView address_tv;
+        TextView address_desc_tv;
 
         public TextHolder(@NonNull View itemView) {
             super(itemView);
             this.address_tv = itemView.findViewById(R.id.address_tv);
+            this.address_desc_tv = itemView.findViewById(R.id.address_desc_tv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -54,6 +56,7 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((TextHolder) holder).address_tv.setText(data.get(position).getPrimaryText(null));
+        ((TextHolder) holder).address_desc_tv.setText(data.get(position).getFullText(null));
     }
 
     @Override

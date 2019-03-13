@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,7 +33,7 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    public void initView() {
+    private void initView() {
         smallImage = v.findViewById(R.id.small_image);
         locationBtn = v.findViewById(R.id.location_btn);
         nextBtn = v.findViewById(R.id.next_layout_btn);
@@ -42,7 +44,7 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
         setSmallImage();
     }
 
-    public void setSmallImage() {    //TODO: set small image by user image
+    private void setSmallImage() {    //TODO: set small image by user image
         int height = 70;
         int width = 70;
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.small_person);
@@ -55,7 +57,7 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.location_btn:
-                ((ContentActivity) getActivity()).zoomToCurrentLocation();
+                ((ContentActivity) Objects.requireNonNull(getActivity())).zoomToCurrentLocation();
                 break;
             case R.id.next_layout_btn:
                 ((ContentActivity) getActivity()).showDirectionPicker(null);

@@ -135,12 +135,10 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/circle_button"
-                android:backgroundTint="#0172FF"
+                android:background="@drawable/circle_button_revert_time"
                 android:clickable="true"
                 android:elevation="8dp"
                 android:focusable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_timer"
                 app:layout_constraintBottom_toBottomOf="@+id/textView7"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,24 +146,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.cardview.widget.CardView>
-
 
     <ImageButton
         android:id="@+id/location_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/circle_button"
         android:clickable="true"
         android:elevation="8dp"
         android:focusable="true"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_location"
         app:layout_constraintBottom_toTopOf="@+id/materialCardView3"
-        app:layout_constraintEnd_toEndOf="parent" />
-/
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

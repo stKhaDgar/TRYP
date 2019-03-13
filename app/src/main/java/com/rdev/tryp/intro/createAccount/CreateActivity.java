@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.rdev.tryp.WelcomeActivity;
-import com.rdev.tryp.intro.login.LoginActivity;
+import com.rdev.tryp.createAccount.EnterPhoneFragment;
+import com.rdev.tryp.createAccount.SignUpFragment;
+import com.rdev.tryp.login.LoginActivity;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
 import com.rdev.tryp.R;
@@ -19,8 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@SuppressWarnings("NullableProblems")
 public class CreateActivity extends AppCompatActivity {
-    CreateUser createUser;
+    public CreateUser createUser;
     FragmentManager fm;
 
     @Override

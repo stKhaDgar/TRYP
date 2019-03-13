@@ -19,7 +19,7 @@
         android:name=".MainApplication"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".intro.login.LoginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".intro.createAccount.CreateActivity"

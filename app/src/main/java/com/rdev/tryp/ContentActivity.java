@@ -59,9 +59,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
-import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
-import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
@@ -75,7 +73,9 @@ import com.rdev.tryp.blocks.screens.invite3.Invite3Fragment;
 import com.rdev.tryp.blocks.screens.legal.LegalFragment;
 import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
 import com.rdev.tryp.blocks.screens.recap.RecapFragment;
+import com.rdev.tryp.utils.CurrentLocation;
 import com.rdev.tryp.utils.Utils;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -111,6 +111,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     Marker pickAdressMarker;
     Marker pickStartMarker;
 
+    CurrentLocation currentLocation;
+
     //route
     public static TripPlace tripFrom;
     public static TripPlace tripTo;
@@ -119,6 +121,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+
+        currentLocation = new CurrentLocation(ContentActivity.this, ContentActivity.this);
+        currentLocation.init();
+
         initMenu();
         initMap();
     }
@@ -137,20 +143,25 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
         Fragment fragment;
         String intentTag = intent.getStringExtra("tag");
-        if (intentTag.equals("tryp")) {
-            fragment = new TripFragment(new LatLng(25, 26), new LatLng(25, 27));
-        } else if (intentTag.equals("detail")) {
-            fragment = new DetailHostFragment();
-        } else if (intentTag.equals("car")) {
-            fragment = new TrypCarHostFragment();
-        } else if (intentTag.equals("confirm")) {
-            fragment = new ConfirmFragment();
-        } else if (intentTag.equals("set")) {
-            fragment = new SetLocationFragment();
-        } else if (intentTag.equals("connect")) {
-            fragment = new ConnectFragment();
-        } else {
-            fragment = new MapNextTrip();
+        switch (intentTag) {
+            case "tryp":
+                fragment = new TripFragment(new LatLng(25, 26), new LatLng(25, 27));
+                break;
+            case "car":
+                fragment = new TrypCarHostFragment();
+                break;
+            case "confirm":
+                fragment = new ConfirmFragment();
+                break;
+            case "set":
+                fragment = new SetLocationFragment();
+                break;
+            case "connect":
+                fragment = new ConnectFragment();
+                break;
+            default:
+                fragment = new MapNextTrip();
+                break;
         }
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment)
@@ -243,6 +254,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     Marker currentPosMarker;
 
     void updateCurrentLocation(Location location) throws IOException {
+        Log.e("LocationUpdate", location.toString());
         LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
         if (currentPosMarker != null && currentPosMarker.isVisible()) {
@@ -456,15 +468,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         fragment.setDrivers(drivers, currentPos);
     }
 
-    public void openDetailHost(List<?> drivers, int currentPos) {
-        DetailHostFragment fragment = new DetailHostFragment();
-        fm.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack("detail")
-                .commit();
-        fragment.setDrivers(drivers, currentPos);
-    }
-
     public void moveCameraTo(LatLng position) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 17));
     }
@@ -475,15 +478,19 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void zoomToCurrentLocation() {
-        if (pickUpLocation == null) {
-            checkLocationInSettings();
-        } else {
-            LatLng currentPos = new LatLng(pickUpLocation.latitude, pickUpLocation.longitude);
+
+        currentLocation.onStartLocationUpdate(location -> {
+            LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
-        }
+        });
+
+//        if (pickUpLocation == null) {
+//            checkLocationInSettings();
+//        } else {
+//            LatLng currentPos = new LatLng(pickUpLocation.latitude, pickUpLocation.longitude);
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
+//        }
     }
-
-
 
     private static final String EXTRA_CONTENT = "content_key";
 
@@ -547,9 +554,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 switch (menuItem.getItemId()) {
-                    case R.id.nav_home:
-                        openMap();
-                        break;
 //                    case R.id.nav_trip_history:
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
@@ -756,17 +760,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new RewardProfileFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(RewardProfileFragment.class.getName())
-                            .commit();
-                }
-                break;
-            case TYPE_REWARD_POINTS:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
-                        RewardPointsFragment.class.getName())) {
-                    getSupportFragmentManager().popBackStackImmediate(RewardPointsFragment.class.getName(), 0);
-                } else {
-                    Fragment fragment = new RewardPointsFragment();
-                    transaction.replace(R.id.screenContainer, fragment)
-                            .addToBackStack(RewardPointsFragment.class.getName())
                             .commit();
                 }
                 break;
