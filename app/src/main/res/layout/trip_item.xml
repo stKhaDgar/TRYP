@@ -38,6 +38,7 @@
             app:cardElevation="5dp">
 
             <RelativeLayout
+                android:paddingBottom="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -159,16 +160,14 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="9dp"
+                    android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="@color/trip_accent_color"
+                    android:layout_alignParentBottom="true"
                     app:cardCornerRadius="8dp"
                     android:id="@+id/price_card_view"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     app:cardElevation="5dp"
-                    android:layout_marginTop="84dp"
                     android:layout_centerHorizontal="true">
 
                     <TextView
@@ -176,12 +175,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:paddingTop="1dp"
+                        android:paddingTop="4dp"
                         android:paddingBottom="4dp"
                         android:id="@+id/fare"
                         android:text="$7"
                         android:textColor="#FFF" />
-                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 </androidx.cardview.widget.CardView>
