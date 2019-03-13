@@ -16,13 +16,14 @@
         app:cardElevation="4dp">
 
         <RelativeLayout
+            android:id="@+id/all_content_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/user_iv"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="300dp"
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/person_big" />
@@ -35,17 +36,18 @@
             <!--app:layout_constraintGuide_percent="0.25" />-->
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/info"
+                android:id="@+id/content_move_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="129dp"
+                android:layout_marginTop="280dp"
                 app:cardCornerRadius="6dp"
                 app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -168,18 +170,18 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/materialCardView2"
+                    android:id="@+id/image_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="26dp"
+                    android:layout_marginTop="36dp"
                     android:layout_marginEnd="16dp"
                     app:cardCornerRadius="8dp">
 
                     <ImageView
                         android:id="@+id/car_iv"
                         android:layout_width="200dp"
-                        android:layout_height="135dp"
+                        android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/car_big"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="$54"
                     android:textColor="#000"
                     android:textSize="36sp" />
