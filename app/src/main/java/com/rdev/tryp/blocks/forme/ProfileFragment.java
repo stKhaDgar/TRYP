@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,11 +139,8 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     }
 
     public void initAutoComplete() {
-
         geocoder = new Geocoder(getContext());
 
-        startPos.setCoord(new LatLng(getLocationFromAddress(getContext(), startPos.getLocale()).getLatitude(),
-                getLocationFromAddress(getContext(), startPos.getLocale()).getLongitude()));
         if (startPos == null) {
             startPos = new TripPlace();
         }

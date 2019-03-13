@@ -261,7 +261,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         isLocationFound = true;
         Geocoder geocoder = new Geocoder(ContentActivity.this);
         List<Address> addressList = geocoder.getFromLocation(currentPos.latitude, currentPos.longitude, 1);
-        currentLocate = addressList.get(0).getAddressLine(0);
+        currentLocate = addressList.get(0).getThoroughfare() + " " + addressList.get(0).getLocality() + ", "
+                + addressList.get(0).getAdminArea() + ", " + addressList.get(0).getCountryName();
         Log.d("tag", addressList.toString());
         pickUpLocation = currentPos;
     }
