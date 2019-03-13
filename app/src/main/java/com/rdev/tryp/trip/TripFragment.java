@@ -105,7 +105,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         TripAdapter.OnItemClickListener listener = new TripAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Object item) {
-//                ((ContentActivity) getActivity()).openDetailHost(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
+                ((ContentActivity) getActivity()).openDetailHost(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
             }
         };
 

@@ -65,6 +65,7 @@ import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.trip.TripFragment;
+import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
 import com.rdev.tryp.blocks.forme.ProfileFragment;
 import com.rdev.tryp.blocks.screens.help.HelpFragment;
@@ -150,6 +151,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case "car":
                 fragment = new TrypCarHostFragment();
+                break;
+            case "detail":
+                fragment = new DetailHostFragment();
                 break;
             case "confirm":
                 fragment = new ConfirmFragment();
@@ -664,6 +668,16 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 throw new IllegalStateException("Unknown screen type");
         }
     }
+
+   public void openDetailHost(List<?> drivers, int currentPos) {
+        DetailHostFragment fragment = new DetailHostFragment();
+        fm.beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack("detail")
+                .commit();
+        fragment.setDrivers(drivers, currentPos);
+    }
+
 
     public void startFragment(int type) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
