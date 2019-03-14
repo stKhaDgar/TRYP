@@ -70,7 +70,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     private View view;
     private AppCompatEditText adressTv, adressTv2;
     private RecyclerView autoCompleteRv;
-    private AppCompatImageView pickLocationBtn;
     private ImageButton back_btn, edit_btn;
     private AppCompatEditText mainEditText;
     private TextView homeEditText, workEditText;
@@ -107,7 +106,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         adressTv2 = view.findViewById(R.id.adress_tv_2);
         cardView = view.findViewById(R.id.top_card_view);
         autoCompleteRv = view.findViewById(R.id.autoCompleteRv);
-        pickLocationBtn = view.findViewById(R.id.pickLocationBtn);
         back_btn = view.findViewById(R.id.back_btn);
         recentFirst = view.findViewById(R.id.recent_relative_layout);
         recentSecond = view.findViewById(R.id.recent_relative_layout_2);
@@ -133,15 +131,32 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             public void onFocusChange(View v, boolean hasFocus) {
                 adapter.setData(new ArrayList<>());
                 mainEditText = adressTv;
+                resetAddressView();
             }
         });
+
         adressTv2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 adapter.setData(new ArrayList<>());
                 mainEditText = adressTv2;
+                resetAddressView();
             }
         });
+    }
+
+    public void resetAddressView(){
+        if(startPos != null){
+            adressTv.setText(startPos.getLocale());
+        }else{
+            adressTv.setText("");
+        }
+
+        if(destination != null){
+            adressTv2.setText(destination.getLocale());
+        }else{
+            adressTv2.setText("");
+        }
     }
 
     public void showFavoriteAddresses() {
@@ -173,52 +188,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
         adressTv.setText(startPos.getLocale());
         adressTv2.setText(destination.getLocale());
-
-        pickLocationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (adressTv.getText().length() != 0) {
-                    Address dest;
-                    try {
-                        dest = getLocationFromAddress(getContext(), adressTv.getText().toString());
-                    } catch (RuntimeException e) {
-                        dest = null;
-                    }
-                    if (dest != null) {
-                        startPos.setCoord(new LatLng(dest.getLatitude(), dest.getLongitude()));
-                        startPos.setLocale(dest.getThoroughfare() + " " + dest.getLocality() + ", "
-                                + dest.getAdminArea() + ", " + dest.getCountryName());
-                    } else {
-                        Toast.makeText(getContext(), "Please enter right address", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Please enter destination address", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (adressTv2.getText().length() != 0) {
-                    Address dest;
-                    try {
-                        dest = getLocationFromAddress(getContext(), adressTv2.getText().toString());
-                    } catch (RuntimeException e) {
-                        dest = null;
-                    }
-                    if (dest != null) {
-                        destination.setCoord(new LatLng(dest.getLatitude(), dest.getLongitude()));
-                        destination.setLocale(dest.getThoroughfare() + " " + dest.getLocality() + ", "
-                                + dest.getAdminArea() + ", " + dest.getCountryName());
-                        closeKeyboard(getContext());
-                        onDestination(startPos, destination);
-                        saveRouteInRecent(startPos, destination);
-                    } else {
-                        Toast.makeText(getContext(), "Please enter right address", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Please enter destination address", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
         adapter = new AutoCompleteAdapter(new ArrayList<>(), ProfileFragment.this);
         autoCompleteRv.setAdapter(adapter);
@@ -378,23 +347,13 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         }
 
         if (mainEditText.equals(adressTv2)) {
-            adressTv2.setText(tripPlace.getLocale());
             destination = tripPlace;
-
-            if (!adressTv.getText().toString().isEmpty()) {
-                onClick(pickLocationBtn);
-                return;
-            }
         }
         if (mainEditText.equals(adressTv)) {
-            adressTv.setText(tripPlace.getLocale());
             startPos = tripPlace;
-
-            if (!adressTv2.getText().toString().isEmpty()) {
-                onClick(pickLocationBtn);
-                return;
-            }
         }
+
+        resetAddressView();
     }
 
     @Override

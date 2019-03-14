@@ -316,4 +316,10 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         dialog_title_tv.setText(title);
         dialog_msg_tv.setText(message);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((ContentActivity) getActivity()).clearMap();
+    }
 }
