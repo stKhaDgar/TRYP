@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="55dp"
-                            android:layout_marginEnd="15dp"
+                            android:layout_marginEnd="30dp"
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatEditText
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="55dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="30dp"
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatEditText
@@ -214,6 +214,15 @@
                             android:textColor="@color/black" />
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/route_btn"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_keyboard_arrow_right"/>
                 </RelativeLayout>
 
             </RelativeLayout>

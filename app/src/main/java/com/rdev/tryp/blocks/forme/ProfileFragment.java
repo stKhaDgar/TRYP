@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +76,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     private TextView homeEditText, workEditText;
     private CardView cardView;
     private RelativeLayout recentFirst, recentSecond, homeAddress, workAddress;
-
+    private ImageView routeBtn;
     private Editor.IEditor editor;
 
     @SuppressLint("ValidFragment")
@@ -115,6 +116,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         workEditText = view.findViewById(R.id.work_tv);
         edit_btn = view.findViewById(R.id.edit_btn);
         editLayout = view.findViewById(R.id.edit_layout);
+        routeBtn = view.findViewById(R.id.route_btn);
 
         cardView.setBackgroundResource(R.drawable.card_view_bg);
         autoCompleteRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -124,6 +126,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         homeAddress.setOnClickListener(this);
         workAddress.setOnClickListener(this);
         edit_btn.setOnClickListener(this);
+        routeBtn.setOnClickListener(this);
         homeEditText.setText(PreferenceManager.getString(KEY_HOME));
         workEditText.setText(PreferenceManager.getString(KEY_WORK));
         adressTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -333,6 +336,10 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             case R.id.edit_btn:
                 editor.editAddresses(getActivity(), this);
                 break;
+            case R.id.route_btn:
+                closeKeyboard(getContext());
+                onDestination(startPos, destination);
+                saveRouteInRecent(startPos, destination);
         }
     }
 
@@ -369,21 +376,10 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                     destination.setCoord(task.getResult().getPlace().getLatLng());
                     destination.setLocale(prediction.getFullText(null).toString());
 
-                    if (!adressTv.getText().toString().isEmpty()) {
-                        closeKeyboard(getContext());
-                        onDestination(startPos, destination);
-                        saveRouteInRecent(startPos, destination);
-                    }
                 }
                 if (mainEditText.equals(adressTv)) {
                     startPos.setCoord(task.getResult().getPlace().getLatLng());
                     startPos.setLocale(prediction.getFullText(null).toString());
-
-                    if (!adressTv2.getText().toString().isEmpty()) {
-                        closeKeyboard(getContext());
-                        onDestination(startPos, destination);
-                        saveRouteInRecent(startPos, destination);
-                    }
                 }
             }
         });
