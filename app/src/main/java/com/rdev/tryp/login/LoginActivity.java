@@ -5,23 +5,34 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
-import com.rdev.tryp.intro.manager.AccountManager;
-import com.rdev.tryp.model.VerifySmsResponse;
-import com.rdev.tryp.network.ApiClient;
-import com.rdev.tryp.network.ApiService;
 import com.rdev.tryp.R;
+import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.LoginModel;
 import com.rdev.tryp.model.LoginResponse;
+import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.model.UserPhoneNumber;
+import com.rdev.tryp.model.VerifySmsResponse;
+import com.rdev.tryp.model.favorite_address.Address;
+import com.rdev.tryp.model.favorite_address.Data;
+import com.rdev.tryp.model.favorite_address.FavoriteAddress;
+import com.rdev.tryp.network.ApiClient;
+import com.rdev.tryp.network.ApiService;
+import com.rdev.tryp.utils.PreferenceManager;
+import com.rdev.tryp.utils.Utils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.rdev.tryp.utils.Utils.KEY_HOME;
+import static com.rdev.tryp.utils.Utils.KEY_WORK;
 
 @SuppressWarnings("NullableProblems")
 public class LoginActivity extends AppCompatActivity {
@@ -84,6 +95,8 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
+                    setUserFavouriteAddresses();
+
                     AccountManager.getInstance().signIn(loginModel.getPhone_number());
                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
                     intent.putExtra("tag", "f");
@@ -120,6 +133,55 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         return status;
+
+    }
+
+    private void setUserFavouriteAddresses() {
+        apiService.get_favourite_address("18512", Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+            @Override
+            public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
+                if(response.body().getData().getFavoriteAddresses() == null){
+                    return;
+                }
+                Address address = response.body().getData().getFavoriteAddresses().getAddress();
+                if (address == null) {
+                    return;
+                }
+                TripPlace tripPlace = new TripPlace();
+                tripPlace.setLocale(address.getAddress());
+                tripPlace.setCoord(new LatLng(address.getLat(), address.getLng()));
+                PreferenceManager.setTripPlace(KEY_WORK, tripPlace);
+                Log.i("get work address", address.getAddress());
+            }
+
+            @Override
+            public void onFailure(Call<FavoriteAddress> call, Throwable t) {
+                Log.i("get work address", "failure");
+            }
+        });
+
+        apiService.get_favourite_address("18512", Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+            @Override
+            public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
+                if(response.body().getData().getFavoriteAddresses() == null){
+                    return;
+                }
+                Address address = response.body().getData().getFavoriteAddresses().getAddress();
+                if (address == null) {
+                    return;
+                }
+                TripPlace tripPlace = new TripPlace();
+                tripPlace.setLocale(address.getAddress());
+                tripPlace.setCoord(new LatLng(address.getLat(), address.getLng()));
+                PreferenceManager.setTripPlace(KEY_HOME, tripPlace);
+                Log.i("get home address", address.getAddress());
+            }
+
+            @Override
+            public void onFailure(Call<FavoriteAddress> call, Throwable t) {
+                Log.i("get home address", "failure");
+            }
+        });
 
     }
 }

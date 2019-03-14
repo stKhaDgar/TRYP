@@ -7,6 +7,16 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.fragment.app.FragmentManager;
 
 public class Utils {
+
+    public final static String HOME_ADDRESS = "home";
+    public final static String WORK_ADDRESS = "work";
+    public final static String KEY_RECENT_FROM_1 = "KEY_RECENT_FROM_1";
+    public final static String KEY_RECENT_TO_1 = "KEY_RECENT_TO_1";
+    public final static String KEY_RECENT_FROM_2 = "KEY_RECENT_FROM_2";
+    public final static String KEY_RECENT_TO_2 = "KEY_RECENT_TO_2";
+    public final static String KEY_HOME = "KEY_HOME";
+    public final static String KEY_WORK = "KEY_WORK";
+
     public static String getCountryCode(String data) {
         return data.substring(data.indexOf(",") + 1, data.lastIndexOf(","));
     }

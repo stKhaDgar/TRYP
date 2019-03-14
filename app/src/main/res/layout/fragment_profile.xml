@@ -271,28 +271,43 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="17dp"
                     android:layout_marginTop="26dp"
-
                     android:src="@drawable/ic_blue_home" />
-
 
                 <TextView
                     android:id="@+id/home_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="25dp"
+                    android:padding="5dp"
                     android:text="Set Home Address"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
+
             </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/edit_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center|right"
+                android:layout_margin="10dp"
+                android:background="@drawable/circle_button"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:focusable="true"
+                android:src="@drawable/ic_mode_edit_black_24dp" />
 
             <RelativeLayout
                 android:id="@+id/work_location_relative_layout"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="64dp">
+                android:layout_marginTop="64dp"
+                android:imeOptions="actionNext">
 
                 <ImageView
                     android:layout_width="22dp"
@@ -305,11 +320,13 @@
 
                 <TextView
                     android:id="@+id/work_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="27dp"
-                    android:text="Set Work Address"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="25dp"
+                    android:padding="5dp"
+                    android:text="Set Home Address"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
@@ -321,11 +338,11 @@
             android:id="@+id/recent_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
             android:text="Recent Destination"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="17dp"
             android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="@+id/cardView_main"
@@ -367,19 +384,18 @@
                     android:layout_marginStart="42dp"
                     android:layout_marginTop="19dp"
                     android:layout_marginBottom="13dp"
-                    android:text="333 Roling Park"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:text="333 Roling Park"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
                 <View
                     android:layout_width="16dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray"
                     android:layout_marginStart="147dp"
                     android:layout_marginTop="27dp"
-                    />
+                    android:background="@color/gray" />
 
                 <ImageView
                     android:layout_width="11dp"
@@ -398,9 +414,9 @@
                     android:layout_marginStart="195dp"
                     android:layout_marginTop="19dp"
                     android:layout_marginBottom="13dp"
-                    android:text="7025 Washing Apt"
-                    android:maxLines="1"
                     android:inputType="text"
+                    android:maxLines="1"
+                    android:text="7025 Washing Apt"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -445,18 +461,17 @@
                     android:layout_marginTop="19dp"
                     android:layout_marginBottom="13dp"
                     android:inputType="text"
-                    android:text="333 Roling Park"
                     android:maxLines="1"
+                    android:text="333 Roling Park"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
                 <View
                     android:layout_width="16dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray"
                     android:layout_marginStart="147dp"
                     android:layout_marginTop="27dp"
-                    />
+                    android:background="@color/gray" />
 
                 <ImageView
                     android:layout_width="11dp"
@@ -473,11 +488,11 @@
                     android:layout_width="94dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="195dp"
-                    android:inputType="text"
                     android:layout_marginTop="19dp"
                     android:layout_marginBottom="13dp"
-                    android:text="7025 Washing Apt"
+                    android:inputType="text"
                     android:maxLines="1"
+                    android:text="7025 Washing Apt"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -513,13 +528,184 @@
         android:id="@+id/back_btn"
         android:layout_width="@dimen/map_navigation_btn_size"
         android:layout_height="@dimen/map_navigation_btn_size"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/circle_button"
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
-        android:layout_alignParentBottom="true"
         android:src="@drawable/ic_keyboard_backspace_black_24dp" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/back">
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="344dp"
+            android:layout_height="400dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="119dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="2dp"
+                android:text="Edit Addresses"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView26_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="60dp"
+                    android:elevation="8dp"
+                    android:src="@drawable/ic_rectangl_small" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp">
+
+                    <ImageView
+                        android:id="@+id/imageView17_edit"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="21dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+
+                        android:src="@drawable/ic_location_small" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginEnd="30dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/adress_tv_edit"
+                            android:hint="home address"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_margin="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@null"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:padding="2dp"
+                            android:selectAllOnFocus="true"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bottom_relative_layout_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="70dp">
+
+                    <ImageView
+                        android:id="@+id/imageView18_edit"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentStart="true"
+
+                        android:layout_marginStart="21dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+
+                        android:src="@drawable/ic_blue_home" />
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginEnd="30dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/adress_tv_2_edit"
+                            android:layout_width="match_parent"
+                            android:hint="work address"
+                            android:layout_height="30dp"
+                            android:layout_margin="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@null"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:padding="2dp"
+                            android:selectAllOnFocus="true"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/autoCompleteEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </RelativeLayout>

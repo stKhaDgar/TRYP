@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,7 +32,12 @@ import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.autocomplete.AutoCompleteAdapter;
 import com.rdev.tryp.model.TripPlace;
+import com.rdev.tryp.model.favorite_address.FavoriteAddressModel;
+import com.rdev.tryp.model.favorite_address.FavoriteAddressResponse;
+import com.rdev.tryp.network.ApiClient;
+import com.rdev.tryp.network.ApiService;
 import com.rdev.tryp.utils.PreferenceManager;
+import com.rdev.tryp.utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,34 +52,38 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import static com.rdev.tryp.utils.Utils.KEY_HOME;
+import static com.rdev.tryp.utils.Utils.KEY_RECENT_FROM_1;
+import static com.rdev.tryp.utils.Utils.KEY_RECENT_FROM_2;
+import static com.rdev.tryp.utils.Utils.KEY_RECENT_TO_1;
+import static com.rdev.tryp.utils.Utils.KEY_RECENT_TO_2;
+import static com.rdev.tryp.utils.Utils.KEY_WORK;
 import static com.rdev.tryp.utils.Utils.closeKeyboard;
 import static com.rdev.tryp.utils.Utils.showKeyboard;
 
 @SuppressLint("ValidFragment")
-public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onPlacePicked, View.OnClickListener {
+public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onPlacePicked, View.OnClickListener{
 
     private Geocoder geocoder;
     private PlacesClient placesClient;
     private TripPlace destination, startPos;
+    private TripPlace home, work;
     private AutoCompleteAdapter adapter;
+    private RelativeLayout editLayout;
 
     private View view;
     private AppCompatEditText adressTv, adressTv2;
     private RecyclerView autoCompleteRv;
     private AppCompatImageView pickLocationBtn;
-    private ImageButton back_btn;
-    private TextView mainTextView, homeTextView, workTextView;
+    private ImageButton back_btn, edit_btn;
+    private AppCompatEditText mainEditText;
+    private TextView homeEditText, workEditText;
     private CardView cardView;
     private RelativeLayout recentFirst, recentSecond, homeAddress, workAddress;
-
-    private final static String KEY_RECENT_FROM_1 = "KEY_RECENT_FROM_1";
-    private final static String KEY_RECENT_TO_1 = "KEY_RECENT_TO_1";
-    private final static String KEY_RECENT_FROM_2 = "KEY_RECENT_FROM_2";
-    private final static String KEY_RECENT_TO_2 = "KEY_RECENT_TO_2";
-    private final static String KEY_HOME = "KEY_HOME";
-    private final static String KEY_WORK = "KEY_WORK";
-
 
     @SuppressLint("ValidFragment")
     public ProfileFragment(TripPlace startPos, TripPlace destination) {
@@ -88,10 +96,11 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        initHomeWork(); //TODO: it's for test (must init in settings or another fragment)
         initView();
+        initFavoriteAddresses();
         initRecentRoutes();
         initAutoComplete();
+        hideEdit();
 
         adressTv2.requestFocus();
         showKeyboard(getContext());
@@ -110,8 +119,10 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         recentSecond = view.findViewById(R.id.recent_relative_layout_2);
         homeAddress = view.findViewById(R.id.home_location_relative_layout);
         workAddress = view.findViewById(R.id.work_location_relative_layout);
-        homeTextView = view.findViewById(R.id.home_tv);
-        workTextView = view.findViewById(R.id.work_tv);
+        homeEditText = view.findViewById(R.id.home_tv);
+        workEditText = view.findViewById(R.id.work_tv);
+        edit_btn = view.findViewById(R.id.edit_btn);
+        editLayout = view.findViewById(R.id.edit_layout);
 
         cardView.setBackgroundResource(R.drawable.card_view_bg);
         autoCompleteRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -120,22 +131,40 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         recentFirst.setOnClickListener(this);
         homeAddress.setOnClickListener(this);
         workAddress.setOnClickListener(this);
-        homeTextView.setText(PreferenceManager.getString(KEY_HOME));
-        workTextView.setText(PreferenceManager.getString(KEY_WORK));
+        edit_btn.setOnClickListener(this);
+        homeEditText.setText(PreferenceManager.getString(KEY_HOME));
+        workEditText.setText(PreferenceManager.getString(KEY_WORK));
         adressTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 adapter.setData(new ArrayList<>());
-                mainTextView = adressTv;
+                mainEditText = adressTv;
             }
         });
         adressTv2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 adapter.setData(new ArrayList<>());
-                mainTextView = adressTv2;
+                mainEditText = adressTv2;
             }
         });
+    }
+
+    public void initFavoriteAddresses() {
+        home = PreferenceManager.getTripPlace(KEY_HOME);
+        work = PreferenceManager.getTripPlace(KEY_WORK);
+
+        if (home != null) {
+            homeEditText.setText(home.getLocale());
+        } else {
+            homeEditText.setText("add home address");
+        }
+
+        if (work != null) {
+            workEditText.setText(work.getLocale());
+        } else {
+            workEditText.setText("add work address");
+        }
     }
 
     public void initAutoComplete() {
@@ -204,7 +233,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         adressTv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mainTextView = adressTv;
+                mainEditText = adressTv;
             }
 
             @Override
@@ -232,7 +261,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mainTextView = adressTv2;
+                mainEditText = adressTv2;
                 adapter.setData(new ArrayList<>());
             }
 
@@ -323,7 +352,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_btn:
-                ((ContentActivity)getActivity()).goHome();
+                ((ContentActivity) getActivity()).goHome();
                 break;
             case R.id.recent_relative_layout:
                 getRecentFirst();
@@ -332,34 +361,40 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                 getRecentSecond();
                 break;
             case R.id.home_location_relative_layout:
-                setTripPlace(PreferenceManager.getString(KEY_HOME));
+                homeEditText.clearFocus();
+                setTripPlace(home);
                 break;
             case R.id.work_location_relative_layout:
-                setTripPlace(PreferenceManager.getString(KEY_WORK));
+                setTripPlace(work);
+                break;
+            case R.id.edit_btn:
+                showEdit();
                 break;
         }
     }
 
-    private void setTripPlace(String address) {
+    private void setTripPlace(TripPlace tripPlace) {
 
-        if (address == null) {
+        if (tripPlace == null) {
             return;
         }
 
-        if(mainTextView == null){
-            mainTextView = adressTv;
+        if (mainEditText == null) {
+            mainEditText = adressTv;
         }
 
-        if(mainTextView.equals(adressTv2)) {
-            adressTv2.setText(address);
+        if (mainEditText.equals(adressTv2)) {
+            adressTv2.setText(tripPlace.getLocale());
+            destination = tripPlace;
 
             if (!adressTv.getText().toString().isEmpty()) {
                 onClick(pickLocationBtn);
                 return;
             }
         }
-        if(mainTextView.equals(adressTv)) {
-            adressTv.setText(address);
+        if (mainEditText.equals(adressTv)) {
+            adressTv.setText(tripPlace.getLocale());
+            startPos = tripPlace;
 
             if (!adressTv2.getText().toString().isEmpty()) {
                 onClick(pickLocationBtn);
@@ -370,13 +405,13 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     @Override
     public void onPlace(AutocompletePrediction prediction) {
-        mainTextView.setText(prediction.getPrimaryText(null));
+        mainEditText.setText(prediction.getPrimaryText(null));
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
         placesClient.fetchPlace(request).addOnCompleteListener(new OnCompleteListener<FetchPlaceResponse>() {
             @Override
             public void onComplete(@androidx.annotation.NonNull Task<FetchPlaceResponse> task) {
-                if (mainTextView.equals(adressTv2)) {
+                if (mainEditText.equals(adressTv2)) {
 
                     destination.setCoord(task.getResult().getPlace().getLatLng());
                     destination.setLocale(prediction.getFullText(null).toString());
@@ -387,7 +422,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                         saveRouteInRecent(startPos, destination);
                     }
                 }
-                if (mainTextView.equals(adressTv)) {
+                if (mainEditText.equals(adressTv)) {
                     startPos.setCoord(task.getResult().getPlace().getLatLng());
                     startPos.setLocale(prediction.getFullText(null).toString());
 
@@ -396,6 +431,18 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                         onDestination(startPos, destination);
                         saveRouteInRecent(startPos, destination);
                     }
+                }
+                if (mainEditText.equals(homeEditText)) {
+                    TripPlace newHome = new TripPlace();
+                    newHome.setCoord(task.getResult().getPlace().getLatLng());
+                    newHome.setLocale(prediction.getFullText(null).toString());
+                    setHomeAddress(newHome);
+                }
+                if (mainEditText.equals(workEditText)) {
+                    TripPlace newWork = new TripPlace();
+                    newWork.setCoord(task.getResult().getPlace().getLatLng());
+                    newWork.setLocale(prediction.getFullText(null).toString());
+                    setWorkAddress(newWork);
                 }
             }
         });
@@ -435,9 +482,119 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         onDestination(from, to);
     }
 
-    private void initHomeWork() {
-        PreferenceManager.setString(KEY_HOME, "Yaroslava Mydroho, 29, Lviv");
-        PreferenceManager.setString(KEY_WORK, "Shevchenka, 37, Lviv");
+    public void setHomeAddress(TripPlace tripPlace) {
+        ApiService apiService = ApiClient.getInstance().create(ApiService.class);
+        FavoriteAddressModel model = new FavoriteAddressModel();
 
+        if (home != null) {
+            model.setAddress(home.getLocale());
+            model.setLat(String.valueOf(home.getCoord().latitude));
+            model.setLng(String.valueOf(home.getCoord().longitude));
+            model.setType(Utils.HOME_ADDRESS);
+            model.setUserId(18512);//TODO: set by real
+
+            apiService.remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+                @Override
+                public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
+                    FavoriteAddressResponse body = response.body();
+                    if (body != null) {
+                        Log.i("remove home address", model.getAddress());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<FavoriteAddressResponse> call, Throwable t) {
+                    Log.i("remove home address", "failure");
+                }
+            });
+        }
+
+        if (tripPlace != null) {
+            model.setAddress(tripPlace.getLocale());
+            model.setLat(String.valueOf(tripPlace.getCoord().latitude));
+            model.setLng(String.valueOf(tripPlace.getCoord().longitude));
+            model.setType(Utils.HOME_ADDRESS);
+            model.setUserId(18512);//TODO: set by real
+
+            apiService.add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+                @Override
+                public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
+                    FavoriteAddressResponse body = response.body();
+                    if (body != null) {
+                        Log.i("add home address", model.getAddress());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<FavoriteAddressResponse> call, Throwable t) {
+                    Log.i("add home address", "failure");
+                }
+            });
+        }
+        home = tripPlace;
+    }
+
+    public void setWorkAddress(TripPlace tripPlace) {
+        ApiService apiService = ApiClient.getInstance().create(ApiService.class);
+        FavoriteAddressModel model = new FavoriteAddressModel();
+
+        if (work != null) {
+            model.setAddress(work.getLocale());
+            model.setLat(String.valueOf(work.getCoord().latitude));
+            model.setLng(String.valueOf(work.getCoord().longitude));
+            model.setType(Utils.WORK_ADDRESS);
+            model.setUserId(18512);//TODO: set by real
+
+            apiService.remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+                @Override
+                public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
+                    FavoriteAddressResponse body = response.body();
+                    if (body != null) {
+                        Log.i("remove work address", model.getAddress());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<FavoriteAddressResponse> call, Throwable t) {
+                    Log.i("remove work address", "failure");
+                }
+            });
+        }
+
+        if (tripPlace != null) {
+            model.setAddress(tripPlace.getLocale());
+            model.setLat(String.valueOf(tripPlace.getCoord().latitude));
+            model.setLng(String.valueOf(tripPlace.getCoord().longitude));
+            model.setType(Utils.WORK_ADDRESS);
+            model.setUserId(18512);//TODO: set by real
+
+            apiService.add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+                @Override
+                public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
+                    FavoriteAddressResponse body = response.body();
+                    if (body != null) {
+                        Log.i("add work address", model.getAddress());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<FavoriteAddressResponse> call, Throwable t) {
+                    Log.i("add work address", "failure");
+                }
+            });
+        }
+        work = tripPlace;
+    }
+
+    public void showEdit() {
+        RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        editLayout.setLayoutParams(rel_btn);
+    }
+
+    public void hideEdit() {
+        RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        editLayout.setLayoutParams(rel_btn);
     }
 }

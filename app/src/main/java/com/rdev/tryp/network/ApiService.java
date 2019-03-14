@@ -4,6 +4,10 @@ import com.rdev.tryp.model.CreateUser;
 import com.rdev.tryp.model.LoginModel;
 import com.rdev.tryp.model.LoginResponse;
 import com.rdev.tryp.model.NearbyDriver;
+import com.rdev.tryp.model.favorite_address.Data;
+import com.rdev.tryp.model.favorite_address.FavoriteAddress;
+import com.rdev.tryp.model.favorite_address.FavoriteAddressModel;
+import com.rdev.tryp.model.favorite_address.FavoriteAddressResponse;
 import com.rdev.tryp.model.sign_up_response.SignUpResponse;
 import com.rdev.tryp.model.status_response.StatusResponse;
 import com.rdev.tryp.model.UserPhoneNumber;
@@ -39,4 +43,13 @@ public interface ApiService {
 
     @GET("api/v1/ride_request_status")
     Call<StatusResponse> ride_request_status(@Query("ride_request_id") String id);
+
+    @GET("api/v1/get_favorite_address")
+    Call<FavoriteAddress> get_favourite_address(@Query("user_id") String user_id, @Query("type") String type);
+
+    @POST("api/v1/add_favorite_address")
+    Call<FavoriteAddressResponse> add_favorite_address(@Body FavoriteAddressModel model);
+
+    @POST("api/v1/remove_favorite_address")
+    Call<FavoriteAddressResponse> remove_favorite_address(@Body FavoriteAddressModel model);
 }
