@@ -64,6 +64,8 @@ import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
+import com.rdev.tryp.payment.AddCardFragment;
+import com.rdev.tryp.payment.PaymentFragment;
 import com.rdev.tryp.trip.TripFragment;
 import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
@@ -100,6 +102,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     boolean isLocationFound = false;
+    public Bundle b = null;
 
     private static final String TAG = "tag";
     private GoogleMap mMap;
@@ -498,6 +501,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private static final String EXTRA_CONTENT = "content_key";
+    public static final String IS_EDIT_CARD = "is_edit_card";
 
     public static final int TYPE_RECAP = 0;
     public static final int TYPE_LEGAL = 1;
@@ -519,6 +523,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_MAP = 17;
     public static final int TYPE_FAVORITE = 18;
     public static final int TYPE_REWARD_POINTS = 19;
+    public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
 
 
     private DrawerLayout mDrawerLayout;
@@ -595,6 +600,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     case R.id.nav_favorite:
                         startFragment(TYPE_FAVORITE);
                         break;
+                    case R.id.nav_payment:
+                        startFragment(TYPE_PAYMENT);
+                        break;
 //                            case R.id.nav_about_us:
 //                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_ABOUT_US);
@@ -663,7 +671,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             case TYPE_TRIP_HISTORY:
                 return new ProfileFragment(null, null);
             case TYPE_PAYMENT:
-                Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show();
+                return new PaymentFragment();
             default:
                 throw new IllegalStateException("Unknown screen type");
         }
@@ -792,6 +800,28 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             .commit();
                 }
                 break;
+            case TYPE_PAYMENT_NEW_ENTRY:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        AddCardFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(AddCardFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new AddCardFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(AddCardFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_PAYMENT:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        PaymentFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(PaymentFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new PaymentFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(PaymentFragment.class.getName())
+                            .commit();
+                }
+                break;
 //            case TYPE_TRIP_HISTORY:
 //                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
 //                        ProfileFragment.class.getName())) {
@@ -831,6 +861,15 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             finish();
         }else{
             super.onBackPressed();
+        }
+    }
+
+    public void clearMap() {
+        mMap.clear();
+        try {
+            updateCurrentLocation(pickUpLocation);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
