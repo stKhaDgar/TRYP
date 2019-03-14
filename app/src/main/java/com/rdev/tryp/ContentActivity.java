@@ -64,6 +64,7 @@ import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
+import com.rdev.tryp.payment.PaymentFragment;
 import com.rdev.tryp.trip.TripFragment;
 import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
@@ -566,17 +567,16 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
 
-//                            case R.id.nav_payment:
-//                                //Toast.makeText(getApplicationContext(), "Payment", Toast.LENGTH_SHORT).show();
-//                                startFragment(TYPE_PAYMENT);
-//                                break;
+                    case R.id.nav_payment:
+                        startFragment(TYPE_PAYMENT);
+                        break;
 //                            case R.id.nav_notification:
 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_NOTIFICATION);
 //                                break;
-                            case R.id.nav_rewards:
-                                startFragment(TYPE_REWARDS);
-                                break;
+                    case R.id.nav_rewards:
+                        startFragment(TYPE_REWARDS);
+                        break;
 //                            case R.id.nav_emergency_contact:
 //                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_EMERGENCY_CONTACT);
@@ -599,10 +599,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_ABOUT_US);
 //                                break;
-                            case R.id.nav_logout:
-                                Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-                                signOut();
-                                break;
+                    case R.id.nav_logout:
+                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+                        signOut();
+                        break;
                     default:
                 }
                 return true;
@@ -663,7 +663,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             case TYPE_TRIP_HISTORY:
                 return new ProfileFragment(null, null);
             case TYPE_PAYMENT:
-                Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show();
+                return new PaymentFragment();
             default:
                 throw new IllegalStateException("Unknown screen type");
         }
@@ -803,6 +803,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                            .commit();
 //                }
 //                break;
+            case TYPE_PAYMENT:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        PaymentFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(PaymentFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new PaymentFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(PaymentFragment.class.getName())
+                            .commit();
+                }
+                break;
             default:
                 throw new IllegalStateException("Unknown screen type");
         }

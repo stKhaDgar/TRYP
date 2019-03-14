@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:background="@color/white"
+	android:layout_height="match_parent">
+
+
+
+
+
+	<ImageButton
+		android:id="@+id/back_btn"
+		android:layout_width="@dimen/map_navigation_btn_size"
+		android:layout_height="@dimen/map_navigation_btn_size"
+		android:layout_marginStart="32dp"
+		android:layout_marginBottom="32dp"
+		android:background="@drawable/circle_button"
+		android:clickable="true"
+		android:elevation="5dp"
+		android:focusable="true"
+		android:layout_alignParentBottom="true"
+		android:src="@drawable/ic_keyboard_backspace_black_24dp"
+		android:contentDescription="@string/content_description" />
+
+</RelativeLayout>
