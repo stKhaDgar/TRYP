@@ -64,6 +64,7 @@ import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
+import com.rdev.tryp.payment.AddCardFragment;
 import com.rdev.tryp.payment.PaymentFragment;
 import com.rdev.tryp.trip.TripFragment;
 import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
@@ -520,6 +521,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_MAP = 17;
     public static final int TYPE_FAVORITE = 18;
     public static final int TYPE_REWARD_POINTS = 19;
+    public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
 
 
     private DrawerLayout mDrawerLayout;
@@ -811,6 +813,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new PaymentFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(PaymentFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_PAYMENT_NEW_ENTRY:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        AddCardFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(AddCardFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new AddCardFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(AddCardFragment.class.getName())
                             .commit();
                 }
                 break;

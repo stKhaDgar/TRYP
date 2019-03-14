@@ -27,6 +27,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun onClickListener(view: View){
-        view.back_btn.setOnClickListener { (activity as ContentActivity).goHome() }
+        view.back_btn.setOnClickListener { (activity as? ContentActivity)?.goHome() }
+        view.btnAddNewCard.setOnClickListener { (activity as? ContentActivity)?.startFragment(ContentActivity.TYPE_PAYMENT_NEW_ENTRY) }
     }
 }
