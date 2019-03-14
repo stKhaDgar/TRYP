@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
+
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -20,7 +22,7 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
 
     private View v;
     private ImageButton locationBtn;
-    private ImageView smallImage;
+    private ImageView smallImage, shareBtn;
     private RelativeLayout nextBtn;
 
     @Nullable
@@ -37,9 +39,11 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
         smallImage = v.findViewById(R.id.small_image);
         locationBtn = v.findViewById(R.id.location_btn);
         nextBtn = v.findViewById(R.id.next_layout_btn);
+        shareBtn = v.findViewById(R.id.share_btn);
 
         locationBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
+        shareBtn.setOnClickListener(this);
 
         setSmallImage();
     }
@@ -61,6 +65,13 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
                 break;
             case R.id.next_layout_btn:
                 ((ContentActivity) getActivity()).showDirectionPicker(null);
+                break;
+            case R.id.share_btn:
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.screenContainer, new InviteFriendsFragment())
+                        .addToBackStack("share")
+                        .commit();
+                break;
         }
     }
 }
