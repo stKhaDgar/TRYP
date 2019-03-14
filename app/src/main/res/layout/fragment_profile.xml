@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="55dp"
-                            android:layout_marginEnd="30dp"
+                            android:layout_marginEnd="15dp"
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatEditText
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="55dp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="15dp"
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatEditText
@@ -214,16 +214,6 @@
                             android:textColor="@color/black" />
 
                     </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/pickLocationBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
-
                 </RelativeLayout>
 
             </RelativeLayout>
