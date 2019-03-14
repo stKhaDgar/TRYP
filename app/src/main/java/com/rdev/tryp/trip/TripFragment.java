@@ -197,6 +197,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                 getFavouriteDrivers();
                 break;
             case R.id.back_btn:
+                ((ContentActivity) getActivity()).clearMap();
                 getActivity().onBackPressed();
         }
     }

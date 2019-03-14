@@ -22,13 +22,21 @@ import static com.rdev.tryp.utils.Utils.KEY_WORK;
 
 public class AddressNetworkService {
 
+    private static ApiService apiService;
+    public static ApiService getApiService(){
+        if(apiService == null){
+            apiService = ApiClient.getInstance().create(ApiService.class);
+        }
+        return apiService;
+    }
+
+
     public static void saveAddresses(TripPlace newHome, TripPlace newWork){
         setHomeAddress(newHome);
         setWorkAddress(newWork);
     }
 
     public static void setHomeAddress(TripPlace newAddress) {
-        ApiService apiService = ApiClient.getInstance().create(ApiService.class);
         FavoriteAddressModel model = new FavoriteAddressModel();
         TripPlace lastHome = PreferenceManager.getTripPlace(KEY_HOME);
 
@@ -43,7 +51,7 @@ public class AddressNetworkService {
             model.setType(Utils.HOME_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            apiService.remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -59,14 +67,17 @@ public class AddressNetworkService {
             });
         }
 
-        if (lastHome == null || !newAddress.getLocale().equals(lastHome.getLocale())) {
+        if ((lastHome == null) || (lastHome != null && newAddress.getLocale().equals(lastHome.getLocale()))) {
+            if(newAddress.getLocale() == null){
+                return;
+            }
             model.setAddress(newAddress.getLocale());
             model.setLat(String.valueOf(newAddress.getCoord().latitude));
             model.setLng(String.valueOf(newAddress.getCoord().longitude));
             model.setType(Utils.HOME_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            apiService.add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -86,7 +97,6 @@ public class AddressNetworkService {
     }
 
     public static void setWorkAddress(TripPlace newAddress) {
-        ApiService apiService = ApiClient.getInstance().create(ApiService.class);
         FavoriteAddressModel model = new FavoriteAddressModel();
         TripPlace lastWork = PreferenceManager.getTripPlace(KEY_WORK);
 
@@ -101,7 +111,7 @@ public class AddressNetworkService {
             model.setType(Utils.WORK_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            apiService.remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -117,18 +127,21 @@ public class AddressNetworkService {
             });
         }
 
-        if(newAddress == null || lastWork == null){
+        if(newAddress == null){
             return;
         }
 
-        if (lastWork == null || !newAddress.getLocale().equals(lastWork.getLocale())) {
+        if ((lastWork == null) || (lastWork != null && newAddress.getLocale().equals(lastWork.getLocale()))) {
+            if(newAddress.getLocale() == null){
+                return;
+            }
             model.setAddress(newAddress.getLocale());
             model.setLat(String.valueOf(newAddress.getCoord().latitude));
             model.setLng(String.valueOf(newAddress.getCoord().longitude));
             model.setType(Utils.WORK_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            apiService.add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -152,8 +165,7 @@ public class AddressNetworkService {
     }
 
     public static void setUpWorkAddress(){
-        ApiService apiService = ApiClient.getInstance().create(ApiService.class);
-        apiService.get_favourite_address("18512", Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+        getApiService().get_favourite_address("18512", Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
             @Override
             public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
                 if(response.body().getData().getFavoriteAddresses() == null){
@@ -178,8 +190,7 @@ public class AddressNetworkService {
     }
 
     public static void setUpHomeAddress(){
-        ApiService apiService = ApiClient.getInstance().create(ApiService.class);
-        apiService.get_favourite_address("18512", Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+        getApiService().get_favourite_address("18512", Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
             @Override
             public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
                 if(response.body().getData().getFavoriteAddresses() == null){
