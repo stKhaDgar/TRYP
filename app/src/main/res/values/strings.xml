@@ -193,5 +193,6 @@
 	<string name="you_have_not_added_any_cards_yet_text">You have not added any cards yet.</string>
 	<string name="payments">Payments</string>
 	<string name="new_card_text">New Card</string>
+	<string name="edit_card_text">Edit Card</string>
 
 </resources>

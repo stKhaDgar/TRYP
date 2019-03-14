@@ -102,6 +102,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     boolean isLocationFound = false;
+    public Bundle b = null;
 
     private static final String TAG = "tag";
     private GoogleMap mMap;
@@ -500,6 +501,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private static final String EXTRA_CONTENT = "content_key";
+    public static final String IS_EDIT_CARD = "is_edit_card";
 
     public static final int TYPE_RECAP = 0;
     public static final int TYPE_LEGAL = 1;
@@ -522,6 +524,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_FAVORITE = 18;
     public static final int TYPE_REWARD_POINTS = 19;
     public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
+
 
 
     private DrawerLayout mDrawerLayout;
@@ -679,7 +682,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 .commit();
         fragment.setDrivers(drivers, currentPos);
     }
-
 
     public void startFragment(int type) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
