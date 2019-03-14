@@ -59,24 +59,25 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.rdev.tryp.autocomplete.AdressListFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
-import com.rdev.tryp.blocks.forme.ProfileFragment;
-import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
-import com.rdev.tryp.blocks.screens.help.HelpFragment;
-import com.rdev.tryp.blocks.screens.invite2.Invite2Fragment;
-import com.rdev.tryp.blocks.screens.invite3.Invite3Fragment;
-import com.rdev.tryp.blocks.screens.legal.LegalFragment;
-import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
-import com.rdev.tryp.blocks.screens.recap.RecapFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.trip.TripFragment;
 import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
+import com.rdev.tryp.blocks.forme.ProfileFragment;
+import com.rdev.tryp.blocks.screens.help.HelpFragment;
+import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
+import com.rdev.tryp.blocks.screens.invite2.Invite2Fragment;
+import com.rdev.tryp.blocks.screens.invite3.Invite3Fragment;
+import com.rdev.tryp.blocks.screens.legal.LegalFragment;
+import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
+import com.rdev.tryp.blocks.screens.recap.RecapFragment;
 import com.rdev.tryp.utils.CurrentLocation;
 import com.rdev.tryp.utils.Utils;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -412,60 +413,55 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 .replace(R.id.container, new TripFragment(pickUpLocation, destination.getCoord()))
                 .addToBackStack("dest_pick")
                 .commit();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
-                        .from(pickUpLocation)
-                        .to(destination.getCoord())
-                        .transportMode(TransportMode.DRIVING)
-                        .execute(new DirectionCallback() {
-                            @Override
-                            public void onDirectionSuccess(Direction direction, String rawBody) {
-                                if (direction.isOK()) {
-                                    for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
-                                        Leg leg = direction.getRouteList().get(0).getLegList().get(i);
-                                        ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-                                        PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
-                                        route = mMap.addPolyline(polylineOptions);
-                                    }
-                                    Display display = getWindowManager().getDefaultDisplay();
-                                    Point size = new Point();
-                                    display.getSize(size);
-                                    int padding = 200;
-                                    int width = size.x;
-                                    int height = size.y;
 
-                                    /**create for loop/manual to add LatLng's to the LatLngBounds.Builder*/
-                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                                    builder.include(destination.getCoord());
-                                    builder.include(pickUpLocation);
-
-                                    /**initialize the padding for map boundary*/
-                                    /**create the bounds from latlngBuilder to set into map camera*/
-                                    LatLngBounds bounds = builder.build();
-                                    /**create the camera with bounds and padding to set into map*/
-                                    final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height / 2, padding);
-                                    mMap.animateCamera(cu);
-
-                                    tripFrom = startPlace;
-                                    tripTo = destination;
-
-
-                                } else {
-                                    // Do something
-                                }
+        GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
+                .from(pickUpLocation)
+                .to(destination.getCoord())
+                .transportMode(TransportMode.DRIVING)
+                .execute(new DirectionCallback() {
+                    @Override
+                    public void onDirectionSuccess(Direction direction, String rawBody) {
+                        if (direction.isOK()) {
+                            for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
+                                Leg leg = direction.getRouteList().get(0).getLegList().get(i);
+                                ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
+                                route = mMap.addPolyline(polylineOptions);
                             }
+                            Display display = getWindowManager().getDefaultDisplay();
+                            Point size = new Point();
+                            display.getSize(size);
+                            int padding = 200;
+                            int width = size.x;
+                            int height = size.y;
 
-                            @Override
-                            public void onDirectionFailure(Throwable t) {
-                                // Do something
-                            }
-                        });
-            }
-        });
+                            /**create for loop/manual to add LatLng's to the LatLngBounds.Builder*/
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            builder.include(destination.getCoord());
+                            builder.include(pickUpLocation);
 
-        thread.run();
+                            /**initialize the padding for map boundary*/
+                            /**create the bounds from latlngBuilder to set into map camera*/
+                            LatLngBounds bounds = builder.build();
+                            /**create the camera with bounds and padding to set into map*/
+                            final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height / 2, padding);
+                            mMap.animateCamera(cu);
+
+                            tripFrom = startPlace;
+                            tripTo = destination;
+
+
+                        } else {
+                            // Do something
+                        }
+                    }
+
+                    @Override
+                    public void onDirectionFailure(Throwable t) {
+                        // Do something
+                    }
+                });
+
     }
 
     public void openCarsFragments(List<?> drivers, int currentPos) {
@@ -578,9 +574,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_NOTIFICATION);
 //                                break;
-                    case R.id.nav_rewards:
-                        startFragment(TYPE_REWARDS);
-                        break;
+                            case R.id.nav_rewards:
+                                startFragment(TYPE_REWARDS);
+                                break;
 //                            case R.id.nav_emergency_contact:
 //                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_EMERGENCY_CONTACT);
@@ -603,10 +599,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_ABOUT_US);
 //                                break;
-                    case R.id.nav_logout:
-                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-                        signOut();
-                        break;
+                            case R.id.nav_logout:
+                                Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+                                signOut();
+                                break;
                     default:
                 }
                 return true;
@@ -629,7 +625,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void openMap() {
+    private void openMap(){
         int count = getSupportFragmentManager().getBackStackEntryCount();
         while (count != 1) {
             onBackPressed();
@@ -637,7 +633,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void goHome() {
+    public void goHome(){
         navigationView.getMenu().getItem(0).setChecked(true);
         openMap();
     }
@@ -673,7 +669,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void openDetailHost(List<?> drivers, int currentPos) {
+   public void openDetailHost(List<?> drivers, int currentPos) {
         DetailHostFragment fragment = new DetailHostFragment();
         fm.beginTransaction()
                 .replace(R.id.container, fragment)
@@ -815,14 +811,14 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch(v.getId()){
             case R.id.menu_icon:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
+            mDrawerLayout.openDrawer(GravityCompat.START);
+            break;
         }
     }
 
-    private void signOut() {
+    private void signOut(){
         AccountManager.getInstance().signOut();
         Intent intent = new Intent(ContentActivity.this, IntroActivity.class);
         startActivity(intent);
@@ -831,19 +827,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
+        if(getSupportFragmentManager().getBackStackEntryCount() <= 1){
             finish();
-        } else {
+        }else{
             super.onBackPressed();
-        }
-    }
-
-    public void clearMap(){
-        mMap.clear();
-        try {
-            updateCurrentLocation(pickUpLocation);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

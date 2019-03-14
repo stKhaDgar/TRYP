@@ -20,10 +20,10 @@
             <!--android:id="@+id/nav_trip_history"-->
             <!--android:icon="@drawable/ic_trip_history"-->
             <!--android:title="@string/trip_history" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_payment"-->
-            <!--android:icon="@drawable/ic_payment"-->
-            <!--android:title="@string/payment" />-->
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_payment"
+            android:title="@string/payment" />
         <!--<item-->
             <!--android:id="@+id/nav_notification"-->
             <!--android:icon="@drawable/ic_notification"-->
