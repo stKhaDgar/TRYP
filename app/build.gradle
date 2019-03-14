@@ -71,6 +71,10 @@ dependencies {
     // CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Payments
+    implementation 'com.braintreepayments:card-form:4.1.0'
+    api 'io.card:android-sdk:[5.5.0,6.0.0)'
 }
 repositories {
     mavenCentral()
