@@ -69,7 +69,7 @@ import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
 import com.rdev.tryp.blocks.forme.ProfileFragment;
 import com.rdev.tryp.blocks.screens.help.HelpFragment;
-import com.rdev.tryp.blocks.screens.invite1.Invite1Fragment;
+import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
 import com.rdev.tryp.blocks.screens.invite2.Invite2Fragment;
 import com.rdev.tryp.blocks.screens.invite3.Invite3Fragment;
 import com.rdev.tryp.blocks.screens.legal.LegalFragment;
@@ -651,7 +651,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             case TYPE_LEGAL:
                 return new LegalFragment();
             case TYPE_INVITE1:
-                return new Invite1Fragment();
+                return new InviteFriendsFragment();
             case TYPE_INVITE2:
                 return new Invite2Fragment();
             case TYPE_INVITE3:
@@ -706,12 +706,12 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case TYPE_INVITE1:
                 if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
-                        Invite1Fragment.class.getName())) {
-                    getSupportFragmentManager().popBackStackImmediate(Invite1Fragment.class.getName(), 0);
+                        InviteFriendsFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(InviteFriendsFragment.class.getName(), 0);
                 } else {
-                    Fragment fragment = new Invite1Fragment();
+                    Fragment fragment = new InviteFriendsFragment();
                     transaction.replace(R.id.screenContainer, fragment)
-                            .addToBackStack(Invite1Fragment.class.getName())
+                            .addToBackStack(InviteFriendsFragment.class.getName())
                             .commit();
                 }
                 break;
@@ -811,8 +811,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.menu_icon) {
+        switch(v.getId()){
+            case R.id.menu_icon:
             mDrawerLayout.openDrawer(GravityCompat.START);
+            break;
         }
     }
 
