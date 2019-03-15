@@ -342,10 +342,26 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                 editor.editAddresses(getActivity(), this);
                 break;
             case R.id.route_btn:
-                closeKeyboard(getContext());
-                onDestination(startPos, destination);
-                saveRouteInRecent(startPos, destination);
+                setupTrip();
         }
+    }
+
+    public void setupTrip(){
+        if(isTripPlaceNotEmpty(startPos) && isTripPlaceNotEmpty(destination)) {
+            onDestination(startPos, destination);
+            saveRouteInRecent(startPos, destination);
+        }
+        closeKeyboard(getContext());
+    }
+
+    private boolean isTripPlaceNotEmpty(TripPlace tripPlace){
+        if(tripPlace.getLocale() == null){
+            return false;
+        }
+        if(tripPlace.getCoord() == null){
+            return false;
+        }
+        return true;
     }
 
     private void setTripPlace(TripPlace tripPlace) {
@@ -410,19 +426,15 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     }
 
     private void getRecentFirst() {
-        TripPlace from, to;
-        from = PreferenceManager.getTripPlace(KEY_RECENT_FROM_1);
-        to = PreferenceManager.getTripPlace(KEY_RECENT_TO_1);
-
-        onDestination(from, to);
+        startPos = PreferenceManager.getTripPlace(KEY_RECENT_FROM_1);
+        destination = PreferenceManager.getTripPlace(KEY_RECENT_TO_1);
+        setupTrip();
     }
 
     private void getRecentSecond() {
-        TripPlace from, to;
-        from = PreferenceManager.getTripPlace(KEY_RECENT_FROM_2);
-        to = PreferenceManager.getTripPlace(KEY_RECENT_TO_2);
-
-        onDestination(from, to);
+        startPos = PreferenceManager.getTripPlace(KEY_RECENT_FROM_2);
+        destination = PreferenceManager.getTripPlace(KEY_RECENT_TO_2);
+        setupTrip();
     }
 
     @Override

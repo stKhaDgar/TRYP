@@ -3,6 +3,7 @@ package com.rdev.tryp.blocks.forme.edit_addresses;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.model.favorite_address.Address;
 import com.rdev.tryp.model.favorite_address.FavoriteAddress;
@@ -41,7 +42,7 @@ public class AddressNetworkService {
             model.setLat(String.valueOf(lastHome.getCoord().latitude));
             model.setLng(String.valueOf(lastHome.getCoord().longitude));
             model.setType(Utils.HOME_ADDRESS);
-            model.setUserId(18512);//TODO: set by real
+            model.setUserId(AccountManager.getInstance().getUserId());
 
             NetworkService.getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
@@ -67,7 +68,7 @@ public class AddressNetworkService {
             model.setLat(String.valueOf(newAddress.getCoord().latitude));
             model.setLng(String.valueOf(newAddress.getCoord().longitude));
             model.setType(Utils.HOME_ADDRESS);
-            model.setUserId(18512);//TODO: set by real
+            model.setUserId(AccountManager.getInstance().getUserId());
 
             NetworkService.getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
@@ -101,7 +102,7 @@ public class AddressNetworkService {
             model.setLat(String.valueOf(lastWork.getCoord().latitude));
             model.setLng(String.valueOf(lastWork.getCoord().longitude));
             model.setType(Utils.WORK_ADDRESS);
-            model.setUserId(18512);//TODO: set by real
+            model.setUserId(AccountManager.getInstance().getUserId());//TODO: set by real
 
             NetworkService.getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
@@ -131,7 +132,7 @@ public class AddressNetworkService {
             model.setLat(String.valueOf(newAddress.getCoord().latitude));
             model.setLng(String.valueOf(newAddress.getCoord().longitude));
             model.setType(Utils.WORK_ADDRESS);
-            model.setUserId(18512);//TODO: set by real
+            model.setUserId(AccountManager.getInstance().getUserId());
 
             NetworkService.getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
@@ -157,7 +158,7 @@ public class AddressNetworkService {
     }
 
     public static void setUpWorkAddress(){
-        NetworkService.getApiService().get_favourite_address("18512", Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+        NetworkService.getApiService().get_favourite_address(AccountManager.getInstance().getUserId(), Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
             @Override
             public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
                 if(response.body().getData().getFavoriteAddresses() == null){
@@ -182,7 +183,7 @@ public class AddressNetworkService {
     }
 
     public static void setUpHomeAddress(){
-        NetworkService.getApiService().get_favourite_address("18512", Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+        NetworkService.getApiService().get_favourite_address(AccountManager.getInstance().getUserId(), Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
             @Override
             public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
                 if(response.body().getData().getFavoriteAddresses() == null){

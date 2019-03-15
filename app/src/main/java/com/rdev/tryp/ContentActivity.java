@@ -867,6 +867,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
             finish();
         } else {
+            if(getSupportFragmentManager().getBackStackEntryCount() == 2){
+                clearMap();
+            }
             super.onBackPressed();
         }
     }

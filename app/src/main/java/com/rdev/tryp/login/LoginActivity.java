@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     AddressNetworkService.initFavoriteAddresses();
 
-                    AccountManager.getInstance().signIn(loginModel.getPhone_number());
+                    AccountManager.getInstance().signIn(20); //TODO replace id by real
                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
                     intent.putExtra("tag", "f");
                     startActivity(intent);

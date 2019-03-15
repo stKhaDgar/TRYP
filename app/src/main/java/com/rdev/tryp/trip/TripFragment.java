@@ -260,7 +260,8 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     }
 
     private static void updateStatus(Context context, final String requestId) {
-        NetworkService.getApiService().ride_request_status(requestId).enqueue(new Callback<StatusResponse>() {
+        NetworkService.getApiService().ride_request_status(AccountManager.getInstance().getUserId(), requestId)
+                .enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if (response.body().getData().getRide().getVoucherNo() != null) {

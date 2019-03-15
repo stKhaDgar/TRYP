@@ -42,10 +42,10 @@ public interface ApiService {
     Call<RideResponse> ride_request(@Body RequestRideBody body);
 
     @GET("api/v1/ride_request_status")
-    Call<StatusResponse> ride_request_status(@Query("ride_request_id") String id);
+    Call<StatusResponse> ride_request_status(@Query("user_id") int user_id, @Query("ride_request_id") String id);
 
     @GET("api/v1/get_favorite_address")
-    Call<FavoriteAddress> get_favourite_address(@Query("user_id") String user_id, @Query("type") String type);
+    Call<FavoriteAddress> get_favourite_address(@Query("user_id") int user_id, @Query("type") String type);
 
     @POST("api/v1/add_favorite_address")
     Call<FavoriteAddressResponse> add_favorite_address(@Body FavoriteAddressModel model);

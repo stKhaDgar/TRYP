@@ -16,7 +16,7 @@ public class RequestRideBody {
     private String to_lat;
     private String driver_id;
     private String from_lng;
-    private String user_id;
+    private int user_id;
     private String from;
     private String to_lng;
     private String to;
@@ -35,7 +35,7 @@ public class RequestRideBody {
         this.to_lat = to_lat;
     }
 
-    public RequestRideBody(Address from, Address destination, boolean isAsap, DriversItem driver, String userId) {
+    public RequestRideBody(Address from, Address destination, boolean isAsap, DriversItem driver, int userId) {
         from_lng = formatLocation(from.getLongitude());
         from_lat = formatLocation(from.getLatitude());
         to_lng = formatLocation(destination.getLongitude());
@@ -73,11 +73,11 @@ public class RequestRideBody {
         return from_lng;
     }
 
-    public void setUser_id(String user_id){
+    public void setUser_id(int user_id){
         this.user_id = user_id;
     }
 
-    public String getUser_id(){
+    public int getUser_id(){
         return user_id;
     }
 
