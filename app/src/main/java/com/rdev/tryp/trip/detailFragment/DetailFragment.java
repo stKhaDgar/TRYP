@@ -79,7 +79,7 @@ public class DetailFragment extends Fragment  implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tryp_now_btn:
-                TripFragment.orderTrip(getContext(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
+                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
                 break;
             case R.id.all_content_relative_layout:
                 animation.start();

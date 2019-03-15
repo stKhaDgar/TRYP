@@ -531,6 +531,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_FAVORITE = 18;
     public static final int TYPE_REWARD_POINTS = 19;
     public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
+    public static final int TYPE_CONNECT = 21;
 
 
     private DrawerLayout mDrawerLayout;
@@ -643,7 +644,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     private void openMap() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
         while (count != 1) {
-            onBackPressed();
+            popBackStack();
             count--;
         }
     }
@@ -651,6 +652,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public void goHome() {
         navigationView.getMenu().getItem(0).setChecked(true);
         openMap();
+        clearMap();
     }
 
     @Override
@@ -679,6 +681,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 return new ProfileFragment(null, null);
             case TYPE_PAYMENT:
                 Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show();
+            case TYPE_CONNECT:
+                return new ConnectFragment();
             default:
                 throw new IllegalStateException("Unknown screen type");
         }
@@ -829,6 +833,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             .commit();
                 }
                 break;
+            case TYPE_CONNECT:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        ConnectFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(ConnectFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new ConnectFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(ConnectFragment.class.getName())
+                            .commit();
+                }
+                break;
 //            case TYPE_TRIP_HISTORY:
 //                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
 //                        ProfileFragment.class.getName())) {
@@ -881,5 +896,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showConnectFragment(){
+        openMap();
+        popBackStack();
+        startFragment(ContentActivity.TYPE_CONNECT);
     }
 }

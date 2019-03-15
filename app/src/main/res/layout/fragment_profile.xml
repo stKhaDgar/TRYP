@@ -122,7 +122,7 @@
                         android:layout_marginTop="15dp">
 
                         <ImageView
-                            android:id="@+id/imageView17"
+                            android:id="@+id/support_iv"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentStart="true"

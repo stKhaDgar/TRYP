@@ -64,7 +64,8 @@ public class TrypCarFragment extends Fragment {
         trypNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TripFragment.orderTrip(getContext(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
+
+                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
             }
         });
 

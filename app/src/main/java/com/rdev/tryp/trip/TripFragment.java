@@ -1,6 +1,7 @@
 package com.rdev.tryp.trip;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -203,8 +204,8 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static void orderTrip(Context context, DriversItem driversItem, TripPlace start, TripPlace end) {
-        Geocoder geocoder = new Geocoder(context);
+    public static void orderTrip(Activity activity, DriversItem driversItem, TripPlace start, TripPlace end) {
+        Geocoder geocoder = new Geocoder(activity);
         try {
             List<Address> fromAddress = geocoder.getFromLocation(start.getCoord().latitude, start.getCoord().longitude, 1);
             List<Address> toAddress = geocoder.getFromLocation(end.getCoord().latitude, end.getCoord().longitude, 1);
@@ -221,14 +222,14 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                 public void onResponse(Call<RideResponse> call, final Response<RideResponse> response) {
                     RideResponse body = response.body();
                     if (body == null || body.getData() == null) {
-                        showAlertDialod("Ride request Failed", "Error at trip order. Please try again", context);
+                        showAlertDialod("Ride request Failed", "Error at trip order. Please try again", activity);
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
-                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);
+                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                updateStatus(context, rideRequest.getRequestId());
+                                updateStatus(activity, rideRequest.getRequestId());
                             }
                         }, 3000);
                     }
@@ -241,7 +242,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             });
 
         } catch (Exception ex) {
-            showAlertDialod("Ride request failed", "Error at trip order", context);
+            showAlertDialod("Ride request failed", "Error at trip order", activity);
         }
 
 //        RequestRideBody body = new RequestRideBody(
@@ -259,19 +260,20 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private static void updateStatus(Context context, final String requestId) {
+    private static void updateStatus(Activity activity, final String requestId) {
         NetworkService.getApiService().ride_request_status(AccountManager.getInstance().getUserId(), requestId)
                 .enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if (response.body().getData().getRide().getVoucherNo() != null) {
                     showAlertDialod("Booking successful", "Your booking has been confirmed.\n" +
-                            "Driver will pickup you in 5 minutes.", context);
+                            "Driver will pickup you in 5 minutes.", activity);
+                    ((ContentActivity)activity).showConnectFragment();
                 } else {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            updateStatus(context, requestId);
+                            updateStatus(activity, requestId);
                         }
                     }, 3000);
                 }
@@ -282,6 +284,10 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                 Log.d("tag", "error");
             }
         });
+
+    }
+
+    private void openConnectFragment(){
 
     }
 
