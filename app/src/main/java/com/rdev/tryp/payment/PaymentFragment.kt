@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rdev.tryp.ContentActivity
-
 import com.rdev.tryp.R
 import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.payment.model.Card
