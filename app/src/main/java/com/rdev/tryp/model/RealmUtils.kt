@@ -52,4 +52,17 @@ class RealmUtils(private val callback: RealmCallback?){
 
         return array
     }
+
+    fun deleteCard(id: String?){
+        realm.executeTransactionAsync({ bgRealm ->
+            val temps = bgRealm.where(Card::class.java).equalTo("id", id).findAll()
+            temps.deleteAllFromRealm()
+        }, {
+            Log.e(TAG, "Card was deleted")
+            callback?.dataUpdated()
+        }, { error ->
+            error.printStackTrace()
+            callback?.error()
+        })
+    }
 }

@@ -35,6 +35,8 @@ class AddCardFragment : Fragment() {
             (item as? Card).let { card ->
                 editCard = card
                 view.title.text = getString(R.string.edit_card_text)
+                view.btnAddNewCard.text = getString(R.string.change_card_text)
+                view.btnDeleteCard.visibility = View.VISIBLE
                 view.cardForm.cardEditText.setText(card?.number)
                 view.cardForm.cvvEditText.setText(card?.cvv)
                 val date = "${card?.expirationMonth}${card?.expirationYear}"
@@ -88,11 +90,22 @@ class AddCardFragment : Fragment() {
                 }).pushCard(card)
             }
         }
+        view.btnDeleteCard.setOnClickListener {
+            RealmUtils(object : RealmCallback{
+                override fun dataUpdated() {
+                    (activity as? ContentActivity)?.startFragment(ContentActivity.TYPE_PAYMENT)
+                }
+
+                override fun error() {
+                    Toast.makeText(view.context, "Something wrong", Toast.LENGTH_LONG).show()
+                }
+
+            }).deleteCard(editCard?.id)
+        }
     }
 
     override fun onPause() {
         super.onPause()
-
         (activity as ContentActivity).b = null
     }
 }

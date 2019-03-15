@@ -194,5 +194,7 @@
 	<string name="payments">Payments</string>
 	<string name="new_card_text">New Card</string>
 	<string name="edit_card_text">Edit Card</string>
+	<string name="change_card_text">Change card</string>
+	<string name="delete_text">Delete</string>
 
 </resources>
