@@ -6,17 +6,17 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -44,7 +44,6 @@ import java.util.List;
 import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import afu.org.checkerframework.checker.nullness.qual.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,7 +59,7 @@ import static com.rdev.tryp.utils.Utils.closeKeyboard;
 import static com.rdev.tryp.utils.Utils.showKeyboard;
 
 @SuppressLint("ValidFragment")
-public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onPlacePicked, View.OnClickListener, Editor.IView{
+public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onPlacePicked, View.OnClickListener, Editor.IView {
 
     private Geocoder geocoder;
     private PlacesClient placesClient;
@@ -132,33 +131,39 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         adressTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                resetAddressView(adressTv2);
                 adapter.setData(new ArrayList<>());
                 mainEditText = adressTv;
-                resetAddressView();
+                setCursotEnd(adressTv);
             }
         });
 
         adressTv2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                resetAddressView(adressTv);
                 adapter.setData(new ArrayList<>());
                 mainEditText = adressTv2;
-                resetAddressView();
+                setCursotEnd(adressTv2);
             }
         });
     }
 
-    public void resetAddressView(){
-        if(startPos != null){
-            adressTv.setText(startPos.getLocale());
-        }else{
-            adressTv.setText("");
+    public void resetAddressView(TextView textView) {
+        if (textView.equals(adressTv)) {
+            if (startPos != null) {
+                adressTv.setText(startPos.getLocale());
+            } else {
+                adressTv.setText("");
+            }
         }
 
-        if(destination != null){
-            adressTv2.setText(destination.getLocale());
-        }else{
-            adressTv2.setText("");
+        if (textView.equals(adressTv2)) {
+            if (destination != null) {
+                adressTv2.setText(destination.getLocale());
+            } else {
+                adressTv2.setText("");
+            }
         }
     }
 
@@ -355,27 +360,28 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
         if (mainEditText.equals(adressTv2)) {
             destination = tripPlace;
+            resetAddressView(adressTv2);
         }
         if (mainEditText.equals(adressTv)) {
             startPos = tripPlace;
+            resetAddressView(adressTv);
         }
 
-        resetAddressView();
+        setCursotEnd(mainEditText);
     }
 
     @Override
     public void onPlace(AutocompletePrediction prediction) {
         mainEditText.setText(prediction.getPrimaryText(null));
+        setCursotEnd(mainEditText);
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
         placesClient.fetchPlace(request).addOnCompleteListener(new OnCompleteListener<FetchPlaceResponse>() {
             @Override
             public void onComplete(@androidx.annotation.NonNull Task<FetchPlaceResponse> task) {
                 if (mainEditText.equals(adressTv2)) {
-
                     destination.setCoord(task.getResult().getPlace().getLatLng());
                     destination.setLocale(prediction.getFullText(null).toString());
-
                 }
                 if (mainEditText.equals(adressTv)) {
                     startPos.setCoord(task.getResult().getPlace().getLatLng());
@@ -422,5 +428,11 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     @Override
     public void showAddresses() {
         showFavoriteAddresses();
+    }
+
+    private void setCursotEnd(EditText editText){
+        int position = editText.length();
+        Editable etext = editText.getText();
+        Selection.setSelection(etext, position);
     }
 }
