@@ -38,8 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/imageView14"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/driver_iv"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:layout_marginStart="16dp"
@@ -56,11 +56,11 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/circle_button"
                         android:tint="@color/trip_is_active_color"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView14"
-                        app:layout_constraintTop_toTopOf="@+id/imageView14" />
+                        app:layout_constraintEnd_toEndOf="@+id/driver_iv"
+                        app:layout_constraintTop_toTopOf="@+id/driver_iv" />
 
                     <TextView
-                        android:id="@+id/textView24"
+                        android:id="@+id/driver_name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -68,21 +68,21 @@
                         android:textColor="#000000"
                         android:textSize="13sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/textView25"
-                        app:layout_constraintStart_toEndOf="@+id/imageView14"
+                        app:layout_constraintBottom_toTopOf="@+id/car_num_tv"
+                        app:layout_constraintStart_toEndOf="@+id/driver_iv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
-                        android:id="@+id/textView25"
+                        android:id="@+id/car_num_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Innova     TN 05 E7643"
                         android:textColor="#828282"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView26"
-                        app:layout_constraintStart_toStartOf="@+id/textView24"
-                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                        app:layout_constraintStart_toStartOf="@+id/driver_name_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/driver_name_tv" />
 
                     <TextView
                         android:id="@+id/textView26"
@@ -92,8 +92,8 @@
                         android:textColor="#4CC966"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView25"
-                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                        app:layout_constraintStart_toStartOf="@+id/car_num_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/car_num_tv" />
 
                     <TextView
                         android:id="@+id/textView27"

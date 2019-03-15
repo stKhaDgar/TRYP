@@ -1,5 +1,6 @@
 package com.rdev.tryp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +9,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.rdev.tryp.model.DriversItem;
+import com.rdev.tryp.model.TripPlace;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressLint("ValidFragment")
 public class ConnectFragment extends Fragment implements View.OnClickListener {
 
     private View root;
     private ImageView backBtn, cancelButton, supportIv, shareRideIv;
-    private TextView supportTv, shareRideTv;
+    private TextView supportTv, shareRideTv, driverName, carNum;
     private CardView contactCv;
+    private DriversItem driver;
+    private CircleImageView driverIv;
+
+    @SuppressLint("ValidFragment")
+    public ConnectFragment(DriversItem driver) {
+        this.driver = driver;
+    }
 
     @Nullable
     @Override
@@ -38,6 +52,9 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         supportIv = root.findViewById(R.id.support_iv);
         supportTv = root.findViewById(R.id.support_tv);
         contactCv = root.findViewById(R.id.contact_cv);
+        driverName = root.findViewById(R.id.driver_name_tv);
+        carNum = root.findViewById(R.id.car_num_tv);
+        driverIv = root.findViewById(R.id.driver_iv);
 
         backBtn.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
@@ -46,6 +63,10 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         supportTv.setOnClickListener(this);
         supportIv.setOnClickListener(this);
         contactCv.setOnClickListener(this);
+
+        carNum.setText(driver.getVehicle().getPlateNumber());
+        driverName.setText(driver.getDriver().getFirstName() + driver.getDriver().getLastName());
+        Glide.with(getContext()).load(driver.getDriver().getImage()).into(driverIv);
     }
 
     @Override

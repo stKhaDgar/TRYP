@@ -65,6 +65,7 @@ import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
+import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.payment.AddCardFragment;
 import com.rdev.tryp.payment.PaymentFragment;
@@ -123,6 +124,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     //route
     public static TripPlace tripFrom;
     public static TripPlace tripTo;
+    public static DriversItem driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +169,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 fragment = new SetLocationFragment();
                 break;
             case "connect":
-                fragment = new ConnectFragment();
+                fragment = new ConnectFragment(driver);
                 break;
             default:
                 fragment = new MapNextTrip();
@@ -681,8 +683,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 return new ProfileFragment(null, null);
             case TYPE_PAYMENT:
                 Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show();
-            case TYPE_CONNECT:
-                return new ConnectFragment();
             default:
                 throw new IllegalStateException("Unknown screen type");
         }
@@ -838,7 +838,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                         ConnectFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(ConnectFragment.class.getName(), 0);
                 } else {
-                    Fragment fragment = new ConnectFragment();
+                    Fragment fragment = new ConnectFragment(driver);
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(ConnectFragment.class.getName())
                             .commit();

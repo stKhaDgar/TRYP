@@ -209,6 +209,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         try {
             List<Address> fromAddress = geocoder.getFromLocation(start.getCoord().latitude, start.getCoord().longitude, 1);
             List<Address> toAddress = geocoder.getFromLocation(end.getCoord().latitude, end.getCoord().longitude, 1);
+            ContentActivity.driver = driversItem;
 
             RequestRideBody requestRideBody = new RequestRideBody(
                     fromAddress.get(0),
