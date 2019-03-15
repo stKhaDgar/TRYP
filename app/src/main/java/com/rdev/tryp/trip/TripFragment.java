@@ -30,6 +30,7 @@ import com.rdev.tryp.model.ride_responce.RideResponse;
 import com.rdev.tryp.model.status_response.StatusResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
+import com.rdev.tryp.network.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,7 +204,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     }
 
     public static void orderTrip(Context context, DriversItem driversItem, TripPlace start, TripPlace end) {
-        ApiService service = ApiClient.getInstance().create(ApiService.class);
         Geocoder geocoder = new Geocoder(context);
         try {
             List<Address> fromAddress = geocoder.getFromLocation(start.getCoord().latitude, start.getCoord().longitude, 1);
@@ -216,14 +216,11 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     driversItem,
                     AccountManager.getInstance().getUserId());
 
-            service.ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
+            NetworkService.getApiService().ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
                 @Override
                 public void onResponse(Call<RideResponse> call, final Response<RideResponse> response) {
                     RideResponse body = response.body();
                     if (body == null || body.getData() == null) {
-//                        // for test
-//                        showAlertDialod("Ride request Successful", "Your ride request succesffully send", context);
-//                        //TODO : set to fail
                         showAlertDialod("Ride request Failed", "Error at trip order. Please try again", context);
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
@@ -231,7 +228,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                updateStatus(service, context, rideRequest.getRequestId());
+                                updateStatus(context, rideRequest.getRequestId());
                             }
                         }, 3000);
                     }
@@ -262,8 +259,8 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private static void updateStatus(ApiService service, Context context, final String requestId) {
-        service.ride_request_status(requestId).enqueue(new Callback<StatusResponse>() {
+    private static void updateStatus(Context context, final String requestId) {
+        NetworkService.getApiService().ride_request_status(requestId).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if (response.body().getData().getRide().getVoucherNo() != null) {
@@ -273,7 +270,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            updateStatus(service, context, requestId);
+                            updateStatus(context, requestId);
                         }
                     }, 3000);
                 }

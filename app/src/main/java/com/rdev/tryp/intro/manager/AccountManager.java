@@ -31,8 +31,7 @@ public class AccountManager {
     }
 
     public void signIn(String userId){
-        this.userId = "20";
-        //TODO: replace with real
+        this.userId = userId;
         PreferenceManager.setString(USER_ID_KEY, userId);
     }
 

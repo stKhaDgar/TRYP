@@ -10,6 +10,7 @@ import com.rdev.tryp.model.favorite_address.FavoriteAddressModel;
 import com.rdev.tryp.model.favorite_address.FavoriteAddressResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
+import com.rdev.tryp.network.NetworkService;
 import com.rdev.tryp.utils.PreferenceManager;
 import com.rdev.tryp.utils.Utils;
 
@@ -21,15 +22,6 @@ import static com.rdev.tryp.utils.Utils.KEY_HOME;
 import static com.rdev.tryp.utils.Utils.KEY_WORK;
 
 public class AddressNetworkService {
-
-    private static ApiService apiService;
-    public static ApiService getApiService(){
-        if(apiService == null){
-            apiService = ApiClient.getInstance().create(ApiService.class);
-        }
-        return apiService;
-    }
-
 
     public static void saveAddresses(TripPlace newHome, TripPlace newWork){
         setHomeAddress(newHome);
@@ -51,7 +43,7 @@ public class AddressNetworkService {
             model.setType(Utils.HOME_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            NetworkService.getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -77,7 +69,7 @@ public class AddressNetworkService {
             model.setType(Utils.HOME_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            NetworkService.getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -111,7 +103,7 @@ public class AddressNetworkService {
             model.setType(Utils.WORK_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            NetworkService.getApiService().remove_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -141,7 +133,7 @@ public class AddressNetworkService {
             model.setType(Utils.WORK_ADDRESS);
             model.setUserId(18512);//TODO: set by real
 
-            getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
+            NetworkService.getApiService().add_favorite_address(model).enqueue(new Callback<FavoriteAddressResponse>() {
                 @Override
                 public void onResponse(Call<FavoriteAddressResponse> call, Response<FavoriteAddressResponse> response) {
                     FavoriteAddressResponse body = response.body();
@@ -165,7 +157,7 @@ public class AddressNetworkService {
     }
 
     public static void setUpWorkAddress(){
-        getApiService().get_favourite_address("18512", Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+        NetworkService.getApiService().get_favourite_address("18512", Utils.WORK_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
             @Override
             public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
                 if(response.body().getData().getFavoriteAddresses() == null){
@@ -190,7 +182,7 @@ public class AddressNetworkService {
     }
 
     public static void setUpHomeAddress(){
-        getApiService().get_favourite_address("18512", Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
+        NetworkService.getApiService().get_favourite_address("18512", Utils.HOME_ADDRESS).enqueue(new Callback<FavoriteAddress>() {
             @Override
             public void onResponse(Call<FavoriteAddress> call, Response<FavoriteAddress> response) {
                 if(response.body().getData().getFavoriteAddresses() == null){
