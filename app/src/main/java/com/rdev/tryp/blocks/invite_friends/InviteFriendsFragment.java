@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 
+import java.util.Objects;
+
 import androidx.fragment.app.Fragment;
 
 public class InviteFriendsFragment extends Fragment implements View.OnClickListener {
@@ -27,7 +29,7 @@ public class InviteFriendsFragment extends Fragment implements View.OnClickListe
         return root;
     }
 
-    public void initView(){
+    private void initView(){
         backBtn = root.findViewById(R.id.back_btn);
         shareBtn = root.findViewById(R.id.share_button);
 
@@ -39,7 +41,7 @@ public class InviteFriendsFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.back_btn:
-                ((ContentActivity) getActivity()).popBackStack();
+                ((ContentActivity) Objects.requireNonNull(getActivity())).popBackStack();
                 break;
             case R.id.share_button:
                 Toast.makeText(getContext(), "Copied", Toast.LENGTH_SHORT).show();

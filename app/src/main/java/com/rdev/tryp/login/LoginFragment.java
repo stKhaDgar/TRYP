@@ -75,7 +75,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         UserPhoneNumber number = ((LoginActivity) getActivity()).number;
                         number.setDialing_code(getDialingCode(data));
                         number.setCountry_code(getCountryCode(data));
-                        countrTv.setText(getCountryName(data) + " (+" + number.getDialing_code() + ")");
+                        String phone = getCountryName(data) + " (+" + number.getDialing_code() + ")";
+                        countrTv.setText(phone);
 
                     }
                 });

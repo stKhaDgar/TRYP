@@ -51,12 +51,12 @@ public class ConfirmLoginFragment extends Fragment implements View.OnClickListen
         closeKeyboard();
     }
 
-    public void showKeyboard(){
+    private void showKeyboard(){
         InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-    public void closeKeyboard(){
+    private void closeKeyboard(){
         InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }

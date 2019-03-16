@@ -103,9 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tabsInvite"
-        android:layout_above="@id/backButton"
-        android:layout_marginTop="@dimen/invite_2_content_margin_top"
-        android:layout_marginBottom="@dimen/invite_2_content_margin_side">
+        android:layout_marginTop="@dimen/invite_2_content_margin_top">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -339,7 +337,7 @@
                 android:layout_marginLeft="@dimen/invite_1_content_margin"
                 android:layout_marginRight="@dimen/invite_1_content_margin"
                 android:layout_marginTop="@dimen/invite_1_bottom_text_margin_top"
-                android:layout_marginBottom="@dimen/invite_1_bottom_text_margin_bottom"
+                android:layout_marginBottom="100dp"
                 android:gravity="center"
                 android:textSize="@dimen/invite_1_bottom_text_size"
                 fontPath="fonts/OpenSans-Regular.ttf"
