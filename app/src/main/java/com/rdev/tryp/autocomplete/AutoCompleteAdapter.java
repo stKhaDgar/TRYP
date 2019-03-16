@@ -20,7 +20,7 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
         void onPlace(AutocompletePrediction prediction);
     }
 
-    onPlacePicked listener;
+    private onPlacePicked listener;
 
 
     public AutoCompleteAdapter(List<AutocompletePrediction> autocompletePredictions, onPlacePicked listener) {
@@ -33,16 +33,11 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
         TextView address_tv;
         TextView address_desc_tv;
 
-        public TextHolder(@NonNull View itemView) {
+        TextHolder(@NonNull View itemView) {
             super(itemView);
             this.address_tv = itemView.findViewById(R.id.address_tv);
             this.address_desc_tv = itemView.findViewById(R.id.address_desc_tv);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onPlace(data.get(getAdapterPosition()));
-                }
-            });
+            itemView.setOnClickListener(view -> listener.onPlace(data.get(getAdapterPosition())));
         }
     }
 
