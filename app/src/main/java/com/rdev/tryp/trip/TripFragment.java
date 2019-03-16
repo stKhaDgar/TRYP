@@ -111,7 +111,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             }
         };
 
-        service.get_favourite_drivers(20).enqueue(new Callback<FavouriteDriver>() {
+        service.get_favourite_drivers(AccountManager.getInstance().getUserId()).enqueue(new Callback<FavouriteDriver>() {
 
             @Override
             public void onResponse(Call<FavouriteDriver> call, Response<FavouriteDriver> response) {

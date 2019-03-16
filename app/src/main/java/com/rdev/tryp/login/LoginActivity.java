@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.rdev.tryp.ContentActivity;
@@ -14,7 +15,7 @@ import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.LoginModel;
 import com.rdev.tryp.model.LoginResponse;
 import com.rdev.tryp.model.UserPhoneNumber;
-import com.rdev.tryp.model.VerifySmsResponse;
+import com.rdev.tryp.model.login_response.VerifySmsResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
 
@@ -80,14 +81,16 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<VerifySmsResponse> call, Response<VerifySmsResponse> response) {
                     VerifySmsResponse body = response.body();
-                    if (body == null || body.getErrors() != null) {
+                    Log.i("response", response.toString());
+                    Log.i("response", response.body().toString());
+                    if (body == null || body.getData() == null) {
                         Toast.makeText(LoginActivity.this, "Wrong code. Please try again", Toast.LENGTH_LONG).show();
                         return;
                     }
 
                     AddressNetworkService.initFavoriteAddresses();
 
-                    AccountManager.getInstance().signIn(20); //TODO replace id by real
+                    AccountManager.getInstance().signIn(body.getData().getUsers().getUserId());
                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
                     intent.putExtra("tag", "f");
                     startActivity(intent);

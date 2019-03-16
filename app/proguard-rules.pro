@@ -22,7 +22,7 @@
 -keep class com.rdev.tryp.model.SignUpResponse { *; }
 -keep class com.rdev.tryp.model.UserPhoneNumber { *; }
 -keep class com.rdev.tryp.model.Users { *; }
--keep class com.rdev.tryp.model.VerifySmsResponse { *; }
+-keep class com.rdev.tryp.model.login_response.VerifySmsResponse { *; }
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
