@@ -65,4 +65,16 @@ class RealmUtils(private val callback: RealmCallback?){
             callback?.error()
         })
     }
+
+    fun clear(){
+        realm.executeTransactionAsync({ bgRealm ->
+            bgRealm.deleteAll()
+        }, {
+            Log.e(TAG, "Realm was deleted")
+            callback?.dataUpdated()
+        }, { error ->
+            error.printStackTrace()
+            callback?.error()
+        })
+    }
 }

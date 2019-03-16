@@ -97,6 +97,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import io.realm.Realm;
 
 /**
  * Created by Alexey Matrosov on 02.03.2019.
@@ -129,6 +130,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+        Realm.init(ContentActivity.this);
 
         currentLocation = new CurrentLocation(ContentActivity.this, ContentActivity.this);
         currentLocation.init();
@@ -620,7 +622,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                //startFragment(TYPE_ABOUT_US);
 //                                break;
                     case R.id.nav_logout:
-                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
                         signOut();
                         break;
                     default:

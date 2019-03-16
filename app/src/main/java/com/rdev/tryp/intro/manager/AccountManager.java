@@ -1,5 +1,6 @@
 package com.rdev.tryp.intro.manager;
 
+import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.utils.PreferenceManager;
 
 /**
@@ -23,11 +24,7 @@ public class AccountManager {
     }
 
     public boolean isUserSignIn(){
-        if(userId != -1){
-            return true;
-        } else{
-            return false;
-        }
+        return userId != -1;
     }
 
     public void signIn(int userId){
@@ -38,5 +35,8 @@ public class AccountManager {
     public void signOut(){
         userId = -1;
         PreferenceManager.setInt(USER_ID_KEY, userId);
+
+        RealmUtils realm = new RealmUtils(null);
+        realm.clear();
     }
 }
