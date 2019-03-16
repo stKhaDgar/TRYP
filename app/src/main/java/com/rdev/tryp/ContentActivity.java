@@ -424,58 +424,52 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 .replace(R.id.container, new TripFragment(pickUpLocation, destination.getCoord()))
                 .addToBackStack("dest_pick")
                 .commit();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
-                        .from(pickUpLocation)
-                        .to(destination.getCoord())
-                        .transportMode(TransportMode.DRIVING)
-                        .execute(new DirectionCallback() {
-                            @Override
-                            public void onDirectionSuccess(Direction direction, String rawBody) {
-                                if (direction.isOK()) {
-                                    for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
-                                        Leg leg = direction.getRouteList().get(0).getLegList().get(i);
-                                        ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-                                        PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
-                                        route = mMap.addPolyline(polylineOptions);
-                                    }
-                                    Display display = getWindowManager().getDefaultDisplay();
-                                    Point size = new Point();
-                                    display.getSize(size);
-                                    int padding = 200;
-                                    int width = size.x;
-                                    int height = size.y;
-
-                                    /**create for loop/manual to add LatLng's to the LatLngBounds.Builder*/
-                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                                    builder.include(destination.getCoord());
-                                    builder.include(pickUpLocation);
-
-                                    /**initialize the padding for map boundary*/
-                                    /**create the bounds from latlngBuilder to set into map camera*/
-                                    LatLngBounds bounds = builder.build();
-                                    /**create the camera with bounds and padding to set into map*/
-                                    final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height / 2, padding);
-                                    mMap.animateCamera(cu);
-
-                                    tripFrom = startPlace;
-                                    tripTo = destination;
-
-
-                                } else {
-                                    // Do something
-                                }
+        Thread thread = new Thread(() -> GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
+                .from(pickUpLocation)
+                .to(destination.getCoord())
+                .transportMode(TransportMode.DRIVING)
+                .execute(new DirectionCallback() {
+                    @Override
+                    public void onDirectionSuccess(Direction direction, String rawBody) {
+                        if (direction.isOK()) {
+                            for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
+                                Leg leg = direction.getRouteList().get(0).getLegList().get(i);
+                                ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
+                                route = mMap.addPolyline(polylineOptions);
                             }
+                            Display display = getWindowManager().getDefaultDisplay();
+                            Point size = new Point();
+                            display.getSize(size);
+                            int padding = 200;
+                            int width1 = size.x;
+                            int height1 = size.y;
 
-                            @Override
-                            public void onDirectionFailure(Throwable t) {
-                                // Do something
-                            }
-                        });
-            }
-        });
+                            /*create for loop/manual to add LatLng's to the LatLngBounds.Builder*/
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            builder.include(destination.getCoord());
+                            builder.include(pickUpLocation);
+
+                            /*initialize the padding for map boundary
+                            create the bounds from latlngBuilder to set into map camera*/
+                            LatLngBounds bounds = builder.build();
+
+                            /*create the camera with bounds and padding to set into map*/
+                            final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
+                            mMap.animateCamera(cu);
+
+                            tripFrom = startPlace;
+                            tripTo = destination;
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onDirectionFailure(Throwable t) {
+                        // Do something
+                    }
+                }));
 
         thread.run();
     }
@@ -506,8 +500,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
             int height = 270;
             int width = 225;
-            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
-            Bitmap b = bitmapdraw.getBitmap();
+            BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
+            Bitmap b = bitmapDraw.getBitmap();
             Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
             mMap.addMarker(new MarkerOptions().position(currentPos)
