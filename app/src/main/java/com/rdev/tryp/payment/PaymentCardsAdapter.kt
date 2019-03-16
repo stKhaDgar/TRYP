@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.braintreepayments.cardform.utils.CardType
+import com.google.android.material.card.MaterialCardView
 import com.rdev.tryp.ContentActivity
 import com.rdev.tryp.R
 import com.rdev.tryp.payment.model.Card
@@ -25,11 +27,11 @@ class PaymentCardsAdapter(private val itemList: ArrayList<Card>, private val con
             holder.icon?.setImageResource(CardType.valueOf(type).frontResource)
         }
         itemList[position].number?.let { text ->
-            val number = "**** **** **** ${text.substring(12, text.length)}"
+            val number = "****  ****  ****  ${text.substring(12, text.length)}"
 
             holder.number?.text = number
         }
-        holder.itemView.setOnClickListener {
+        holder.mainLayout?.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable(ContentActivity.IS_EDIT_CARD, itemList[position])
             if(context is ContentActivity){
@@ -49,6 +51,7 @@ class PaymentCardsAdapter(private val itemList: ArrayList<Card>, private val con
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val mainLayout = itemView.findViewById(R.id.main_layout) as? LinearLayout
         val icon = itemView.findViewById(R.id.card_type) as? ImageView
         val number = itemView.findViewById(R.id.card_number) as? TextView
     }
