@@ -49,7 +49,7 @@ class PaymentCardsAdapter(private val itemList: ArrayList<Card>, private val con
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val icon = itemView.findViewById(R.id.cardTypeIcon) as? ImageView
-        val number = itemView.findViewById(R.id.cardNumber) as? TextView
+        val icon = itemView.findViewById(R.id.card_type) as? ImageView
+        val number = itemView.findViewById(R.id.card_number) as? TextView
     }
 }
