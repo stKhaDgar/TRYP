@@ -13,12 +13,6 @@ import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.payment.model.Card
 import kotlinx.android.synthetic.main.fragment_add_card.view.*
 import kotlin.random.Random
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import android.util.Log
-import com.google.firebase.FirebaseApp
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
 
 
 /**
