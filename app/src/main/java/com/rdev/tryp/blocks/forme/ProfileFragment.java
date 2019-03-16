@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +17,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
@@ -41,6 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import afu.org.checkerframework.checker.nullness.qual.Nullable;
@@ -97,12 +93,12 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         showFavoriteAddresses();
 
         adressTv2.requestFocus();
-        showKeyboard(getContext());
+        showKeyboard(Objects.requireNonNull(getContext()));
 
         return view;
     }
 
-    public void initView() {
+    private void initView() {
         adressTv = view.findViewById(R.id.adress_tv);
         adressTv2 = view.findViewById(R.id.adress_tv_2);
         cardView = view.findViewById(R.id.top_card_view);
@@ -129,28 +125,22 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         routeBtn.setOnClickListener(this);
         homeEditText.setText(PreferenceManager.getString(KEY_HOME));
         workEditText.setText(PreferenceManager.getString(KEY_WORK));
-        adressTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                resetAddressView(adressTv2);
-                adapter.setData(new ArrayList<>());
-                mainEditText = adressTv;
-                setCursotEnd(adressTv);
-            }
+        adressTv.setOnFocusChangeListener((v, hasFocus) -> {
+            resetAddressView(adressTv2);
+            adapter.setData(new ArrayList<>());
+            mainEditText = adressTv;
+            setCursotEnd(adressTv);
         });
 
-        adressTv2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                resetAddressView(adressTv);
-                adapter.setData(new ArrayList<>());
-                mainEditText = adressTv2;
-                setCursotEnd(adressTv2);
-            }
+        adressTv2.setOnFocusChangeListener((v, hasFocus) -> {
+            resetAddressView(adressTv);
+            adapter.setData(new ArrayList<>());
+            mainEditText = adressTv2;
+            setCursotEnd(adressTv2);
         });
     }
 
-    public void resetAddressView(TextView textView) {
+    private void resetAddressView(TextView textView) {
         if (textView.equals(adressTv)) {
             if (startPos != null) {
                 adressTv.setText(startPos.getLocale());
@@ -168,7 +158,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         }
     }
 
-    public void showFavoriteAddresses() {
+    private void showFavoriteAddresses() {
         TripPlace home = PreferenceManager.getTripPlace(KEY_HOME);
         TripPlace work = PreferenceManager.getTripPlace(KEY_WORK);
 
@@ -185,7 +175,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         }
     }
 
-    public void initAutoComplete() {
+    private void initAutoComplete() {
         geocoder = new Geocoder(getContext());
 
         if (startPos == null) {
@@ -210,17 +200,12 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                placesClient = Places.createClient(getContext());
+                placesClient = Places.createClient(Objects.requireNonNull(getContext()));
                 FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
                         .setTypeFilter(TypeFilter.ADDRESS)
                         .setQuery(charSequence.toString())
                         .build();
-                placesClient.findAutocompletePredictions(request).addOnCompleteListener(new OnCompleteListener<FindAutocompletePredictionsResponse>() {
-                    @Override
-                    public void onComplete(@androidx.annotation.NonNull Task<FindAutocompletePredictionsResponse> task) {
-                        adapter.setData(task.getResult().getAutocompletePredictions());
-                    }
-                });
+                placesClient.findAutocompletePredictions(request).addOnCompleteListener(task -> adapter.setData(Objects.requireNonNull(task.getResult()).getAutocompletePredictions()));
             }
 
             @Override
@@ -239,17 +224,12 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                placesClient = Places.createClient(getContext());
+                placesClient = Places.createClient(Objects.requireNonNull(getContext()));
                 FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
                         .setTypeFilter(TypeFilter.ADDRESS)
                         .setQuery(charSequence.toString())
                         .build();
-                placesClient.findAutocompletePredictions(request).addOnCompleteListener(new OnCompleteListener<FindAutocompletePredictionsResponse>() {
-                    @Override
-                    public void onComplete(@androidx.annotation.NonNull Task<FindAutocompletePredictionsResponse> task) {
-                        adapter.setData(task.getResult().getAutocompletePredictions());
-                    }
-                });
+                placesClient.findAutocompletePredictions(request).addOnCompleteListener(task -> adapter.setData(Objects.requireNonNull(task.getResult()).getAutocompletePredictions()));
             }
 
             @Override
@@ -260,7 +240,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     }
 
-    public void initRecentRoutes() {
+    private void initRecentRoutes() {
         TextView firstFrom, firstTo, secondFrom, secondTo;
         TripPlace place;
 
@@ -324,7 +304,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_btn:
-                ((ContentActivity) getActivity()).goHome();
+                ((ContentActivity) Objects.requireNonNull(getActivity())).goHome();
                 break;
             case R.id.recent_relative_layout:
                 getRecentFirst();
@@ -347,22 +327,19 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         }
     }
 
-    public void setupTrip(){
+    private void setupTrip(){
         if(isTripPlaceNotEmpty(startPos) && isTripPlaceNotEmpty(destination)) {
             onDestination(startPos, destination);
             saveRouteInRecent(startPos, destination);
         }
-        closeKeyboard(getContext());
+        closeKeyboard(Objects.requireNonNull(getContext()));
     }
 
     private boolean isTripPlaceNotEmpty(TripPlace tripPlace){
         if(tripPlace.getLocale() == null){
             return false;
         }
-        if(tripPlace.getCoord() == null){
-            return false;
-        }
-        return true;
+        return tripPlace.getCoord() != null;
     }
 
     private void setTripPlace(TripPlace tripPlace) {
@@ -389,7 +366,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     @Override
     public void onPlace(AutocompletePrediction prediction) {
-        if(prediction.getPrimaryText(null).toString().equals(mainEditText.getText().toString())){
+        if(prediction.getPrimaryText(null).toString().equals(Objects.requireNonNull(mainEditText.getText()).toString())){
             mainEditText.setText(prediction.getFullText(null));
             adapter.data.clear();
             adapter.notifyDataSetChanged();
@@ -399,23 +376,20 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         setCursotEnd(mainEditText);
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
-        placesClient.fetchPlace(request).addOnCompleteListener(new OnCompleteListener<FetchPlaceResponse>() {
-            @Override
-            public void onComplete(@androidx.annotation.NonNull Task<FetchPlaceResponse> task) {
-                if (mainEditText.equals(adressTv2)) {
-                    destination.setCoord(task.getResult().getPlace().getLatLng());
-                    destination.setLocale(prediction.getFullText(null).toString());
-                }
-                if (mainEditText.equals(adressTv)) {
-                    startPos.setCoord(task.getResult().getPlace().getLatLng());
-                    startPos.setLocale(prediction.getFullText(null).toString());
-                }
+        placesClient.fetchPlace(request).addOnCompleteListener(task -> {
+            if (mainEditText.equals(adressTv2)) {
+                destination.setCoord(Objects.requireNonNull(task.getResult()).getPlace().getLatLng());
+                destination.setLocale(prediction.getFullText(null).toString());
+            }
+            if (mainEditText.equals(adressTv)) {
+                startPos.setCoord(Objects.requireNonNull(task.getResult()).getPlace().getLatLng());
+                startPos.setLocale(prediction.getFullText(null).toString());
             }
         });
     }
 
     private void onDestination(TripPlace start, TripPlace end) {
-        ((ContentActivity) getActivity()).popBackStack();
+        ((ContentActivity) Objects.requireNonNull(getActivity())).popBackStack();
         ((ContentActivity) getActivity()).onDestinationPicked(start, end);
     }
 
