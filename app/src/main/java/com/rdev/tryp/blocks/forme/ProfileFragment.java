@@ -389,11 +389,10 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     @Override
     public void onPlace(AutocompletePrediction prediction) {
-        Log.e("DebugSome", prediction.getPrimaryText(null).toString().equals(mainEditText.getText().toString()) + "");
-        Log.e("DebugSome", prediction.getPrimaryText(null) + " == " + mainEditText.getText());
-
         if(prediction.getPrimaryText(null).toString().equals(mainEditText.getText().toString())){
             mainEditText.setText(prediction.getFullText(null));
+            adapter.data.clear();
+            adapter.notifyDataSetChanged();
         } else {
             mainEditText.setText(prediction.getPrimaryText(null));
         }

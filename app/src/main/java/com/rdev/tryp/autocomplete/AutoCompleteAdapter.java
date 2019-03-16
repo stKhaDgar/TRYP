@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AutoCompleteAdapter extends RecyclerView.Adapter {
-    List<AutocompletePrediction> data;
+    public List<AutocompletePrediction> data;
 
     public interface onPlacePicked {
         void onPlace(AutocompletePrediction prediction);
