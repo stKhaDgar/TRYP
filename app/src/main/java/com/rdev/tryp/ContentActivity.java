@@ -503,6 +503,15 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         currentLocation.onStartLocationUpdate(location -> {
             LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
+
+            int height = 270;
+            int width = 225;
+            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
+            Bitmap b = bitmapdraw.getBitmap();
+            Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
+
+            mMap.addMarker(new MarkerOptions().position(currentPos)
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         });
 
 //        if (pickUpLocation == null) {
