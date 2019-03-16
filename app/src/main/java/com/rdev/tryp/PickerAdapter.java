@@ -15,7 +15,7 @@ class PickerAdapter extends RecyclerView.Adapter {
     String[] data;
     SelectCountryListener listener;
 
-    public PickerAdapter(String[] mTestArray, SelectCountryListener listener) {
+    PickerAdapter(String[] mTestArray, SelectCountryListener listener) {
         data = mTestArray;
         this.listener = listener;
     }
@@ -30,22 +30,17 @@ class PickerAdapter extends RecyclerView.Adapter {
     class ItemHolder extends RecyclerView.ViewHolder {
         TextView countryTv;
 
-        public ItemHolder(@NonNull View itemView) {
+        ItemHolder(@NonNull View itemView) {
             super(itemView);
             countryTv = itemView.findViewById(R.id.country_tv);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onSelect(data[getAdapterPosition()]);
-                }
-            });
+            itemView.setOnClickListener(view -> listener.onSelect(data[getAdapterPosition()]));
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ItemHolder) holder).countryTv.setText(getCountryName(data[position])
-                + " (+" + getDialingCode(data[position]) + ")");
+        String country = getCountryName(data[position]) + " (+" + getDialingCode(data[position]) + ")";
+        ((ItemHolder) holder).countryTv.setText(country);
     }
 
     @Override

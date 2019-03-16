@@ -49,8 +49,8 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
     }
 
     private void setSmallImage() {    //TODO: set small image by user image
-        int height = 70;
-        int width = 70;
+        int height = 100;
+        int width = 100;
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.small_person);
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap bitmap = Bitmap.createScaledBitmap(b, width, height, false);
@@ -64,10 +64,10 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
                 ((ContentActivity) Objects.requireNonNull(getActivity())).zoomToCurrentLocation();
                 break;
             case R.id.next_layout_btn:
-                ((ContentActivity) getActivity()).showDirectionPicker(null);
+                ((ContentActivity) Objects.requireNonNull(getActivity())).showDirectionPicker(null);
                 break;
             case R.id.share_btn:
-                getActivity().getSupportFragmentManager().beginTransaction()
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                         .add(R.id.screenContainer, new InviteFriendsFragment())
                         .addToBackStack("share")
                         .commit();
