@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -388,7 +389,14 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     @Override
     public void onPlace(AutocompletePrediction prediction) {
-        mainEditText.setText(prediction.getPrimaryText(null));
+        Log.e("DebugSome", prediction.getPrimaryText(null).toString().equals(mainEditText.getText().toString()) + "");
+        Log.e("DebugSome", prediction.getPrimaryText(null) + " == " + mainEditText.getText());
+
+        if(prediction.getPrimaryText(null).toString().equals(mainEditText.getText().toString())){
+            mainEditText.setText(prediction.getFullText(null));
+        } else {
+            mainEditText.setText(prediction.getPrimaryText(null));
+        }
         setCursotEnd(mainEditText);
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
@@ -412,7 +420,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         ((ContentActivity) getActivity()).onDestinationPicked(start, end);
     }
 
-    public void saveRouteInRecent(TripPlace start, TripPlace end) {
+    private void saveRouteInRecent(TripPlace start, TripPlace end) {
         TripPlace secondFrom, secondTo;
         secondFrom = PreferenceManager.getTripPlace(KEY_RECENT_FROM_1);
         secondTo = PreferenceManager.getTripPlace(KEY_RECENT_TO_1);
