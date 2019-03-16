@@ -122,7 +122,7 @@ public class PreferenceManager {
     }
 
     public static int getInt(String key) {
-        return Integer.parseInt(sPref.getString(key, "-1"));
+        return sPref.getInt(key, -1);
     }
 
     public static int getInt(String key, int def) {
