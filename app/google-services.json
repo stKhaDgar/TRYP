@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "727651612940",
+    "firebase_url": "https://tryp-d216d.firebaseio.com",
+    "project_id": "tryp-d216d",
+    "storage_bucket": "tryp-d216d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727651612940:android:d9de3e9d061deff0",
+        "android_client_info": {
+          "package_name": "com.rdev.tryp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727651612940-4grfs7639looksh48nsl5r32r6h9fn44.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rdev.tryp",
+            "certificate_hash": "8cde301dfb523b8748a2981d367bf163451893eb"
+          }
+        },
+        {
+          "client_id": "727651612940-64jpc7s217pc46019fe0q8h69slv3g0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNvA9aWKqCBNHNHeVldnl5X9XqsCipL-4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727651612940-64jpc7s217pc46019fe0q8h69slv3g0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

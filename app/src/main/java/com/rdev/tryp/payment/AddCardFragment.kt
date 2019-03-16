@@ -13,6 +13,13 @@ import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.payment.model.Card
 import kotlinx.android.synthetic.main.fragment_add_card.view.*
 import kotlin.random.Random
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.util.Log
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+
 
 /**
  * Created by Andrey Berezhnoi on 14.03.2019.
@@ -26,6 +33,7 @@ class AddCardFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_add_card, container, false)
+        FirebaseApp.initializeApp(view?.context)
 
         onClickListener(view)
         initCardForm(view)
@@ -59,12 +67,17 @@ class AddCardFragment : Fragment() {
         }
 
         if(view.cardForm.isCardScanningAvailable) { view.btnCamera.visibility = View.VISIBLE }
-
-        view.btnCamera.setOnClickListener { view.cardForm.scanCard(activity as ContentActivity) }
     }
 
     private fun onClickListener(view: View){
         view.back_btn.setOnClickListener { (activity as? ContentActivity)?.startFragment(ContentActivity.TYPE_PAYMENT) }
+        view.btnCamera.setOnClickListener {
+//            view.cardForm.scanCard(activity as ContentActivity)
+            view.camera.captureImage { _, bytes ->
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                getCardDetails(bitmap)
+            }
+        }
         view.btnAddNewCard.setOnClickListener {
             if(!view.cardForm.isValid){
                 view.cardForm.validate()
@@ -104,8 +117,56 @@ class AddCardFragment : Fragment() {
         }
     }
 
+    private fun getCardDetails(bitmap: Bitmap) {
+        val image = FirebaseVisionImage.fromBitmap(bitmap)
+        val firebaseVisionTextDetector = FirebaseVision.getInstance().cloudTextRecognizer
+
+        firebaseVisionTextDetector.processImage(image)
+                .addOnSuccessListener {
+                    val words = it.text.split("\n")
+                    for (word in words) {
+                        Log.e("TAG", word)
+                        if (word.replace(" ", "").matches(Regex("^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})\$")))
+                            view?.cardForm?.cardEditText?.setText(word)
+
+                        if (word.contains("/")) {
+                            for (year in word.split(" ")) {
+                                if (year.contains("/")){
+                                    view?.cardForm?.expirationDateEditText?.setText(year)
+                                }
+
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    Log.e("TAG", "failure")
+                }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        view?.camera?.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        view?.camera?.onResume()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        view?.camera?.onStop()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        view?.camera?.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     override fun onPause() {
         super.onPause()
+        view?.camera?.onPause()
         (activity as ContentActivity).b = null
     }
 }
