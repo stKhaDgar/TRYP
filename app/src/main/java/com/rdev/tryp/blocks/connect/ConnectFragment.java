@@ -1,4 +1,4 @@
-package com.rdev.tryp;
+package com.rdev.tryp.blocks.connect;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.rdev.tryp.ContentActivity;
+import com.rdev.tryp.R;
+import com.rdev.tryp.blocks.connect.connect_cancel.ConnectCancelFragment;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.model.TripPlace;
 
@@ -78,7 +81,10 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
                 ((ContentActivity)getActivity()).initMap();
                 break;
             case R.id.cancel_btn:
-                Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.screenContainer, new ConnectCancelFragment())
+                        .addToBackStack("connect_cancel")
+                        .commit();
                 break;
             case R.id.share_ride_iv:
             case R.id.share_ride_tv:

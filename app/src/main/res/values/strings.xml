@@ -179,6 +179,11 @@
 	<string name="report_earning_caption">Earning</string>
 	<string name="report_miles_caption">Miles</string>
 	<string name="screen28_title">Report</string>
+	<string name="cancel_reasons">Cancel Reasons</string>
+	<string name="cancel_tip">Choose appropriate cancel reason</string>
+	<string name="cancel_btn_1">Driver do not pick up the call</string>
+	<string name="cancel_btn_2">Waited too long for the ride</string>
+	<string name="cancel_btn_3">Changed my plan</string>
 
 
 	<array name="recap_graph_spinner_items">
