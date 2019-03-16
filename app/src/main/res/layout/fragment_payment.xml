@@ -53,11 +53,11 @@
 			android:id="@+id/textView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="32dp"
-			android:fontFamily="sans-serif-light"
+			android:layout_marginTop="64dp"
+			android:fontFamily="@font/opensans_regular"
 			android:text="@string/payments"
 			android:textColor="@color/black"
-			android:textSize="22sp"
+			android:textSize="18sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
@@ -66,28 +66,31 @@
 			android:id="@+id/cardsLayout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:visibility="gone"
-			android:layout_marginTop="32dp"
+			android:layout_marginBottom="64dp"
 			android:orientation="vertical"
-			app:layout_constraintStart_toStartOf="parent"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/textView">
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/textView"
+			app:layout_constraintVertical_bias="0.29000002">
 
 			<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/rvCards"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"/>
+				android:layout_height="wrap_content" />
 
 			<TextView
 				android:id="@+id/tvAddNewCard"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
-				android:padding="8dp"
-				android:fontFamily="sans-serif-condensed"
-				android:text="@string/add_a_card_text"
+				android:layout_marginTop="8dp"
+				android:padding="16dp"
+				android:fontFamily="@font/opensans_bold"
+				android:text="@string/add_new_method"
 				android:textColor="@color/colorAccent"
-				android:textSize="16sp" />
+				android:textSize="13sp" />
 
 		</LinearLayout>
 

@@ -291,23 +291,26 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void updateCurrentLocation(LatLng currentPos) throws IOException {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
-        if (currentPosMarker != null && currentPosMarker.isVisible()) {
-            currentPosMarker.remove();
+        if(currentPos != null){
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
+
+            if (currentPosMarker != null && currentPosMarker.isVisible()) {
+                currentPosMarker.remove();
+            }
+
+            int height = 270;
+            int width = 225;
+
+            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
+            Bitmap b = bitmapdraw.getBitmap();
+            Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
+
+
+            currentPosMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+            isLocationFound = true;
+            pickUpLocation = currentPos;
         }
-
-        int height = 270;
-        int width = 225;
-
-        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
-        Bitmap b = bitmapdraw.getBitmap();
-        Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
-
-
-        currentPosMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
-                .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
-        isLocationFound = true;
-        pickUpLocation = currentPos;
     }
 
     final LocationListener mLocationListener = new LocationListener() {
