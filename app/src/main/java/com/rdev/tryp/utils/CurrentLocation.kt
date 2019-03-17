@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.rdev.tryp.ContentActivity
 
 /**
  * Created by Andrey Berezhnoi on 12.03.2019.
@@ -53,7 +54,7 @@ class CurrentLocation(private val context: Context, private val activity: Activi
 
     }
 
-    fun onStartLocationUpdate(callbackTemp: LocationUpdatedListener){
+    fun onStartLocationUpdate(callbackTemp: LocationUpdatedListener?){
         this.callback = callbackTemp
 
         if (!checkGPSEnabled()) {
@@ -112,6 +113,7 @@ class CurrentLocation(private val context: Context, private val activity: Activi
         mGoogleApiClient = GoogleApiClient.Builder(context, object : GoogleApiClient.ConnectionCallbacks{
             override fun onConnected(p0: Bundle?) {
                 Log.e(tagConst, "onConnected()")
+                (activity as? ContentActivity)?.zoomToCurrentLocation()
             }
 
             override fun onConnectionSuspended(p0: Int) {}

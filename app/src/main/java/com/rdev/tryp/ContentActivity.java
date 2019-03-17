@@ -496,7 +496,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         currentLocation.onStartLocationUpdate(location -> {
             LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
             int height = 270;
             int width = 225;
@@ -702,7 +702,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 .commit();
         fragment.setDrivers(drivers, currentPos);
     }
-
 
     public void startFragment(int type) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
