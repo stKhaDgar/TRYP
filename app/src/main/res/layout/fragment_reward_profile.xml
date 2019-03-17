@@ -14,14 +14,15 @@
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:app="http://schemas.android.com/apk/res-auto"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="wrap_content">
 
 			<ImageView
 				android:id="@+id/main_img"
 				android:layout_width="match_parent"
 				android:layout_height="354dp"
 				android:scaleType="centerCrop"
-				android:src="@drawable/img" />
+				android:src="@drawable/img"
+				android:contentDescription="@string/content_description" />
 
 			<androidx.cardview.widget.CardView
 				xmlns:android="http://schemas.android.com/apk/res/android"
@@ -90,7 +91,8 @@
 									android:layout_marginTop="3dp"
 									android:elevation="4dp"
 									android:scaleType="centerCrop"
-									android:src="@drawable/ic_star" />
+									android:src="@drawable/ic_star"
+									android:contentDescription="@string/content_description" />
 							</LinearLayout>
 
 							<TextView
@@ -251,15 +253,14 @@
 								android:layout_width="37dp"
 								android:layout_height="45dp"
 								android:scaleType="centerCrop"
-								android:src="@drawable/ic_reward" />
+								android:src="@drawable/ic_reward"
+								android:contentDescription="@string/content_description" />
 
 						</androidx.cardview.widget.CardView>
 
-
 						<TextView
-							android:layout_width="wrap_content"
+							android:layout_width="0dp"
 							android:layout_height="wrap_content"
-							android:layout_marginLeft="10dp"
 							android:layout_weight="1"
 							android:paddingTop="18dp"
 							android:paddingBottom="14dp"
@@ -275,7 +276,8 @@
 							android:layout_marginTop="23dp"
 							android:layout_marginBottom="21dp"
 							android:layout_marginEnd="16dp"
-							android:src="@drawable/ic_keyboard_arrow_right" />
+							android:src="@drawable/ic_keyboard_arrow_right"
+							android:contentDescription="@string/content_description" />
 					</LinearLayout>
 				</androidx.cardview.widget.CardView>
 
@@ -312,15 +314,15 @@
 								android:layout_width="40.2dp"
 								android:layout_height="48.3dp"
 								android:scaleType="centerCrop"
-								android:src="@drawable/ic_credits" />
+								android:src="@drawable/ic_credits"
+								android:contentDescription="@string/content_description" />
 
 						</androidx.cardview.widget.CardView>
 
 
 						<TextView
-							android:layout_width="wrap_content"
+							android:layout_width="0dp"
 							android:layout_height="wrap_content"
-							android:layout_marginLeft="10dp"
 							android:layout_weight="1"
 							android:paddingTop="18dp"
 							android:paddingBottom="14dp"
@@ -336,8 +338,11 @@
 							android:layout_marginTop="23dp"
 							android:layout_marginBottom="21dp"
 							android:layout_marginEnd="16dp"
-							android:src="@drawable/ic_keyboard_arrow_right" />
+							android:src="@drawable/ic_keyboard_arrow_right"
+							android:contentDescription="@string/content_description" />
+
 					</LinearLayout>
+
 				</androidx.cardview.widget.CardView>
 
 			</LinearLayout>
