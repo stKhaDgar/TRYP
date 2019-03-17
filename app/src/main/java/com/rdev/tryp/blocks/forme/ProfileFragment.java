@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.Place;
@@ -92,7 +93,17 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         editor = new AddressEditor();
         showFavoriteAddresses();
 
-        adressTv.requestFocus();
+        adressTv2.requestFocus();
+        String currentAddress = ((ContentActivity) Objects.requireNonNull(getActivity())).currentAddress;
+        if(currentAddress != null){
+            adressTv.setText(currentAddress);
+
+            ((ContentActivity) Objects.requireNonNull(getActivity())).currentLocation.onStartLocationUpdate(location -> {
+                startPos.setCoord(new LatLng(location.getLatitude(), location.getLongitude()));
+                startPos.setLocale(currentAddress);
+            });
+
+        }
         showKeyboard(Objects.requireNonNull(getContext()));
 
         return view;
@@ -382,6 +393,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
                 destination.setLocale(prediction.getFullText(null).toString());
             }
             if (mainEditText.equals(adressTv)) {
+                ((ContentActivity) Objects.requireNonNull(getActivity())).currentAddress = null;
                 startPos.setCoord(Objects.requireNonNull(task.getResult()).getPlace().getLatLng());
                 startPos.setLocale(prediction.getFullText(null).toString());
             }

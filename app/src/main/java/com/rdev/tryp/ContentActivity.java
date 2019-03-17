@@ -120,7 +120,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     Marker pickAdressMarker;
     Marker pickStartMarker;
 
-    CurrentLocation currentLocation;
+    public CurrentLocation currentLocation;
+    public String currentAddress = null;
 
     //route
     public static TripPlace tripFrom;
@@ -498,14 +499,14 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
             Geocoder geocoder = new Geocoder(ContentActivity.this, Locale.getDefault());
-            String address = "";
+            String address = null;
             try {
                 address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0).getAddressLine(0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            Log.e("GeoLocation", address);
+            currentAddress = address;
 
             int height = 270;
             int width = 225;

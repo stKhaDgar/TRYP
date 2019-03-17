@@ -141,7 +141,7 @@
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/adress_tv_2"
+                                android:id="@+id/adress_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
                                 android:layout_margin="8dp"
@@ -192,7 +192,7 @@
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/adress_tv"
+                            android:id="@+id/adress_tv_2"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_margin="8dp"
