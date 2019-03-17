@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         editor = new AddressEditor();
         showFavoriteAddresses();
 
-        adressTv2.requestFocus();
+        adressTv.requestFocus();
         showKeyboard(Objects.requireNonNull(getContext()));
 
         return view;
