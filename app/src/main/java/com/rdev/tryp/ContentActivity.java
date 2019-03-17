@@ -86,6 +86,7 @@ import com.rdev.tryp.utils.Utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -370,7 +371,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 ProfileFragment.class.getName())) {
             getSupportFragmentManager().popBackStackImmediate(ProfileFragment.class.getName(), 0);
         } else {
-
             TripPlace currentPlace = new TripPlace();
             currentPlace.setCoord(pickUpLocation);
             currentPlace.setLocale(currentLocate);
@@ -380,7 +380,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     .replace(R.id.screenContainer, fragment)
                     .addToBackStack(ProfileFragment.class.getName())
                     .commit();
-
         }
     }
 
@@ -498,6 +497,16 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
+            Geocoder geocoder = new Geocoder(ContentActivity.this, Locale.getDefault());
+            String address = "";
+            try {
+                address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0).getAddressLine(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.e("GeoLocation", address);
+
             int height = 270;
             int width = 225;
             BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
@@ -507,13 +516,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             mMap.addMarker(new MarkerOptions().position(currentPos)
                     .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         });
-
-//        if (pickUpLocation == null) {
-//            checkLocationInSettings();
-//        } else {
-//            LatLng currentPos = new LatLng(pickUpLocation.latitude, pickUpLocation.longitude);
-//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
-//        }
     }
 
     private static final String EXTRA_CONTENT = "content_key";

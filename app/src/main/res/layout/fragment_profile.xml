@@ -123,16 +123,14 @@
 
                         <ImageView
                             android:id="@+id/support_iv"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:layout_marginStart="21dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="23dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="8dp"
-
-                            android:src="@drawable/ic_location_small" />
-
+                            android:src="@drawable/ic_blue_home" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -143,7 +141,7 @@
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/adress_tv"
+                                android:id="@+id/adress_tv_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
                                 android:layout_margin="8dp"
@@ -159,7 +157,6 @@
                                 android:padding="2dp"
                                 android:selectAllOnFocus="true"
                                 android:textColor="@color/black" />
-
 
                         </LinearLayout>
 
@@ -179,12 +176,10 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentStart="true"
-
                         android:layout_marginStart="21dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-
-                        android:src="@drawable/ic_blue_home" />
+                        android:src="@drawable/ic_location_small" />
 
 
                     <LinearLayout
@@ -197,7 +192,7 @@
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/adress_tv_2"
+                            android:id="@+id/adress_tv"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_margin="8dp"
