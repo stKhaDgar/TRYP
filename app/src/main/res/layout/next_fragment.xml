@@ -34,18 +34,16 @@
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="8dp">
 
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/small_image"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/circle_button"
-                android:backgroundTint="#B7B7B7"
-                android:elevation="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <com.makeramen.roundedimageview.RoundedImageView
+				android:id="@+id/small_image"
+				android:layout_width="22dp"
+				android:layout_height="22dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="4dp"
+				app:riv_corner_radius="30dp"
+				android:elevation="5dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/welcome_name"
