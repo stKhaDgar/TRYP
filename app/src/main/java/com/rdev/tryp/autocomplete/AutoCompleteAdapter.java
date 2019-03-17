@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.rdev.tryp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -60,7 +61,13 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
     }
 
     public void setData(List<AutocompletePrediction> data){
-        this.data = data;
+        List<AutocompletePrediction> temp = new ArrayList<>();
+        for (int i = 0; i < data.size()-1; i++){
+            if(!data.get(i).getFullText(null).toString().contains("null")){
+                temp.add(data.get(i));
+            }
+        }
+        this.data = temp;
         notifyDataSetChanged();
     }
 }
