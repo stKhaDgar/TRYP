@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.braintreepayments.cardform.utils.CardType
-import com.google.android.material.card.MaterialCardView
 import com.rdev.tryp.ContentActivity
 import com.rdev.tryp.R
 import com.rdev.tryp.payment.model.Card
@@ -23,17 +22,20 @@ import com.rdev.tryp.payment.model.Card
 class PaymentCardsAdapter(private val itemList: ArrayList<Card>, private val context: Activity): RecyclerView.Adapter<PaymentCardsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        itemList[position].type?.let { type ->
+        val item = itemList[position]
+
+        item.type?.let { type ->
             holder.icon?.setImageResource(CardType.valueOf(type).frontResource)
         }
-        itemList[position].number?.let { text ->
-            val number = "****  ****  ****  ${text.substring(12, text.length)}"
 
+        item.number?.let { text ->
+            val number = "****  ****  ****  ${text.substring(12, text.length)}"
             holder.number?.text = number
         }
+
         holder.mainLayout?.setOnClickListener {
             val bundle = Bundle()
-            bundle.putSerializable(ContentActivity.IS_EDIT_CARD, itemList[position])
+            bundle.putSerializable(ContentActivity.IS_EDIT_CARD, item)
             if(context is ContentActivity){
                 context.b = bundle
                 context.startFragment(ContentActivity.TYPE_PAYMENT_NEW_ENTRY)
