@@ -257,19 +257,22 @@
 			</androidx.cardview.widget.CardView>
 
 			<TextView
+				android:id="@+id/btnWithdraw"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="@string/withdraw_to_cash"
-				android:layout_marginTop="31dp"
+				android:layout_marginTop="23dp"
 				android:layout_centerHorizontal="true"
 				android:layout_below="@id/rides_cardView"
 				android:textColor="#0172FF"
 				android:textSize="13sp"
+				android:padding="8dp"
 				android:layout_marginBottom="16dp"/>
 
 		</RelativeLayout>
 
 	</ScrollView>
+
 	<ImageButton
 		android:id="@+id/back_btn"
 		android:layout_width="@dimen/map_navigation_btn_size"
@@ -282,19 +285,8 @@
 		android:layout_marginStart="32dp"
 		android:layout_marginBottom="32dp"
 		android:layout_alignParentBottom="true"
-		android:src="@drawable/ic_keyboard_backspace_black_24dp" />
-
-
-	<!--<com.google.android.material.button.MaterialButton-->
-	<!--android:id="@+id/my_earnings_button"-->
-	<!--style="@style/AppTheme.Button"-->
-	<!--android:layout_width="200dp"-->
-	<!--android:layout_height="56dp"-->
-	<!--android:layout_marginEnd="32dp"-->
-	<!--android:layout_gravity="bottom|end"-->
-	<!--android:layout_marginBottom="16dp"-->
-	<!--android:text="@string/my_earnings_button"-->
-	<!--android:letterSpacing="0" />-->
+		android:src="@drawable/ic_keyboard_backspace_black_24dp"
+		android:contentDescription="@string/content_description" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
