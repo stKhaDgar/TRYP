@@ -54,7 +54,7 @@
 						android:id="@+id/balance_points_money_textView"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@string/balance_points_money"
+						android:text="@string/balance_points_sum"
 						android:textAlignment="textEnd"
 						android:textColor="@android:color/white"
 						android:textSize="18sp"/>
@@ -80,7 +80,7 @@
 					android:id="@+id/balance_points_sum_textVIew"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/balance_points_sum"
+					android:text="@string/balance_points_money"
 					android:textAlignment="textStart"
 					android:textColor="@android:color/white"
 					android:textSize="30sp" />
