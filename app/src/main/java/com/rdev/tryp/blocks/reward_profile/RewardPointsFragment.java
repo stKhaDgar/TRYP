@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
@@ -21,13 +22,20 @@ public class RewardPointsFragment extends Fragment implements View.OnClickListen
 
         ImageView fab = root.findViewById(R.id.back_btn);
         fab.setOnClickListener(this);
+        root.findViewById(R.id.btnWithdraw).setOnClickListener(this);
 
         return root;
     }
 
-
     @Override
     public void onClick(View v) {
-        ((ContentActivity) getActivity()).startFragment(ContentActivity.TYPE_REWARDS);
+        switch (v.getId()){
+            case R.id.back_btn:
+                ((ContentActivity) getActivity()).startFragment(ContentActivity.TYPE_REWARDS);
+                break;
+            case R.id.btnWithdraw:
+                ((ContentActivity) getActivity()).startFragment(ContentActivity.TYPE_REWARDS_WITHDRAW);
+                break;
+        }
     }
 }

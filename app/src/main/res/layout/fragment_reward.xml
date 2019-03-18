@@ -262,6 +262,8 @@
 				android:layout_height="wrap_content"
 				android:text="@string/withdraw_to_cash"
 				android:layout_marginTop="23dp"
+				android:clickable="true"
+				android:focusable="true"
 				android:layout_centerHorizontal="true"
 				android:layout_below="@id/rides_cardView"
 				android:textColor="#0172FF"
