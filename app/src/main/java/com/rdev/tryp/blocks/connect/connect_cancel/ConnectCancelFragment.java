@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +34,7 @@ public class ConnectCancelFragment extends Fragment implements View.OnClickListe
         return root;
     }
 
-    public void initView() {
+    private void initView() {
         backBtn = root.findViewById(R.id.back_btn);
         confirmBtn = root.findViewById(R.id.confirm_button);
         radioGroup = root.findViewById(R.id.radio_group);
@@ -49,10 +50,10 @@ public class ConnectCancelFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_btn:
-                ((ContentActivity)getActivity()).popBackStack();
+                ((ContentActivity) Objects.requireNonNull(getActivity())).popBackStack();
                 break;
             case R.id.confirm_button:
-                ((ContentActivity)getActivity()).clearBackStack();
+                ((ContentActivity) Objects.requireNonNull(getActivity())).clearBackStack();
                 ((ContentActivity)getActivity()).clearMap();
                 ((ContentActivity)getActivity()).initMap();
                 break;
