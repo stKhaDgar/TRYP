@@ -201,5 +201,6 @@
 	<string name="edit_card_text">Edit Card</string>
 	<string name="change_card_text">Change card</string>
 	<string name="delete_text">Delete</string>
+	<string name="rewards_withdraw_confirmed_text">By tapping the button to proced, you authorize and provide written instructions for us to debit from your selected bank account the payment as set forth in this <b>ACH Authorization</b></string>
 
 </resources>
