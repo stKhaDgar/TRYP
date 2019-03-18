@@ -22,7 +22,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="64dp"
 				android:gravity="center_horizontal"
-				android:text="Bank Account"
+				android:text="@string/bank_account_text"
 				android:textColor="@android:color/white"
 				android:textSize="18sp" />
 
@@ -31,7 +31,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="27dp"
 				android:gravity="center_horizontal"
-				android:text="Authorize your deposits selection"
+				android:text="@string/authorize_your_deposits_selection_text"
 				android:textColor="@android:color/white"
 				android:textSize="13sp" />
 
@@ -73,7 +73,8 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="17dp"
 					android:layout_marginEnd="17dp"
-					android:src="@drawable/line_vertical" />
+					android:src="@drawable/line_vertical"
+					android:contentDescription="@string/content_description" />
 
 				<TextView
 					android:id="@+id/balance_points_sum_textVIew"
@@ -157,11 +158,12 @@
 					android:layout_width="match_parent"
 					android:layout_height="52dp"
 					android:background="@drawable/background_button_bottom_corners"
-					android:text="Select Another Account"
+					android:text="@string/bt_select_another_account"
 					android:textAllCaps="false"
 					android:textSize="13sp"
 					android:fontFamily="@font/opensans_regular"
 					android:paddingStart="22dp"
+					android:paddingEnd="0dp"
 					android:gravity="start|center_vertical"
 					android:layout_gravity="bottom"/>
 
@@ -173,7 +175,8 @@
 					android:elevation="20dp"
 					android:scaleType="centerInside"
 					android:padding="15dp"
-					android:tint="@color/colorAccent"/>
+					android:tint="@color/colorAccent"
+					android:contentDescription="@string/content_description" />
 
 			</androidx.cardview.widget.CardView>
 

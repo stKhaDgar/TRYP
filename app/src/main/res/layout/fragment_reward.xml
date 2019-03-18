@@ -73,7 +73,8 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="17dp"
 					android:layout_marginEnd="17dp"
-					android:src="@drawable/line_vertical" />
+					android:src="@drawable/line_vertical"
+					android:contentDescription="@string/content_description" />
 
 				<TextView
 					android:id="@+id/balance_points_sum_textVIew"
@@ -223,7 +224,8 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:src="@drawable/splitter"
-						android:layout_gravity="center"/>
+						android:layout_gravity="center"
+						android:contentDescription="@string/content_description" />
 
 					<LinearLayout
 						android:layout_width="100dp"
@@ -269,7 +271,7 @@
 				android:textColor="#0172FF"
 				android:textSize="13sp"
 				android:padding="8dp"
-				android:layout_marginBottom="16dp"/>
+				android:layout_marginBottom="6dp"/>
 
 		</RelativeLayout>
 
@@ -291,4 +293,3 @@
 		android:contentDescription="@string/content_description" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
