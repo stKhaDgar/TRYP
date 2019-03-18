@@ -52,8 +52,9 @@ public class ConnectCancelFragment extends Fragment implements View.OnClickListe
                 ((ContentActivity)getActivity()).popBackStack();
                 break;
             case R.id.confirm_button:
-                Toast.makeText(getContext(), "Confirm " + getCheckedReason(radioGroup.getCheckedRadioButtonId()), Toast.LENGTH_SHORT).show();
-                ((ContentActivity)getActivity()).popBackStack();
+                ((ContentActivity)getActivity()).clearBackStack();
+                ((ContentActivity)getActivity()).clearMap();
+                ((ContentActivity)getActivity()).initMap();
                 break;
         }
     }

@@ -357,6 +357,12 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    public void clearBackStack() {
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+    }
+
     public void pickAdress() {
         listFragment = new AdressListFragment();
         fm.beginTransaction().replace(R.id.container, listFragment)
