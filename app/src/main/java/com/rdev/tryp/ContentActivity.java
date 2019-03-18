@@ -483,18 +483,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         fragment.setDrivers(drivers, currentPos);
     }
 
-    public void moveCameraTo(LatLng position) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 17));
-    }
-
-    public void setMarkerTo(int resId, LatLng markerPos) {
-        mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(resId))
-                .position(markerPos));
-    }
-
     public void zoomToCurrentLocation() {
 
         currentLocation.onStartLocationUpdate(location -> {
+            Log.e("GeoLocation", "find current Location = " + location.getLatitude() + " : " + location.getLongitude());
             LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
@@ -514,6 +506,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             Bitmap b = bitmapDraw.getBitmap();
             Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
+            mMap.clear();
             mMap.addMarker(new MarkerOptions().position(currentPos)
                     .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         });
