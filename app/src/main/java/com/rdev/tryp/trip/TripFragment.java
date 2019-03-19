@@ -16,8 +16,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.intro.manager.AccountManager;
@@ -226,10 +232,15 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         showAlertDialod("Ride request Failed", "Error at trip order. Please try again", activity);
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
+                        Toast.makeText(activity, rideRequest.getRequestId(), Toast.LENGTH_LONG).show();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                                database.child("rides").child("3ab87aba-4407-49db-9003-4253847461d4").child("lat").setValue(22.223123123);
+//                                Log.e("DebugDatabase", );
+
                                 updateStatus(activity, rideRequest.getRequestId());
                             }
                         }, 3000);
@@ -245,20 +256,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         } catch (Exception ex) {
             showAlertDialod("Ride request failed", "Error at trip order", activity);
         }
-
-//        RequestRideBody body = new RequestRideBody(
-//                "33.9413",
-//                "33",                                                                                   // TODO: driver id
-//                "-118.416068",
-//                "20",           // TODO: user id
-//                "3127 Overland Avenue, Los Angeles, California, United States of America",
-//                "-118.407",
-//                "Los Angeles International Airport, Los Angeles, California, United States of America",
-//                "2019-04-20",                                                                           // TODO: DateTime
-//                "72.229.28.185",                                                                        // TODO: ip
-//                "0",
-//                "34.030365");
-
     }
 
     private static void updateStatus(Activity activity, final String requestId) {
