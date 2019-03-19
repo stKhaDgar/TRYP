@@ -19,11 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.intro.manager.AccountManager;
@@ -110,12 +107,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         onDemandCard.setCardBackgroundColor(Color.WHITE);
         favouriteCard.setCardBackgroundColor(Color.BLUE);
 
-        TripAdapter.OnItemClickListener listener = new TripAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Object item) {
-                ((ContentActivity) getActivity()).openDetailHost(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
-            }
-        };
+        TripAdapter.OnItemClickListener listener = item -> ((ContentActivity) getActivity()).openDetailHost(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
 
         service.get_favourite_drivers(AccountManager.getInstance().getUserId()).enqueue(new Callback<FavouriteDriver>() {
 
@@ -141,13 +133,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         on_demand_tv.setTextColor(Color.WHITE);
         favourite_tv.setTextColor(ContextCompat.getColor(getContext(), R.color.unselect_tv_color));
 
-        TripAdapter.OnItemClickListener listener = new TripAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Object item) {
-                ((ContentActivity) getActivity()).openCarsFragments(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
-
-            }
-        };
+        TripAdapter.OnItemClickListener listener = item -> ((ContentActivity) getActivity()).openCarsFragments(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
 
         service.get_nearby_drivers(40.741895, 73.989308).enqueue(new Callback<NearbyDriver>() {
             @Override
@@ -285,10 +271,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void openConnectFragment(){
-
-    }
-
     private static AlertDialog dialog;
 
     private static void showAlertDialod(String title, String message, Context context) {
@@ -303,12 +285,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         dialog = new AlertDialog.Builder(context)
                 .setView(v).create();
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        back_btn.setOnClickListener(view -> dialog.dismiss());
         if (dialog != null) {
             dialog.dismiss();
         }
