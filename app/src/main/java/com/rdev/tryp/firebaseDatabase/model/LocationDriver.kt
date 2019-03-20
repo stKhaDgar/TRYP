@@ -1,6 +1,5 @@
 package com.rdev.tryp.firebaseDatabase.model
 
-import com.google.android.gms.maps.model.LatLng
 
 /**
  * Created by Andrey Berezhnoi on 20.03.2019.
@@ -10,5 +9,5 @@ import com.google.android.gms.maps.model.LatLng
 
 class LocationDriver(
         var lat: Double? = null,
-        var lon: Double? = null
+        var lng: Double? = null
 )

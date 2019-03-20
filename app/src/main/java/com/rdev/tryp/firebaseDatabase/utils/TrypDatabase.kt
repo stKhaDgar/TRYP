@@ -1,7 +1,6 @@
 package com.rdev.tryp.firebaseDatabase.utils
 
 import android.animation.ValueAnimator
-import android.os.Handler
 import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -46,9 +45,9 @@ class TrypDatabase{
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 Log.e(const.TAG, "onChildAdded")
                 val item = dataSnapshot.getValue(Driver::class.java)
-                Log.e(const.TAG, "Driver | id:${item?.id} , lat:${item?.location?.lat} , lon:${item?.location?.lon}")
+                Log.e(const.TAG, "Driver | id:${item?.id} , lat:${item?.location?.lat} , lon:${item?.location?.lng}")
                 item?.location?.lat?.let { first ->
-                    item.location?.lon?.let { second ->
+                    item.location?.lng?.let { second ->
                         val marker = map.addGroundOverlay(GroundOverlayOptions().position(LatLng(first, second), 200f).
                                 image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)))
                         drivers.add(Pair(marker, item))
@@ -64,21 +63,21 @@ class TrypDatabase{
                 for((marker, driver) in drivers){
                     if(driver.id == item?.id){
                         item?.location?.lat?.let { first ->
-                            item.location?.lon?.let { second ->
+                            item.location?.lng?.let { second ->
 
                                 val vaLat = ValueAnimator.ofFloat(driver.location?.lat.toString().toFloat(), first.toFloat())
-                                val vaLon = ValueAnimator.ofFloat(driver.location?.lon.toString().toFloat(), second.toFloat())
+                                val vaLon = ValueAnimator.ofFloat(driver.location?.lng.toString().toFloat(), second.toFloat())
 
                                 vaLat.addUpdateListener { animation ->
                                     val value = animation.animatedValue as Float
-                                    marker.position = LatLng(value.toDouble(), driver.location?.lon.toString().toDouble())
+                                    marker.position = LatLng(value.toDouble(), driver.location?.lng.toString().toDouble())
                                     driver.location?.lat = value.toDouble()
                                 }
 
                                 vaLon.addUpdateListener { animation ->
                                     val value = animation.animatedValue as Float
                                     marker.position = LatLng(driver.location?.lat.toString().toDouble(), value.toDouble())
-                                    driver.location?.lon = value.toDouble()
+                                    driver.location?.lng = value.toDouble()
                                 }
 
                                 vaLat.start()
