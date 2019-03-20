@@ -1,5 +1,7 @@
 package com.rdev.tryp.firebaseDatabase.utils
 
+import android.animation.ValueAnimator
+import android.os.Handler
 import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -34,7 +36,7 @@ class TrypDatabase{
             init {
                 map.setOnCameraMoveListener {
                     val zoom = map.cameraPosition.zoom
-                    for((marker, driver) in drivers){
+                    for((marker, _) in drivers){
                         if(zoom > 10){
                             marker.setDimensions(Math.pow(2.5, (20 - zoom).toDouble()).toFloat() + 40)
                         }
@@ -58,7 +60,33 @@ class TrypDatabase{
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
                 Log.e(const.TAG, "onChildChanged")
+                val item = dataSnapshot.getValue(Driver::class.java)
+                for((marker, driver) in drivers){
+                    if(driver.id == item?.id){
+                        item?.location?.lat?.let { first ->
+                            item.location?.lon?.let { second ->
 
+                                val vaLat = ValueAnimator.ofFloat(driver.location?.lat.toString().toFloat(), first.toFloat())
+                                val vaLon = ValueAnimator.ofFloat(driver.location?.lon.toString().toFloat(), second.toFloat())
+
+                                vaLat.addUpdateListener { animation ->
+                                    val value = animation.animatedValue as Float
+                                    marker.position = LatLng(value.toDouble(), driver.location?.lon.toString().toDouble())
+                                    driver.location?.lat = value.toDouble()
+                                }
+
+                                vaLon.addUpdateListener { animation ->
+                                    val value = animation.animatedValue as Float
+                                    marker.position = LatLng(driver.location?.lat.toString().toDouble(), value.toDouble())
+                                    driver.location?.lon = value.toDouble()
+                                }
+
+                                vaLat.start()
+                                vaLon.start()
+                            }
+                        }
+                    }
+                }
             }
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
@@ -77,5 +105,4 @@ class TrypDatabase{
             }
         })
     }
-
 }
