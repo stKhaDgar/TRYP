@@ -65,6 +65,7 @@ import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardWithdrawFragment;
+import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
@@ -105,6 +106,8 @@ import io.realm.Realm;
  * Created by Alexey Matrosov on 02.03.2019.
  */
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+    TrypDatabase database = new TrypDatabase();
+
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     boolean isLocationFound = false;
     public Bundle b = null;
@@ -189,6 +192,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        database.initializeAvailableDrivers(mMap);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
