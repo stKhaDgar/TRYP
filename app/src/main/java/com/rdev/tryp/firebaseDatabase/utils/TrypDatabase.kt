@@ -12,6 +12,7 @@ import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.Client
+import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
 import com.rdev.tryp.firebaseDatabase.model.Driver
 import com.rdev.tryp.model.login_response.Users
 import java.util.ArrayList
@@ -28,7 +29,7 @@ class TrypDatabase{
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val const = ConstantsFirebase
-    public val drivers = ArrayList<Pair<GroundOverlay, Driver>>()
+    val drivers = ArrayList<Pair<GroundOverlay, AvailableDriver>>()
     private var listener: AvailableDriversChanged? = null
 
     fun initializeAvailableDrivers(map: GoogleMap){
@@ -48,7 +49,7 @@ class TrypDatabase{
 
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 Log.e(const.TAG, "onChildAdded")
-                val item = dataSnapshot.getValue(Driver::class.java)
+                val item = dataSnapshot.getValue(AvailableDriver::class.java)
                 Log.e(const.TAG, "Driver | id:${item?.id} , lat:${item?.location?.lat} , lon:${item?.location?.lng}")
                 item?.location?.lat?.let { first ->
                     item.location?.lng?.let { second ->
@@ -70,7 +71,7 @@ class TrypDatabase{
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
                 Log.e(const.TAG, "onChildChanged")
-                val item = dataSnapshot.getValue(Driver::class.java)
+                val item = dataSnapshot.getValue(AvailableDriver::class.java)
                 for((marker, driver) in drivers){
                     if(driver.id == item?.id){
                         item?.location?.lat?.let { first ->
@@ -101,7 +102,7 @@ class TrypDatabase{
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
                 Log.e(const.TAG, "onChildRemoved")
-                val item = dataSnapshot.getValue(Driver::class.java)
+                val item = dataSnapshot.getValue(AvailableDriver::class.java)
                 for((index, pair) in drivers.withIndex()){
                     if(pair.second.id == item?.id){
                         setTransparency(1.0F, 0.0F, ValueAnimator.AnimatorUpdateListener { animation ->
@@ -153,7 +154,26 @@ class TrypDatabase{
         anim.start()
     }
 
-    fun setAvailableDrivers(listener: AvailableDriversChanged){
-        this.listener = listener
+    fun setAvailableDrivers(callback: AvailableDriversChanged.DataChange){
+        convertArrayToOnlyDrivers(callback)
+        this.listener = object: AvailableDriversChanged{
+            override fun onChanged(drivers: ArrayList<Pair<GroundOverlay, AvailableDriver>>) {
+                convertArrayToOnlyDrivers(callback)
+            }
+        }
+    }
+
+    private fun convertArrayToOnlyDrivers(callback: AvailableDriversChanged.DataChange){
+        val tempArr = ArrayList<Driver>()
+
+        for((_, driver) in drivers){
+            database.reference.child(const.DRIVERS).child(driver.id.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(dataSnapshot: DatabaseError) {}
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.getValue(Driver::class.java)?.let { tempArr.add(it) }
+                    callback.onChanged(tempArr)
+                }
+            })
+        }
     }
 }

@@ -11,15 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
-import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.trip.TripFragment;
+import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 @SuppressLint("ValidFragment")
@@ -27,7 +25,7 @@ public class TrypCarFragment extends Fragment {
 
     private View v;
 
-    private DriversItem driver;
+    private Driver driver;
     private TextView tryp_type_tv, num_of_passangers, num_of_baggage, num_of_door_tv, price_tv;
     private ImageView car_iv;
     public static final String TYPE_TRYP = "TRYP";
@@ -36,7 +34,7 @@ public class TrypCarFragment extends Fragment {
     public static final String TYPE_TRYP_ASSIST = "TRYP Assist";
 
     @SuppressLint("ValidFragment")
-    public TrypCarFragment(DriversItem driver) {
+    public TrypCarFragment(Driver driver) {
         this.driver = driver;
     }
 
@@ -51,9 +49,9 @@ public class TrypCarFragment extends Fragment {
         num_of_passangers = v.findViewById(R.id.num_of_passangers);
         price_tv = v.findViewById(R.id.price_tv);
 
-//        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
-        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
-                TrypCarFragment.getImageByType(driver.getCategory())));
+        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+//        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
+//                TrypCarFragment.getImageByType(driver.getCategory())));
         tryp_type_tv.setText(driver.getCategory());
         num_of_door_tv.setText("4/4"); //TODO: replace from driver
         num_of_passangers.setText("" + driver.getMaxPassenger());
@@ -65,7 +63,7 @@ public class TrypCarFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
+//                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
             }
         });
 

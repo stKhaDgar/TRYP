@@ -18,21 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
-import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged;
-import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.model.NearbyDriver;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.model.favourite_driver.FavouriteDriver;
 import com.rdev.tryp.model.ride_responce.RequestRideBody;
@@ -42,8 +35,6 @@ import com.rdev.tryp.model.status_response.StatusResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
 import com.rdev.tryp.network.NetworkService;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +47,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import kotlin.Pair;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -162,9 +152,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 //        });
 
         TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
-        tripAdapter = new TripAdapter(database.getDrivers(), TripAdapter.TYPE_CAR, listener, getContext());
-        tripRv.setAdapter(tripAdapter);
-        tripAdapter.notifyDataSetChanged();
 
         database.setAvailableDrivers(drivers -> {
             tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext());

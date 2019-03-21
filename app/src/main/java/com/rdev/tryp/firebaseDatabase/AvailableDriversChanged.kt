@@ -1,6 +1,7 @@
 package com.rdev.tryp.firebaseDatabase
 
 import com.google.android.gms.maps.model.GroundOverlay
+import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
 import com.rdev.tryp.firebaseDatabase.model.Driver
 import java.util.ArrayList
 
@@ -11,5 +12,8 @@ import java.util.ArrayList
 
 
 interface AvailableDriversChanged {
-    fun onChanged(drivers: ArrayList<Pair<GroundOverlay, Driver>>)
+    fun onChanged(drivers: ArrayList<Pair<GroundOverlay, AvailableDriver>>)
+    interface DataChange{
+        fun onChanged(drivers: ArrayList<Driver>)
+    }
 }

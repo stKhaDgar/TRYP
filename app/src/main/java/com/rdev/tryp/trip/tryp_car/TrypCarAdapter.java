@@ -1,6 +1,6 @@
 package com.rdev.tryp.trip.tryp_car;
 
-import com.rdev.tryp.model.DriversItem;
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ class TrypCarAdapter extends FragmentStatePagerAdapter {
         if(drivers.isEmpty() || drivers.size() == 0){
             return null;
         }
-        return new TrypCarFragment((DriversItem) drivers.get(position));
+        return new TrypCarFragment((Driver) drivers.get(position));
     }
 
     public void setDrivers(List<?> drivers){
