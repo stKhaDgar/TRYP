@@ -170,8 +170,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
             tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext());
             tripRv.setAdapter(tripAdapter);
             tripAdapter.notifyDataSetChanged();
-
-            Log.e("DebugSome", drivers.size()+"");
         });
     }
 

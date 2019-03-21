@@ -110,32 +110,32 @@ class TripAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        if (holder instanceof CarHolder) {
-//            DriversItem item = (DriversItem) drivers.get(position);
-//            CarHolder carHolder = ((CarHolder) holder);
-//
-//            //Glide.with(holder.itemView).load(item.getVehicle().getImage()).into(carHolder.car_iv);
-//            carHolder.car_iv.setImageDrawable(ContextCompat.getDrawable(context,
-//                    TrypCarFragment.getImageByType(item.getCategory())));
-//            //Log.i("adapter", "" + item.getCategory());
-//            carHolder.category.setText(item.getCategory());
-//            carHolder.car_type.setText(item.getType());
-//            carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
-//            carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
-//            carHolder.fare_tv.setText("$" + item.getFare());
-//        } else {
-//            DriverHolder driverHolder = ((DriverHolder) holder);
-//            ImageView avatar_iv = driverHolder.avatar_iv;
-//            TextView driver_tv = driverHolder.driver_tv;
-//            TextView category_tv = driverHolder.category_tv;
-//            DriversItem item = (DriversItem) drivers.get(position);
-//            Glide.with(holder.itemView).load(item.getDriver().getImage()).into(avatar_iv);
-//            driver_tv.setText(item.getDriver().getFirstName() + " " + item.getDriver().getLastName());
-//            category_tv.setText(item.getCategory());
-//            driverHolder.fare_tv.setText( "$" + item.getFare());
-//            driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
-//            driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
-//        }
+        if (holder instanceof CarHolder) {
+            DriversItem item = (DriversItem) drivers.get(position);
+            CarHolder carHolder = ((CarHolder) holder);
+
+            //Glide.with(holder.itemView).load(item.getVehicle().getImage()).into(carHolder.car_iv);
+            carHolder.car_iv.setImageDrawable(ContextCompat.getDrawable(context,
+                    TrypCarFragment.getImageByType(item.getCategory())));
+            //Log.i("adapter", "" + item.getCategory());
+            carHolder.category.setText(item.getCategory());
+            carHolder.car_type.setText(item.getType());
+            carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
+            carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
+            carHolder.fare_tv.setText("$" + item.getFare());
+        } else {
+            DriverHolder driverHolder = ((DriverHolder) holder);
+            ImageView avatar_iv = driverHolder.avatar_iv;
+            TextView driver_tv = driverHolder.driver_tv;
+            TextView category_tv = driverHolder.category_tv;
+            DriversItem item = (DriversItem) drivers.get(position);
+            Glide.with(holder.itemView).load(item.getDriver().getImage()).into(avatar_iv);
+            driver_tv.setText(item.getDriver().getFirstName() + " " + item.getDriver().getLastName());
+            category_tv.setText(item.getCategory());
+            driverHolder.fare_tv.setText( "$" + item.getFare());
+            driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
+            driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
+        }
     }
 
     @Override
