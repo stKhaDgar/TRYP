@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.*
 import com.rdev.tryp.R
+import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.Client
 import com.rdev.tryp.firebaseDatabase.model.Driver
@@ -27,11 +28,12 @@ class TrypDatabase{
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val const = ConstantsFirebase
+    public val drivers = ArrayList<Pair<GroundOverlay, Driver>>()
+    private var listener: AvailableDriversChanged? = null
 
     fun initializeAvailableDrivers(map: GoogleMap){
 
         database.reference.child(const.AVAILABLE_DRIVERS).addChildEventListener(object : ChildEventListener {
-            private var drivers = ArrayList<Pair<GroundOverlay, Driver>>()
 
             init {
                 map.setOnCameraMoveListener {
@@ -43,6 +45,7 @@ class TrypDatabase{
                     }
                 }
             }
+
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 Log.e(const.TAG, "onChildAdded")
                 val item = dataSnapshot.getValue(Driver::class.java)
@@ -57,6 +60,8 @@ class TrypDatabase{
                             val value = animation.animatedValue as Float
                             marker.transparency = value
                         })
+
+                        listener?.onChanged(drivers)
                     }
                 }
 
@@ -105,6 +110,8 @@ class TrypDatabase{
                             if(value == 1.0F){
                                 pair.first.remove()
                                 drivers.removeAt(index)
+
+                                listener?.onChanged(drivers)
                                 return@AnimatorUpdateListener
                             }
                         })
@@ -144,5 +151,9 @@ class TrypDatabase{
 
         anim.addUpdateListener(listener)
         anim.start()
+    }
+
+    fun setAvailableDrivers(listener: AvailableDriversChanged){
+        this.listener = listener
     }
 }

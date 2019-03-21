@@ -106,7 +106,7 @@ import io.realm.Realm;
  * Created by Alexey Matrosov on 02.03.2019.
  */
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
-    TrypDatabase database = new TrypDatabase();
+    public TrypDatabase database = new TrypDatabase();
 
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     boolean isLocationFound = false;

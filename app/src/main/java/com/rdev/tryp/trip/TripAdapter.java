@@ -8,19 +8,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.GroundOverlay;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.trip.tryp_car.TrypCarFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import kotlin.Pair;
 
 class TripAdapter extends RecyclerView.Adapter {
-    List<?> drivers;
+    ArrayList<Pair<GroundOverlay, Driver>> drivers;
     public static final int TYPE_CAR = 1;
     public static final int TYPE_DRIVER = 2;
     int type;
@@ -31,7 +35,7 @@ class TripAdapter extends RecyclerView.Adapter {
         void onItemClick(Object item);
     }
 
-    public TripAdapter(List<?> drivers, int type, OnItemClickListener listener, Context context) {
+    public TripAdapter(ArrayList<Pair<GroundOverlay, Driver>> drivers, int type, OnItemClickListener listener, Context context) {
         this.drivers = drivers;
         this.type = type;
         this.listener = listener;
@@ -106,32 +110,32 @@ class TripAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof CarHolder) {
-            DriversItem item = (DriversItem) drivers.get(position);
-            CarHolder carHolder = ((CarHolder) holder);
-
-            //Glide.with(holder.itemView).load(item.getVehicle().getImage()).into(carHolder.car_iv);
-            carHolder.car_iv.setImageDrawable(ContextCompat.getDrawable(context,
-                    TrypCarFragment.getImageByType(item.getCategory())));
-            //Log.i("adapter", "" + item.getCategory());
-            carHolder.category.setText(item.getCategory());
-            carHolder.car_type.setText(item.getType());
-            carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
-            carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
-            carHolder.fare_tv.setText("$" + item.getFare());
-        } else {
-            DriverHolder driverHolder = ((DriverHolder) holder);
-            ImageView avatar_iv = driverHolder.avatar_iv;
-            TextView driver_tv = driverHolder.driver_tv;
-            TextView category_tv = driverHolder.category_tv;
-            DriversItem item = (DriversItem) drivers.get(position);
-            Glide.with(holder.itemView).load(item.getDriver().getImage()).into(avatar_iv);
-            driver_tv.setText(item.getDriver().getFirstName() + " " + item.getDriver().getLastName());
-            category_tv.setText(item.getCategory());
-            driverHolder.fare_tv.setText( "$" + item.getFare());
-            driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
-            driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
-        }
+//        if (holder instanceof CarHolder) {
+//            DriversItem item = (DriversItem) drivers.get(position);
+//            CarHolder carHolder = ((CarHolder) holder);
+//
+//            //Glide.with(holder.itemView).load(item.getVehicle().getImage()).into(carHolder.car_iv);
+//            carHolder.car_iv.setImageDrawable(ContextCompat.getDrawable(context,
+//                    TrypCarFragment.getImageByType(item.getCategory())));
+//            //Log.i("adapter", "" + item.getCategory());
+//            carHolder.category.setText(item.getCategory());
+//            carHolder.car_type.setText(item.getType());
+//            carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
+//            carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
+//            carHolder.fare_tv.setText("$" + item.getFare());
+//        } else {
+//            DriverHolder driverHolder = ((DriverHolder) holder);
+//            ImageView avatar_iv = driverHolder.avatar_iv;
+//            TextView driver_tv = driverHolder.driver_tv;
+//            TextView category_tv = driverHolder.category_tv;
+//            DriversItem item = (DriversItem) drivers.get(position);
+//            Glide.with(holder.itemView).load(item.getDriver().getImage()).into(avatar_iv);
+//            driver_tv.setText(item.getDriver().getFirstName() + " " + item.getDriver().getLastName());
+//            category_tv.setText(item.getCategory());
+//            driverHolder.fare_tv.setText( "$" + item.getFare());
+//            driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
+//            driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
+//        }
     }
 
     @Override
