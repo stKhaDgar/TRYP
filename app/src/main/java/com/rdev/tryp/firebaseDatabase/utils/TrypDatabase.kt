@@ -7,10 +7,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.GroundOverlay
 import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.Driver
@@ -50,7 +47,12 @@ class TrypDatabase{
                     item.location?.lng?.let { second ->
                         val marker = map.addGroundOverlay(GroundOverlayOptions().position(LatLng(first, second), 200f).
                                 image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)))
+                        marker.transparency = 0.0F
                         drivers.add(Pair(marker, item))
+                        setTransparency(0.0F, 1.0F, ValueAnimator.AnimatorUpdateListener { animation ->
+                            val value = animation.animatedValue as Float
+                            marker.transparency = value
+                        })
                     }
                 }
 
@@ -90,7 +92,21 @@ class TrypDatabase{
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
                 Log.e(const.TAG, "onChildRemoved")
-
+                val item = dataSnapshot.getValue(Driver::class.java)
+                for((index, pair) in drivers.withIndex()){
+                    if(pair.second.id == item?.id){
+                        setTransparency(1.0F, 0.0F, ValueAnimator.AnimatorUpdateListener { animation ->
+                            val value = animation.animatedValue as Float
+                            pair.first.transparency = value
+                            if(value == 1.0F){
+                                pair.first.remove()
+                                drivers.removeAt(index)
+                                return@AnimatorUpdateListener
+                            }
+                        })
+                        return
+                    }
+                }
             }
 
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
@@ -103,5 +119,13 @@ class TrypDatabase{
 
             }
         })
+    }
+
+    private fun setTransparency(from: Float, to: Float, listener: ValueAnimator.AnimatorUpdateListener){
+        val anim = ValueAnimator.ofFloat(to, from)
+        anim.duration = 1000
+
+        anim.addUpdateListener(listener)
+        anim.start()
     }
 }
