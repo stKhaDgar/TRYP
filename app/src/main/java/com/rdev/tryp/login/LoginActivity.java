@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.blocks.forme.edit_addresses.AddressNetworkService;
+import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.LoginModel;
 import com.rdev.tryp.model.LoginResponse;
@@ -95,6 +96,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     RealmUtils realm = new RealmUtils(getApplicationContext(), null);
                     realm.pushUser(body.getData().getUsers());
+
+                    new TrypDatabase().updateUser(body.getData().getUsers());
 
                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
                     intent.putExtra("tag", "f");

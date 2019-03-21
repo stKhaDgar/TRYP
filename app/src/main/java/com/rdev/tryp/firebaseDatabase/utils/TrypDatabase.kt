@@ -10,8 +10,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.*
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
+import com.rdev.tryp.firebaseDatabase.model.Client
 import com.rdev.tryp.firebaseDatabase.model.Driver
+import com.rdev.tryp.model.login_response.Users
 import java.util.ArrayList
+import java.util.HashMap
+
 
 /**
  * Created by Andrey Berezhnoi on 20.03.2019.
@@ -111,13 +115,26 @@ class TrypDatabase{
 
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
                 Log.e(const.TAG, "onChildMoved")
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.e(const.TAG, "onCancelled")
-
             }
+        })
+    }
+
+    fun updateUser(user: Users){
+        val clients = database.reference.child(const.CLIENTS)
+        clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val temp = Client(user.userId.toString(), user.firstName, user.lastName, "none", 5.0F)
+                val map = HashMap<String, Client>()
+                map[user.userId.toString()] = temp
+                clients.setValue(map)
+            }
+
+            override fun onCancelled(dataSnapshot: DatabaseError) {}
         })
     }
 
