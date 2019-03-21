@@ -29,11 +29,6 @@ class RealmMigration: RealmMigration{
     private fun updateMigration(schema: RealmSchema){
         Log.e(TAG, "updateMigration from version: $version to actual")
 
-        if(version == 0){
-            schema.get("Card")
-                    ?.addPrimaryKey("id")
-        }
-
         version++
     }
 

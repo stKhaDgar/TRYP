@@ -5,7 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Users {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+public class Users extends RealmObject {
 
     @SerializedName("user_id")
     @Expose
@@ -39,7 +42,7 @@ public class Users {
     private String image;
     @SerializedName("favorite_addresses")
     @Expose
-    private List<Object> favoriteAddresses = null;
+    private RealmList<String> favoriteAddresses = null;
 
     public Integer getUserId() {
         return userId;
@@ -121,11 +124,11 @@ public class Users {
         this.image = image;
     }
 
-    public List<Object> getFavoriteAddresses() {
+    public RealmList<String> getFavoriteAddresses() {
         return favoriteAddresses;
     }
 
-    public void setFavoriteAddresses(List<Object> favoriteAddresses) {
+    public void setFavoriteAddresses(RealmList<String> favoriteAddresses) {
         this.favoriteAddresses = favoriteAddresses;
     }
 

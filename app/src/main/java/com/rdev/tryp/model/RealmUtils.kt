@@ -1,6 +1,8 @@
 package com.rdev.tryp.model
 
+import android.content.Context
 import android.util.Log
+import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.payment.model.Card
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -10,13 +12,15 @@ import io.realm.RealmConfiguration
  * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
-class RealmUtils(private val callback: RealmCallback?){
+class RealmUtils(private val context: Context, private val callback: RealmCallback?){
     private val TAG = "realm"
     private val realm: Realm
 
     init {
+        Realm.init(context)
+
         val config = RealmConfiguration.Builder()
-                .schemaVersion(1)
+                .schemaVersion(0)
                 .migration(RealmMigration())
                 .build()
 
@@ -25,6 +29,20 @@ class RealmUtils(private val callback: RealmCallback?){
 
     fun getRealm() : Realm {
         return realm
+    }
+
+    fun pushUser(temp: Users) {
+        realm.executeTransactionAsync({ bgRealm ->
+
+            bgRealm.copyToRealmOrUpdate(temp)
+
+        }, {
+            Log.e(TAG, "User was updated")
+            callback?.dataUpdated()
+        }, { error ->
+            error.printStackTrace()
+            callback?.error()
+        })
     }
 
     fun pushCard(card: Card){

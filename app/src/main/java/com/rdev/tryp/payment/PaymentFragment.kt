@@ -35,7 +35,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun setDetails(view: View){
-        arrayList = RealmUtils(null).getCards()
+        arrayList = RealmUtils(view.context,null).getCards()
         adapter = PaymentCardsAdapter(arrayList, activity as ContentActivity)
 
         if(arrayList.isNotEmpty()){

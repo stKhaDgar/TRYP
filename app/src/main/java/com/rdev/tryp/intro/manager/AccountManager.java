@@ -1,5 +1,8 @@
 package com.rdev.tryp.intro.manager;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.utils.PreferenceManager;
 
@@ -16,6 +19,7 @@ public class AccountManager {
         if (instance == null)
             instance = new AccountManager();
         instance.userId = PreferenceManager.getInt("USER_ID_KEY");
+
         return instance;
     }
 
@@ -32,11 +36,11 @@ public class AccountManager {
         PreferenceManager.setInt(USER_ID_KEY, userId);
     }
 
-    public void signOut(){
+    public void signOut(Context context){
         userId = -1;
         PreferenceManager.setInt(USER_ID_KEY, userId);
 
-        RealmUtils realm = new RealmUtils(null);
+        RealmUtils realm = new RealmUtils(context, null);
         realm.clear();
     }
 }

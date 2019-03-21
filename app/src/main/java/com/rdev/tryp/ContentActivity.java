@@ -895,7 +895,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void signOut() {
-        AccountManager.getInstance().signOut();
+        AccountManager.getInstance().signOut(ContentActivity.this);
         Intent intent = new Intent(ContentActivity.this, IntroActivity.class);
         startActivity(intent);
         finish();

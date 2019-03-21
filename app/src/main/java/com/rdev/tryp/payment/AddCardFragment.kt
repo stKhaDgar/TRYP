@@ -80,7 +80,7 @@ class AddCardFragment : Fragment() {
                 card.expirationYear = view.cardForm.expirationYear
                 card.cvv = view.cardForm.cvv
 
-                RealmUtils(object : RealmCallback{
+                RealmUtils(view.context, object : RealmCallback{
                     override fun dataUpdated() {
                         (activity as? ContentActivity)?.startFragment(ContentActivity.TYPE_PAYMENT)
                     }
@@ -93,7 +93,7 @@ class AddCardFragment : Fragment() {
             }
         }
         view.btnDeleteCard.setOnClickListener {
-            RealmUtils(object : RealmCallback{
+            RealmUtils(view.context, object : RealmCallback{
                 override fun dataUpdated() {
                     (activity as? ContentActivity)?.startFragment(ContentActivity.TYPE_PAYMENT)
                 }
