@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rdev.tryp.R;
-import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 
 import java.util.ArrayList;
@@ -17,12 +16,11 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class TripAdapter extends RecyclerView.Adapter {
     ArrayList<Driver> drivers;
-    public static final int TYPE_CAR = 1;
+    static final int TYPE_CAR = 1;
     public static final int TYPE_DRIVER = 2;
     int type;
     private OnItemClickListener listener;
@@ -32,7 +30,7 @@ class TripAdapter extends RecyclerView.Adapter {
         void onItemClick(Object item);
     }
 
-    public TripAdapter(ArrayList<Driver> drivers, int type, OnItemClickListener listener, Context context) {
+    TripAdapter(ArrayList<Driver> drivers, int type, OnItemClickListener listener, Context context) {
         this.drivers = drivers;
         this.type = type;
         this.listener = listener;
@@ -60,7 +58,7 @@ class TripAdapter extends RecyclerView.Adapter {
         TextView fare_tv;
         CardView price_card_view;
 
-        public CarHolder(@NonNull View itemView) {
+        CarHolder(@NonNull View itemView) {
             super(itemView);
             car_iv = itemView.findViewById(R.id.avatar_iv);
             category = itemView.findViewById(R.id.category_tv);
@@ -70,11 +68,7 @@ class TripAdapter extends RecyclerView.Adapter {
             fare_tv = itemView.findViewById(R.id.fare);
             price_card_view = itemView.findViewById(R.id.price_card_view);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    listener.onItemClick(drivers.get(getAdapterPosition()));
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(drivers.get(getAdapterPosition())));
         }
     }
 
@@ -87,7 +81,7 @@ class TripAdapter extends RecyclerView.Adapter {
         TextView num_of_baggage;
         CardView price_card_view;
 
-        public DriverHolder(@NonNull View itemView) {
+        DriverHolder(@NonNull View itemView) {
             super(itemView);
             avatar_iv = itemView.findViewById(R.id.avatar_iv);
             driver_tv = itemView.findViewById(R.id.driver_name);
