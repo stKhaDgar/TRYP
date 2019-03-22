@@ -34,6 +34,7 @@ class TrypDatabase{
     private var listener: AvailableDriversChanged? = null
 
     fun initializeAvailableDrivers(map: GoogleMap){
+        drivers.clear()
 
         database.reference.child(const.AVAILABLE_DRIVERS).addChildEventListener(object : ChildEventListener {
 
@@ -202,7 +203,11 @@ class TrypDatabase{
             database.reference.child(const.DRIVERS).child(driver.id.toString()).addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(dataSnapshot: DatabaseError) {}
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    dataSnapshot.getValue(Driver::class.java)?.let { tempArr.add(it) }
+                    dataSnapshot.getValue(Driver::class.java)?.let {
+                        if(!tempArr.any { field -> field.driverId == it.driverId }){
+                            tempArr.add(it)
+                        }
+                    }
                     callback.onChanged(tempArr)
                 }
             })

@@ -70,7 +70,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
     private LatLng currentPosition;
     private LatLng destinationPosition;
-    private List<DriversItem> drivers;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,8 +115,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onResponse(Call<FavouriteDriver> call, Response<FavouriteDriver> response) {
-                drivers = response.body().getData().getDrivers();
-//                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, listener, getContext());
+                //                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, listener, getContext());
 //                tripRv.setAdapter(tripAdapter);
             }
 
