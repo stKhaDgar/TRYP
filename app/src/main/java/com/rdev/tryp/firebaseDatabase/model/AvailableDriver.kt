@@ -11,5 +11,5 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 class AvailableDriver(
         var id: String? = null,
-        var location: LocationDriver? = null
+        var location: Location? = null
 )

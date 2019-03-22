@@ -11,9 +11,11 @@ import com.google.firebase.database.*
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
+import com.rdev.tryp.firebaseDatabase.DriverApproveListener
 import com.rdev.tryp.firebaseDatabase.model.Client
 import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
 import com.rdev.tryp.firebaseDatabase.model.Driver
+import com.rdev.tryp.firebaseDatabase.model.Ride
 import com.rdev.tryp.model.login_response.Users
 import java.util.ArrayList
 import java.util.HashMap
@@ -145,12 +147,43 @@ class TrypDatabase{
         })
     }
 
-    private fun setTransparency(from: Float, to: Float, listener: ValueAnimator.AnimatorUpdateListener){
-        val anim = ValueAnimator.ofFloat(to, from)
-        anim.duration = 1000
+    fun startRide(ride: Ride, driverId: String?, listener: DriverApproveListener){
+        val rides = database.reference.child(const.RIDES)
+        ride.id?.let { rideId ->
+            val currentRide = rides.child(rideId)
+            currentRide.setValue(ride)
 
-        anim.addUpdateListener(listener)
-        anim.start()
+            driverId?.let { driverId ->
+                val driver = database.reference.child(const.DRIVERS).child(driverId)
+
+                driver.addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onCancelled(p0: DatabaseError) {}
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            driver.child("rideId").setValue(rideId)
+                        }
+                    }
+                })
+            }
+
+            currentRide.addValueEventListener(object : ValueEventListener{
+                override fun onCancelled(p0: DatabaseError) {}
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        dataSnapshot.getValue(Ride::class.java)?.let { item ->
+                            if(item.driver_id == driverId){
+                                listener.isApproved()
+                            }
+                        }
+
+                    } else {
+                        listener.isDeclined()
+                    }
+                }
+
+            })
+        }
     }
 
     fun setAvailableDrivers(callback: AvailableDriversChanged.DataChange){
@@ -166,7 +199,7 @@ class TrypDatabase{
         val tempArr = ArrayList<Driver>()
 
         for((_, driver) in drivers){
-            database.reference.child(const.DRIVERS).child(driver.id.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+            database.reference.child(const.DRIVERS).child(driver.id.toString()).addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(dataSnapshot: DatabaseError) {}
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.getValue(Driver::class.java)?.let { tempArr.add(it) }
@@ -174,5 +207,13 @@ class TrypDatabase{
                 }
             })
         }
+    }
+
+    private fun setTransparency(from: Float, to: Float, listener: ValueAnimator.AnimatorUpdateListener){
+        val anim = ValueAnimator.ofFloat(to, from)
+        anim.duration = 1000
+
+        anim.addUpdateListener(listener)
+        anim.start()
     }
 }

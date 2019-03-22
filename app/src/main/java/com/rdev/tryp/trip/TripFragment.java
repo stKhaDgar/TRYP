@@ -23,7 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.DriverApproveListener;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
+import com.rdev.tryp.firebaseDatabase.model.Location;
+import com.rdev.tryp.firebaseDatabase.model.Ride;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
@@ -220,6 +223,13 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     driversItem,
                     AccountManager.getInstance().getUserId());
 
+            Ride ride = new Ride(null,
+                    new Location(end.getCoord().latitude, end.getCoord().longitude),
+                    new Location(start.getCoord().latitude, start.getCoord().longitude),
+                    null,
+                    fromAddress.get(0).getAddressLine(0),
+                    toAddress.get(0).getAddressLine(0));
+
             NetworkService.getApiService().ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
                 @Override
                 public void onResponse(Call<RideResponse> call, final Response<RideResponse> response) {
@@ -230,13 +240,22 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         final RideRequest rideRequest = body.getData().getRideRequest();
                         Toast.makeText(activity, rideRequest.getRequestId(), Toast.LENGTH_LONG).show();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
+                        new Handler().postDelayed(() -> {
+                            ride.setId(rideRequest.getRequestId());
+                            new TrypDatabase().startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
+                                @Override
+                                public void isApproved() {
+                                    updateStatus(activity, rideRequest.getRequestId());
+                                }
 
+                                @Override
+                                public void isDeclined() {
+                                    ((ContentActivity)activity ).popBackStack();
+                                    ((ContentActivity)activity).clearMap();
+                                    ((ContentActivity)activity).initMap();
+                                }
+                            });
 
-                                updateStatus(activity, rideRequest.getRequestId());
-                            }
                         }, 3000);
                     }
                 }

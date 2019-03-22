@@ -13,6 +13,7 @@ import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -110,7 +111,7 @@ class TripAdapter extends RecyclerView.Adapter {
             Driver item = drivers.get(position);
             CarHolder carHolder = ((CarHolder) holder);
 
-            Glide.with(holder.itemView).load(item.getVehicle().getImage()).into(carHolder.car_iv);
+            Glide.with(holder.itemView).load(Objects.requireNonNull(item.getVehicle()).getImage()).into(carHolder.car_iv);
 //            carHolder.car_iv.setImageDrawable(ContextCompat.getDrawable(context,
 //                    TrypCarFragment.getImageByType(item.getCategory())));
             //Log.i("adapter", "" + item.getCategory());

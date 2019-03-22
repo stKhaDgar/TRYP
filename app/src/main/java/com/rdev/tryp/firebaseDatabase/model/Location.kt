@@ -7,7 +7,7 @@ package com.rdev.tryp.firebaseDatabase.model
  */
 
 
-class LocationDriver(
+class Location(
         var lat: Double? = null,
         var lng: Double? = null
 )
