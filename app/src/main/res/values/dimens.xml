@@ -2,8 +2,7 @@
 <resources>
     <dimen name="intro_line_width">4dp</dimen>
     <dimen name="trip_item_width">140dp</dimen>
-    <dimen name="trip_avatar_iv_size">90dp</dimen>
-    <dimen name="map_navigation_btn_size">48dp</dimen>
+	<dimen name="map_navigation_btn_size">48dp</dimen>
     <dimen name="map_bacl_btn_margin_bottom">24dp</dimen>
 
     <!-- Screens Title -->
@@ -28,9 +27,8 @@
     <dimen name="tabs_invite_icon_2_width">42dp</dimen>
     <dimen name="tabs_invite_icons_space">22dp</dimen>
     <dimen name="invite_badge_size">12dp</dimen>
-    <dimen name="invite_badge_elevation">4dp</dimen>
 
-    <!-- Invite 1 (Share) -->
+	<!-- Invite 1 (Share) -->
     <dimen name="invite_1_content_margin">32dp</dimen>
     <dimen name="invite_1_friends_margin_top">10dp</dimen>
     <dimen name="invite_1_friends_text_size">24sp</dimen>
@@ -39,8 +37,7 @@
     <dimen name="invite_1_image_width">312dp</dimen>
     <dimen name="invite_1_image_height">184dp</dimen>
     <dimen name="invite_1_image_margin_top">12dp</dimen>
-    <dimen name="invite_1_image_corner">6dp</dimen>
-    <dimen name="invite_1_buttons_margin_side">16dp</dimen>
+	<dimen name="invite_1_buttons_margin_side">16dp</dimen>
     <dimen name="invite_1_buttons_margin_top">10dp</dimen>
     <dimen name="invite_1_twitter_image_width">54dp</dimen>
     <dimen name="invite_1_twitter_image_height">53dp</dimen>
@@ -56,8 +53,7 @@
     <dimen name="invite_1_share_link_margin_right">7dp</dimen>
     <dimen name="share_button_size">47dp</dimen>
     <dimen name="invite_1_bottom_text_margin_top">13dp</dimen>
-    <dimen name="invite_1_bottom_text_margin_bottom">24dp</dimen>
-    <dimen name="invite_1_bottom_text_size">13sp</dimen>
+	<dimen name="invite_1_bottom_text_size">13sp</dimen>
 
     <!-- Invite 2 (Friends) -->
     <dimen name="invite_2_content_margin_top">10dp</dimen>

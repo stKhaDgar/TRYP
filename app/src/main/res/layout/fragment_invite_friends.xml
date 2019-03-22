@@ -138,7 +138,7 @@
                 tools:ignore="MissingPrefix"
                 android:text="@string/invite_1_tv"/>
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_invite1"
                 android:layout_width="@dimen/invite_1_image_width"
                 android:layout_height="@dimen/invite_1_image_height"
@@ -147,8 +147,7 @@
                 android:layout_marginLeft="@dimen/invite_1_content_margin"
                 android:layout_marginRight="@dimen/invite_1_content_margin"
                 android:layout_marginTop="@dimen/invite_1_image_margin_top"
-                android:layout_centerHorizontal="true"
-                app:riv_corner_radius="@dimen/invite_1_image_corner"/>
+                android:layout_centerHorizontal="true"/>
 
             <LinearLayout
                 android:id="@+id/invite_1_block_button"

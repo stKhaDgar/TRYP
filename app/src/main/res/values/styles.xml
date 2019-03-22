@@ -17,10 +17,4 @@
         <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
     </style>
 
-    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/colorAccent</item>
-        <item name="cornerRadius">20dp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:fontFamily">@font/opensans_bold</item>
-    </style>
 </resources>

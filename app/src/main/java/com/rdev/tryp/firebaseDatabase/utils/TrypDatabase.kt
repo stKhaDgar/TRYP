@@ -24,7 +24,6 @@ import java.util.HashMap
  * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
-
 class TrypDatabase{
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance()

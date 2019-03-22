@@ -34,13 +34,12 @@
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="8dp">
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <de.hdodenhof.circleimageview.CircleImageView
 				android:id="@+id/small_image"
 				android:layout_width="22dp"
 				android:layout_height="22dp"
 				android:layout_marginStart="16dp"
 				android:layout_marginTop="4dp"
-				app:riv_corner_radius="30dp"
 				android:elevation="5dp"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent" />

@@ -7,8 +7,7 @@
     <color name="trip_accent_color">#0172FF</color>
     <color name="indicator_unchecked_color">#BDBDBD</color>
     <color name="indicator_checked_color">#4F4F4F</color>
-    <color name="edittext_bottom_line_color">#C4C4C4</color>
-    <color name="unselect_tv_color">#828282</color>
+	<color name="unselect_tv_color">#828282</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
