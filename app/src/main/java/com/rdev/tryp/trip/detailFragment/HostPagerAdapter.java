@@ -1,5 +1,6 @@
 package com.rdev.tryp.trip.detailFragment;
 
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.model.DriversItem;
 
 import java.util.List;
@@ -25,7 +26,7 @@ class HostPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        DetailFragment detailFragment = new DetailFragment((DriversItem) drivers.get(position));
+        DetailFragment detailFragment = new DetailFragment((Driver) drivers.get(position));
         return detailFragment;
     }
 

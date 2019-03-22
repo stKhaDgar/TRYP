@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.trip.TripFragment;
 
@@ -24,7 +25,7 @@ import androidx.fragment.app.Fragment;
 @SuppressLint("ValidFragment")
 public class DetailFragment extends Fragment  implements View.OnClickListener {
 
-    private DriversItem driver;
+    private Driver driver;
     private TextView tryp_type_tv, num_of_passangers, num_of_baggage, num_of_door_tv, price_tv, name_tv, car_type_tv;
     private ImageView car_iv, user_iv;
     private CardView moveCard;
@@ -33,7 +34,7 @@ public class DetailFragment extends Fragment  implements View.OnClickListener {
     private CardView trypNowBtn, imageCard;
 
     @SuppressLint("ValidFragment")
-    public DetailFragment(DriversItem driver) {
+    public DetailFragment(Driver driver) {
         this.driver = driver;
     }
 
@@ -64,8 +65,8 @@ public class DetailFragment extends Fragment  implements View.OnClickListener {
         num_of_passangers.setText("" + driver.getMaxPassenger());
         price_tv.setText("$" + String.valueOf(driver.getFare()));
         num_of_baggage.setText("" + driver.getMaxLuggage());
-        name_tv.setText(driver.getDriver().getFirstName() + driver.getDriver().getLastName());
-        Glide.with(getContext()).load(driver.getDriver().getImage()).into(user_iv);
+        name_tv.setText(driver.getFirstName() + " " + driver.getLastName());
+        Glide.with(getContext()).load(driver.getImage()).into(user_iv);
         car_type_tv.setText(driver.getType());
         trypNowBtn.setOnClickListener(this);
         mainRelativeLayout.setOnClickListener(this);

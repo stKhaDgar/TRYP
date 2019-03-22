@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
+import com.rdev.tryp.trip.TripFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,10 +52,8 @@ public class TrypCarFragment extends Fragment {
         price_tv = v.findViewById(R.id.price_tv);
 
         Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
-//        car_iv.setImageDrawable(ContextCompat.getDrawable(getContext(),
-//                TrypCarFragment.getImageByType(driver.getCategory())));
         tryp_type_tv.setText(driver.getCategory());
-        num_of_door_tv.setText("4/4"); //TODO: replace from driver
+        num_of_door_tv.setText("4/4");
         num_of_passangers.setText("" + driver.getMaxPassenger());
         price_tv.setText("$" + String.valueOf(driver.getFare()));
         num_of_baggage.setText("" + driver.getMaxLuggage());
@@ -63,7 +63,7 @@ public class TrypCarFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
+                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
             }
         });
 

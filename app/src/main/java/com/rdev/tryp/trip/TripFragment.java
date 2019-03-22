@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
@@ -205,7 +206,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static void orderTrip(Activity activity, DriversItem driversItem, TripPlace start, TripPlace end) {
+    public static void orderTrip(Activity activity, Driver driversItem, TripPlace start, TripPlace end) {
         Geocoder geocoder = new Geocoder(activity);
         try {
             List<Address> fromAddress = geocoder.getFromLocation(start.getCoord().latitude, start.getCoord().longitude, 1);
@@ -232,9 +233,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                database.child("rides").child("3ab87aba-4407-49db-9003-4253847461d4").child("lat").setValue(22.223123123);
-//                                Log.e("DebugDatabase", );
+
 
                                 updateStatus(activity, rideRequest.getRequestId());
                             }

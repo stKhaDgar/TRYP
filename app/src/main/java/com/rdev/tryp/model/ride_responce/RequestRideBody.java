@@ -2,6 +2,7 @@ package com.rdev.tryp.model.ride_responce;
 
 import android.location.Address;
 
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.network.Utils;
 
@@ -35,7 +36,7 @@ public class RequestRideBody {
         this.to_lat = to_lat;
     }
 
-    public RequestRideBody(Address from, Address destination, boolean isAsap, DriversItem driver, int userId) {
+    public RequestRideBody(Address from, Address destination, boolean isAsap, Driver driver, int userId) {
         from_lng = formatLocation(from.getLongitude());
         from_lat = formatLocation(from.getLatitude());
         to_lng = formatLocation(destination.getLongitude());

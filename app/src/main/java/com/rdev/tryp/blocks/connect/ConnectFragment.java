@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.blocks.connect.connect_cancel.ConnectCancelFragment;
+import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.model.TripPlace;
 
@@ -27,13 +28,13 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
 
     private View root;
     private ImageView backBtn, cancelButton, supportIv, shareRideIv;
-    private TextView supportTv, shareRideTv, driverName, carNum;
+    private TextView supportTv, shareRideTv, driverName, carNum, rating;
     private CardView contactCv;
-    private DriversItem driver;
+    private Driver driver;
     private CircleImageView driverIv;
 
     @SuppressLint("ValidFragment")
-    public ConnectFragment(DriversItem driver) {
+    public ConnectFragment(Driver driver) {
         this.driver = driver;
     }
 
@@ -58,6 +59,7 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         driverName = root.findViewById(R.id.driver_name_tv);
         carNum = root.findViewById(R.id.car_num_tv);
         driverIv = root.findViewById(R.id.driver_iv);
+        rating = root.findViewById(R.id.tv_rating);
 
         backBtn.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
@@ -68,8 +70,9 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         contactCv.setOnClickListener(this);
 
         carNum.setText(driver.getVehicle().getPlateNumber());
-        driverName.setText(driver.getDriver().getFirstName() + driver.getDriver().getLastName());
-        Glide.with(getContext()).load(driver.getDriver().getImage()).into(driverIv);
+        driverName.setText(driver.getFirstName() + " " + driver.getLastName());
+        rating.setText(String.valueOf(driver.getRating()));
+        Glide.with(getContext()).load(driver.getImage()).into(driverIv);
     }
 
     @Override
