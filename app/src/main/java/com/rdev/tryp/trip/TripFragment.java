@@ -224,9 +224,14 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         new Handler().postDelayed(() -> {
                             ride.setId(rideRequest.getRequestId());
                             new TrypDatabase().startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
+                                boolean connectIsShown = false;
+
                                 @Override
                                 public void isApproved() {
-                                    updateStatus(activity, rideRequest.getRequestId());
+                                    if(!connectIsShown){
+                                        ((ContentActivity)activity).showConnectFragment();
+                                        connectIsShown = true;
+                                    }
                                 }
 
                                 @Override
@@ -252,32 +257,32 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private static void updateStatus(Activity activity, final String requestId) {
-        NetworkService.getApiService().ride_request_status(AccountManager.getInstance().getUserId(), requestId)
-                .enqueue(new Callback<StatusResponse>() {
-            @Override
-            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                if (response.body().getData().getRide().getVoucherNo() != null) {
-                    showAlertDialod("Booking successful", "Your booking has been confirmed.\n" +
-                            "Driver will pickup you in 5 minutes.", activity);
-                    ((ContentActivity)activity).showConnectFragment();
-                } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateStatus(activity, requestId);
-                        }
-                    }, 3000);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<StatusResponse> call, Throwable t) {
-                Log.d("tag", "error");
-            }
-        });
-
-    }
+//    private static void updateStatus(Activity activity, final String requestId) {
+//        NetworkService.getApiService().ride_request_status(AccountManager.getInstance().getUserId(), requestId)
+//                .enqueue(new Callback<StatusResponse>() {
+//            @Override
+//            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+//                if (response.body().getData().getRide().getVoucherNo() != null) {
+//                    showAlertDialod("Booking successful", "Your booking has been confirmed.\n" +
+//                            "Driver will pickup you in 5 minutes.", activity);
+//                    ((ContentActivity)activity).showConnectFragment();
+//                } else {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            updateStatus(activity, requestId);
+//                        }
+//                    }, 3000);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StatusResponse> call, Throwable t) {
+//                Log.d("tag", "error");
+//            }
+//        });
+//
+//    }
 
     private static AlertDialog dialog;
 

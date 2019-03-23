@@ -181,7 +181,6 @@ class TrypDatabase{
                                 listener.isApproved()
                             }
                         }
-
                     } else {
                         listener.isDeclined()
                     }
