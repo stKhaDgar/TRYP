@@ -69,7 +69,6 @@ import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
-import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.payment.AddCardFragment;
 import com.rdev.tryp.payment.PaymentFragment;
@@ -123,7 +122,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     private String currentLocate;
     AdressListFragment listFragment;
     Marker pickAdressMarker;
-    Marker pickStartMarker;
     MarkerOptions myCurrentLocationMarker = null;
 
     public CurrentLocation currentLocation;
