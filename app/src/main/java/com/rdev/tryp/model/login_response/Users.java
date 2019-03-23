@@ -7,9 +7,11 @@ import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Users extends RealmObject {
 
+    @PrimaryKey
     @SerializedName("user_id")
     @Expose
     private Integer userId;

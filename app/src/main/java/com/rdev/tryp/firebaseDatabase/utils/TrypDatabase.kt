@@ -71,7 +71,6 @@ class TrypDatabase{
                         listener?.onChanged(drivers)
                     }
                 }
-
                 Log.e(const.TAG, drivers.size.toString())
             }
 

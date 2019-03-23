@@ -207,6 +207,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     driversItem,
                     AccountManager.getInstance().getUserId());
 
+
             Ride ride = new Ride(null,
                     new RealmUtils(activity, null).getCurrentUser().getUserId().toString(),
                     new Location(end.getCoord().latitude, end.getCoord().longitude),
@@ -268,6 +269,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
         } catch (Exception ex) {
             showAlertDialod("Ride request failed", "Error at trip order", activity);
+            ex.printStackTrace();
         }
     }
 
