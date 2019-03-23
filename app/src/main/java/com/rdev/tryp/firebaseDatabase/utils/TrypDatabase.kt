@@ -178,7 +178,7 @@ class TrypDatabase{
                     if(dataSnapshot.exists()){
                         dataSnapshot.getValue(Ride::class.java)?.let { item ->
                             if(item.driver?.id == driverId){
-                                listener.isApproved()
+                                listener.isApproved(item)
                             }
                         }
                     } else {

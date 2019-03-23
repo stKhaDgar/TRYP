@@ -40,6 +40,7 @@ import com.rdev.tryp.network.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -227,11 +228,16 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 boolean connectIsShown = false;
 
                                 @Override
-                                public void isApproved() {
+                                public void isApproved(Ride ride) {
                                     if(!connectIsShown){
                                         ((ContentActivity)activity).showConnectFragment();
                                         connectIsShown = true;
                                     }
+                                    LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
+                                    LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
+                                    ((ContentActivity)activity).onDriverRoad(
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
                                 }
 
                                 @Override

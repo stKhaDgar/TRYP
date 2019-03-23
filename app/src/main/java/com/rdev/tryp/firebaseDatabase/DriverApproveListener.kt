@@ -1,5 +1,7 @@
 package com.rdev.tryp.firebaseDatabase
 
+import com.rdev.tryp.firebaseDatabase.model.Ride
+
 /**
  * Created by Andrey Berezhnoi on 22.03.2019.
  * Copyright (c) 2019 mova.io. All rights reserved.
@@ -7,6 +9,6 @@ package com.rdev.tryp.firebaseDatabase
 
 
 interface DriverApproveListener{
-    fun isApproved()
+    fun isApproved(location: Ride?)
     fun isDeclined()
 }

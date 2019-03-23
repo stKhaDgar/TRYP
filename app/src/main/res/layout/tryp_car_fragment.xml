@@ -242,7 +242,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.7" />
 
-
     <ImageView
         android:id="@+id/car_iv"
         android:layout_width="0dp"
@@ -256,5 +255,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@id/cardView"
         app:layout_constraintEnd_toEndOf="@id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        android:contentDescription="@string/content_description" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
