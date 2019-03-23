@@ -17,6 +17,9 @@ import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
 import com.rdev.tryp.firebaseDatabase.model.Driver
 import com.rdev.tryp.firebaseDatabase.model.Ride
 import com.rdev.tryp.model.login_response.Users
+import com.rdev.tryp.utils.BearingInterpolator
+import com.rdev.tryp.utils.CarAnimation
+import com.rdev.tryp.utils.LatLngInterpolator
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -77,32 +80,35 @@ class TrypDatabase{
                 for((marker, driver) in drivers){
                     if(driver.id == item?.id){
                         item?.location?.lat?.let { first ->
-                            item.location?.lng?.let { second ->
 
-                                driver.location?.lat?.let { driverLat ->
-                                    driver.location?.lng?.let { driverLng ->
-                                        marker.bearing = angleFromCoordinate(driverLat, driverLng, first, second)
-                                    }
-                                }
+                            CarAnimation.animateMarkerToGB(marker, item.location, LatLngInterpolator.Spherical(), BearingInterpolator.Degree())
 
-                                val vaLat = ValueAnimator.ofFloat(driver.location?.lat.toString().toFloat(), first.toFloat())
-                                val vaLon = ValueAnimator.ofFloat(driver.location?.lng.toString().toFloat(), second.toFloat())
-
-                                vaLat.addUpdateListener { animation ->
-                                    val value = animation.animatedValue as Float
-                                    marker.position = LatLng(value.toDouble(), driver.location?.lng.toString().toDouble())
-                                    driver.location?.lat = value.toDouble()
-                                }
-
-                                vaLon.addUpdateListener { animation ->
-                                    val value = animation.animatedValue as Float
-                                    marker.position = LatLng(driver.location?.lat.toString().toDouble(), value.toDouble())
-                                    driver.location?.lng = value.toDouble()
-                                }
-
-                                vaLat.start()
-                                vaLon.start()
-                            }
+//                            item.location?.lng?.let { second ->
+//
+//                                driver.location?.lat?.let { driverLat ->
+//                                    driver.location?.lng?.let { driverLng ->
+//                                        marker.bearing = angleFromCoordinate(driverLat, driverLng, first, second)
+//                                    }
+//                                }
+//
+//                                val vaLat = ValueAnimator.ofFloat(driver.location?.lat.toString().toFloat(), first.toFloat())
+//                                val vaLon = ValueAnimator.ofFloat(driver.location?.lng.toString().toFloat(), second.toFloat())
+//
+//                                vaLat.addUpdateListener { animation ->
+//                                    val value = animation.animatedValue as Float
+//                                    marker.position = LatLng(value.toDouble(), driver.location?.lng.toString().toDouble())
+//                                    driver.location?.lat = value.toDouble()
+//                                }
+//
+//                                vaLon.addUpdateListener { animation ->
+//                                    val value = animation.animatedValue as Float
+//                                    marker.position = LatLng(driver.location?.lat.toString().toDouble(), value.toDouble())
+//                                    driver.location?.lng = value.toDouble()
+//                                }
+//
+//                                vaLat.start()
+//                                vaLon.start()
+//                            }
                         }
                     }
                 }
