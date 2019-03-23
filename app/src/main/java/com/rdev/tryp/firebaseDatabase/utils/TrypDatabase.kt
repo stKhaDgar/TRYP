@@ -28,7 +28,7 @@ import java.util.HashMap
 
 class TrypDatabase{
 
-    private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val const = ConstantsFirebase
     val drivers = ArrayList<Pair<GroundOverlay, AvailableDriver>>()
     private var listener: AvailableDriversChanged? = null
@@ -142,15 +142,13 @@ class TrypDatabase{
     fun updateUser(user: Users){
         val clients = database.reference.child(const.CLIENTS)
         clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
-
+            override fun onCancelled(dataSnapshot: DatabaseError) {}
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val temp = Client(user.userId.toString(), user.firstName, user.lastName, "none", 5.0F)
                 val map = HashMap<String, Client>()
                 map[user.userId.toString()] = temp
                 clients.setValue(map)
             }
-
-            override fun onCancelled(dataSnapshot: DatabaseError) {}
         })
     }
 
@@ -179,7 +177,7 @@ class TrypDatabase{
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if(dataSnapshot.exists()){
                         dataSnapshot.getValue(Ride::class.java)?.let { item ->
-                            if(item.driver_id == driverId){
+                            if(item.driver?.id == driverId){
                                 listener.isApproved()
                             }
                         }
@@ -188,7 +186,6 @@ class TrypDatabase{
                         listener.isDeclined()
                     }
                 }
-
             })
         }
     }

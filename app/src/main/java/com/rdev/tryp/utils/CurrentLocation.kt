@@ -51,7 +51,6 @@ class CurrentLocation(private val context: Context, private val activity: Activi
         buildGoogleApiClient()
 
         mGoogleApiClient?.connect()
-
     }
 
     fun onStartLocationUpdate(callbackTemp: LocationUpdatedListener?){

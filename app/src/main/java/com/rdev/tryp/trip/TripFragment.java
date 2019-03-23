@@ -136,21 +136,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
         TripAdapter.OnItemClickListener listener = item -> ((ContentActivity) getActivity()).openCarsFragments(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
 
-//        service.get_nearby_drivers(40.741895, 73.989308).enqueue(new Callback<NearbyDriver>() {
-//            @Override
-//            public void onResponse(Call<NearbyDriver> call, Response<NearbyDriver> response) {
-//                drivers = response.body().getData().getDrivers();
-//
-//                tripAdapter = new TripAdapter(filterDrivers(drivers), TripAdapter.TYPE_CAR, listener, getContext());
-//                tripRv.setAdapter(tripAdapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<NearbyDriver> call, Throwable t) {
-//
-//            }
-//        });
-
         TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
 
         database.setAvailableDrivers(drivers -> {

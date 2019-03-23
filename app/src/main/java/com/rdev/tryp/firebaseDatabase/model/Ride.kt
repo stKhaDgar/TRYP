@@ -13,7 +13,7 @@ class Ride(
         var id: String? = null,
         var destinationLocation: Location? = null,
         var pickUpLocation: Location? = null,
-        var driver_id: String? = null,
+        var driver: AvailableDriver? = null,
         var fromAddress: String? = null,
         var toAddress: String? = null
 )
