@@ -13,4 +13,6 @@ object ConstantsFirebase {
     const val CLIENTS = "clientsDb"
     const val DRIVERS = "driversDb"
     const val RIDES = "rides"
+
+    const val TRYP_CAR_FARE: Float = 0.8F
 }

@@ -141,7 +141,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
 
         database.setAvailableDrivers(drivers -> {
-            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext());
+            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), ((ContentActivity)getActivity()).currentFare);
             tripRv.setAdapter(tripAdapter);
             tripAdapter.notifyDataSetChanged();
         });
@@ -211,7 +211,8 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     new Location(start.getCoord().latitude, start.getCoord().longitude),
                     null,
                     fromAddress.get(0).getAddressLine(0),
-                    toAddress.get(0).getAddressLine(0));
+                    toAddress.get(0).getAddressLine(0),
+                    ((ContentActivity) activity).currentFare);
 
             NetworkService.getApiService().ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
                 @Override
@@ -227,7 +228,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                             ride.setId(rideRequest.getRequestId());
                             new TrypDatabase().startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
                                 boolean connectIsShown = false;
-                                GroundOverlay markerCar = null;
 
                                 @Override
                                 public void isApproved(Ride ride) {

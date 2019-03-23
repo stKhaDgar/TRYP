@@ -15,5 +15,6 @@ class Ride(
         var pickUpLocation: Location? = null,
         var driver: AvailableDriver? = null,
         var fromAddress: String? = null,
-        var toAddress: String? = null
+        var toAddress: String? = null,
+        var fare: Float? = null
 )

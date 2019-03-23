@@ -88,6 +88,7 @@ import com.rdev.tryp.utils.Utils;
 
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -126,6 +127,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     Marker pickAdressMarker;
     MarkerOptions myCurrentLocationMarker = null;
     GroundOverlay currentCar = null;
+    public float currentFare = 0;
 
     public CurrentLocation currentLocation;
     public String currentAddress = null;
@@ -424,11 +426,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         type = TYPE_VIEWER;
 
-        fm.beginTransaction()
-                .replace(R.id.container, new TripFragment(pickUpLocation, destination.getCoord()))
-                .addToBackStack("dest_pick")
-                .commit();
-
         Thread thread = new Thread(() -> GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
                 .from(pickUpLocation)
                 .to(destination.getCoord())
@@ -440,9 +437,16 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
                                 Leg leg = direction.getRouteList().get(0).getLegList().get(i);
                                 ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                currentFare = Float.parseFloat(new DecimalFormat("0.00").format(Integer.parseInt(leg.getDistance().getValue()) / 1000));
                                 PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
                                 route = mMap.addPolyline(polylineOptions);
                             }
+
+                            fm.beginTransaction()
+                                    .replace(R.id.container, new TripFragment(pickUpLocation, destination.getCoord()))
+                                    .addToBackStack("dest_pick")
+                                    .commit();
+
                             Display display = getWindowManager().getDefaultDisplay();
                             Point size = new Point();
                             display.getSize(size);
@@ -465,8 +469,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
                             tripFrom = startPlace;
                             tripTo = destination;
-
-
                         }
                     }
 
@@ -510,6 +512,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         if(currentCar == null){
             currentCar = mMap.addGroundOverlay(new GroundOverlayOptions().position(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude), 200f).
                     image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)));
+            currentCar.setZIndex(15);
 
             mMap.setOnCameraMoveListener(() -> {
                 float zoom = mMap.getCameraPosition().zoom;
@@ -544,6 +547,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                                 ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
                                 PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
                                 route = mMap.addPolyline(polylineOptions);
+                                route.setZIndex(12);
                             }
                             Display display = getWindowManager().getDefaultDisplay();
                             Point size = new Point();
@@ -563,9 +567,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
                             /*create the camera with bounds and padding to set into map*/
                             if(!cameraIsUpdated){
-                                final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
-                                mMap.animateCamera(cu);
-                                cameraIsUpdated = true;
+//                                final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
+//                                mMap.animateCamera(cu);
+//                                cameraIsUpdated = true;
                             }
 
                             tripFrom = startPlace;

@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 
 import java.util.ArrayList;
@@ -25,16 +27,18 @@ class TripAdapter extends RecyclerView.Adapter {
     int type;
     private OnItemClickListener listener;
     private Context context;
+    private Float fare;
 
     public interface OnItemClickListener {
         void onItemClick(Object item);
     }
 
-    TripAdapter(ArrayList<Driver> drivers, int type, OnItemClickListener listener, Context context) {
+    TripAdapter(ArrayList<Driver> drivers, int type, OnItemClickListener listener, Context context, Float fare) {
         this.drivers = drivers;
         this.type = type;
         this.listener = listener;
         this.context = context;
+        this.fare = fare;
     }
 
     @NonNull
@@ -45,8 +49,6 @@ class TripAdapter extends RecyclerView.Adapter {
         } else {
             return new DriverHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_item, parent, false));
         }
-
-
     }
 
     class CarHolder extends RecyclerView.ViewHolder {
@@ -113,7 +115,7 @@ class TripAdapter extends RecyclerView.Adapter {
             carHolder.car_type.setText(item.getType());
             carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
-            carHolder.fare_tv.setText("$" + item.getFare());
+            carHolder.fare_tv.setText("$" + (fare * ConstantsFirebase.TRYP_CAR_FARE));
         } else {
             DriverHolder driverHolder = ((DriverHolder) holder);
             ImageView avatar_iv = driverHolder.avatar_iv;
@@ -123,7 +125,7 @@ class TripAdapter extends RecyclerView.Adapter {
             Glide.with(holder.itemView).load(item.getImage()).into(avatar_iv);
             driver_tv.setText(item.getFirstName() + " " + item.getLastName());
             category_tv.setText(item.getCategory());
-            driverHolder.fare_tv.setText( "$" + item.getFare());
+            driverHolder.fare_tv.setText("$" + (fare * ConstantsFirebase.TRYP_CAR_FARE));
             driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
         }
