@@ -216,7 +216,7 @@ class TrypDatabase{
         }
     }
 
-    private fun angleFromCoordinate(lat1: Double, long1: Double, lat2: Double,
+    fun angleFromCoordinate(lat1: Double, long1: Double, lat2: Double,
                                     long2: Double): Float {
         val dLon = long1 - long2
         val y = Math.sin(dLon) * Math.cos(lat2)

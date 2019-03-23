@@ -510,7 +510,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         if(currentCar == null){
             currentCar = mMap.addGroundOverlay(new GroundOverlayOptions().position(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude), 200f).
                     image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)));
+
+            mMap.setOnCameraMoveListener(() -> {
+                float zoom = mMap.getCameraPosition().zoom;
+
+                currentCar.setDimensions((float) Math.pow(2.2, (20 - zoom)) + 40);
+
+            });
         } else {
+            currentCar.setBearing(new TrypDatabase().angleFromCoordinate(currentCar.getPosition().latitude, currentCar.getPosition().longitude,
+                    startPlace.getCoord().latitude, startPlace.getCoord().longitude));
+
             currentCar.setPosition(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude));
         }
 
