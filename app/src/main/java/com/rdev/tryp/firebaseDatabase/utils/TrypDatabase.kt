@@ -79,6 +79,12 @@ class TrypDatabase{
                         item?.location?.lat?.let { first ->
                             item.location?.lng?.let { second ->
 
+                                driver.location?.lat?.let { driverLat ->
+                                    driver.location?.lng?.let { driverLng ->
+                                        marker.bearing = angleFromCoordinate(driverLat, driverLng, first, second)
+                                    }
+                                }
+
                                 val vaLat = ValueAnimator.ofFloat(driver.location?.lat.toString().toFloat(), first.toFloat())
                                 val vaLon = ValueAnimator.ofFloat(driver.location?.lng.toString().toFloat(), second.toFloat())
 
@@ -212,6 +218,19 @@ class TrypDatabase{
                 }
             })
         }
+    }
+
+    private fun angleFromCoordinate(lat1: Double, long1: Double, lat2: Double,
+                                    long2: Double): Float {
+        val dLon = long1 - long2
+        val y = Math.sin(dLon) * Math.cos(lat2)
+        val x = Math.cos(lat1) * Math.sin(lat2) - (Math.sin(lat1)
+                * Math.cos(lat2) * Math.cos(dLon))
+        var brng = Math.atan2(x, y)
+        brng = Math.toDegrees(brng)
+        brng = (brng + 360) % 360
+        brng = 180 - brng
+        return brng.toFloat()
     }
 
     private fun setTransparency(from: Float, to: Float, listener: ValueAnimator.AnimatorUpdateListener){
