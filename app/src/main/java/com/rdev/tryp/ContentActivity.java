@@ -309,16 +309,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 currentPosMarker.remove();
             }
 
-            int height = 270;
-            int width = 225;
-
-            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
-            Bitmap b = bitmapdraw.getBitmap();
-            Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
-
-
-            currentPosMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
-                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
             isLocationFound = true;
             pickUpLocation = currentPos;
         }
@@ -522,10 +512,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             if(myCurrentLocationMarker == null){
                 myCurrentLocationMarker = new MarkerOptions().position(currentPos)
                         .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap));
+
+                mMap.addMarker(myCurrentLocationMarker);
             } else {
                 myCurrentLocationMarker.position(currentPos);
             }
-            mMap.addMarker(myCurrentLocationMarker);
         });
     }
 
