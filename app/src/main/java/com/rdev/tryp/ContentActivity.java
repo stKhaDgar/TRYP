@@ -124,6 +124,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     AdressListFragment listFragment;
     Marker pickAdressMarker;
     Marker pickStartMarker;
+    MarkerOptions myCurrentLocationMarker = null;
 
     public CurrentLocation currentLocation;
     public String currentAddress = null;
@@ -518,9 +519,13 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             Bitmap b = bitmapDraw.getBitmap();
             Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
-            mMap.clear();
-            mMap.addMarker(new MarkerOptions().position(currentPos)
-                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+            if(myCurrentLocationMarker == null){
+                myCurrentLocationMarker = new MarkerOptions().position(currentPos)
+                        .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap));
+            } else {
+                myCurrentLocationMarker.position(currentPos);
+            }
+            mMap.addMarker(myCurrentLocationMarker);
         });
     }
 
