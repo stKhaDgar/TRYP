@@ -45,6 +45,15 @@ class RealmUtils(private val context: Context, private val callback: RealmCallba
         })
     }
 
+    fun getCurrentUser() : Users? {
+        val user = realm.where(Users::class.java).findFirst()
+        return if(user != null){
+            realm.copyFromRealm(user)
+        } else {
+            null
+        }
+    }
+
     fun pushCard(card: Card){
         realm.executeTransactionAsync({ bgRealm ->
 

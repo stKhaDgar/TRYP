@@ -29,6 +29,7 @@ import com.rdev.tryp.firebaseDatabase.model.Ride;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
+import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.model.favourite_driver.FavouriteDriver;
 import com.rdev.tryp.model.ride_responce.RequestRideBody;
@@ -207,6 +208,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     AccountManager.getInstance().getUserId());
 
             Ride ride = new Ride(null,
+                    new RealmUtils(activity, null).getCurrentUser().getUserId().toString(),
                     new Location(end.getCoord().latitude, end.getCoord().longitude),
                     new Location(start.getCoord().latitude, start.getCoord().longitude),
                     null,

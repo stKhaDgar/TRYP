@@ -11,6 +11,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 class Ride(
         var id: String? = null,
+        var clientId: String? = null,
         var destinationLocation: Location? = null,
         var pickUpLocation: Location? = null,
         var driver: AvailableDriver? = null,

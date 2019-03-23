@@ -437,7 +437,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                             for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
                                 Leg leg = direction.getRouteList().get(0).getLegList().get(i);
                                 ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-                                currentFare = Float.parseFloat(new DecimalFormat("0.00").format(Integer.parseInt(leg.getDistance().getValue()) / 1000));
+                                currentFare = Float.parseFloat(new DecimalFormat("0.##").format(Integer.parseInt(leg.getDistance().getValue()) / 1000));
                                 PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
                                 route = mMap.addPolyline(polylineOptions);
                             }

@@ -61,6 +61,7 @@ class TrypDatabase{
                         val marker = map.addGroundOverlay(GroundOverlayOptions().position(LatLng(first, second), 200f).
                                 image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)))
                         marker.transparency = 0.0F
+                        marker.zIndex = 15F
                         drivers.add(Pair(marker, item))
                         setTransparency(0.0F, 1.0F, ValueAnimator.AnimatorUpdateListener { animation ->
                             val value = animation.animatedValue as Float

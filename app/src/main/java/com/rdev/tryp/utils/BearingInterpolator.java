@@ -18,17 +18,23 @@ public interface BearingInterpolator {
 
         private static double angleFromCoordinate(double lat1, double long1, double lat2,
                                                   double long2) {
-            double dLon = (long1 - long2);
+            double PI = 3.14159;
+            double latFirst = lat1 * PI / 180;
+            double longFirst = long1 * PI / 180;
+            double latSecond = lat2 * PI / 180;
+            double longSecond = long2 * PI / 180;
 
-            double y = Math.sin(dLon) * Math.cos(lat2);
-            double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
-                    * Math.cos(lat2) * Math.cos(dLon);
+            double dLon = (longSecond - longFirst);
 
-            double brng = Math.atan2(x, y);
+            double y = Math.sin(dLon) * Math.cos(latSecond);
+            double x = Math.cos(latFirst) * Math.sin(latSecond) - Math.sin(latFirst)
+                    * Math.cos(latSecond) * Math.cos(dLon);
+
+            double brng = Math.atan2(y, x);
 
             brng = Math.toDegrees(brng);
-            brng = (brng + 360) % 360;
-            brng = 180 - brng;
+            brng = (brng + 90) % 360;
+
             return brng;
         }
     }
