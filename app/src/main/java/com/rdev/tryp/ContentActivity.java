@@ -47,6 +47,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -123,6 +125,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     AdressListFragment listFragment;
     Marker pickAdressMarker;
     MarkerOptions myCurrentLocationMarker = null;
+    GroundOverlay currentCar = null;
 
     public CurrentLocation currentLocation;
     public String currentAddress = null;
@@ -477,6 +480,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void onDriverRoad(final TripPlace startPlace, final TripPlace destination) {
+
         if (pickAdressMarker != null && pickAdressMarker.isVisible()) {
             pickAdressMarker.remove();
         }
@@ -487,10 +491,12 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         if (startPlace != null) {
             pickUpLocation = startPlace.getCoord();
-            try {
-                updateCurrentLocation(startPlace.getCoord());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(currentCar == null){
+                try {
+                    updateCurrentLocation(startPlace.getCoord());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -501,61 +507,69 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
+        if(currentCar == null){
+            currentCar = mMap.addGroundOverlay(new GroundOverlayOptions().position(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude), 200f).
+                    image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)));
+        } else {
+            currentCar.setPosition(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude));
+        }
+
         pickAdressMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
                 .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+
         type = TYPE_VIEWER;
 
-//        Thread thread = new Thread(() -> GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
-//                .from(pickUpLocation)
-//                .to(destination.getCoord())
-//                .transportMode(TransportMode.DRIVING)
-//                .execute(new DirectionCallback() {
-//                    boolean cameraIsUpdated = false;
-//
-//                    @Override
-//                    public void onDirectionSuccess(Direction direction, String rawBody) {
-//                        if (direction.isOK()) {
-//                            for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
-//                                Leg leg = direction.getRouteList().get(0).getLegList().get(i);
-//                                ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-//                                PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
-//                                route = mMap.addPolyline(polylineOptions);
-//                            }
-//                            Display display = getWindowManager().getDefaultDisplay();
-//                            Point size = new Point();
-//                            display.getSize(size);
-//                            int padding = 200;
-//                            int width1 = size.x;
-//                            int height1 = size.y;
-//
-//                            /*create for loop/manual to add LatLng's to the LatLngBounds.Builder*/
-//                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-//                            builder.include(destination.getCoord());
-//                            builder.include(pickUpLocation);
-//
-//                            /*initialize the padding for map boundary
-//                            create the bounds from latlngBuilder to set into map camera*/
-//                            LatLngBounds bounds = builder.build();
-//
-//                            /*create the camera with bounds and padding to set into map*/
-//                            if(!cameraIsUpdated){
-//                                final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
-//                                mMap.animateCamera(cu);
-//                                cameraIsUpdated = true;
-//                            }
-//
-//                            tripFrom = startPlace;
-//                            tripTo = destination;
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onDirectionFailure(Throwable t) {
-//                        // Do something
-//                    }
-//                }));
-//
-//        thread.run();
+        Thread thread = new Thread(() -> GoogleDirection.withServerKey("AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o")
+                .from(pickUpLocation)
+                .to(destination.getCoord())
+                .transportMode(TransportMode.DRIVING)
+                .execute(new DirectionCallback() {
+                    boolean cameraIsUpdated = false;
+
+                    @Override
+                    public void onDirectionSuccess(Direction direction, String rawBody) {
+                        if (direction.isOK()) {
+                            for (int i = 0; i < direction.getRouteList().get(0).getLegList().size(); i++) {
+                                Leg leg = direction.getRouteList().get(0).getLegList().get(i);
+                                ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                PolylineOptions polylineOptions = DirectionConverter.createPolyline(ContentActivity.this, directionPositionList, 5, Color.BLUE);
+                                route = mMap.addPolyline(polylineOptions);
+                            }
+                            Display display = getWindowManager().getDefaultDisplay();
+                            Point size = new Point();
+                            display.getSize(size);
+                            int padding = 200;
+                            int width1 = size.x;
+                            int height1 = size.y;
+
+                            /*create for loop/manual to add LatLng's to the LatLngBounds.Builder*/
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            builder.include(destination.getCoord());
+                            builder.include(pickUpLocation);
+
+                            /*initialize the padding for map boundary
+                            create the bounds from latlngBuilder to set into map camera*/
+                            LatLngBounds bounds = builder.build();
+
+                            /*create the camera with bounds and padding to set into map*/
+                            if(!cameraIsUpdated){
+                                final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
+                                mMap.animateCamera(cu);
+                                cameraIsUpdated = true;
+                            }
+
+                            tripFrom = startPlace;
+                            tripTo = destination;
+                        }
+                    }
+
+                    @Override
+                    public void onDirectionFailure(Throwable t) {
+                        // Do something
+                    }
+                }));
+
+        thread.run();
     }
 
     public void openCarsFragments(List<?> drivers, int currentPos) {

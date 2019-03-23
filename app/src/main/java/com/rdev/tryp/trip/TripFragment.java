@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
@@ -226,6 +227,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                             ride.setId(rideRequest.getRequestId());
                             new TrypDatabase().startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
                                 boolean connectIsShown = false;
+                                GroundOverlay markerCar = null;
 
                                 @Override
                                 public void isApproved(Ride ride) {
@@ -233,8 +235,12 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                         ((ContentActivity)activity).showConnectFragment();
                                         connectIsShown = true;
                                     }
+
+                                    Log.e("DebugSOme", ride.getDriver().getLocation().getLat() + " : " + ride.getDriver().getLocation().getLng());
+
                                     LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
                                     LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
+
                                     ((ContentActivity)activity).onDriverRoad(
                                             new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
                                             new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
