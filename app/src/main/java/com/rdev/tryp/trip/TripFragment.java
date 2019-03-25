@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.model.Location;
@@ -231,15 +232,20 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                             ride.setId(rideRequest.getRequestId());
                             new TrypDatabase().startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
                                 boolean connectIsShown = false;
+                                int status = 0;
 
                                 @Override
                                 public void isApproved(Ride ride) {
+                                    if(status != 0){
+                                        return;
+                                    }
+
                                     if(!connectIsShown){
                                         ((ContentActivity)activity).showConnectFragment();
                                         connectIsShown = true;
                                     }
 
-                                    Log.e("DebugSOme", ride.getDriver().getLocation().getLat() + " : " + ride.getDriver().getLocation().getLng());
+                                    Log.e(ConstantsFirebase.TAG, ride.getDriver().getLocation().getLat() + " : " + ride.getDriver().getLocation().getLng());
 
                                     LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
                                     LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
@@ -247,6 +253,17 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                     ((ContentActivity)activity).onDriverRoad(
                                             new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
                                             new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
+                                }
+
+                                @Override
+                                public void statusChanged(int currentStatus) {
+                                    if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 0 ){
+                                        status = ConstantsFirebase.STATUS_ROAD_STARTED;
+                                        Toast.makeText(activity, "100", Toast.LENGTH_LONG).show();
+                                    } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
+                                        status = ConstantsFirebase.STATUS_ROAD_STARTED;
+                                        Toast.makeText(activity, "200", Toast.LENGTH_LONG).show();
+                                    }
                                 }
 
                                 @Override

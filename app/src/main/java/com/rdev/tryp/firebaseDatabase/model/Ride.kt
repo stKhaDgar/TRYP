@@ -18,4 +18,6 @@ class Ride(
         var fromAddress: String? = null,
         var toAddress: String? = null,
         var fare: Float? = null
-)
+) {
+    var status: Int? = null
+}

@@ -21,8 +21,6 @@ import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
 import com.rdev.tryp.utils.LatLngInterpolator
 import java.util.ArrayList
-import java.util.HashMap
-
 
 /**
  * Created by Andrey Berezhnoi on 20.03.2019.
@@ -79,37 +77,7 @@ class TrypDatabase{
                 val item = dataSnapshot.getValue(AvailableDriver::class.java)
                 for((marker, driver) in drivers){
                     if(driver.id == item?.id){
-                        item?.location?.lat?.let { first ->
-
-                            CarAnimation.animateMarkerToGB(marker, item.location, LatLngInterpolator.Spherical(), BearingInterpolator.Degree())
-
-//                            item.location?.lng?.let { second ->
-//
-//                                driver.location?.lat?.let { driverLat ->
-//                                    driver.location?.lng?.let { driverLng ->
-//                                        marker.bearing = angleFromCoordinate(driverLat, driverLng, first, second)
-//                                    }
-//                                }
-//
-//                                val vaLat = ValueAnimator.ofFloat(driver.location?.lat.toString().toFloat(), first.toFloat())
-//                                val vaLon = ValueAnimator.ofFloat(driver.location?.lng.toString().toFloat(), second.toFloat())
-//
-//                                vaLat.addUpdateListener { animation ->
-//                                    val value = animation.animatedValue as Float
-//                                    marker.position = LatLng(value.toDouble(), driver.location?.lng.toString().toDouble())
-//                                    driver.location?.lat = value.toDouble()
-//                                }
-//
-//                                vaLon.addUpdateListener { animation ->
-//                                    val value = animation.animatedValue as Float
-//                                    marker.position = LatLng(driver.location?.lat.toString().toDouble(), value.toDouble())
-//                                    driver.location?.lng = value.toDouble()
-//                                }
-//
-//                                vaLat.start()
-//                                vaLon.start()
-//                            }
-                        }
+                        CarAnimation.animateMarkerToGB(marker, item?.location, LatLngInterpolator.Spherical(), BearingInterpolator.Degree())
                     }
                 }
             }
@@ -179,6 +147,9 @@ class TrypDatabase{
                         dataSnapshot.getValue(Ride::class.java)?.let { item ->
                             if(item.driver?.id == driverId){
                                 listener.isApproved(item)
+                            }
+                            if(item.status != null){
+                                item.status?.let{ status -> listener.statusChanged(status) }
                             }
                         }
                     } else {
