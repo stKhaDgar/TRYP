@@ -567,9 +567,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
                             /*create the camera with bounds and padding to set into map*/
                             if(!cameraIsUpdated){
-//                                final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
-//                                mMap.animateCamera(cu);
-//                                cameraIsUpdated = true;
+                                final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width1, height1 / 2, padding);
+                                mMap.animateCamera(cu);
+                                cameraIsUpdated = true;
                             }
 
                             tripFrom = startPlace;

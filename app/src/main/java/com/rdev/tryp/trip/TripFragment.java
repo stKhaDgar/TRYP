@@ -259,9 +259,10 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 public void statusChanged(int currentStatus) {
                                     if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 0 ){
                                         status = ConstantsFirebase.STATUS_ROAD_STARTED;
-                                        Toast.makeText(activity, "100", Toast.LENGTH_LONG).show();
+                                        ((ContentActivity) activity).popBackStack();
+                                        ((ContentActivity) activity).onDestinationPicked(start, end);
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
-                                        status = ConstantsFirebase.STATUS_ROAD_STARTED;
+                                        status = ConstantsFirebase.STATUS_ROAD_FINISHED;
                                         Toast.makeText(activity, "200", Toast.LENGTH_LONG).show();
                                     }
                                 }
