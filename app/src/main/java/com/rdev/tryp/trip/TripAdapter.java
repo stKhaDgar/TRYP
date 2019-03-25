@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.model.Driver;

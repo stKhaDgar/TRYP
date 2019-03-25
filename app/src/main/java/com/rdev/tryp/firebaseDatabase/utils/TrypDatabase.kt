@@ -147,15 +147,9 @@ class TrypDatabase{
 
     fun updateUser(user: Users){
         val clients = database.reference.child(const.CLIENTS)
-        clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onCancelled(dataSnapshot: DatabaseError) {}
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val temp = Client(user.userId.toString(), user.firstName, user.lastName, "none", 5.0F)
-                val map = HashMap<String, Client>()
-                map[user.userId.toString()] = temp
-                clients.setValue(map)
-            }
-        })
+        val client = clients.child(user.userId.toString())
+        val temp = Client(user.userId.toString(), user.firstName, user.lastName, "none", 5.0F)
+        client.setValue(temp)
     }
 
     fun startRide(ride: Ride, driverId: String?, listener: DriverApproveListener){
