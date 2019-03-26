@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
@@ -251,6 +252,14 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                         currentCar = new Pair<>(((ContentActivity) activity).addGroundOverlay(new TripPlace(Locale.getDefault().getDisplayCountry(), new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()))),
                                                 ride.getDriver());
                                         currentCar.first.setZIndex(15);
+
+                                        LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
+                                        LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
+
+                                        ((ContentActivity)activity).onDriverRoad(
+                                                new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
+                                                new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
+
                                     } else {
                                         CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
                                     }
@@ -261,13 +270,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                     }
 
                                     Log.e(ConstantsFirebase.TAG, ride.getDriver().getLocation().getLat() + " : " + ride.getDriver().getLocation().getLng());
-
-                                    LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
-                                    LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
-
-                                    ((ContentActivity)activity).onDriverRoad(
-                                            new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
-                                            new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
                                 }
 
                                 @Override
@@ -283,12 +285,17 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                                 new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
                                                 new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
                                                 false);
+
+                                        ((ContentActivity) activity).myCurrentLocationMarker.visible(false);
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
                                         Toast.makeText(activity, "200", Toast.LENGTH_LONG).show();
                                     }
 
-
+                                    if(currentCar != null) {
+                                        CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
+                                        ((ContentActivity) activity).mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()), ((ContentActivity) activity).mMap.getCameraPosition().zoom));
+                                    }
                                 }
 
                                 @Override

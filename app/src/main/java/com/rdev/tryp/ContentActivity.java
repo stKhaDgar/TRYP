@@ -116,7 +116,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public Bundle b = null;
 
     private static final String TAG = "tag";
-    private GoogleMap mMap;
+    public GoogleMap mMap;
     FragmentManager fm;
     public LatLng pickUpLocation;
     int TYPE_PICK_POSITION = 1;
@@ -125,7 +125,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     private String currentLocate;
     AdressListFragment listFragment;
     Marker pickAdressMarker;
-    MarkerOptions myCurrentLocationMarker = null;
+    public MarkerOptions myCurrentLocationMarker = null;
     GroundOverlay currentCar = null;
     public float currentFare = 0;
 
@@ -1014,7 +1014,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         mMap.setOnCameraMoveListener(() -> {
             float zoom = mMap.getCameraPosition().zoom;
 
-            go.setDimensions((float) Math.pow(2.2, (20 - zoom)) + 40);
+            go.setDimensions((float) Math.pow(2.35, (20 - zoom)) + 40);
             database.updateZoomDrivers(zoom);
         });
 
