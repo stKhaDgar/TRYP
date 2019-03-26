@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener;
+import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.model.Location;
 import com.rdev.tryp.firebaseDatabase.model.Ride;
@@ -40,8 +42,12 @@ import com.rdev.tryp.model.status_response.StatusResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
 import com.rdev.tryp.network.NetworkService;
+import com.rdev.tryp.utils.BearingInterpolator;
+import com.rdev.tryp.utils.CarAnimation;
+import com.rdev.tryp.utils.LatLngInterpolator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -233,11 +239,20 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                             new TrypDatabase().startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
                                 boolean connectIsShown = false;
                                 int status = 0;
+                                Pair<GroundOverlay, AvailableDriver> currentCar = null;
 
                                 @Override
                                 public void isApproved(Ride ride) {
                                     if(status != 0){
                                         return;
+                                    }
+
+                                    if(currentCar == null){
+                                        currentCar = new Pair<>(((ContentActivity) activity).addGroundOverlay(new TripPlace(Locale.getDefault().getDisplayCountry(), new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()))),
+                                                ride.getDriver());
+                                        currentCar.first.setZIndex(15);
+                                    } else {
+                                        CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
                                     }
 
                                     if(!connectIsShown){
@@ -260,18 +275,20 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                     if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 0 ){
                                         status = ConstantsFirebase.STATUS_ROAD_STARTED;
                                         ((ContentActivity) activity).popBackStack();
+
+                                        LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
+                                        LatLng endPos = new LatLng(ride.getDestinationLocation().getLat(), ride.getDestinationLocation().getLng());
+
+                                        ((ContentActivity) activity).onDestinationPicked(
+                                                new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
+                                                new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
+                                                false);
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
                                         Toast.makeText(activity, "200", Toast.LENGTH_LONG).show();
                                     }
 
-                                    LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
-                                    LatLng endPos = new LatLng(ride.getDestinationLocation().getLat(), ride.getDestinationLocation().getLng());
 
-                                    ((ContentActivity) activity).onDestinationPicked(
-                                            new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
-                                            new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
-                                            false);
                                 }
 
                                 @Override

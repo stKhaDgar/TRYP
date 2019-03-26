@@ -415,6 +415,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
+        if(currentCar != null){
+            currentCar.setPosition(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude));
+        }
+
         int height = 270;
         int width = 225;
 
@@ -510,24 +514,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
-
-        if(currentCar == null){
-            currentCar = mMap.addGroundOverlay(new GroundOverlayOptions().position(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude), 200f).
-                    image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)));
-            currentCar.setZIndex(15);
-
-            mMap.setOnCameraMoveListener(() -> {
-                float zoom = mMap.getCameraPosition().zoom;
-
-                currentCar.setDimensions((float) Math.pow(2.2, (20 - zoom)) + 40);
-                database.updateZoomDrivers(zoom);
-            });
-        } else {
-            currentCar.setBearing(new TrypDatabase().angleFromCoordinate(currentCar.getPosition().latitude, currentCar.getPosition().longitude,
-                    startPlace.getCoord().latitude, startPlace.getCoord().longitude));
-
-            currentCar.setPosition(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude));
-        }
 
         pickAdressMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
                 .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
@@ -1019,6 +1005,20 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             }
             super.onBackPressed();
         }
+    }
+
+    public GroundOverlay addGroundOverlay(TripPlace startPlace){
+        GroundOverlay go = mMap.addGroundOverlay(new GroundOverlayOptions().position(new LatLng(startPlace.getCoord().latitude, startPlace.getCoord().longitude), 200f).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)));
+
+        mMap.setOnCameraMoveListener(() -> {
+            float zoom = mMap.getCameraPosition().zoom;
+
+            go.setDimensions((float) Math.pow(2.2, (20 - zoom)) + 40);
+            database.updateZoomDrivers(zoom);
+        });
+
+        return go;
     }
 
     public void clearMap() {

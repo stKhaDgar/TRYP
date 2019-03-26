@@ -149,7 +149,7 @@ class TrypDatabase{
                                 listener.isApproved(item)
                             }
                             if(item.status != null){
-                                item.status?.let{ status -> listener.statusChanged(status, ride) }
+                                item.status?.let{ status -> listener.statusChanged(status, item) }
                             }
                         }
                     } else {
