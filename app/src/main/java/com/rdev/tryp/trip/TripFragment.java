@@ -39,7 +39,6 @@ import com.rdev.tryp.model.favourite_driver.FavouriteDriver;
 import com.rdev.tryp.model.ride_responce.RequestRideBody;
 import com.rdev.tryp.model.ride_responce.RideRequest;
 import com.rdev.tryp.model.ride_responce.RideResponse;
-import com.rdev.tryp.model.status_response.StatusResponse;
 import com.rdev.tryp.network.ApiClient;
 import com.rdev.tryp.network.ApiService;
 import com.rdev.tryp.network.NetworkService;
@@ -48,7 +47,6 @@ import com.rdev.tryp.utils.CarAnimation;
 import com.rdev.tryp.utils.LatLngInterpolator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -150,7 +148,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
 
         database.setAvailableDrivers(drivers -> {
-            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), ((ContentActivity)getActivity()).currentFare);
+            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), 50F);
             tripRv.setAdapter(tripAdapter);
             tripAdapter.notifyDataSetChanged();
         });
@@ -223,7 +221,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     null,
                     fromAddress.get(0).getAddressLine(0),
                     toAddress.get(0).getAddressLine(0),
-                    ((ContentActivity) activity).currentFare);
+                    ((ContentActivity) activity).getCurrentFare());
 
             NetworkService.getApiService().ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
                 @Override
@@ -286,10 +284,14 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                                 new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
                                                 false);
 
-                                        ((ContentActivity) activity).myCurrentLocationMarker.visible(false);
+                                        ((ContentActivity) activity).myCurrentLocationMarker.setVisible(false);
+
+                                        showAlertDialod("Trip started!", "The driver started the trip", activity);
+
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
-                                        Toast.makeText(activity, "200", Toast.LENGTH_LONG).show();
+
+                                        showAlertDialod("The trip is over", "Please pay for the trip", activity);
                                     }
 
                                     if(currentCar != null) {
@@ -300,7 +302,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                 @Override
                                 public void isDeclined() {
-                                    ((ContentActivity)activity ).popBackStack();
+                                    ((ContentActivity)activity).popBackStack();
                                     ((ContentActivity)activity).clearMap();
                                     ((ContentActivity)activity).initMap();
                                 }
@@ -364,8 +366,13 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                 .setView(v).create();
 
         back_btn.setOnClickListener(view -> dialog.dismiss());
-        if (dialog != null) {
+        if (dialog != null && !title.equals("The trip is over")) {
             dialog.dismiss();
+        } else if (title.equals("The trip is over")){
+            dialog.dismiss();
+            ((ContentActivity) context).clearMap();
+            ((ContentActivity) context).initMap();
+            ((ContentActivity) context).zoomToCurrentLocation();
         }
         dialog_title_tv = v.findViewById(R.id.dialog_title);
         dialog = new AlertDialog.Builder(context)

@@ -125,9 +125,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     private String currentLocate;
     AdressListFragment listFragment;
     Marker pickAdressMarker;
-    public MarkerOptions myCurrentLocationMarker = null;
+    public Marker myCurrentLocationMarker = null;
     GroundOverlay currentCar = null;
-    public float currentFare = 0;
+    private float currentFare = 0;
 
     public CurrentLocation currentLocation;
     public String currentAddress = null;
@@ -292,9 +292,14 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
+        if(myCurrentLocationMarker == null){
+            myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
 
-        currentPosMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
-                .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+        } else {
+            myCurrentLocationMarker.setPosition(currentPos);
+        }
+
         isLocationFound = true;
         Geocoder geocoder = new Geocoder(ContentActivity.this);
         List<Address> addressList = geocoder.getFromLocation(currentPos.latitude, currentPos.longitude, 1);
@@ -515,8 +520,13 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
-        pickAdressMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
-                .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+        if(myCurrentLocationMarker == null){
+            myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
+
+        } else {
+            myCurrentLocationMarker.setPosition(destination.getCoord());
+        }
 
         type = TYPE_VIEWER;
 
@@ -607,12 +617,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
             if(myCurrentLocationMarker == null){
-                myCurrentLocationMarker = new MarkerOptions().position(currentPos)
-                        .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap));
-
-                mMap.addMarker(myCurrentLocationMarker);
+                myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                        .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
             } else {
-                myCurrentLocationMarker.position(currentPos);
+                myCurrentLocationMarker.setVisible(true);
+                myCurrentLocationMarker.setPosition(currentPos);
             }
         });
     }
@@ -1019,6 +1028,10 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         });
 
         return go;
+    }
+
+    public float getCurrentFare(){
+        return currentFare;
     }
 
     public void clearMap() {
