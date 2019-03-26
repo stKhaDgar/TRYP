@@ -10,6 +10,6 @@ import com.rdev.tryp.firebaseDatabase.model.Ride
 
 interface DriverApproveListener{
     fun isApproved(location: Ride?)
-    fun statusChanged(status: Int)
+    fun statusChanged(status: Int, ride: Ride)
     fun isDeclined()
 }

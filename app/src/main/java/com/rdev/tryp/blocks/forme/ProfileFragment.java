@@ -402,7 +402,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
     private void onDestination(TripPlace start, TripPlace end) {
         ((ContentActivity) Objects.requireNonNull(getActivity())).popBackStack();
-        ((ContentActivity) getActivity()).onDestinationPicked(start, end);
+        ((ContentActivity) getActivity()).onDestinationPicked(start, end, true);
     }
 
     private void saveRouteInRecent(TripPlace start, TripPlace end) {

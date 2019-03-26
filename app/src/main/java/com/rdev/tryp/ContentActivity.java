@@ -390,7 +390,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void onDestinationPicked(final TripPlace startPlace, final TripPlace destination) {
+    public void onDestinationPicked(final TripPlace startPlace, final TripPlace destination, boolean isShowCars) {
         if (pickAdressMarker != null && pickAdressMarker.isVisible()) {
             pickAdressMarker.remove();
         }
@@ -442,10 +442,12 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                                 route = mMap.addPolyline(polylineOptions);
                             }
 
-                            fm.beginTransaction()
-                                    .replace(R.id.container, new TripFragment(pickUpLocation, destination.getCoord()))
-                                    .addToBackStack("dest_pick")
-                                    .commit();
+                            if(isShowCars){
+                                fm.beginTransaction()
+                                        .replace(R.id.container, new TripFragment(pickUpLocation, destination.getCoord()))
+                                        .addToBackStack("dest_pick")
+                                        .commit();
+                            }
 
                             Display display = getWindowManager().getDefaultDisplay();
                             Point size = new Point();
@@ -518,7 +520,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 float zoom = mMap.getCameraPosition().zoom;
 
                 currentCar.setDimensions((float) Math.pow(2.2, (20 - zoom)) + 40);
-
+                database.updateZoomDrivers(zoom);
             });
         } else {
             currentCar.setBearing(new TrypDatabase().angleFromCoordinate(currentCar.getPosition().latitude, currentCar.getPosition().longitude,

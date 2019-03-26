@@ -149,7 +149,7 @@ class TrypDatabase{
                                 listener.isApproved(item)
                             }
                             if(item.status != null){
-                                item.status?.let{ status -> listener.statusChanged(status) }
+                                item.status?.let{ status -> listener.statusChanged(status, ride) }
                             }
                         }
                     } else {
@@ -198,6 +198,14 @@ class TrypDatabase{
         brng = (brng + 360) % 360
         brng = 180 - brng
         return brng.toFloat()
+    }
+
+    fun updateZoomDrivers(zoom: Float){
+        for((marker, _) in drivers){
+            if(zoom > 10){
+                marker.setDimensions(Math.pow(2.5, (20 - zoom).toDouble()).toFloat() + 40)
+            }
+        }
     }
 
     private fun setTransparency(from: Float, to: Float, listener: ValueAnimator.AnimatorUpdateListener){

@@ -256,15 +256,22 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 }
 
                                 @Override
-                                public void statusChanged(int currentStatus) {
+                                public void statusChanged(int currentStatus, Ride ride) {
                                     if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 0 ){
                                         status = ConstantsFirebase.STATUS_ROAD_STARTED;
                                         ((ContentActivity) activity).popBackStack();
-                                        ((ContentActivity) activity).onDestinationPicked(start, end);
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
                                         Toast.makeText(activity, "200", Toast.LENGTH_LONG).show();
                                     }
+
+                                    LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
+                                    LatLng endPos = new LatLng(ride.getDestinationLocation().getLat(), ride.getDestinationLocation().getLng());
+
+                                    ((ContentActivity) activity).onDestinationPicked(
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
+                                            false);
                                 }
 
                                 @Override
