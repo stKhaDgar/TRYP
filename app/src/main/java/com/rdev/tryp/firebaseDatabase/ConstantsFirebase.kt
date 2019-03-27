@@ -17,5 +17,6 @@ object ConstantsFirebase {
     const val TRYP_CAR_FARE: Float = 0.8F
 
     const val STATUS_ROAD_STARTED = 100
+    const val STATUS_ROAD_PREPARED = 150
     const val STATUS_ROAD_FINISHED = 200
 }

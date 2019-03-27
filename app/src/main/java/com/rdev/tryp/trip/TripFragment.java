@@ -272,7 +272,11 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                 @Override
                                 public void statusChanged(int currentStatus, Ride ride) {
-                                    if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 0 ){
+                                    if(currentStatus == ConstantsFirebase.STATUS_ROAD_PREPARED && status == 0){
+
+                                        showAlertDialod("Driver waiting", "Please get in the car", activity);
+
+                                    } else if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 150 ){
                                         status = ConstantsFirebase.STATUS_ROAD_STARTED;
                                         ((ContentActivity) activity).popBackStack();
 
