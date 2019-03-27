@@ -35,6 +35,9 @@ class TrypDatabase{
     private var listener: AvailableDriversChanged? = null
 
     fun initializeAvailableDrivers(map: GoogleMap){
+        for(item in drivers){
+            item.first.remove()
+        }
         drivers.clear()
 
         database.reference.child(const.AVAILABLE_DRIVERS).addChildEventListener(object : ChildEventListener {
@@ -44,7 +47,7 @@ class TrypDatabase{
                     val zoom = map.cameraPosition.zoom
                     for((marker, _) in drivers){
                         if(zoom > 10){
-                            marker.setDimensions(Math.pow(2.5, (20 - zoom).toDouble()).toFloat() + 40)
+                            marker.setDimensions(Math.pow(2.3, (20 - zoom).toDouble()).toFloat() + 40)
                         }
                     }
                 }
@@ -146,6 +149,19 @@ class TrypDatabase{
                     if(dataSnapshot.exists()){
                         dataSnapshot.getValue(Ride::class.java)?.let { item ->
                             if(item.driver?.id == driverId){
+                                var index = -1
+                                hey@for(i in 0 until drivers.size){
+                                    if(item.driver?.id == drivers[i].second.id){
+                                        index = i
+                                        drivers[i].first.remove()
+                                        break@hey
+                                    }
+                                }
+
+                                if(index != -1){
+                                    drivers.removeAt(index)
+                                }
+
                                 listener.isApproved(item)
                             }
                             if(item.status != null){
