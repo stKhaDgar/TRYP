@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.trip.TripFragment;
@@ -36,7 +37,7 @@ public class TrypCarFragment extends Fragment {
     public static final String TYPE_TRYP_ASSIST = "TRYP Assist";
 
     @SuppressLint("ValidFragment")
-    public TrypCarFragment(Driver driver) {
+    TrypCarFragment(Driver driver) {
         this.driver = driver;
     }
 
@@ -55,18 +56,11 @@ public class TrypCarFragment extends Fragment {
         tryp_type_tv.setText(driver.getCategory());
         num_of_door_tv.setText("4/4");
         num_of_passangers.setText("" + driver.getMaxPassenger());
-        price_tv.setText("$" + String.valueOf(driver.getFare()));
+        price_tv.setText("$" + (((ContentActivity) getActivity()).getCurrentFare() * ConstantsFirebase.TRYP_CAR_FARE));
         num_of_baggage.setText("" + driver.getMaxLuggage());
 
         CardView trypNowBtn = v.findViewById(R.id.tryp_now_btn);
-        trypNowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo);
-            }
-        });
-
+        trypNowBtn.setOnClickListener(v -> TripFragment.orderTrip(getActivity(), driver, ContentActivity.tripFrom, ContentActivity.tripTo));
 
         return v;
     }
@@ -112,4 +106,5 @@ public class TrypCarFragment extends Fragment {
         }
         return R.drawable.tryp_car;
     }
+
 }

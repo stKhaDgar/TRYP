@@ -148,7 +148,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
 
         database.setAvailableDrivers(drivers -> {
-            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), 50F);
+            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), ((ContentActivity) getActivity()).getCurrentFare());
             tripRv.setAdapter(tripAdapter);
             tripAdapter.notifyDataSetChanged();
         });

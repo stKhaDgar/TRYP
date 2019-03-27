@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/detail_viewpager"
         android:layout_width="318dp"
@@ -15,8 +14,7 @@
         app:layout_constraintBottom_toTopOf="@+id/pageIndicatorView"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline"></androidx.viewpager.widget.ViewPager>
-
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <com.rd.PageIndicatorView
         android:id="@+id/pageIndicatorView"
