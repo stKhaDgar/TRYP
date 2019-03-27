@@ -15,6 +15,7 @@ import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.LoginModel;
 import com.rdev.tryp.model.LoginResponse;
+import com.rdev.tryp.model.RealmCallback;
 import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.model.UserPhoneNumber;
 import com.rdev.tryp.model.login_response.VerifySmsResponse;
@@ -94,15 +95,39 @@ public class LoginActivity extends AppCompatActivity {
 
                     AccountManager.getInstance().signIn(body.getData().getUsers().getUserId());
 
-                    RealmUtils realm = new RealmUtils(getApplicationContext(), null);
-                    realm.pushUser(body.getData().getUsers());
+                    new RealmUtils(getApplicationContext(), new RealmCallback() {
+                        @Override
+                        public void dataUpdated() {
 
-                    new TrypDatabase().updateUser(body.getData().getUsers());
+                            new TrypDatabase().updateUser(body.getData().getUsers(), LoginActivity.this, new RealmCallback() {
+                                @Override
+                                public void dataUpdated() {
+                                    Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
+                                    intent.putExtra("tag", "f");
+                                    startActivity(intent);
+                                    finish();
+                                }
 
-                    Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
-                    intent.putExtra("tag", "f");
-                    startActivity(intent);
-                    finish();
+                                @Override
+                                public void error() {
+                                    Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
+                                    intent.putExtra("tag", "f");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void error() {
+                            Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
+                            intent.putExtra("tag", "f");
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }).pushUser(body.getData().getUsers());
                 }
 
                 @Override

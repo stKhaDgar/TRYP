@@ -1,6 +1,7 @@
 package com.rdev.tryp.firebaseDatabase.utils
 
 import android.animation.ValueAnimator
+import android.content.Context
 import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -16,6 +17,8 @@ import com.rdev.tryp.firebaseDatabase.model.Client
 import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
 import com.rdev.tryp.firebaseDatabase.model.Driver
 import com.rdev.tryp.firebaseDatabase.model.Ride
+import com.rdev.tryp.model.RealmCallback
+import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
@@ -116,8 +119,24 @@ class TrypDatabase{
         })
     }
 
-    fun updateUser(user: Users){
+    fun updateUser(user: Users, context: Context, callback: RealmCallback?){
         val clients = database.reference.child(const.CLIENTS)
+
+        clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.e(const.TAG, "onDataChange user hello 1")
+                if(dataSnapshot.exists()){
+                    Log.e(const.TAG, "onDataChange user exist")
+
+                    val currentUser = dataSnapshot.getValue(Client::class.java)
+                    Log.e(const.TAG, "onDataChange user ${currentUser?.photo}")
+
+                    RealmUtils(context, callback).updateUser(currentUser)
+                }
+            }
+        })
+
         val client = clients.child(user.userId.toString())
         val temp = Client(user.userId.toString(), user.firstName, user.lastName, "none", 5.0F)
         client.setValue(temp)

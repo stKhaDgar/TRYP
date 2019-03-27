@@ -2,6 +2,7 @@ package com.rdev.tryp.model
 
 import android.content.Context
 import android.util.Log
+import com.rdev.tryp.firebaseDatabase.model.Client
 import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.payment.model.Card
 import io.realm.Realm
@@ -35,6 +36,27 @@ class RealmUtils(private val context: Context, private val callback: RealmCallba
         realm.executeTransactionAsync({ bgRealm ->
 
             bgRealm.copyToRealmOrUpdate(temp)
+
+        }, {
+            Log.e(TAG, "User was updated")
+            callback?.dataUpdated()
+        }, { error ->
+            error.printStackTrace()
+            callback?.error()
+        })
+    }
+
+    fun updateUser(client: Client?){
+        realm.executeTransactionAsync({ bgRealm ->
+
+            bgRealm.where(Users::class.java).equalTo("userId", client?.id?.toInt()).findFirst()?.let { user ->
+
+                client?.first_name?.let { firstName -> user.firstName = firstName }
+                client?.last_name?.let { lastName -> user.lastName = lastName }
+                client?.photo?.let { photo -> user.image = photo }
+
+                bgRealm.copyToRealmOrUpdate(user)
+            }
 
         }, {
             Log.e(TAG, "User was updated")
