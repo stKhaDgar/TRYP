@@ -9,7 +9,6 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -23,12 +22,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -91,7 +88,6 @@ import com.rdev.tryp.utils.CurrentLocation;
 import com.rdev.tryp.utils.Utils;
 import com.squareup.picasso.Picasso;
 
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -113,6 +109,7 @@ import io.realm.Realm;
 /**
  * Created by Alexey Matrosov on 02.03.2019.
  */
+
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     public TrypDatabase database = new TrypDatabase();
 
@@ -162,7 +159,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         fm = getSupportFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -314,7 +313,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         pickUpLocation = currentPos;
     }
 
-    void updateCurrentLocation(LatLng currentPos) throws IOException {
+    void updateCurrentLocation(LatLng currentPos) {
         if(currentPos != null){
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17));
 
@@ -411,11 +410,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         if (startPlace != null) {
             pickUpLocation = startPlace.getCoord();
-            try {
-                updateCurrentLocation(startPlace.getCoord());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            updateCurrentLocation(startPlace.getCoord());
         }
 
         if (pickUpLocation == null) {
@@ -510,11 +505,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         if (startPlace != null) {
             pickUpLocation = startPlace.getCoord();
             if(currentCar == null){
-                try {
-                    updateCurrentLocation(startPlace.getCoord());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                updateCurrentLocation(startPlace.getCoord());
             }
         }
 
@@ -581,21 +572,21 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                     @Override
-                    public void onDirectionFailure(Throwable t) {
-                        // Do something
-                    }
+                    public void onDirectionFailure(Throwable t) { }
                 }));
 
         thread.run();
     }
 
     public void openCarsFragments(List<?> drivers, int currentPos) {
+
         TrypCarHostFragment fragment = new TrypCarHostFragment();
         fm.beginTransaction()
                 .replace(R.id.container, fragment)
                 .addToBackStack("demand")
                 .commit();
         fragment.setDrivers(drivers, currentPos);
+
     }
 
     public void zoomToCurrentLocation() {
@@ -995,7 +986,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -1044,11 +1034,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     public void clearMap() {
         mMap.clear();
-        try {
-            updateCurrentLocation(pickUpLocation);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        updateCurrentLocation(pickUpLocation);
     }
 
     public void showConnectFragment(){
@@ -1056,4 +1042,5 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         popBackStack();
         startFragment(ContentActivity.TYPE_CONNECT);
     }
+
 }
