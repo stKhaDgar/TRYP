@@ -62,7 +62,7 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
 
     public void setData(List<AutocompletePrediction> data){
         List<AutocompletePrediction> temp = new ArrayList<>();
-        for (int i = 0; i < data.size()-1; i++){
+        for (int i = 0; i < data.size(); i++){
             if(!data.get(i).getFullText(null).toString().contains("null")){
                 temp.add(data.get(i));
             }
@@ -70,4 +70,5 @@ public class AutoCompleteAdapter extends RecyclerView.Adapter {
         this.data = temp;
         notifyDataSetChanged();
     }
+
 }

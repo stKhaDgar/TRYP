@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
@@ -140,14 +144,14 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             resetAddressView(adressTv2);
             adapter.setData(new ArrayList<>());
             mainEditText = adressTv;
-            setCursotEnd(adressTv);
+            setCursorEnd(adressTv);
         });
 
         adressTv2.setOnFocusChangeListener((v, hasFocus) -> {
             resetAddressView(adressTv);
             adapter.setData(new ArrayList<>());
             mainEditText = adressTv2;
-            setCursotEnd(adressTv2);
+            setCursorEnd(adressTv2);
         });
     }
 
@@ -213,7 +217,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 placesClient = Places.createClient(Objects.requireNonNull(getContext()));
                 FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
-                        .setTypeFilter(TypeFilter.ADDRESS)
                         .setQuery(charSequence.toString())
                         .build();
                 placesClient.findAutocompletePredictions(request).addOnCompleteListener(task -> adapter.setData(Objects.requireNonNull(task.getResult()).getAutocompletePredictions()));
@@ -237,7 +240,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 placesClient = Places.createClient(Objects.requireNonNull(getContext()));
                 FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
-                        .setTypeFilter(TypeFilter.ADDRESS)
                         .setQuery(charSequence.toString())
                         .build();
                 placesClient.findAutocompletePredictions(request).addOnCompleteListener(task -> adapter.setData(Objects.requireNonNull(task.getResult()).getAutocompletePredictions()));
@@ -372,7 +374,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             resetAddressView(adressTv);
         }
 
-        setCursotEnd(mainEditText);
+        setCursorEnd(mainEditText);
     }
 
     @Override
@@ -384,7 +386,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         } else {
             mainEditText.setText(prediction.getPrimaryText(null));
         }
-        setCursotEnd(mainEditText);
+        setCursorEnd(mainEditText);
         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(prediction.getPlaceId(), placeFields);
         placesClient.fetchPlace(request).addOnCompleteListener(task -> {
@@ -415,7 +417,6 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
 
         PreferenceManager.setTripPlace(KEY_RECENT_FROM_2, secondFrom);
         PreferenceManager.setTripPlace(KEY_RECENT_TO_2, secondTo);
-
     }
 
     private void getRecentFirst() {
@@ -435,9 +436,10 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         showFavoriteAddresses();
     }
 
-    private void setCursotEnd(EditText editText){
+    private void setCursorEnd(EditText editText){
         int position = editText.length();
-        Editable etext = editText.getText();
-        Selection.setSelection(etext, position);
+        Editable eText = editText.getText();
+        Selection.setSelection(eText, position);
     }
+
 }
