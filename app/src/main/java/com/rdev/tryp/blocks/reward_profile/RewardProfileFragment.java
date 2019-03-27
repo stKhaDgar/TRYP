@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.model.RealmUtils;
+import com.squareup.picasso.Picasso;
 
 import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import afu.org.checkerframework.checker.nullness.qual.Nullable;
@@ -33,7 +35,18 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
 
         ImageView settings = root.findViewById(R.id.settings_img);
         settings.setOnClickListener(this);
+
+        initUI(root);
+
         return root;
+    }
+
+    private void initUI(View v){
+        String img = new RealmUtils(v.getContext(), null).getCurrentUser().getImage();
+        if(img != null && !img.equals("null")){
+            ImageView mainPhoto = v.findViewById(R.id.main_img);
+            Picasso.get().load(img).into(mainPhoto);
+        }
     }
 
     @Override
