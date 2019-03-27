@@ -49,6 +49,8 @@ class RealmUtils(private val context: Context, private val callback: RealmCallba
     fun updateUser(client: Client?){
         realm.executeTransactionAsync({ bgRealm ->
 
+            Log.e(TAG, client?.photo.toString())
+
             bgRealm.where(Users::class.java).equalTo("userId", client?.id?.toInt()).findFirst()?.let { user ->
 
                 client?.first_name?.let { firstName -> user.firstName = firstName }

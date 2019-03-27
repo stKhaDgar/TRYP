@@ -86,6 +86,7 @@ import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
 import com.rdev.tryp.blocks.screens.recap.RecapFragment;
 import com.rdev.tryp.utils.CurrentLocation;
 import com.rdev.tryp.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 
 import java.io.IOException;
@@ -149,8 +150,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         initMenu();
         initMap();
-
-        Log.e("DebugSome", new RealmUtils(ContentActivity.this, null).getCurrentUser().getImage());
     }
 
     public void initMap() {
@@ -687,17 +686,21 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         ImageView menuIcon = findViewById(R.id.menu_icon);
         menuIcon.setOnClickListener(this);
 
-        listener = new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                menuItem.setChecked(true);
-                mDrawerLayout.closeDrawers();
+        String img = new RealmUtils(ContentActivity.this, null).getCurrentUser().getImage();
 
+        if(img != null && !img.equals("null")){
+            ImageView iv = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+            Picasso.get().load(img).into(iv);
+        }
 
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_home:
-                        openMap();
-                        break;
+        listener = menuItem -> {
+            menuItem.setChecked(true);
+            mDrawerLayout.closeDrawers();
+
+            switch (menuItem.getItemId()) {
+                case R.id.nav_home:
+                    openMap();
+                    break;
 //                    case R.id.nav_trip_history:
 //                        startFragment(TYPE_TRIP_HISTORY);
 //                        break;
@@ -710,9 +713,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_NOTIFICATION);
 //                                break;
-                    case R.id.nav_rewards:
-                        startFragment(TYPE_REWARDS);
-                        break;
+                case R.id.nav_rewards:
+                    startFragment(TYPE_REWARDS);
+                    break;
 //                            case R.id.nav_emergency_contact:
 //                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_EMERGENCY_CONTACT);
@@ -725,26 +728,25 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 //                                Toast.makeText(getApplicationContext(), "Invite Friends", Toast.LENGTH_SHORT).show();
 //                                // startFragment(TYPE_INVITE_FRIENDS);
 //                                break;
-                    case R.id.nav_help:
-                        startFragment(TYPE_HELP);
-                        break;
-                    case R.id.nav_favorite:
-                        startFragment(TYPE_FAVORITE);
-                        break;
-                    case R.id.nav_payment:
-                        startFragment(TYPE_PAYMENT);
-                        break;
+                case R.id.nav_help:
+                    startFragment(TYPE_HELP);
+                    break;
+                case R.id.nav_favorite:
+                    startFragment(TYPE_FAVORITE);
+                    break;
+                case R.id.nav_payment:
+                    startFragment(TYPE_PAYMENT);
+                    break;
 //                            case R.id.nav_about_us:
 //                                Toast.makeText(getApplicationContext(), "About us", Toast.LENGTH_SHORT).show();
 //                                //startFragment(TYPE_ABOUT_US);
 //                                break;
-                    case R.id.nav_logout:
-                        signOut();
-                        break;
-                    default:
-                }
-                return true;
+                case R.id.nav_logout:
+                    signOut();
+                    break;
+                default:
             }
+            return true;
         };
 
         navigationView.setNavigationItemSelectedListener(listener);

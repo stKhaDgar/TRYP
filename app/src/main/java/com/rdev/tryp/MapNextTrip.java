@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
+import com.rdev.tryp.model.RealmUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -23,7 +25,6 @@ import androidx.fragment.app.Fragment;
 
 public class MapNextTrip extends Fragment implements View.OnClickListener {
 
-    private View v;
     private ImageButton locationBtn;
     private ImageView smallImage, shareBtn;
     private RelativeLayout nextBtn;
@@ -31,14 +32,14 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.next_fragment, container, false);
+        View v = inflater.inflate(R.layout.next_fragment, container, false);
 
-        initView();
+        initView(v);
 
         return v;
     }
 
-    private void initView() {
+    private void initView(View v) {
         smallImage = v.findViewById(R.id.small_image);
         locationBtn = v.findViewById(R.id.location_btn);
         nextBtn = v.findViewById(R.id.next_layout_btn);
@@ -48,16 +49,23 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
         nextBtn.setOnClickListener(this);
         shareBtn.setOnClickListener(this);
 
-        setSmallImage();
+        setSmallImage(v);
     }
 
-    private void setSmallImage() {    //TODO: set small image by user image
-        int height = 100;
-        int width = 100;
-        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.small_person);
-        Bitmap b = bitmapdraw.getBitmap();
-        Bitmap bitmap = Bitmap.createScaledBitmap(b, width, height, false);
-        smallImage.setImageBitmap(bitmap);
+    private void setSmallImage(View v) {
+
+        String img = new RealmUtils(v.getContext(), null).getCurrentUser().getImage();
+
+        if(img != null && !img.equals("null")){
+            Picasso.get().load(img).into(smallImage);
+        } else {
+            int height = 100;
+            int width = 100;
+            BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.small_person);
+            Bitmap b = bitmapDraw.getBitmap();
+            Bitmap bitmap = Bitmap.createScaledBitmap(b, width, height, false);
+            smallImage.setImageBitmap(bitmap);
+        }
     }
 
     @Override

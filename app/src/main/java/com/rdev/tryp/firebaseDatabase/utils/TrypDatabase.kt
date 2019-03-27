@@ -133,13 +133,13 @@ class TrypDatabase{
                     Log.e(const.TAG, "onDataChange user ${currentUser?.photo}")
 
                     RealmUtils(context, callback).updateUser(currentUser)
+                } else {
+                    val client = clients.child(user.userId.toString())
+                    val temp = Client(user.userId.toString(), user.firstName, user.lastName, null, 5.0F)
+                    client.setValue(temp)
                 }
             }
         })
-
-        val client = clients.child(user.userId.toString())
-        val temp = Client(user.userId.toString(), user.firstName, user.lastName, "none", 5.0F)
-        client.setValue(temp)
     }
 
     fun startRide(ride: Ride, driverId: String?, listener: DriverApproveListener){
