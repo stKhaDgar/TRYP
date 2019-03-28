@@ -513,8 +513,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
                     .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
 
-        } else {
-            myCurrentLocationMarker.setPosition(destination.getCoord());
         }
 
         type = TYPE_VIEWER;
@@ -605,13 +603,15 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             Bitmap b = bitmapDraw.getBitmap();
             Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
-            if(myCurrentLocationMarker == null){
+            if(myCurrentLocationMarker != null){
+                myCurrentLocationMarker.remove();
+                myCurrentLocationMarker = null;
+            }
+
+//            if(myCurrentLocationMarker == null){
                 myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
                         .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
-            } else {
-                myCurrentLocationMarker.setVisible(true);
-                myCurrentLocationMarker.setPosition(currentPos);
-            }
+//            }
         });
     }
 

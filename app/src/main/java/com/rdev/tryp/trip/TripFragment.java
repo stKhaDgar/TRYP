@@ -297,6 +297,9 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
+                                        ((ContentActivity) activity).myCurrentLocationMarker.setVisible(true);
+                                        ((ContentActivity) activity).zoomToCurrentLocation();
+                                        currentCar = null;
 
                                         showAlertDialod("The trip is over", "Please pay for the trip", activity);
                                     }
