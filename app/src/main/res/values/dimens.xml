@@ -5,6 +5,10 @@
 	<dimen name="map_navigation_btn_size">48dp</dimen>
     <dimen name="map_bacl_btn_margin_bottom">24dp</dimen>
 
+    <!-- Marker Icon Size -->
+    <dimen name="marker_width">70dp</dimen>
+	<dimen name="marker_height">86dp</dimen>
+
     <!-- Screens Title -->
     <dimen name="title_margin_side">16dp</dimen>
     <dimen name="title_margin_top">20dp</dimen>

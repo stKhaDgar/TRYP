@@ -48,7 +48,7 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
-    public void initView() {
+    private void initView() {
         backBtn = root.findViewById(R.id.back_btn);
         cancelButton = root.findViewById(R.id.cancel_btn);
         shareRideIv = root.findViewById(R.id.share_ride_iv);

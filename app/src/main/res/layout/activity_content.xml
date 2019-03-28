@@ -56,9 +56,19 @@
             android:layout_height="34dp"
             android:src="@drawable/ic_menu"/>
 
+		<de.hdodenhof.circleimageview.CircleImageView
+			android:id="@+id/currentLocationMarker"
+			android:layout_width="70dp"
+			android:layout_height="86dp"
+			android:scaleType="centerCrop"
+			android:paddingBottom="22dp"
+			android:paddingStart="16dp"
+			android:paddingEnd="16dp"
+			android:visibility="invisible"
+			android:background="@drawable/current_location_marker"
+			android:contentDescription="@string/content_description" />
 
     </RelativeLayout>
-
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <com.google.android.material.navigation.NavigationView

@@ -9,6 +9,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -86,6 +87,7 @@ import com.rdev.tryp.blocks.screens.notifications.NotificationsFragment;
 import com.rdev.tryp.blocks.screens.recap.RecapFragment;
 import com.rdev.tryp.utils.CurrentLocation;
 import com.rdev.tryp.utils.Utils;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -595,20 +597,59 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             currentAddress = address;
+            ImageView v = findViewById(R.id.currentLocationMarker);
 
-            int height = 270;
-            int width = 225;
-            BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
-            Bitmap b = bitmapDraw.getBitmap();
-            Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
+            String url = new RealmUtils(ContentActivity.this, null).getCurrentUser().getImage();
+            if(url != null && !url.equals("null") && !url.isEmpty()){
+                Picasso.get().load(url).into(v, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap b = Bitmap.createBitmap( getResources().getDimensionPixelOffset(R.dimen.marker_width), getResources().getDimensionPixelOffset(R.dimen.marker_height), Bitmap.Config.ARGB_8888);
+                        Canvas c = new Canvas(b);
+                        v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                        v.draw(c);
 
-            if(myCurrentLocationMarker != null){
-                myCurrentLocationMarker.remove();
-                myCurrentLocationMarker = null;
+                        if(myCurrentLocationMarker != null){
+                            myCurrentLocationMarker.remove();
+                            myCurrentLocationMarker = null;
+                        }
+
+                        myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                                .icon(BitmapDescriptorFactory.fromBitmap(b)));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        v.setImageResource(R.drawable.default_image);
+                        Bitmap b = Bitmap.createBitmap( getResources().getDimensionPixelOffset(R.dimen.marker_width), getResources().getDimensionPixelOffset(R.dimen.marker_height), Bitmap.Config.ARGB_8888);
+                        Canvas c = new Canvas(b);
+                        v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                        v.draw(c);
+
+                        if(myCurrentLocationMarker != null){
+                            myCurrentLocationMarker.remove();
+                            myCurrentLocationMarker = null;
+                        }
+
+                        myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                                .icon(BitmapDescriptorFactory.fromBitmap(b)));
+                    }
+                });
+            } else {
+                v.setImageResource(R.drawable.default_image);
+                Bitmap b = Bitmap.createBitmap( getResources().getDimensionPixelOffset(R.dimen.marker_width), getResources().getDimensionPixelOffset(R.dimen.marker_height), Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(b);
+                v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                v.draw(c);
+
+                if(myCurrentLocationMarker != null){
+                    myCurrentLocationMarker.remove();
+                    myCurrentLocationMarker = null;
+                }
+
+                myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                        .icon(BitmapDescriptorFactory.fromBitmap(b)));
             }
-
-            myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
-                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         });
     }
 
