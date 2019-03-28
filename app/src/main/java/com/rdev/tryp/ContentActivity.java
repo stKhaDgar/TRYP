@@ -344,19 +344,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
+        public void onStatusChanged(String s, int i, Bundle bundle) { }
         @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
+        public void onProviderEnabled(String s) { }
         @Override
-        public void onProviderDisabled(String s) {
-
-        }
+        public void onProviderDisabled(String s) { }
     };
 
     public void popBackStack() {
