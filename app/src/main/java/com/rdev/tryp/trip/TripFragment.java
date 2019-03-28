@@ -69,13 +69,13 @@ import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_PRIME;
 
 @SuppressLint("ValidFragment")
 public class TripFragment extends Fragment implements View.OnClickListener {
-    RecyclerView tripRv;
-    ApiService service;
-    TripAdapter tripAdapter;
-    CardView onDemandCard;
-    CardView favouriteCard;
-    TextView favourite_tv;
-    TextView on_demand_tv;
+    private RecyclerView tripRv;
+    private ApiService service;
+    private TripAdapter tripAdapter;
+    private CardView onDemandCard;
+    private CardView favouriteCard;
+    private TextView favourite_tv;
+    private TextView on_demand_tv;
 
     private LatLng currentPosition;
     private LatLng destinationPosition;
@@ -214,7 +214,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     false,
                     driversItem,
                     AccountManager.getInstance().getUserId());
-
 
             Ride ride = new Ride(null,
                     new RealmUtils(activity, null).getCurrentUser().getUserId().toString(),

@@ -505,14 +505,13 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         int height = 270;
         int width = 225;
 
-        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
-        Bitmap b = bitmapdraw.getBitmap();
+        BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.current_location_marker);
+        Bitmap b = bitmapDraw.getBitmap();
         Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
         if(myCurrentLocationMarker == null){
             myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
                     .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
-
         }
 
         type = TYPE_VIEWER;
@@ -608,10 +607,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 myCurrentLocationMarker = null;
             }
 
-//            if(myCurrentLocationMarker == null){
-                myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
-                        .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
-//            }
+            myCurrentLocationMarker = mMap.addMarker(new MarkerOptions().position(currentPos)
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         });
     }
 
@@ -646,12 +643,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
     NavigationView.OnNavigationItemSelectedListener listener;
-
-    public static Intent createIntent(Context context, int content) {
-        Intent intent = new Intent(context, ContentActivity.class);
-        intent.putExtra(EXTRA_CONTENT, content);
-        return intent;
-    }
 
     private void requestPermission() {
         int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
