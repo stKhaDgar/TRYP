@@ -362,6 +362,7 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		android:src="@drawable/ic_settings"
+		android:tint="@color/colorAccent"
 		android:contentDescription="@string/content_description" />
 
 	<ImageButton

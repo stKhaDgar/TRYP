@@ -128,4 +128,7 @@
 	<string name="bt_select_another_account">Select Another Account</string>
 	<string name="sos_text">sos</string>
 
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

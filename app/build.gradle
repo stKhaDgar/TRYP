@@ -60,6 +60,7 @@ dependencies {
     // Payments
     implementation 'com.braintreepayments:card-form:4.1.0'
     api 'io.card:android-sdk:5.5.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
 }
 
 repositories {

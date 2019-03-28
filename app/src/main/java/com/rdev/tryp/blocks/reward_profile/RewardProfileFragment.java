@@ -18,10 +18,9 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 public class RewardProfileFragment extends Fragment implements View.OnClickListener {
-    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_reward_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_reward_profile, container, false);
 
         ImageView fab = root.findViewById(R.id.back_btn);
         fab.setOnClickListener(this);
@@ -62,8 +61,9 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
                 ((ContentActivity) getActivity()).startFragment(ContentActivity.TYPE_REWARD_POINTS);
                 break;
             case R.id.settings_img:
-                Toast.makeText(getContext(), "clicked settings", Toast.LENGTH_SHORT).show();
+                ((ContentActivity) getActivity()).startFragment(ContentActivity.TYPE_REWARDS_EDIT_PROFILE);
                 break;
         }
     }
+
 }
