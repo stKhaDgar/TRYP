@@ -148,7 +148,9 @@ public class TripFragment extends Fragment implements View.OnClickListener {
         TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
 
         database.setAvailableDrivers(drivers -> {
-            tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), ((ContentActivity) getActivity()).getCurrentFare());
+            if(getActivity() != null){
+                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), ((ContentActivity) getActivity()).getCurrentFare());
+            }
             tripRv.setAdapter(tripAdapter);
             tripAdapter.notifyDataSetChanged();
         });
@@ -273,6 +275,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 @Override
                                 public void statusChanged(int currentStatus, Ride ride) {
                                     if(currentStatus == ConstantsFirebase.STATUS_ROAD_PREPARED && status == 0){
+                                        status = ConstantsFirebase.STATUS_ROAD_PREPARED;
 
                                         showAlertDialod("Driver waiting", "Please get in the car", activity);
 
