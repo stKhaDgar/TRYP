@@ -19,6 +19,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -144,6 +145,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         Realm.init(ContentActivity.this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         currentLocation = new CurrentLocation(ContentActivity.this, ContentActivity.this);
         currentLocation.init();
