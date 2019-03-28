@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+	<TextView
+		android:layout_width="52dp"
+		android:layout_height="52dp"
+		android:background="@drawable/circle_button_red"
+		android:gravity="center"
+		android:text="@string/sos_text"
+		android:textAllCaps="true"
+		android:textColor="@color/white"
+		android:textStyle="bold"
+		android:elevation="8dp"
+		android:clickable="true"
+		android:focusable="true"
+		android:layout_marginBottom="16dp"
+		app:layout_constraintEnd_toEndOf="@id/materialCardView7"
+		app:layout_constraintBottom_toTopOf="@id/materialCardView7" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/materialCardView7"

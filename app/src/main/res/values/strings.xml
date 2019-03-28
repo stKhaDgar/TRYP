@@ -126,5 +126,6 @@
 	<string name="bank_account_text">Bank Account</string>
 	<string name="authorize_your_deposits_selection_text">Authorize your deposits selection</string>
 	<string name="bt_select_another_account">Select Another Account</string>
+	<string name="sos_text">sos</string>
 
 </resources>
