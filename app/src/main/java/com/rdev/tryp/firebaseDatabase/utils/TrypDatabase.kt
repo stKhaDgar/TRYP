@@ -18,7 +18,6 @@ import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
 import com.rdev.tryp.firebaseDatabase.model.Driver
 import com.rdev.tryp.firebaseDatabase.model.Ride
 import com.rdev.tryp.model.RealmCallback
-import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
