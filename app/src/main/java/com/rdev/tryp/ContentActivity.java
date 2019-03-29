@@ -710,7 +710,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         if(img != null && !img.equals("null")){
             ImageView iv = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
-            Picasso.get().load(img).into(iv);
+            Picasso.get().load(img).resize(150, 150).into(iv);
         }
 
         listener = menuItem -> {
@@ -797,6 +797,24 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         navigationView.getMenu().getItem(0).setChecked(true);
         openMap();
         clearMap();
+        zoomToCurrentLocation();
+    }
+
+    public void updateAvatar(){
+        String url = new RealmUtils(null, null).getCurrentUser().getImage();
+
+        ImageView iv = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+        Picasso.get().load(url).centerCrop().resize(200, 200).into(iv);
+
+        List<Fragment> list = getSupportFragmentManager().getFragments();
+
+        for(int i=0; i<list.size()-1; i++){
+            if(list.get(i) instanceof MapNextTrip){
+                ((MapNextTrip) list.get(i)).setSmallImage();
+            }
+        }
+
+        zoomToCurrentLocation();
     }
 
     @Override

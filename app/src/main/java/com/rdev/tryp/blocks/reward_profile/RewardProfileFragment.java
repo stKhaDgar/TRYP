@@ -160,6 +160,8 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
                                 Users user = new RealmUtils(null, null).getCurrentUser();
                                 ((ContentActivity) getActivity()).database.updateUser(user, null, null);
                                 initEditor(false);
+
+                                ((ContentActivity) getActivity()).updateAvatar();
                             }
 
                             @Override

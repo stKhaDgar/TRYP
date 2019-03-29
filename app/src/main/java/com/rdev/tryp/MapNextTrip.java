@@ -3,6 +3,7 @@ package com.rdev.tryp;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,15 +50,23 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
         nextBtn.setOnClickListener(this);
         shareBtn.setOnClickListener(this);
 
-        setSmallImage(v);
+        setSmallImage();
     }
 
-    private void setSmallImage(View v) {
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        String img = new RealmUtils(v.getContext(), null).getCurrentUser().getImage();
+        Log.e("DebugSome", "onResumeMapNextTrip");
+
+    }
+
+    public void setSmallImage() {
+
+        String img = new RealmUtils(getActivity(), null).getCurrentUser().getImage();
 
         if(img != null && !img.equals("null")){
-            Picasso.get().load(img).into(smallImage);
+            Picasso.get().load(img).centerCrop().resize(150, 150).into(smallImage);
         } else {
             int height = 100;
             int width = 100;
