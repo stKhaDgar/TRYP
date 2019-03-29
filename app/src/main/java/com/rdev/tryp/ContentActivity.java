@@ -205,6 +205,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mMap.getUiSettings().setCompassEnabled(false);
         database.initializeAvailableDrivers(mMap);
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -1073,6 +1074,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public void clearMap() {
         mMap.clear();
         updateCurrentLocation(pickUpLocation);
+        zoomToCurrentLocation();
     }
 
     public void showConnectFragment(){
