@@ -21,10 +21,11 @@ class StorageUtils{
         imageRef.putBytes(bytes).addOnFailureListener {
             callback.error(it)
         }.addOnSuccessListener {
-            it.metadata?.name?.let { url ->
-                callback.dataUpdated(url)
+            it.storage.downloadUrl.addOnSuccessListener { uri ->
+                callback.dataUpdated(uri.toString())
+            }.addOnFailureListener {
+                callback.error(it)
             }
         }
-
     }
 }

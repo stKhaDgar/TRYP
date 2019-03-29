@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,8 +22,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.model.Client;
 import com.rdev.tryp.model.RealmCallback;
 import com.rdev.tryp.model.RealmUtils;
+import com.rdev.tryp.model.login_response.Users;
 import com.rdev.tryp.storageDatabase.OnFileLoadCallback;
 import com.rdev.tryp.storageDatabase.utils.StorageUtils;
 import com.squareup.picasso.Picasso;
@@ -145,17 +148,29 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
                 byte[] b = baos.toByteArray();
                 mainPhoto.setImageBitmap(bitmap);
 
-                new StorageUtils().pushPhoto(b, new OnFileLoadCallback() {
+                btnSave.setOnClickListener(v -> new StorageUtils().pushPhoto(b, new OnFileLoadCallback() {
                     @Override
                     public void dataUpdated(@NotNull String url) {
+                        Client client = new Client();
+                        client.setId(new RealmUtils(null, null).getCurrentUser().getUserId().toString());
+                        client.setPhoto(url);
+                        new RealmUtils(getContext(), new RealmCallback() {
+                            @Override
+                            public void dataUpdated() {
+                                Users user = new RealmUtils(null, null).getCurrentUser();
+                                ((ContentActivity) getActivity()).database.updateUser(user, null, null);
+                                initEditor(false);
+                            }
 
+                            @Override
+                            public void error() {
+                            }
+                        }).updateUser(client);
                     }
 
                     @Override
-                    public void error(@NotNull Exception e) {
-
-                    }
-                });
+                    public void error(@NotNull Exception e) { }
+                }));
             }
             catch (FileNotFoundException e) {
                 e.printStackTrace();

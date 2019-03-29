@@ -119,22 +119,23 @@ class TrypDatabase{
         })
     }
 
-    fun updateUser(user: Users, context: Context, callback: RealmCallback?){
+    fun updateUser(user: Users, context: Context?, callback: RealmCallback?){
         val clients = database.reference.child(const.CLIENTS)
 
         clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.e(const.TAG, "onDataChange user hello 1")
+                val client = clients.child(user.userId.toString())
+
                 if(dataSnapshot.exists()){
+                    user.image.let { photo -> client.child("photo").setValue(photo) }
                     Log.e(const.TAG, "onDataChange user exist")
 
                     val currentUser = dataSnapshot.getValue(Client::class.java)
                     Log.e(const.TAG, "onDataChange user ${currentUser?.photo}")
 
-                    RealmUtils(context, callback).updateUser(currentUser)
                 } else {
-                    val client = clients.child(user.userId.toString())
                     val temp = Client(user.userId.toString(), user.firstName, user.lastName, null, 5.0F)
                     client.setValue(temp)
                 }
