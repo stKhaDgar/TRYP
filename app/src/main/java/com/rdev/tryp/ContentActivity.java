@@ -680,7 +680,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
     public static final int TYPE_CONNECT = 21;
     public static final int TYPE_REWARDS_WITHDRAW = 22;
-    public static final int TYPE_REWARDS_EDIT_PROFILE = 23;
 
 
     private DrawerLayout mDrawerLayout;

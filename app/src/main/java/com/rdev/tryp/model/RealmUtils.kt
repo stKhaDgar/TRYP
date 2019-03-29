@@ -13,12 +13,12 @@ import io.realm.RealmConfiguration
  * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
-class RealmUtils(private val context: Context, private val callback: RealmCallback?){
+class RealmUtils(context: Context?, private val callback: RealmCallback?){
     private val TAG = "realm"
     private val realm: Realm
 
     init {
-        Realm.init(context)
+        context?.let { ctx -> Realm.init(ctx) }
 
         val config = RealmConfiguration.Builder()
                 .schemaVersion(0)
