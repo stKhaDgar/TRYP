@@ -65,7 +65,6 @@ import com.rdev.tryp.blocks.connect.ConnectFragment;
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment;
 import com.rdev.tryp.blocks.forme.ProfileFragment;
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
-import com.rdev.tryp.blocks.reward_profile.RewardEditProfileFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardWithdrawFragment;
@@ -995,17 +994,6 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new RewardWithdrawFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(RewardWithdrawFragment.class.getName())
-                            .commit();
-                }
-                break;
-            case TYPE_REWARDS_EDIT_PROFILE:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
-                        RewardEditProfileFragment.class.getName())) {
-                    getSupportFragmentManager().popBackStackImmediate(RewardEditProfileFragment.class.getName(), 0);
-                } else {
-                    Fragment fragment = new RewardEditProfileFragment();
-                    transaction.replace(R.id.screenContainer, fragment)
-                            .addToBackStack(RewardEditProfileFragment.class.getName())
                             .commit();
                 }
                 break;
