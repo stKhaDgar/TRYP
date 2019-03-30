@@ -2,6 +2,8 @@ package com.rdev.tryp.blocks.forme;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -29,8 +31,10 @@ import com.rdev.tryp.R;
 import com.rdev.tryp.autocomplete.AutoCompleteAdapter;
 import com.rdev.tryp.blocks.forme.edit_addresses.AddressEditor;
 import com.rdev.tryp.blocks.forme.edit_addresses.Editor;
+import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.utils.PreferenceManager;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,6 +78,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
     private RelativeLayout recentFirst, recentSecond, homeAddress, workAddress;
     private ImageView routeBtn;
     private Editor.IEditor editor;
+    private ImageView mainPhoto;
 
     @SuppressLint("ValidFragment")
     public ProfileFragment(TripPlace startPos, TripPlace destination) {
@@ -87,6 +92,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         initView();
+        setSmallImage();
         initRecentRoutes();
         initAutoComplete();
         editor = new AddressEditor();
@@ -123,6 +129,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         edit_btn = view.findViewById(R.id.edit_btn);
         editLayout = view.findViewById(R.id.edit_layout);
         routeBtn = view.findViewById(R.id.route_btn);
+        mainPhoto = view.findViewById(R.id.main_img);
 
         cardView.setBackgroundResource(R.drawable.card_view_bg);
         autoCompleteRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -148,6 +155,22 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
             mainEditText = adressTv2;
             setCursorEnd(adressTv2);
         });
+    }
+
+    public void setSmallImage() {
+
+        String img = new RealmUtils(getActivity(), null).getCurrentUser().getImage();
+
+        if(img != null && !img.equals("null")){
+            Picasso.get().load(img).centerCrop().resize(300, 300).into(mainPhoto);
+        } else {
+            int height = 100;
+            int width = 100;
+            BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.small_person);
+            Bitmap b = bitmapDraw.getBitmap();
+            Bitmap bitmap = Bitmap.createScaledBitmap(b, width, height, false);
+            mainPhoto.setImageBitmap(bitmap);
+        }
     }
 
     private void resetAddressView(TextView textView) {
