@@ -68,6 +68,7 @@ import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardWithdrawFragment;
+import com.rdev.tryp.blocks.screens.completedRide.CompletedRideFragment;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.IntroActivity;
@@ -680,6 +681,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
     public static final int TYPE_CONNECT = 21;
     public static final int TYPE_REWARDS_WITHDRAW = 22;
+    public static final int TYPE_RIDE_COMPLETED = 23;
 
 
     private DrawerLayout mDrawerLayout;
@@ -1011,6 +1013,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new RewardWithdrawFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(RewardWithdrawFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_RIDE_COMPLETED:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        CompletedRideFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(CompletedRideFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new CompletedRideFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(CompletedRideFragment.class.getName())
                             .commit();
                 }
                 break;

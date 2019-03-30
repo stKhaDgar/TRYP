@@ -300,7 +300,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                         ((ContentActivity) activity).zoomToCurrentLocation();
                                         currentCar = null;
 
-                                        showAlertDialod("The trip is over", "Please pay for the trip", activity);
+                                        ((ContentActivity) activity).startFragment(ContentActivity.TYPE_RIDE_COMPLETED);
                                     }
 
                                     if(currentCar != null) {
