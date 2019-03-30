@@ -232,7 +232,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         showAlertDialod("Ride request Failed", "Error at trip order. Please try again", activity);
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
-                        Toast.makeText(activity, rideRequest.getRequestId(), Toast.LENGTH_LONG).show();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
                         new Handler().postDelayed(() -> {
                             ride.setId(rideRequest.getRequestId());
