@@ -10,12 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.model.RealmUtils;
+import com.rdev.tryp.model.login_response.Users;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -29,6 +31,7 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
     private ImageButton locationBtn;
     private ImageView smallImage, shareBtn;
     private RelativeLayout nextBtn;
+    private TextView tvWelcome;
 
     @Nullable
     @Override
@@ -45,12 +48,13 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
         locationBtn = v.findViewById(R.id.location_btn);
         nextBtn = v.findViewById(R.id.next_layout_btn);
         shareBtn = v.findViewById(R.id.share_btn);
+        tvWelcome = v.findViewById(R.id.welcome_name);
 
         locationBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         shareBtn.setOnClickListener(this);
 
-        setSmallImage();
+        initUI();
     }
 
     @Override
@@ -61,9 +65,9 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
 
     }
 
-    public void setSmallImage() {
-
-        String img = new RealmUtils(getActivity(), null).getCurrentUser().getImage();
+    public void initUI() {
+        Users user = new RealmUtils(getActivity(), null).getCurrentUser();
+        String img = user.getImage();
 
         if(img != null && !img.equals("null")){
             Picasso.get().load(img).centerCrop().resize(150, 150).into(smallImage);
@@ -75,6 +79,9 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
             Bitmap bitmap = Bitmap.createScaledBitmap(b, width, height, false);
             smallImage.setImageBitmap(bitmap);
         }
+
+        String welcomeTemp = "Welcome, " + user.getFirstName() + "!";
+        tvWelcome.setText(welcomeTemp);
     }
 
     @Override

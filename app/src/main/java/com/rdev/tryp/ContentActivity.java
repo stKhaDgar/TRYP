@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -75,6 +76,7 @@ import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.model.TripPlace;
+import com.rdev.tryp.model.login_response.Users;
 import com.rdev.tryp.payment.AddCardFragment;
 import com.rdev.tryp.payment.PaymentFragment;
 import com.rdev.tryp.payment.utils.PaymentUtils;
@@ -711,12 +713,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         ImageView menuIcon = findViewById(R.id.menu_icon);
         menuIcon.setOnClickListener(this);
 
-        String img = new RealmUtils(ContentActivity.this, null).getCurrentUser().getImage();
+        Users user = new RealmUtils(ContentActivity.this, null).getCurrentUser();
 
+        String img = user.getImage();
         if(img != null && !img.equals("null")){
             ImageView iv = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
             Picasso.get().load(img).resize(150, 150).into(iv);
         }
+
+        String tempName = user.getFirstName() + " " + user.getLastName();
+        TextView tvName = navigationView.getHeaderView(0).findViewById(R.id.tvName);
+        tvName.setText(tempName);
 
         listener = menuItem -> {
             menuItem.setChecked(true);
@@ -814,16 +821,21 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void updateAvatar(){
-        String url = new RealmUtils(null, null).getCurrentUser().getImage();
+        Users user = new RealmUtils(null, null).getCurrentUser();
 
+        String url = user.getImage();
         ImageView iv = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
         Picasso.get().load(url).centerCrop().resize(200, 200).into(iv);
+
+        String tempName = user.getFirstName() + " " + user.getLastName();
+        TextView tvName = navigationView.getHeaderView(0).findViewById(R.id.tvName);
+        tvName.setText(tempName);
 
         List<Fragment> list = getSupportFragmentManager().getFragments();
 
         for(int i=0; i<list.size()-1; i++){
             if(list.get(i) instanceof MapNextTrip){
-                ((MapNextTrip) list.get(i)).setSmallImage();
+                ((MapNextTrip) list.get(i)).initUI();
             }
         }
 
