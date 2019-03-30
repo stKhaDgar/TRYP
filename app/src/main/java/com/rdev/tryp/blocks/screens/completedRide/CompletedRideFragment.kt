@@ -30,7 +30,7 @@ class CompletedRideFragment : Fragment() {
 
         view.isFocusableInTouchMode = true
         view.requestFocus()
-        view.setOnKeyListener { v, keyCode, event ->
+        view.setOnKeyListener { _, keyCode, _ ->
             if(keyCode == KeyEvent.KEYCODE_BACK){
                 (activity as ContentActivity).goHomeOneTransition()
                 true
