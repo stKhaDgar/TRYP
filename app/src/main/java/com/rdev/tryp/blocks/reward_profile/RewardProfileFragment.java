@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.model.Client;
@@ -32,6 +33,7 @@ import java.io.InputStream;
 import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import afu.org.checkerframework.checker.nullness.qual.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 public class RewardProfileFragment extends Fragment implements View.OnClickListener {
@@ -42,6 +44,8 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
     private Button btnSave;
     private ImageButton btnCancel;
     private View btnChangePhoto;
+    private ConstraintLayout loadScreen;
+    private LottieAnimationView pbLoader;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_reward_profile, container, false);
@@ -50,6 +54,8 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
         fab.setOnClickListener(this);
         CardView cardView = root.findViewById(R.id.top_card_view);
         cardView.setBackgroundResource(R.drawable.card_view_bg);
+        loadScreen = root.findViewById(R.id.load_screen);
+        pbLoader = root.findViewById(R.id.pb_loader);
 
         CardView rewardPoints = root.findViewById(R.id.rewards_points_card_view);
         rewardPoints.setOnClickListener(this);
@@ -118,6 +124,8 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
             btnCancel.setVisibility(View.VISIBLE);
             mainPhoto.setScaleX(1.1F);
             mainPhoto.setScaleY(1.1F);
+
+            btnSave.setOnClickListener( v -> initEditor(false));
         } else {
             btnSettings.setVisibility(View.VISIBLE);
             btnChangePhoto.setVisibility(View.INVISIBLE);
@@ -141,31 +149,44 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
                 byte[] b = baos.toByteArray();
                 mainPhoto.setImageBitmap(bitmap);
 
-                btnSave.setOnClickListener(v -> new StorageUtils().pushPhoto(b, new OnFileLoadCallback() {
-                    @Override
-                    public void dataUpdated(@NotNull String url) {
-                        Client client = new Client();
-                        client.setId(new RealmUtils(null, null).getCurrentUser().getUserId().toString());
-                        client.setPhoto(url);
-                        new RealmUtils(getContext(), new RealmCallback() {
-                            @Override
-                            public void dataUpdated() {
-                                Users user = new RealmUtils(null, null).getCurrentUser();
-                                ((ContentActivity) getActivity()).database.updateUser(user, null, null);
-                                initEditor(false);
+                btnSave.setOnClickListener(v -> {
+                    loadScreen.setVisibility(View.VISIBLE);
+                    pbLoader.playAnimation();
 
-                                ((ContentActivity) getActivity()).updateAvatar();
-                            }
+                    new StorageUtils().pushPhoto(b, new OnFileLoadCallback() {
+                        @Override
+                        public void dataUpdated(@NotNull String url) {
+                            Client client = new Client();
+                            client.setId(new RealmUtils(null, null).getCurrentUser().getUserId().toString());
+                            client.setPhoto(url);
+                            new RealmUtils(getContext(), new RealmCallback() {
+                                @Override
+                                public void dataUpdated() {
+                                    Users user = new RealmUtils(null, null).getCurrentUser();
+                                    ((ContentActivity) getActivity()).database.updateUser(user, null, null);
+                                    initEditor(false);
 
-                            @Override
-                            public void error() {
-                            }
-                        }).updateUser(client);
-                    }
+                                    ((ContentActivity) getActivity()).updateAvatar();
 
-                    @Override
-                    public void error(@NotNull Exception e) { }
-                }));
+                                    loadScreen.setVisibility(View.INVISIBLE);
+                                    pbLoader.clearAnimation();
+                                }
+
+                                @Override
+                                public void error() {
+                                    loadScreen.setVisibility(View.INVISIBLE);
+                                    pbLoader.clearAnimation();
+                                }
+                            }).updateUser(client);
+                        }
+
+                        @Override
+                        public void error(@NotNull Exception e) {
+                            loadScreen.setVisibility(View.INVISIBLE);
+                            pbLoader.clearAnimation();
+                        }
+                    });
+                });
             }
             catch (FileNotFoundException e) {
                 e.printStackTrace();
