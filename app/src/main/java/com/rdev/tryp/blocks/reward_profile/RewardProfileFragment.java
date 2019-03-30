@@ -152,7 +152,7 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
             btnCancel.setVisibility(View.VISIBLE);
             mainPhoto.setScaleX(1.1F);
             mainPhoto.setScaleY(1.1F);
-            btnSave.setOnClickListener( v -> initEditor(false));
+            btnSave.setOnClickListener(v -> pushOnlyName());
             photoLayout.getLayoutParams().height = getResources().getDimensionPixelOffset(R.dimen.height200);
             photoLayout.requestLayout();
         } else {
@@ -230,6 +230,33 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
                 Toast.makeText(getView().getContext(), "Image was not found", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void pushOnlyName(){
+        Client client = new Client();
+        client.setId(new RealmUtils(null, null).getCurrentUser().getUserId().toString());
+        client.setFirst_name(etFirstName.getText().toString());
+        client.setLast_name(etLastName.getText().toString());
+        new RealmUtils(getContext(), new RealmCallback() {
+            @Override
+            public void dataUpdated() {
+                Users user = new RealmUtils(null, null).getCurrentUser();
+                ((ContentActivity) getActivity()).database.updateUser(user, null, null);
+                initEditor(false);
+                initUI(getView());
+
+                ((ContentActivity) getActivity()).updateAvatar();
+
+                loadScreen.setVisibility(View.INVISIBLE);
+                pbLoader.clearAnimation();
+            }
+
+            @Override
+            public void error() {
+                loadScreen.setVisibility(View.INVISIBLE);
+                pbLoader.clearAnimation();
+            }
+        }).updateUser(client);
     }
 
 }
