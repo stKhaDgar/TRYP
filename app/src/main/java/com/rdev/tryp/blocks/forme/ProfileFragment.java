@@ -157,7 +157,7 @@ public class ProfileFragment extends Fragment implements AutoCompleteAdapter.onP
         });
     }
 
-    public void setSmallImage() {
+    private void setSmallImage() {
 
         String img = new RealmUtils(getActivity(), null).getCurrentUser().getImage();
 

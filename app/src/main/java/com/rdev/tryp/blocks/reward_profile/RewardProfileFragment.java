@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -44,8 +47,16 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
     private Button btnSave;
     private ImageButton btnCancel;
     private View btnChangePhoto;
+    private CardView editLayout;
+    private CardView mainLayout;
+    private ConstraintLayout photoLayout;
+    private LinearLayout mainLayout2;
     private ConstraintLayout loadScreen;
     private LottieAnimationView pbLoader;
+    private EditText etFirstName;
+    private EditText etLastName;
+
+    private TextView tvName;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_reward_profile, container, false);
@@ -56,6 +67,13 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
         cardView.setBackgroundResource(R.drawable.card_view_bg);
         loadScreen = root.findViewById(R.id.load_screen);
         pbLoader = root.findViewById(R.id.pb_loader);
+        editLayout = root.findViewById(R.id.edit_layout);
+        mainLayout = root.findViewById(R.id.main_layout);
+        mainLayout2 = root.findViewById(R.id.other_main_layout);
+        photoLayout = root.findViewById(R.id.layout_photo);
+        tvName = root.findViewById(R.id.tvName);
+        etFirstName = root.findViewById(R.id.etFirstName);
+        etLastName = root.findViewById(R.id.etLastName);
 
         CardView rewardPoints = root.findViewById(R.id.rewards_points_card_view);
         rewardPoints.setOnClickListener(this);
@@ -79,11 +97,18 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
     }
 
     private void initUI(View v){
-        String img = new RealmUtils(v.getContext(), null).getCurrentUser().getImage();
+        Users user = new RealmUtils(v.getContext(), null).getCurrentUser();
+        String img = user.getImage();
         if(img != null && !img.equals("null")){
             mainPhoto = v.findViewById(R.id.main_img);
             Picasso.get().load(img).into(mainPhoto);
         }
+
+        String tempName = user.getFirstName() + " " + user.getLastName();
+        tvName.setText(tempName);
+
+        etFirstName.setText(user.getFirstName());
+        etLastName.setText(user.getLastName());
     }
 
     @Override
@@ -118,22 +143,31 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
 
         if(isShow){
             btnSettings.setVisibility(View.INVISIBLE);
+            mainLayout.setVisibility(View.INVISIBLE);
+            mainLayout2.setVisibility(View.INVISIBLE);
             btnChangePhoto.setVisibility(View.VISIBLE);
             iconAddPhoto.setVisibility(View.VISIBLE);
             btnSave.setVisibility(View.VISIBLE);
+            editLayout.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
             mainPhoto.setScaleX(1.1F);
             mainPhoto.setScaleY(1.1F);
-
             btnSave.setOnClickListener( v -> initEditor(false));
+            photoLayout.getLayoutParams().height = getResources().getDimensionPixelOffset(R.dimen.height200);
+            photoLayout.requestLayout();
         } else {
             btnSettings.setVisibility(View.VISIBLE);
+            mainLayout.setVisibility(View.VISIBLE);
+            mainLayout2.setVisibility(View.VISIBLE);
             btnChangePhoto.setVisibility(View.INVISIBLE);
             iconAddPhoto.setVisibility(View.INVISIBLE);
             btnSave.setVisibility(View.INVISIBLE);
+            editLayout.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
             mainPhoto.setScaleX(1.0F);
             mainPhoto.setScaleY(1.0F);
+            photoLayout.getLayoutParams().height = getResources().getDimensionPixelOffset(R.dimen.height354);
+            photoLayout.requestLayout();
         }
     }
 
@@ -159,12 +193,15 @@ public class RewardProfileFragment extends Fragment implements View.OnClickListe
                             Client client = new Client();
                             client.setId(new RealmUtils(null, null).getCurrentUser().getUserId().toString());
                             client.setPhoto(url);
+                            client.setFirst_name(etFirstName.getText().toString());
+                            client.setLast_name(etLastName.getText().toString());
                             new RealmUtils(getContext(), new RealmCallback() {
                                 @Override
                                 public void dataUpdated() {
                                     Users user = new RealmUtils(null, null).getCurrentUser();
                                     ((ContentActivity) getActivity()).database.updateUser(user, null, null);
                                     initEditor(false);
+                                    initUI(getView());
 
                                     ((ContentActivity) getActivity()).updateAvatar();
 

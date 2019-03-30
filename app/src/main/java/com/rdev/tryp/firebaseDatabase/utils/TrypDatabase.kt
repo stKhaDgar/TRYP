@@ -129,6 +129,8 @@ class TrypDatabase{
 
                 if(dataSnapshot.exists()){
                     user.image.let { photo -> client.child("photo").setValue(photo) }
+                    user.firstName.let { firstName -> client.child("first_name").setValue(firstName) }
+                    user.lastName.let { lastName -> client.child("last_name").setValue(lastName) }
                     Log.e(const.TAG, "onDataChange user exist")
 
                     val currentUser = dataSnapshot.getValue(Client::class.java)

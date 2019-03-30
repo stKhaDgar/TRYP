@@ -203,4 +203,8 @@
     <dimen name="price_less_than_five">72sp</dimen>
     <dimen name="price_less_than_seven">48sp</dimen>
 	<dimen name="price_bigger_than_seven">36sp</dimen>
+
+	<!-- Some Height -->
+	<dimen name="height200">250dp</dimen>
+	<dimen name="height354">354dp</dimen>
 </resources>
