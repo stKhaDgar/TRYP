@@ -79,7 +79,6 @@ import com.rdev.tryp.model.TripPlace;
 import com.rdev.tryp.model.login_response.Users;
 import com.rdev.tryp.payment.AddCardFragment;
 import com.rdev.tryp.payment.PaymentFragment;
-import com.rdev.tryp.payment.utils.PaymentUtils;
 import com.rdev.tryp.trip.TripFragment;
 import com.rdev.tryp.trip.detailFragment.DetailHostFragment;
 import com.rdev.tryp.trip.tryp_car.TrypCarHostFragment;
@@ -95,14 +94,12 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -118,6 +115,34 @@ import io.realm.Realm;
 
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     public TrypDatabase database = new TrypDatabase();
+
+    private static final String EXTRA_CONTENT = "content_key";
+    public static final String IS_EDIT_CARD = "is_edit_card";
+
+    public static final int TYPE_RECAP = 0;
+    public static final int TYPE_LEGAL = 1;
+    public static final int TYPE_INVITE1 = 2;
+    public static final int TYPE_INVITE2 = 3;
+    public static final int TYPE_INVITE3 = 4;
+    public static final int TYPE_HELP = 5;
+    public static final int TYPE_NOTIFICATIONS = 6;
+    public static final int TYPE_HOME = 7;
+    public static final int TYPE_TRIP_HISTORY = 8;
+    public static final int TYPE_PAYMENT = 9;
+    public static final int TYPE_NOTIFICATION = 10;
+    public static final int TYPE_REWARDS = 11;
+    public static final int TYPE_EMERGENCY_CONTACT = 12;
+    public static final int TYPE_PROMOTION = 13;
+    public static final int TYPE_INVITE_FRIENDS = 14;
+    public static final int TYPE_ABOUT_US = 15;
+    public static final int TYPE_LOGOUT = 16;
+    public static final int TYPE_MAP = 17;
+    public static final int TYPE_FAVORITE = 18;
+    public static final int TYPE_REWARD_POINTS = 19;
+    public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
+    public static final int TYPE_CONNECT = 21;
+    public static final int TYPE_REWARDS_WITHDRAW = 22;
+    public static final int TYPE_RIDE_COMPLETED = 23;
 
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     boolean isLocationFound = false;
@@ -660,50 +685,9 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    private static final String EXTRA_CONTENT = "content_key";
-    public static final String IS_EDIT_CARD = "is_edit_card";
-
-    public static final int TYPE_RECAP = 0;
-    public static final int TYPE_LEGAL = 1;
-    public static final int TYPE_INVITE1 = 2;
-    public static final int TYPE_INVITE2 = 3;
-    public static final int TYPE_INVITE3 = 4;
-    public static final int TYPE_HELP = 5;
-    public static final int TYPE_NOTIFICATIONS = 6;
-    public static final int TYPE_HOME = 7;
-    public static final int TYPE_TRIP_HISTORY = 8;
-    public static final int TYPE_PAYMENT = 9;
-    public static final int TYPE_NOTIFICATION = 10;
-    public static final int TYPE_REWARDS = 11;
-    public static final int TYPE_EMERGENCY_CONTACT = 12;
-    public static final int TYPE_PROMOTION = 13;
-    public static final int TYPE_INVITE_FRIENDS = 14;
-    public static final int TYPE_ABOUT_US = 15;
-    public static final int TYPE_LOGOUT = 16;
-    public static final int TYPE_MAP = 17;
-    public static final int TYPE_FAVORITE = 18;
-    public static final int TYPE_REWARD_POINTS = 19;
-    public static final int TYPE_PAYMENT_NEW_ENTRY = 20;
-    public static final int TYPE_CONNECT = 21;
-    public static final int TYPE_REWARDS_WITHDRAW = 22;
-    public static final int TYPE_RIDE_COMPLETED = 23;
-
-
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
     NavigationView.OnNavigationItemSelectedListener listener;
-
-    private void requestPermission() {
-        int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
-        }
-    }
 
     public void initMenu() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
