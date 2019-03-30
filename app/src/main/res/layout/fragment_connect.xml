@@ -219,7 +219,6 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.77" />
 
-
     <ImageButton
         android:id="@+id/back_btn"
         android:layout_width="@dimen/map_navigation_btn_size"
@@ -229,26 +228,28 @@
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
+		android:layout_marginBottom="32dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_keyboard_backspace_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cancel_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cancel_btn" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/cancel_btn"
+        android:id="@+id/btnCancel"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/circle_button"
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
+		android:scaleType="centerCrop"
+		android:padding="14dp"
+		android:layout_marginBottom="32dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_krest"
-        app:layout_constraintBottom_toBottomOf="@+id/contact_cv"
-        app:layout_constraintEnd_toStartOf="@+id/contact_cv"
-        app:layout_constraintTop_toTopOf="@+id/contact_cv" />
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toEndOf="@id/back_btn"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline19"
@@ -265,6 +266,24 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.91" />
 
+	<Button
+		android:id="@+id/btnContact"
+		android:layout_width="0dp"
+		android:layout_height="48dp"
+		android:layout_marginEnd="32dp"
+		android:layout_marginBottom="32dp"
+		android:layout_marginStart="16dp"
+		android:minHeight="0dp"
+		android:textAllCaps="false"
+		android:textSize="16sp"
+		android:elevation="5dp"
+		android:background="@drawable/background_button_accent"
+		android:text="@string/contact"
+		android:textColor="@color/white"
+		app:layout_constraintStart_toEndOf="@id/btnCancel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/contact_cv"
         android:layout_width="0dp"
@@ -272,6 +291,7 @@
         android:layout_weight="2"
         android:clickable="true"
         android:elevation="8dp"
+		android:visibility="gone"
         app:cardBackgroundColor="@color/trip_accent_color"
         app:cardCornerRadius="18dp"
         app:cardElevation="8dp"
@@ -279,7 +299,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline19">
-
 
         <TextView
             android:layout_width="wrap_content"

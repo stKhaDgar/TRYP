@@ -50,7 +50,7 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         backBtn = root.findViewById(R.id.back_btn);
-        cancelButton = root.findViewById(R.id.cancel_btn);
+        cancelButton = root.findViewById(R.id.btnCancel);
         shareRideIv = root.findViewById(R.id.share_ride_iv);
         shareRideTv = root.findViewById(R.id.share_ride_tv);
         supportIv = root.findViewById(R.id.support_iv);
@@ -83,7 +83,7 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
                 ((ContentActivity)getActivity()).clearMap();
                 ((ContentActivity)getActivity()).initMap();
                 break;
-            case R.id.cancel_btn:
+            case R.id.btnCancel:
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .add(R.id.screenContainer, new ConnectCancelFragment())
                         .addToBackStack("connect_cancel")
