@@ -1,6 +1,7 @@
 package com.rdev.tryp.blocks.screens.completedRide
 
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,17 @@ class CompletedRideFragment : Fragment() {
     private fun onClickListener(view: View){
         view.back_btn.setOnClickListener {
             (activity as ContentActivity).goHomeOneTransition()
+        }
+
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener { v, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+                (activity as ContentActivity).goHomeOneTransition()
+                true
+            } else {
+                false
+            }
         }
     }
 
