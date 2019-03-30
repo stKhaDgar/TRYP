@@ -16,6 +16,7 @@ import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
+import com.rdev.tryp.payment.utils.PaymentUtils;
 import com.rdev.tryp.trip.TripFragment;
 
 import androidx.annotation.NonNull;
@@ -56,7 +57,7 @@ public class TrypCarFragment extends Fragment {
         tryp_type_tv.setText(driver.getCategory());
         num_of_door_tv.setText("4/4");
         num_of_passangers.setText("" + driver.getMaxPassenger());
-        price_tv.setText("$" + (((ContentActivity) getActivity()).getCurrentFare() * ConstantsFirebase.TRYP_CAR_FARE));
+        price_tv.setText((PaymentUtils.INSTANCE.priceToPresentableFormat(((ContentActivity) getActivity()).getCurrentFare() * ConstantsFirebase.TRYP_CAR_FARE)));
         num_of_baggage.setText("" + driver.getMaxLuggage());
 
         CardView trypNowBtn = v.findViewById(R.id.tryp_now_btn);

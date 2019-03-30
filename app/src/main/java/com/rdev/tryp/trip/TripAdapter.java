@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
+import com.rdev.tryp.payment.utils.PaymentUtils;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -114,7 +115,7 @@ class TripAdapter extends RecyclerView.Adapter {
             carHolder.car_type.setText(item.getType());
             carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
-            carHolder.fare_tv.setText("$" + (fare * ConstantsFirebase.TRYP_CAR_FARE));
+            carHolder.fare_tv.setText(PaymentUtils.INSTANCE.priceToPresentableFormat(fare * ConstantsFirebase.TRYP_CAR_FARE));
         } else {
             DriverHolder driverHolder = ((DriverHolder) holder);
             ImageView avatar_iv = driverHolder.avatar_iv;
@@ -124,7 +125,7 @@ class TripAdapter extends RecyclerView.Adapter {
             Glide.with(holder.itemView).load(item.getImage()).into(avatar_iv);
             driver_tv.setText(item.getFirstName() + " " + item.getLastName());
             category_tv.setText(item.getCategory());
-            driverHolder.fare_tv.setText("$" + (fare * ConstantsFirebase.TRYP_CAR_FARE));
+            driverHolder.fare_tv.setText(PaymentUtils.INSTANCE.priceToPresentableFormat(fare * ConstantsFirebase.TRYP_CAR_FARE));
             driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
         }
