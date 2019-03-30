@@ -802,6 +802,14 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         zoomToCurrentLocation();
     }
 
+    public void goHomeOneTransition(){
+        navigationView.getMenu().getItem(0).setChecked(true);
+        popBackStack();
+        clearMap();
+        initMap();
+        zoomToCurrentLocation();
+    }
+
     public void updateAvatar(){
         String url = new RealmUtils(null, null).getCurrentUser().getImage();
 
