@@ -15,7 +15,6 @@ import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener
 import com.rdev.tryp.firebaseDatabase.model.*
 import com.rdev.tryp.model.RealmCallback
-import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
