@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import com.rdev.tryp.ContentActivity
 
 import com.rdev.tryp.R
+import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
+import com.rdev.tryp.firebaseDatabase.model.Driver
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_feedback_driver.view.*
 
 class FeedbackDriverFragment : Fragment() {
@@ -19,7 +22,24 @@ class FeedbackDriverFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_feedback_driver, container, false)
 
         onClickListener(root)
+
+        initUI(root)
+
         return root
+    }
+
+    private fun initUI(view: View){
+        val database = (activity as? ContentActivity)?.database
+        (activity as? ContentActivity)?.currentRide?.driver?.id?.let { id ->
+            database?.getDriver(id, object : AvailableDriversChanged.GetData.Driver{
+                override fun onCompleted(driver: Driver?) {
+                    driver?.image?.let { url ->
+                        Picasso.get().load(url).into(view.main_img)
+                    }
+                }
+
+            })
+        }
     }
 
     private fun onClickListener(view: View){

@@ -197,6 +197,22 @@ class TrypDatabase{
         }
     }
 
+    fun getDriver(id: String, callback: AvailableDriversChanged.GetData.Driver) {
+        database.reference.child(const.DRIVERS).child(id).addListenerForSingleValueEvent(object : ValueEventListener{
+            var isReceived = false
+
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if(!isReceived){
+                    val item = dataSnapshot.getValue(Driver::class.java)
+                    callback.onCompleted(item)
+                    isReceived = true
+                }
+            }
+
+        })
+    }
+
     fun cancelRide(id: String){
         database.reference.child(const.RIDES).child(id).child(const.RIDE_STATUS_PARAM).setValue(const.STATUS_ROAD_CANCELED)
     }

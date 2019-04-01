@@ -234,7 +234,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         final RideRequest rideRequest = body.getData().getRideRequest();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
                         new Handler().postDelayed(() -> {
-                            ((ContentActivity) activity).currentRide = ride;
                             ride.setId(rideRequest.getRequestId());
                             ((ContentActivity)activity).database.startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
                                 boolean connectIsShown = false;
@@ -294,6 +293,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                         showAlertDialod("Trip started!", "The driver started the trip", activity);
 
+                                        ((ContentActivity) activity).currentRide = ride;
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
                                         ((ContentActivity) activity).myCurrentLocationMarker.setVisible(true);

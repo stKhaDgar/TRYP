@@ -16,4 +16,9 @@ interface AvailableDriversChanged {
     interface DataChange{
         fun onChanged(drivers: ArrayList<Driver>)
     }
+    interface GetData{
+        interface Driver{
+            fun onCompleted(driver: com.rdev.tryp.firebaseDatabase.model.Driver?)
+        }
+    }
 }

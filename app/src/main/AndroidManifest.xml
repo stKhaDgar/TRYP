@@ -44,10 +44,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ContentActivity"
-                  android:screenOrientation="portrait"/>
+		<activity android:name=".ContentActivity"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="stateVisible|adjustResize"/>
 
-        <meta-data
+		<meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC41CJUJMGe_9n44zKA0Jk1BAQ_pWp_p1o" />
     </application>

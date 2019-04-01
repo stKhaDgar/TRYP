@@ -1,12 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:background="@color/white"
-	tools:context=".blocks.screens.completedRide.FeedbackDriverFragment">
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/white">
 
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="398dp">
+
+		<ImageView
+			android:id="@+id/main_img"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scaleType="centerCrop"
+			android:contentDescription="@string/content_description" />
+
+	</RelativeLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:overScrollMode="never">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:fitsSystemWindows="false"
+			android:focusable="true"
+			android:focusableInTouchMode="false"
+			android:paddingBottom="270dp">
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/bank_account_cardView"
+				android:layout_width="match_parent"
+				android:layout_height="320dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginTop="210dp"
+				android:layout_marginBottom="16dp"
+				app:cardElevation="8dp"
+				app:cardCornerRadius="8dp">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="98dp">
+
+					<TextView
+						android:id="@+id/customer_name_textView"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="24dp"
+						android:layout_marginTop="24dp"
+						android:fontFamily="@font/opensans_bold"
+						android:text="Tomas Pollock"
+						android:textColor="@android:color/black"
+						android:textSize="18sp"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<TextView
+						android:id="@+id/customer_rating_textView"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="22dp"
+						android:layout_marginTop="24dp"
+						android:fontFamily="@font/opensans_regular"
+						android:text="4.8"
+						android:textColor="@android:color/black"
+						android:textSize="18sp"
+						app:layout_constraintStart_toEndOf="@+id/customer_name_textView"
+						app:layout_constraintTop_toTopOf="parent" />
+
+					<ImageView
+						android:id="@+id/star_imageView"
+						android:layout_width="20dp"
+						android:layout_height="20dp"
+						android:layout_marginStart="6dp"
+						android:layout_marginTop="28dp"
+						android:src="@drawable/ic_star"
+						app:layout_constraintStart_toEndOf="@+id/customer_rating_textView"
+						app:layout_constraintTop_toTopOf="parent"
+						android:contentDescription="@string/content_description" />
+
+					<ImageView
+						android:id="@+id/favorite_imageView"
+						android:layout_width="24dp"
+						android:layout_height="21dp"
+						android:layout_marginTop="24dp"
+						android:layout_marginEnd="27dp"
+						android:src="@drawable/ic_heart"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:contentDescription="@string/content_description" />
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="24dp"
+						android:layout_marginTop="9dp"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/customer_name_textView"
+						android:orientation="horizontal"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="Innova"
+							android:fontFamily="@font/opensans_regular"
+							android:textSize="14sp"
+							android:textColor="#828282"/>
+
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="12dp"
+							android:layout_marginStart="10dp"
+							android:layout_marginTop="1dp"
+							android:background="#E0E0E0"
+							android:src="@drawable/splitter"
+							android:contentDescription="@string/content_description" />
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="TN 05 E764"
+							android:layout_marginStart="10dp"
+							android:fontFamily="@font/opensans_regular"
+							android:textSize="14sp"
+							android:textColor="#828282"/>
+
+					</LinearLayout>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="222dp"
+					android:layout_marginTop="98dp"
+					android:orientation="vertical">
+
+					<RatingBar
+						android:id="@+id/customer_ratingBar"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginTop="26dp"
+						android:numStars="5"
+						android:rating="4" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Write Review"
+						android:layout_marginStart="23dp"
+						android:layout_marginTop="23dp"
+						android:fontFamily="@font/opensans_bold"
+						android:textSize="13sp"
+						android:textColor="@android:color/black"/>
+
+					<com.google.android.material.textfield.TextInputLayout
+						android:layout_width="match_parent"
+						android:layout_height="79dp"
+						android:layout_marginStart="23dp"
+						android:layout_marginEnd="24dp"
+						android:layout_marginTop="10dp"
+						android:layout_gravity="center">
+
+						<com.google.android.material.textfield.TextInputEditText
+							android:id="@+id/review_text"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:lines="3"
+							android:text="Tom great customer! Recommended!"
+							android:textColor="@android:color/black"
+							android:textSize="13sp"
+							android:gravity="top|left"
+							android:fontFamily="@font/opensans_regular"
+							android:focusableInTouchMode="true"/>
+
+					</com.google.android.material.textfield.TextInputLayout>
+
+				</LinearLayout>
+
+			</androidx.cardview.widget.CardView>
+
+		</RelativeLayout>
+
+	</ScrollView>
 
 	<ImageButton
 		android:id="@+id/back_btn"
@@ -18,9 +199,24 @@
 		android:clickable="true"
 		android:elevation="5dp"
 		android:focusable="true"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_gravity="bottom|start"
 		android:src="@drawable/ic_keyboard_backspace_black_24dp"
 		android:contentDescription="@string/content_description" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+	<Button
+		android:id="@+id/btnSubmit"
+		android:layout_width="100dp"
+		android:layout_height="46dp"
+		android:layout_marginEnd="32dp"
+		android:layout_marginBottom="32dp"
+		android:minHeight="0dp"
+		android:visibility="visible"
+		android:textAllCaps="false"
+		android:textSize="14sp"
+		android:layout_gravity="bottom|end"
+		android:elevation="5dp"
+		android:background="@drawable/background_button_accent"
+		android:text="Submit"
+		android:textColor="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
