@@ -53,6 +53,8 @@ public class ConnectCancelFragment extends Fragment implements View.OnClickListe
                 ((ContentActivity) Objects.requireNonNull(getActivity())).popBackStack();
                 break;
             case R.id.confirm_button:
+                String idTemp = ((ContentActivity) getActivity()).currentRide.getId();
+                ((ContentActivity) getActivity()).database.cancelRide(idTemp);
                 ((ContentActivity) Objects.requireNonNull(getActivity())).clearBackStack();
                 ((ContentActivity)getActivity()).clearMap();
                 ((ContentActivity)getActivity()).initMap();

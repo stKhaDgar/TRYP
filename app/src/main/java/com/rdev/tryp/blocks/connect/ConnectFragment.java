@@ -14,8 +14,6 @@ import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.blocks.connect.connect_cancel.ConnectCancelFragment;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
-import com.rdev.tryp.model.DriversItem;
-import com.rdev.tryp.model.TripPlace;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

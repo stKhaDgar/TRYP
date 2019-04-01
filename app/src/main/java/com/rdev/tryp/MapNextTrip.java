@@ -12,10 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment;
-import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.model.login_response.Users;
 import com.squareup.picasso.Picasso;
@@ -65,7 +62,7 @@ public class MapNextTrip extends Fragment implements View.OnClickListener {
 
     }
 
-    public void initUI() {
+    void initUI() {
         Users user = new RealmUtils(getActivity(), null).getCurrentUser();
         String img = user.getImage();
 

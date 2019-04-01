@@ -13,10 +13,12 @@ object ConstantsFirebase {
     const val CLIENTS = "clientsDb"
     const val DRIVERS = "driversDb"
     const val RIDES = "rides"
+    const val RIDE_STATUS_PARAM = "status"
 
     const val TRYP_CAR_FARE: Float = 0.8F
 
     const val STATUS_ROAD_STARTED = 100
     const val STATUS_ROAD_PREPARED = 150
     const val STATUS_ROAD_FINISHED = 200
+    const val STATUS_ROAD_CANCELED = 400
 }

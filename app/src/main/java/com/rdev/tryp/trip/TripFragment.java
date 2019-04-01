@@ -234,6 +234,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                         final RideRequest rideRequest = body.getData().getRideRequest();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
                         new Handler().postDelayed(() -> {
+                            ((ContentActivity) activity).currentRide = ride;
                             ride.setId(rideRequest.getRequestId());
                             ((ContentActivity)activity).database.startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
                                 boolean connectIsShown = false;

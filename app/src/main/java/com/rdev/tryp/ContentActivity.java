@@ -71,6 +71,7 @@ import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardWithdrawFragment;
 import com.rdev.tryp.blocks.screens.completedRide.CompletedRideFragment;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
+import com.rdev.tryp.firebaseDatabase.model.Ride;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
 import com.rdev.tryp.intro.IntroActivity;
 import com.rdev.tryp.intro.manager.AccountManager;
@@ -161,6 +162,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public Marker myCurrentLocationMarker = null;
     GroundOverlay currentCar = null;
     private float currentFare = 0;
+    public Ride currentRide = null;
 
     public CurrentLocation currentLocation;
     public String currentAddress = null;

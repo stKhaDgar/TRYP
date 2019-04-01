@@ -197,6 +197,10 @@ class TrypDatabase{
         }
     }
 
+    fun cancelRide(id: String){
+        database.reference.child(const.RIDES).child(id).child(const.RIDE_STATUS_PARAM).setValue(const.STATUS_ROAD_CANCELED)
+    }
+
     fun setAvailableDrivers(callback: AvailableDriversChanged.DataChange){
         convertArrayToOnlyDrivers(callback)
         this.listener = object: AvailableDriversChanged{
@@ -222,19 +226,6 @@ class TrypDatabase{
                 }
             })
         }
-    }
-
-    fun angleFromCoordinate(lat1: Double, long1: Double, lat2: Double,
-                                    long2: Double): Float {
-        val dLon = long1 - long2
-        val y = Math.sin(dLon) * Math.cos(lat2)
-        val x = Math.cos(lat1) * Math.sin(lat2) - (Math.sin(lat1)
-                * Math.cos(lat2) * Math.cos(dLon))
-        var brng = Math.atan2(x, y)
-        brng = Math.toDegrees(brng)
-        brng = (brng + 360) % 360
-        brng = 180 - brng
-        return brng.toFloat()
     }
 
     fun updateZoomDrivers(zoom: Float){
