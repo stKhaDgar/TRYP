@@ -82,7 +82,7 @@ class FeedbackDriverFragment : Fragment() {
                         feedback.rating = view.ratingBar.rating
                         feedback.message = view.etReview.text.toString()
                         feedback.created_at = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).format(Calendar.getInstance().time)
-                        db.sendFeedback("18406", feedback)
+                        db.sendFeedback(id, feedback)
                     }
                 }
             }
