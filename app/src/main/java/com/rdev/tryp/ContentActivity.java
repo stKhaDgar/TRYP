@@ -70,6 +70,7 @@ import com.rdev.tryp.blocks.reward_profile.RewardPointsFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardProfileFragment;
 import com.rdev.tryp.blocks.reward_profile.RewardWithdrawFragment;
 import com.rdev.tryp.blocks.screens.completedRide.CompletedRideFragment;
+import com.rdev.tryp.blocks.screens.completedRide.FeedbackDriverFragment;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
 import com.rdev.tryp.firebaseDatabase.model.Ride;
 import com.rdev.tryp.firebaseDatabase.utils.TrypDatabase;
@@ -144,6 +145,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     public static final int TYPE_CONNECT = 21;
     public static final int TYPE_REWARDS_WITHDRAW = 22;
     public static final int TYPE_RIDE_COMPLETED = 23;
+    public static final int TYPE_WRITE_FEEDBACK = 24;
 
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     boolean isLocationFound = false;
@@ -1033,6 +1035,17 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                     Fragment fragment = new CompletedRideFragment();
                     transaction.replace(R.id.screenContainer, fragment)
                             .addToBackStack(CompletedRideFragment.class.getName())
+                            .commit();
+                }
+                break;
+            case TYPE_WRITE_FEEDBACK:
+                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                        FeedbackDriverFragment.class.getName())) {
+                    getSupportFragmentManager().popBackStackImmediate(FeedbackDriverFragment.class.getName(), 0);
+                } else {
+                    Fragment fragment = new FeedbackDriverFragment();
+                    transaction.replace(R.id.screenContainer, fragment)
+                            .addToBackStack(FeedbackDriverFragment.class.getName())
                             .commit();
                 }
                 break;

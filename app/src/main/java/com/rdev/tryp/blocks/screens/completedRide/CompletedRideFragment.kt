@@ -45,14 +45,16 @@ class CompletedRideFragment : Fragment() {
 
     private fun onClickListener(view: View){
         view.back_btn.setOnClickListener {
-            (activity as ContentActivity).goHomeOneTransition()
+            (activity as ContentActivity).popBackStack()
+            (activity as ContentActivity).startFragment(ContentActivity.TYPE_WRITE_FEEDBACK)
         }
 
         view.isFocusableInTouchMode = true
         view.requestFocus()
         view.setOnKeyListener { _, keyCode, _ ->
             if(keyCode == KeyEvent.KEYCODE_BACK){
-                (activity as ContentActivity).goHomeOneTransition()
+                (activity as ContentActivity).popBackStack()
+                (activity as ContentActivity).startFragment(ContentActivity.TYPE_WRITE_FEEDBACK)
                 true
             } else {
                 false

@@ -21,4 +21,5 @@ object ConstantsFirebase {
     const val STATUS_ROAD_PREPARED = 150
     const val STATUS_ROAD_FINISHED = 200
     const val STATUS_ROAD_CANCELED = 400
+
 }
