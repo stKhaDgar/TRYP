@@ -47,7 +47,7 @@
 					android:layout_height="98dp">
 
 					<TextView
-						android:id="@+id/customer_name_textView"
+						android:id="@+id/tv_name"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginStart="24dp"
@@ -60,7 +60,7 @@
 						app:layout_constraintTop_toTopOf="parent" />
 
 					<TextView
-						android:id="@+id/customer_rating_textView"
+						android:id="@+id/tv_rating"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginStart="22dp"
@@ -69,7 +69,7 @@
 						android:text="4.8"
 						android:textColor="@android:color/black"
 						android:textSize="18sp"
-						app:layout_constraintStart_toEndOf="@+id/customer_name_textView"
+						app:layout_constraintStart_toEndOf="@+id/tv_name"
 						app:layout_constraintTop_toTopOf="parent" />
 
 					<ImageView
@@ -79,18 +79,7 @@
 						android:layout_marginStart="6dp"
 						android:layout_marginTop="28dp"
 						android:src="@drawable/ic_star"
-						app:layout_constraintStart_toEndOf="@+id/customer_rating_textView"
-						app:layout_constraintTop_toTopOf="parent"
-						android:contentDescription="@string/content_description" />
-
-					<ImageView
-						android:id="@+id/favorite_imageView"
-						android:layout_width="24dp"
-						android:layout_height="21dp"
-						android:layout_marginTop="24dp"
-						android:layout_marginEnd="27dp"
-						android:src="@drawable/ic_heart"
-						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/tv_rating"
 						app:layout_constraintTop_toTopOf="parent"
 						android:contentDescription="@string/content_description" />
 
@@ -100,7 +89,7 @@
 						android:layout_marginStart="24dp"
 						android:layout_marginTop="9dp"
 						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/customer_name_textView"
+						app:layout_constraintTop_toBottomOf="@+id/tv_name"
 						android:orientation="horizontal"
 						android:gravity="center_vertical">
 
@@ -188,6 +177,17 @@
 		</RelativeLayout>
 
 	</ScrollView>
+
+	<ImageView
+		android:id="@+id/favorite_imageView"
+		android:layout_width="24dp"
+		android:layout_height="21dp"
+		android:layout_marginTop="48dp"
+		android:layout_marginEnd="27dp"
+		android:src="@drawable/ic_heart"
+		android:layout_gravity="top|end"
+		android:contentDescription="@string/content_description" />
+
 
 	<ImageButton
 		android:id="@+id/back_btn"

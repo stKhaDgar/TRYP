@@ -36,6 +36,15 @@ class FeedbackDriverFragment : Fragment() {
                     driver?.image?.let { url ->
                         Picasso.get().load(url).into(view.main_img)
                     }
+                    driver?.firstName?.let { firstName ->
+                        driver.lastName?.let { lastName ->
+                            val tempName = "$firstName $lastName"
+                            view.tv_name.text = tempName
+                        }
+                    }
+                    driver?.rating?.let { rat ->
+                        view.tv_rating.text = rat.toFloat().toString()
+                    }
                 }
 
             })
