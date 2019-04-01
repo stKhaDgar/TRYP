@@ -11,8 +11,13 @@ import com.rdev.tryp.ContentActivity
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.model.Driver
+import com.rdev.tryp.firebaseDatabase.model.Feedback
+import com.rdev.tryp.model.RealmUtils
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_feedback_driver.*
 import kotlinx.android.synthetic.main.fragment_feedback_driver.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FeedbackDriverFragment : Fragment() {
 
@@ -64,6 +69,22 @@ class FeedbackDriverFragment : Fragment() {
                 true
             } else {
                 false
+            }
+        }
+
+        view.btnSubmit.setOnClickListener {
+            (activity as? ContentActivity)?.let { act ->
+                act.database?.let { db ->
+                    act.currentRide.driver?.id?.let { id ->
+                        val feedback = Feedback()
+                        val user = RealmUtils(view.context, null).getCurrentUser()
+                        feedback.clientId = user?.userId.toString()
+                        feedback.rating = view.ratingBar.rating
+                        feedback.message = view.etReview.text.toString()
+                        feedback.created_at = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).format(Calendar.getInstance().time)
+                        db.sendFeedback("18406", feedback)
+                    }
+                }
             }
         }
     }

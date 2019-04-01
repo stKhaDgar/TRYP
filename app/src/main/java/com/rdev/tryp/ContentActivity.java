@@ -160,7 +160,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     int type = 2;
     private String currentLocate;
     AdressListFragment listFragment;
-    Marker pickAdressMarker;
+    Marker pickAddressMarker;
     public Marker myCurrentLocationMarker = null;
     GroundOverlay currentCar = null;
     private float currentFare = 0;
@@ -431,8 +431,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void onDestinationPicked(final TripPlace startPlace, final TripPlace destination, boolean isShowCars) {
-        if (pickAdressMarker != null && pickAdressMarker.isVisible()) {
-            pickAdressMarker.remove();
+        if (pickAddressMarker != null && pickAddressMarker.isVisible()) {
+            pickAddressMarker.remove();
         }
 
         if (route != null && route.isVisible()) {
@@ -462,7 +462,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap markerBitmap = Bitmap.createScaledBitmap(b, width, height, false);
 
-        pickAdressMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
+        pickAddressMarker = mMap.addMarker(new MarkerOptions().position(destination.getCoord())
                 .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
         type = TYPE_VIEWER;
 
@@ -527,8 +527,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     public void onDriverRoad(final TripPlace startPlace, final TripPlace destination) {
 
-        if (pickAdressMarker != null && pickAdressMarker.isVisible()) {
-            pickAdressMarker.remove();
+        if (pickAddressMarker != null && pickAddressMarker.isVisible()) {
+            pickAddressMarker.remove();
         }
 
         if (route != null && route.isVisible()) {

@@ -13,11 +13,9 @@ import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener
-import com.rdev.tryp.firebaseDatabase.model.Client
-import com.rdev.tryp.firebaseDatabase.model.AvailableDriver
-import com.rdev.tryp.firebaseDatabase.model.Driver
-import com.rdev.tryp.firebaseDatabase.model.Ride
+import com.rdev.tryp.firebaseDatabase.model.*
 import com.rdev.tryp.model.RealmCallback
+import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
@@ -211,6 +209,11 @@ class TrypDatabase{
             }
 
         })
+    }
+
+    fun sendFeedback(id: String, feedback: Feedback) {
+        val item = database.reference.child(const.DRIVERS).child(id).child(const.FEEDBACKS_ARRAY_PARAM).push()
+        item.setValue(feedback)
     }
 
     fun cancelRide(id: String){
