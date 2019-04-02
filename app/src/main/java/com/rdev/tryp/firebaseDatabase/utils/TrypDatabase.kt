@@ -122,17 +122,13 @@ class TrypDatabase{
         clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.e(const.TAG, "onDataChange user hello 1")
                 val client = clients.child(user.userId.toString())
 
                 if(dataSnapshot.exists()){
                     user.image.let { photo -> client.child("photo").setValue(photo) }
                     user.firstName.let { firstName -> client.child("first_name").setValue(firstName) }
                     user.lastName.let { lastName -> client.child("last_name").setValue(lastName) }
-                    Log.e(const.TAG, "onDataChange user exist")
 
-                    val currentUser = dataSnapshot.getValue(Client::class.java)
-                    Log.e(const.TAG, "onDataChange user ${currentUser?.photo}")
                 }
             }
         })
@@ -144,12 +140,10 @@ class TrypDatabase{
         clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) { callback?.error() }
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.e(const.TAG, "onDataChange user hello 1")
                 val client = clients.child(user.userId.toString())
 
                 if(dataSnapshot.exists()){
                     val item = dataSnapshot.getValue(Client::class.java)
-
                     RealmUtils(context, null).updateUser(item)
                 } else {
                     val temp = Client(user.userId.toString(), user.firstName, user.lastName, null, 5.0F)

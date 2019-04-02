@@ -14,7 +14,6 @@ import com.rdev.tryp.firebaseDatabase.model.Driver
 import com.rdev.tryp.firebaseDatabase.model.Feedback
 import com.rdev.tryp.model.RealmUtils
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_feedback_driver.*
 import kotlinx.android.synthetic.main.fragment_feedback_driver.view.*
 import java.text.SimpleDateFormat
 import java.util.*
