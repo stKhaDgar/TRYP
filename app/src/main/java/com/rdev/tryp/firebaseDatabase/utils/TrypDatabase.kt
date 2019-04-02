@@ -15,6 +15,7 @@ import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener
 import com.rdev.tryp.firebaseDatabase.model.*
 import com.rdev.tryp.model.RealmCallback
+import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
@@ -132,11 +133,30 @@ class TrypDatabase{
 
                     val currentUser = dataSnapshot.getValue(Client::class.java)
                     Log.e(const.TAG, "onDataChange user ${currentUser?.photo}")
+                }
+            }
+        })
+    }
 
+    fun getOrCreateUser(user: Users, context: Context?, callback: RealmCallback?){
+        val clients = database.reference.child(const.CLIENTS)
+
+        clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) { callback?.error() }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.e(const.TAG, "onDataChange user hello 1")
+                val client = clients.child(user.userId.toString())
+
+                if(dataSnapshot.exists()){
+                    val item = dataSnapshot.getValue(Client::class.java)
+
+                    RealmUtils(context, null).updateUser(item)
                 } else {
                     val temp = Client(user.userId.toString(), user.firstName, user.lastName, null, 5.0F)
                     client.setValue(temp)
                 }
+
+                callback?.dataUpdated()
             }
         })
     }
@@ -212,6 +232,7 @@ class TrypDatabase{
 
     fun sendFeedback(id: String, feedback: Feedback) {
         val item = database.reference.child(const.DRIVERS).child(id).child(const.FEEDBACKS_ARRAY_PARAM).push()
+        feedback.id = item.key
         item.setValue(feedback)
     }
 

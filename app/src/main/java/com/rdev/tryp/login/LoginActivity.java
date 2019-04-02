@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void dataUpdated() {
 
-                            new TrypDatabase().updateUser(body.getData().getUsers(), LoginActivity.this, new RealmCallback() {
+                            new TrypDatabase().getOrCreateUser(body.getData().getUsers(), LoginActivity.this, new RealmCallback() {
                                 @Override
                                 public void dataUpdated() {
                                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
