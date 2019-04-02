@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.utils.DatabaseUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import afu.org.checkerframework.checker.nullness.qual.Nullable;
 import androidx.fragment.app.Fragment;
@@ -28,6 +27,7 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
     private RelativeLayout confirmLayout;
     private int position;
     private ImageView backBtn;
+    final List<FavoriteDriver> drivers = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_favourite_drivers, container, false);
@@ -36,8 +36,8 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
         return root;
     }
 
-    public class OnItemClickListener {
-        public void onItemClick(View view, int pos) {
+    class OnItemClickListener {
+        void onItemClick(View view, int pos) {
             position = pos;
             switch (view.getId()) {
                 case R.id.like_layout:
@@ -48,7 +48,7 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    public void initView() {
+    private void initView() {
         backBtn = root.findViewById(R.id.back_btn);
         backBtn.setOnClickListener(this);
 
@@ -57,12 +57,12 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
 
-        // Test Data
-        List<Driver> drivers = new ArrayList<>();
-        drivers.add(new Driver("Michael Drop", "Tryp Prime", true));
-        drivers.add(new Driver("Anna Right", "Tryp", true));
-        drivers.add(new Driver("Kate Sun", "Tryp Assist", true));
-        drivers.add(new Driver("John Winter", "Tryp", true));
+        ((ContentActivity) getActivity()).database.getFavoritedDrivers(driver -> {
+            if(!DatabaseUtils.INSTANCE.arrayContainsDriverId(drivers, driver.getDriverId())){
+                drivers.add(new FavoriteDriver(driver.getDriverId(), driver.getFirstName(), driver.getLastName(), driver.getCategory(), true));
+                adapter.notifyItemInserted(drivers.size()-1);
+            }
+        });
 
         OnItemClickListener listener = new OnItemClickListener();
         adapter = new Adapter(drivers, getContext(), listener);
@@ -78,13 +78,13 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
         hideConfirm();
     }
 
-    public void showConfirm() {
+    private void showConfirm() {
         RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         confirmLayout.setLayoutParams(rel_btn);
     }
 
-    public void hideConfirm() {
+    private void hideConfirm() {
         RelativeLayout.LayoutParams rel_btn = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 0);
         confirmLayout.setLayoutParams(rel_btn);
@@ -105,14 +105,15 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    public void onPositiveClick() {
+    private void onPositiveClick() {
+        ((ContentActivity) getActivity()).database.addDriverToFavorite(drivers.get(position).getId(), false);
         adapter.delete(position);
         hideConfirm();
     }
 
-
-    public void onNegativeClick() {
+    private void onNegativeClick() {
         adapter.like(position);
         hideConfirm();
     }
+
 }

@@ -208,7 +208,7 @@ class TrypDatabase{
         }
     }
 
-    fun getDriver(id: String, callback: AvailableDriversChanged.GetData.Driver) {
+    fun getDriver(id: String, callback: AvailableDriversChanged.GetData.Driver?) {
         database.reference.child(const.DRIVERS).child(id).addListenerForSingleValueEvent(object : ValueEventListener{
             var isReceived = false
 
@@ -216,7 +216,7 @@ class TrypDatabase{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if(!isReceived){
                     val item = dataSnapshot.getValue(Driver::class.java)
-                    callback.onCompleted(item)
+                    callback?.onCompleted(item)
                     isReceived = true
                 }
             }
@@ -226,11 +226,35 @@ class TrypDatabase{
     fun addDriverToFavorite(driverId: String?, isAdd: Boolean){
         val item = database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.FAVORITES_ARRAY_PARAM).child(driverId.toString())
 
+        Log.e("DebugSome", driverId.toString())
+
         if(isAdd){
             item.setValue(driverId)
         } else {
             item.removeValue()
         }
+    }
+
+    fun getFavoritedDrivers(callback: AvailableDriversChanged.GetData.Driver?){
+
+        database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.FAVORITES_ARRAY_PARAM)
+                .addValueEventListener(object : ValueEventListener{
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for(postSnapshot in dataSnapshot.children){
+
+                            postSnapshot.getValue(String::class.java)?.let { item ->
+
+                                getDriver(item, callback)
+
+                            }
+
+                        }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {}
+
+                })
     }
 
     fun sendFeedback(id: String, feedback: Feedback) {

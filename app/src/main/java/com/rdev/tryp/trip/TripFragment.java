@@ -277,6 +277,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                         showAlertDialod("Driver waiting", "Please get in the car", activity);
 
+                                        ((ContentActivity) activity).currentRide = ride;
                                     } else if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 150 ){
                                         status = ConstantsFirebase.STATUS_ROAD_STARTED;
                                         ((ContentActivity) activity).popBackStack();
@@ -293,7 +294,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                         showAlertDialod("Trip started!", "The driver started the trip", activity);
 
-                                        ((ContentActivity) activity).currentRide = ride;
                                     } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                         status = ConstantsFirebase.STATUS_ROAD_FINISHED;
                                         ((ContentActivity) activity).myCurrentLocationMarker.setVisible(true);

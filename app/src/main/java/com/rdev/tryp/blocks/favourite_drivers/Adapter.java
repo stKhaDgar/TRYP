@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
-    private List<Driver> drivers;
+    private List<FavoriteDriver> drivers;
     private Context context;
     private FavouriteDriversFragment.OnItemClickListener onItemClickListener;
 
-    public Adapter(List<Driver> drivers, Context context, FavouriteDriversFragment.OnItemClickListener onItemClickListener) {
+    public Adapter(List<FavoriteDriver> drivers, Context context, FavouriteDriversFragment.OnItemClickListener onItemClickListener) {
         this.drivers = drivers;
         this.context = context;
         this.onItemClickListener = onItemClickListener;
@@ -39,10 +39,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         final MyViewHolder viewHolder = myViewHolder;
 
-        Driver model = drivers.get(i);
+        FavoriteDriver model = drivers.get(i);
 
         viewHolder.title.setText(model.getTitle());
-        viewHolder.desc.setText(model.getDescription());
+        viewHolder.desc.setText(model.getCategory());
         if (model.isLike()) {
             viewHolder.likeImg.setImageResource(R.drawable.ic_like);
         } else {
@@ -70,7 +70,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             likeLayout = itemView.findViewById(R.id.like_layout);
             likeLayout.setOnClickListener(this);
             imageView = itemView.findViewById(R.id.img);
-
         }
 
         @Override
@@ -94,4 +93,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         drivers.get(position).setLike(false);
         notifyItemChanged(position);
     }
+
 }

@@ -49,7 +49,6 @@ class FeedbackDriverFragment : Fragment() {
                         view.tv_rating.text = rat.toFloat().toString()
                     }
                 }
-
             })
         }
     }
