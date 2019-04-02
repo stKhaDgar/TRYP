@@ -15,6 +15,7 @@ object ConstantsFirebase {
     const val RIDES = "rides"
     const val RIDE_STATUS_PARAM = "status"
     const val FEEDBACKS_ARRAY_PARAM = "feedbacks"
+    const val FAVORITES_ARRAY_PARAM = "favorites"
 
     const val TRYP_CAR_FARE: Float = 0.8F
 

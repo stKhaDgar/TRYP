@@ -220,8 +220,17 @@ class TrypDatabase{
                     isReceived = true
                 }
             }
-
         })
+    }
+
+    fun addDriverToFavorite(driverId: String?, isAdd: Boolean){
+        val item = database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.FAVORITES_ARRAY_PARAM).child(driverId.toString())
+
+        if(isAdd){
+            item.setValue(driverId)
+        } else {
+            item.removeValue()
+        }
     }
 
     fun sendFeedback(id: String, feedback: Feedback) {

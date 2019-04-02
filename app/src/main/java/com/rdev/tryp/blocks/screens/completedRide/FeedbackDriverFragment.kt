@@ -22,7 +22,6 @@ class FeedbackDriverFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_feedback_driver, container, false)
 
         onClickListener(root)
@@ -85,6 +84,10 @@ class FeedbackDriverFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        view.btnFavourite.setOnCheckedChangeListener { _, isChecked ->
+            (activity as? ContentActivity)?.database?.addDriverToFavorite((activity as? ContentActivity)?.currentRide?.driver?.id, isChecked)
         }
     }
 
