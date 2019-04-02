@@ -111,7 +111,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getFavouriteDrivers() {
-        Log.e("DebugSome", "getFavouriteDrivers");
 
         // set UI
         favourite_tv.setTextColor(Color.WHITE);
@@ -133,7 +132,6 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getNearDrivers() {
-        Log.e("DebugSome", "getNearDrivers");
 
         // set UI
         onDemandCard.setCardBackgroundColor(Color.BLUE);
