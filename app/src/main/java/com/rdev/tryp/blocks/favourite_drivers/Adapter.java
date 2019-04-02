@@ -1,6 +1,9 @@
 package com.rdev.tryp.blocks.favourite_drivers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +11,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.rdev.tryp.R;
+import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -48,6 +56,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         } else {
             viewHolder.likeImg.setImageResource(R.drawable.ic_like_off);
         }
+
+        if(model.getPhoto() != null){
+            viewHolder.pbLoader.setVisibility(View.VISIBLE);
+            viewHolder.pbLoader.playAnimation();
+
+            Picasso.get().load(model.getPhoto()).into(viewHolder.imageView, new Callback() {
+                @Override
+                public void onSuccess() {
+                    viewHolder.pbLoader.setVisibility(View.GONE);
+                    viewHolder.pbLoader.clearAnimation();
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    viewHolder.pbLoader.setVisibility(View.GONE);
+                    viewHolder.pbLoader.clearAnimation();
+                    viewHolder.imageView.setImageResource(R.drawable.img);
+                }
+            }) ;
+        } else {
+            viewHolder.imageView.setImageResource(R.drawable.img);
+        }
     }
 
     @Override
@@ -60,8 +90,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView title, desc;
         ImageView imageView, likeImg;
         FrameLayout likeLayout;
+        LottieAnimationView pbLoader;
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
@@ -70,6 +101,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             likeLayout = itemView.findViewById(R.id.like_layout);
             likeLayout.setOnClickListener(this);
             imageView = itemView.findViewById(R.id.img);
+            pbLoader = itemView.findViewById(R.id.pb_loader);
         }
 
         @Override
@@ -79,17 +111,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         }
     }
 
-    public void delete(int position) {
+    void delete(int position) {
         drivers.remove(position);
         notifyItemRemoved(position);
     }
 
-    public void like(int position) {
+    void like(int position) {
         drivers.get(position).setLike(true);
         notifyItemChanged(position);
     }
 
-    public void disLike(int position) {
+    void disLike(int position) {
         drivers.get(position).setLike(false);
         notifyItemChanged(position);
     }

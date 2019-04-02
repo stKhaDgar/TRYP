@@ -6,6 +6,12 @@ package com.rdev.tryp.blocks.favourite_drivers
  */
 
 
-class FavoriteDriver(val id: String?, firstName: String?, lastName: String?, val category: String?, var isLike: Boolean) {
+class FavoriteDriver(firstName: String?, lastName: String?) {
+
+    var id: String? = null
     val title = "$firstName $lastName"
+    var category: String? = null
+    var isLike: Boolean = true
+    var photo: String? = null
+
 }

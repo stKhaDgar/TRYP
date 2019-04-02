@@ -9,7 +9,7 @@ import com.rdev.tryp.blocks.favourite_drivers.FavoriteDriver
 
 
 object DatabaseUtils{
-    fun arrayContainsDriverId(array: List<FavoriteDriver>, driverId: String?): Boolean {
-        return array.any { it.id == driverId }
-    }
+
+    fun arrayContainsDriverId(array: List<FavoriteDriver>, driverId: String?) = array.any { it.id == driverId }
+
 }

@@ -59,8 +59,15 @@ public class FavouriteDriversFragment extends Fragment implements View.OnClickLi
 
         ((ContentActivity) getActivity()).database.getFavoritedDrivers(driver -> {
             if(!DatabaseUtils.INSTANCE.arrayContainsDriverId(drivers, driver.getDriverId())){
-                drivers.add(new FavoriteDriver(driver.getDriverId(), driver.getFirstName(), driver.getLastName(), driver.getCategory(), true));
+
+                FavoriteDriver temp = new FavoriteDriver(driver.getFirstName(), driver.getLastName());
+                temp.setId(driver.getDriverId());
+                temp.setCategory(driver.getCategory());
+                temp.setPhoto(driver.getImage());
+
+                drivers.add(temp);
                 adapter.notifyItemInserted(drivers.size()-1);
+
             }
         });
 
