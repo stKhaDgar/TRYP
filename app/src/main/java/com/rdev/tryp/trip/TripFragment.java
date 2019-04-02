@@ -111,6 +111,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getFavouriteDrivers() {
+        Log.e("DebugSome", "getFavouriteDrivers");
 
         // set UI
         favourite_tv.setTextColor(Color.WHITE);
@@ -120,22 +121,19 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
         TripAdapter.OnItemClickListener listener = item -> ((ContentActivity) getActivity()).openDetailHost(tripAdapter.drivers, tripAdapter.drivers.indexOf(item));
 
-        service.get_favourite_drivers(AccountManager.getInstance().getUserId()).enqueue(new Callback<FavouriteDriver>() {
+        TrypDatabase database = ((ContentActivity) Objects.requireNonNull(getActivity())).database;
 
-            @Override
-            public void onResponse(Call<FavouriteDriver> call, Response<FavouriteDriver> response) {
-                //                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_DRIVER, listener, getContext());
-//                tripRv.setAdapter(tripAdapter);
+        database.setFavoritesDrivers(drivers -> {
+            if(getActivity() != null){
+                tripAdapter = new TripAdapter(drivers, TripAdapter.TYPE_CAR, listener, getContext(), ((ContentActivity) getActivity()).getCurrentFare());
             }
-
-            @Override
-            public void onFailure(Call<FavouriteDriver> call, Throwable t) {
-
-            }
+            tripRv.setAdapter(tripAdapter);
+            tripAdapter.notifyDataSetChanged();
         });
     }
 
     private void getNearDrivers() {
+        Log.e("DebugSome", "getNearDrivers");
 
         // set UI
         onDemandCard.setCardBackgroundColor(Color.BLUE);

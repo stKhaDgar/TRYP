@@ -276,6 +276,70 @@ class TrypDatabase{
         }
     }
 
+    fun setFavoritesDrivers(callback: AvailableDriversChanged.DataChange){
+        convertArrayToOnlyDrivers(object : AvailableDriversChanged.DataChange{
+            override fun onChanged(drivers: ArrayList<Driver>) {
+                val tempArr = ArrayList<Driver>()
+
+                database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.FAVORITES_ARRAY_PARAM)
+                        .addValueEventListener(object : ValueEventListener{
+
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                for(postSnapshot in dataSnapshot.children){
+
+                                    postSnapshot.getValue(String::class.java)?.let { item ->
+
+                                        drivers.map {
+                                            if(it.driverId == item){
+                                                tempArr.add(it)
+                                            }
+                                        }
+
+                                        callback.onChanged(tempArr)
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(p0: DatabaseError) {}
+                        })
+            }
+
+        })
+
+        this.listener = object: AvailableDriversChanged{
+            override fun onChanged(drivers: ArrayList<Pair<GroundOverlay, AvailableDriver>>) {
+                convertArrayToOnlyDrivers(object : AvailableDriversChanged.DataChange{
+                    override fun onChanged(drivers: ArrayList<Driver>) {
+                        val tempArr = ArrayList<Driver>()
+
+                        database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.FAVORITES_ARRAY_PARAM)
+                                .addValueEventListener(object : ValueEventListener{
+
+                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                        for(postSnapshot in dataSnapshot.children){
+
+                                            postSnapshot.getValue(String::class.java)?.let { item ->
+
+                                                drivers.map {
+                                                    if(it.driverId == item){
+                                                        tempArr.add(it)
+                                                    }
+                                                }
+
+                                                callback.onChanged(tempArr)
+                                            }
+                                        }
+                                    }
+
+                                    override fun onCancelled(p0: DatabaseError) {}
+                                })
+                    }
+
+                })
+            }
+        }
+    }
+
     private fun convertArrayToOnlyDrivers(callback: AvailableDriversChanged.DataChange){
         val tempArr = ArrayList<Driver>()
 

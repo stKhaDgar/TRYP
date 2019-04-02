@@ -93,11 +93,7 @@ class TripAdapter extends RecyclerView.Adapter {
             num_of_passangers = itemView.findViewById(R.id.num_of_passangers);
             num_of_baggage = itemView.findViewById(R.id.num_of_baggage);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    listener.onItemClick(drivers.get(getAdapterPosition()));
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(drivers.get(getAdapterPosition())));
         }
     }
 
