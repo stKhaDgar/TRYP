@@ -37,6 +37,7 @@ import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -186,6 +187,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         initMenu();
         initMap();
+
     }
 
     public void initMap() {
