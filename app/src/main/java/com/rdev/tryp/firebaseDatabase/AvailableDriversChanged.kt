@@ -20,5 +20,8 @@ interface AvailableDriversChanged {
         interface Driver{
             fun onCompleted(driver: com.rdev.tryp.firebaseDatabase.model.Driver?)
         }
+        interface IsFavorite{
+            fun isFavorite(isFavorite: Boolean)
+        }
     }
 }

@@ -128,7 +128,6 @@ class TrypDatabase{
                     user.image.let { photo -> client.child("photo").setValue(photo) }
                     user.firstName.let { firstName -> client.child("first_name").setValue(firstName) }
                     user.lastName.let { lastName -> client.child("last_name").setValue(lastName) }
-
                 }
             }
         })
@@ -255,6 +254,23 @@ class TrypDatabase{
                     override fun onCancelled(p0: DatabaseError) {}
 
                 })
+    }
+
+    fun driverIsFavorited(driverId: String, callback: AvailableDriversChanged.GetData.IsFavorite){
+
+        database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.FAVORITES_ARRAY_PARAM)
+                .addValueEventListener(object : ValueEventListener{
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        callback.isFavorite(dataSnapshot.children.any { item ->
+                            item.getValue(String::class.java) == driverId
+                        })
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {}
+
+                })
+
     }
 
     fun sendFeedback(id: String, feedback: Feedback) {

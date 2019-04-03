@@ -1,6 +1,7 @@
 package com.rdev.tryp.blocks.screens.completedRide
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.rdev.tryp.firebaseDatabase.model.Driver
 import com.rdev.tryp.firebaseDatabase.model.Feedback
 import com.rdev.tryp.model.RealmUtils
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_feedback_driver.*
 import kotlinx.android.synthetic.main.fragment_feedback_driver.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,6 +51,22 @@ class FeedbackDriverFragment : Fragment() {
                         view.tv_rating.text = rat.toFloat().toString()
                     }
                 }
+            })
+
+            view.pb_loader_favorite.visibility = View.VISIBLE
+            view.pb_loader_favorite.playAnimation()
+
+            database?.driverIsFavorited(id, object : AvailableDriversChanged.GetData.IsFavorite{
+                override fun isFavorite(isFavorite: Boolean) {
+                    Handler().postDelayed({
+                        view.btnFavourite.visibility = View.VISIBLE
+                        view.pb_loader_favorite.visibility = View.INVISIBLE
+                        view.pb_loader_favorite.clearAnimation()
+
+                        btnFavourite.isChecked = isFavorite
+                    }, 3000)
+                }
+
             })
         }
     }

@@ -53,7 +53,11 @@ public class TrypCarFragment extends Fragment {
         num_of_passangers = v.findViewById(R.id.num_of_passangers);
         price_tv = v.findViewById(R.id.price_tv);
 
-        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+        if(driver.getVehicle() != null){
+            if(driver.getVehicle().getImage() != null){
+                Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+            }
+        }
         tryp_type_tv.setText(driver.getCategory());
         num_of_door_tv.setText("4/4");
         num_of_passangers.setText("" + driver.getMaxPassenger());

@@ -103,7 +103,11 @@ class TripAdapter extends RecyclerView.Adapter {
             Driver item = drivers.get(position);
             CarHolder carHolder = ((CarHolder) holder);
 
-            Glide.with(holder.itemView).load(Objects.requireNonNull(item.getVehicle()).getImage()).into(carHolder.car_iv);
+            if(item.getVehicle() != null){
+                if(item.getVehicle().getImage() != null){
+                    Glide.with(holder.itemView).load(item.getVehicle().getImage()).into(carHolder.car_iv);
+                }
+            }
 //            carHolder.car_iv.setImageDrawable(ContextCompat.getDrawable(context,
 //                    TrypCarFragment.getImageByType(item.getCategory())));
             //Log.i("adapter", "" + item.getCategory());
@@ -131,4 +135,5 @@ class TripAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return drivers.size();
     }
+
 }
