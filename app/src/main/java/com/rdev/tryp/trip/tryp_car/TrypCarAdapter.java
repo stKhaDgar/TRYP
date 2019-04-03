@@ -12,14 +12,14 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 class TrypCarAdapter extends FragmentStatePagerAdapter {
 
     private List<?> drivers;
-    public TrypCarAdapter(@NonNull FragmentManager fm) {
+
+    TrypCarAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        TrypCarFragment fragment;
         if(drivers.isEmpty() || drivers.size() == 0){
             return null;
         }
@@ -35,4 +35,5 @@ class TrypCarAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return drivers.size();
     }
+
 }

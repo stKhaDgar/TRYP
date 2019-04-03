@@ -14,8 +14,17 @@ class HostPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<?> drivers;
 
-    public HostPagerAdapter(@NonNull FragmentManager fm) {
+    HostPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        if(drivers.isEmpty() || drivers.size() == 0){
+            return null;
+        }
+        return new DetailFragment((Driver) drivers.get(position));
     }
 
     public void setDrivers(List<?> drivers){
@@ -23,15 +32,9 @@ class HostPagerAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        DetailFragment detailFragment = new DetailFragment((Driver) drivers.get(position));
-        return detailFragment;
-    }
-
     @Override
     public int getCount() {
        return drivers.size();
     }
+
 }
