@@ -207,4 +207,6 @@
 	<!-- Some Height -->
 	<dimen name="height200">250dp</dimen>
 	<dimen name="height354">354dp</dimen>
+
+    <dimen name="dimen16">16dp</dimen>
 </resources>

@@ -59,6 +59,7 @@ class TripAdapter extends RecyclerView.Adapter {
         TextView num_of_baggage;
         TextView fare_tv;
         CardView price_card_view;
+        CardView mainLayout;
 
         CarHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +70,7 @@ class TripAdapter extends RecyclerView.Adapter {
             num_of_baggage = itemView.findViewById(R.id.num_of_baggage);
             fare_tv = itemView.findViewById(R.id.fare);
             price_card_view = itemView.findViewById(R.id.price_card_view);
+            mainLayout = itemView.findViewById(R.id.main_layout);
 
             itemView.setOnClickListener(v -> listener.onItemClick(drivers.get(getAdapterPosition())));
         }
@@ -82,6 +84,7 @@ class TripAdapter extends RecyclerView.Adapter {
         TextView num_of_passangers;
         TextView num_of_baggage;
         CardView price_card_view;
+        CardView mainLayout;
 
         DriverHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +95,7 @@ class TripAdapter extends RecyclerView.Adapter {
             price_card_view = itemView.findViewById(R.id.price_card_view);
             num_of_passangers = itemView.findViewById(R.id.num_of_passangers);
             num_of_baggage = itemView.findViewById(R.id.num_of_baggage);
+            mainLayout = itemView.findViewById(R.id.main_layout);
 
             itemView.setOnClickListener(v -> listener.onItemClick(drivers.get(getAdapterPosition())));
         }
@@ -116,6 +120,15 @@ class TripAdapter extends RecyclerView.Adapter {
             carHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             carHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
             carHolder.fare_tv.setText(PaymentUtils.INSTANCE.priceToPresentableFormat(fare * ConstantsFirebase.TRYP_CAR_FARE));
+
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) carHolder.mainLayout.getLayoutParams();
+            if(position == 0){
+                lp.leftMargin = context.getResources().getDimensionPixelOffset(R.dimen.dimen16);
+            } else if (position == drivers.size()-1){
+                lp.rightMargin = context.getResources().getDimensionPixelOffset(R.dimen.dimen16);
+            }
+            carHolder.mainLayout.requestLayout();
+
         } else {
             DriverHolder driverHolder = ((DriverHolder) holder);
             ImageView avatar_iv = driverHolder.avatar_iv;
@@ -128,6 +141,14 @@ class TripAdapter extends RecyclerView.Adapter {
             driverHolder.fare_tv.setText(PaymentUtils.INSTANCE.priceToPresentableFormat(fare * ConstantsFirebase.TRYP_CAR_FARE));
             driverHolder.num_of_passangers.setText(item.getMaxPassenger() + "");
             driverHolder.num_of_baggage.setText(item.getMaxLuggage() + "");
+
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) driverHolder.mainLayout.getLayoutParams();
+            if(position == 0){
+                lp.leftMargin = context.getResources().getDimensionPixelOffset(R.dimen.dimen16);
+            } else if (position == drivers.size()-1){
+                lp.rightMargin = context.getResources().getDimensionPixelOffset(R.dimen.dimen16);
+            }
+            driverHolder.mainLayout.requestLayout();
         }
     }
 

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.GroundOverlay;
@@ -35,7 +34,6 @@ import com.rdev.tryp.intro.manager.AccountManager;
 import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.model.RealmUtils;
 import com.rdev.tryp.model.TripPlace;
-import com.rdev.tryp.model.favourite_driver.FavouriteDriver;
 import com.rdev.tryp.model.ride_responce.RequestRideBody;
 import com.rdev.tryp.model.ride_responce.RideRequest;
 import com.rdev.tryp.model.ride_responce.RideResponse;
