@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rdev.tryp.ContentActivity
-
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.model.Driver
@@ -18,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_feedback_driver.*
 import kotlinx.android.synthetic.main.fragment_feedback_driver.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class FeedbackDriverFragment : Fragment() {
 

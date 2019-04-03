@@ -187,6 +187,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         initMenu();
         initMap();
 
+        startFragment(TYPE_WRITE_FEEDBACK);
     }
 
     public void initMap() {

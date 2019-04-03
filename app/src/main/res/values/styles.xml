@@ -17,4 +17,15 @@
         <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
     </style>
 
+    <style name="AppTheme.RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/rating_bar</item>
+        <item name="android:minHeight">34dp</item>
+        <item name="android:maxHeight">34dp</item>
+        <item name="android:isIndicator">false</item>
+    </style>
+
+	<style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+		<item name="boxStrokeColor">#E0E0E0</item>
+	</style>
+
 </resources>
