@@ -4,6 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+	<androidx.cardview.widget.CardView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="36dp"
+		android:layout_marginEnd="12dp"
+		app:cardCornerRadius="4dp"
+		app:cardElevation="4dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center"
+			android:padding="4dp">
+
+			<TextView
+				android:id="@+id/tv_plate_number"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/opensans_semibold"
+				android:textSize="12sp"
+				android:text="Elon Musk"
+				android:layout_marginEnd="4dp"
+				android:layout_marginStart="4dp" />
+
+			<TextView
+				android:id="@+id/tv_time"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/background_button_accent"
+				android:textColor="@color/white"
+				android:layout_marginStart="4dp"
+				android:layout_marginEnd="4dp"
+				android:paddingStart="10dp"
+				android:paddingTop="2dp"
+				android:paddingBottom="2dp"
+				android:textSize="14sp"
+				android:paddingEnd="10dp"
+				android:fontFamily="@font/opensans_semibold"
+				android:text="35 mins"/>
+
+		</LinearLayout>
+
+	</androidx.cardview.widget.CardView>
+
 	<ImageButton
 		android:id="@+id/location_btn"
 		android:layout_width="48dp"
@@ -18,7 +65,8 @@
 		android:src="@drawable/ic_sos_warning"
 		android:tint="@color/white"
 		app:layout_constraintBottom_toTopOf="@+id/materialCardView7"
-		app:layout_constraintEnd_toEndOf="@+id/materialCardView7" />
+		app:layout_constraintEnd_toEndOf="@+id/materialCardView7"
+		android:contentDescription="@string/content_description" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/materialCardView7"
@@ -72,7 +120,8 @@
                         android:src="@drawable/circle_button"
                         android:tint="@color/trip_is_active_color"
                         app:layout_constraintEnd_toEndOf="@+id/driver_iv"
-                        app:layout_constraintTop_toTopOf="@+id/driver_iv" />
+                        app:layout_constraintTop_toTopOf="@+id/driver_iv"
+						android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/driver_name_tv"
@@ -132,7 +181,9 @@
                         android:scaleType="center"
                         android:src="@drawable/ic_star"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_rating" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_rating"
+						android:contentDescription="@string/content_description" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -147,7 +198,8 @@
                 android:src="@drawable/ic_3_points"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView6" />
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView6"
+				android:contentDescription="@string/content_description" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline18"
@@ -190,7 +242,9 @@
                 android:src="@drawable/ic_support_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/support_tv"
-                app:layout_constraintTop_toTopOf="@+id/guideline18" />
+                app:layout_constraintTop_toTopOf="@+id/guideline18"
+				android:contentDescription="@string/content_description" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -232,7 +286,8 @@
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_keyboard_backspace_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+		android:contentDescription="@string/content_description" />
 
     <ImageButton
         android:id="@+id/btnCancel"
@@ -249,7 +304,8 @@
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_krest"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@id/back_btn"/>
+		app:layout_constraintStart_toEndOf="@id/back_btn"
+		android:contentDescription="@string/content_description" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline19"
@@ -309,6 +365,7 @@
             android:textColor="#FFF"
             android:textSize="16sp"
             android:textStyle="bold" />
+
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
@@ -320,43 +377,6 @@
         android:weightSum="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-
-    </LinearLayout>
-
-    <!--<androidx.cardview.widget.CardView-->
-        <!--android:layout_width="64dp"-->
-        <!--android:layout_height="64dp"-->
-        <!--android:layout_marginEnd="16dp"-->
-        <!--android:layout_marginBottom="16dp"-->
-        <!--android:background="#FF0000"-->
-        <!--android:clickable="true"-->
-        <!--app:cardBackgroundColor="#FF0000"-->
-        <!--app:cardCornerRadius="32dp"-->
-        <!--app:cardElevation="8dp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/guideline15"-->
-        <!--app:layout_constraintEnd_toEndOf="parent">-->
-
-        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/textView31"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:text="@string/sos"-->
-                <!--android:gravity="center"-->
-                <!--android:textColor="#fff"-->
-                <!--android:textSize="16sp"-->
-                <!--android:textStyle="bold"-->
-                <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="parent" />-->
-        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-    <!--</androidx.cardview.widget.CardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

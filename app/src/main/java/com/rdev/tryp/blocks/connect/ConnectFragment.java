@@ -26,7 +26,7 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
 
     private View root;
     private ImageView backBtn, cancelButton, supportIv, shareRideIv;
-    private TextView supportTv, shareRideTv, driverName, carNum, rating;
+    private TextView supportTv, shareRideTv, driverName, carNum, rating, plateNumber;
     private CardView contactCv;
     private Driver driver;
     private CircleImageView driverIv;
@@ -58,6 +58,7 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         carNum = root.findViewById(R.id.car_num_tv);
         driverIv = root.findViewById(R.id.driver_iv);
         rating = root.findViewById(R.id.tv_rating);
+        plateNumber = root.findViewById(R.id.tv_plate_number);
 
         backBtn.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
@@ -67,7 +68,13 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         supportIv.setOnClickListener(this);
         contactCv.setOnClickListener(this);
 
-        carNum.setText(driver.getVehicle().getPlateNumber());
+        if(driver.getVehicle() != null){
+            String tempPlateNumber = driver.getVehicle().getPlateNumber();
+            if(tempPlateNumber != null){
+                carNum.setText(tempPlateNumber);
+            }
+        }
+        plateNumber.setText(driver.getFirstName() + " " + driver.getLastName());
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         rating.setText(String.valueOf(driver.getRating()));
         Glide.with(getContext()).load(driver.getImage()).into(driverIv);
