@@ -2,7 +2,6 @@ package com.rdev.tryp.trip.detailFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
 import com.rdev.tryp.firebaseDatabase.model.Driver;
-import com.rdev.tryp.model.DriversItem;
 import com.rdev.tryp.trip.TripFragment;
 
 import androidx.annotation.NonNull;
@@ -59,9 +57,11 @@ public class DetailFragment extends Fragment  implements View.OnClickListener {
         mainRelativeLayout =v.findViewById(R.id.all_content_relative_layout);
         imageCard = v.findViewById(R.id.image_card);
 
-        Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+        if(driver.getVehicle() != null){
+            Glide.with(getContext()).load(driver.getVehicle().getImage()).into(car_iv);
+        }
         tryp_type_tv.setText(driver.getCategory());
-        num_of_door_tv.setText("4/4"); //TODO: replace from driver
+        num_of_door_tv.setText("4/4");
         num_of_passangers.setText("" + driver.getMaxPassenger());
         price_tv.setText("$" + String.valueOf(driver.getFare()));
         num_of_baggage.setText("" + driver.getMaxLuggage());
