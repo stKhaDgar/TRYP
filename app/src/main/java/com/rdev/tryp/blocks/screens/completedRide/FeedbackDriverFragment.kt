@@ -44,6 +44,8 @@ class FeedbackDriverFragment : Fragment() {
                         driver.lastName?.let { lastName ->
                             val tempName = "$firstName $lastName"
                             view.tv_name.text = tempName
+
+                            view.etReview.setText("$firstName great customer! Recommended!")
                         }
                     }
                     driver?.rating?.let { rat ->

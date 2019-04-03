@@ -165,7 +165,6 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:lines="3"
-							android:text="Tom great customer! Recommended!"
 							android:textColor="@android:color/black"
 							android:textSize="13sp"
 							android:gravity="top|left"
