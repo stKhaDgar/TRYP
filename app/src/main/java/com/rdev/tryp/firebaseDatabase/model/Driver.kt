@@ -29,7 +29,7 @@ class Driver {
 
     var image: String? = null
 
-    var rating: Int = 0
+    var rating: Double = 5.0
 
     var lastName: String? = null
 
