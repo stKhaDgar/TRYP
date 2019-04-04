@@ -230,102 +230,100 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     } else {
                         final RideRequest rideRequest = body.getData().getRideRequest();
                         showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity);
-                        new Handler().postDelayed(() -> {
-                            ride.setId(rideRequest.getRequestId());
-                            ((ContentActivity)activity).database.startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
-                                boolean connectIsShown = false;
-                                int status = 0;
-                                Pair<GroundOverlay, AvailableDriver> currentCar = null;
 
-                                @Override
-                                public void isApproved(Ride ride) {
-                                    if(status != 0){
-                                        return;
-                                    }
+                        ride.setId(rideRequest.getRequestId());
+                        ((ContentActivity)activity).database.startRide(ride, driversItem.getDriverId(), new DriverApproveListener() {
+                            boolean connectIsShown = false;
+                            int status = 0;
+                            Pair<GroundOverlay, AvailableDriver> currentCar = null;
 
-                                    if(currentCar == null){
-                                        currentCar = new Pair<>(((ContentActivity) activity).addGroundOverlay(new TripPlace(Locale.getDefault().getDisplayCountry(), new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()))),
-                                                ride.getDriver());
-                                        currentCar.first.setZIndex(15);
-
-                                        LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
-                                        LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
-
-                                        ((ContentActivity)activity).onDriverRoad(
-                                                new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
-                                                new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
-
-                                    } else {
-                                        CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
-                                    }
-
-                                    if(!connectIsShown){
-                                        ((ContentActivity)activity).showConnectFragment();
-                                        connectIsShown = true;
-                                    }
-
-                                    ((ContentActivity) activity).currentRide = ride;
+                            @Override
+                            public void isApproved(Ride ride) {
+                                if(status != 0){
+                                    return;
                                 }
 
-                                @Override
-                                public void statusChanged(int currentStatus, Ride ride) {
-                                    if(currentStatus == ConstantsFirebase.STATUS_ROAD_PREPARED && status == 0){
-                                        status = ConstantsFirebase.STATUS_ROAD_PREPARED;
+                                if(currentCar == null){
+                                    currentCar = new Pair<>(((ContentActivity) activity).addGroundOverlay(new TripPlace(Locale.getDefault().getDisplayCountry(), new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()))),
+                                            ride.getDriver());
+                                    currentCar.first.setZIndex(15);
 
-                                        showAlertDialod("Driver waiting", "Please get in the car", activity);
+                                    LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
+                                    LatLng endPos = new LatLng(ride.getPickUpLocation().getLat(), ride.getPickUpLocation().getLng());
 
-                                        Log.e("DebugSome", ride.getId());
-                                    } else if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 150 ){
-                                        status = ConstantsFirebase.STATUS_ROAD_STARTED;
-                                        ((ContentActivity) activity).popBackStack();
+                                    ((ContentActivity)activity).onDriverRoad(
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
 
-                                        LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
-                                        LatLng endPos = new LatLng(ride.getDestinationLocation().getLat(), ride.getDestinationLocation().getLng());
-
-                                        ((ContentActivity) activity).onDestinationPicked(
-                                                new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
-                                                new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
-                                                false);
-
-                                        ((ContentActivity) activity).myCurrentLocationMarker.setVisible(false);
-
-                                        showAlertDialod("Trip started!", "The driver started the trip", activity);
-
-                                    } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
-                                        status = ConstantsFirebase.STATUS_ROAD_FINISHED;
-                                        ((ContentActivity) activity).myCurrentLocationMarker.setVisible(true);
-                                        ((ContentActivity) activity).zoomToCurrentLocation();
-                                        currentCar = null;
-
-                                        ((ContentActivity) activity).startFragment(ContentActivity.TYPE_RIDE_COMPLETED);
-                                    }
-
-                                    if(currentCar != null) {
-                                        CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
-                                        ((ContentActivity) activity).mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()), ((ContentActivity) activity).mMap.getCameraPosition().zoom));
-                                    }
+                                } else {
+                                    CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
                                 }
 
-                                @Override
-                                public void timeUpdated(@NotNull String time) {
-                                    List<Fragment> list = ((ContentActivity) activity).getSupportFragmentManager().getFragments();
+                                if(!connectIsShown){
+                                    ((ContentActivity)activity).showConnectFragment();
+                                    connectIsShown = true;
+                                }
 
-                                    for(int i=0; i<list.size(); i++){
-                                        if(list.get(i) instanceof ConnectFragment){
-                                            ((ConnectFragment) list.get(i)).setTime(time);
-                                        }
+                                ((ContentActivity) activity).currentRide = ride;
+                            }
+
+                            @Override
+                            public void statusChanged(int currentStatus, Ride ride) {
+                                if(currentStatus == ConstantsFirebase.STATUS_ROAD_PREPARED && status == 0){
+                                    status = ConstantsFirebase.STATUS_ROAD_PREPARED;
+
+                                    showAlertDialod("Driver waiting", "Please get in the car", activity);
+
+                                    Log.e("DebugSome", ride.getId());
+                                } else if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 150 ){
+                                    status = ConstantsFirebase.STATUS_ROAD_STARTED;
+                                    ((ContentActivity) activity).popBackStack();
+
+                                    LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
+                                    LatLng endPos = new LatLng(ride.getDestinationLocation().getLat(), ride.getDestinationLocation().getLng());
+
+                                    ((ContentActivity) activity).onDestinationPicked(
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), startPos),
+                                            new TripPlace(Locale.getDefault().getDisplayCountry(), endPos),
+                                            false);
+
+                                    ((ContentActivity) activity).myCurrentLocationMarker.setVisible(false);
+
+                                    showAlertDialod("Trip started!", "The driver started the trip", activity);
+
+                                } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
+                                    status = ConstantsFirebase.STATUS_ROAD_FINISHED;
+                                    ((ContentActivity) activity).myCurrentLocationMarker.setVisible(true);
+                                    ((ContentActivity) activity).zoomToCurrentLocation();
+                                    currentCar = null;
+
+                                    ((ContentActivity) activity).startFragment(ContentActivity.TYPE_RIDE_COMPLETED);
+                                }
+
+                                if(currentCar != null) {
+                                    CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
+                                    ((ContentActivity) activity).mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()), ((ContentActivity) activity).mMap.getCameraPosition().zoom));
+                                }
+                            }
+
+                            @Override
+                            public void timeUpdated(@NotNull String time) {
+                                List<Fragment> list = ((ContentActivity) activity).getSupportFragmentManager().getFragments();
+
+                                for(int i=0; i<list.size(); i++){
+                                    if(list.get(i) instanceof ConnectFragment){
+                                        ((ConnectFragment) list.get(i)).setTime(time);
                                     }
                                 }
+                            }
 
-                                @Override
-                                public void isDeclined() {
-                                    ((ContentActivity)activity).popBackStack();
-                                    ((ContentActivity)activity).clearMap();
-                                    ((ContentActivity)activity).initMap();
-                                }
-                            });
-
-                        }, 3000);
+                            @Override
+                            public void isDeclined() {
+                                ((ContentActivity)activity).popBackStack();
+                                ((ContentActivity)activity).clearMap();
+                                ((ContentActivity)activity).initMap();
+                            }
+                        });
                     }
                 }
 
