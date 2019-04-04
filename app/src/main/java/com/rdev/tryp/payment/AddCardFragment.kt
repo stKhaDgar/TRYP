@@ -17,7 +17,6 @@ import kotlin.random.Random
 
 /**
  * Created by Andrey Berezhnoi on 14.03.2019.
- * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
 class AddCardFragment : Fragment() {

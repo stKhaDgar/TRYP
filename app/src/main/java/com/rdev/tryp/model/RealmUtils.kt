@@ -10,7 +10,6 @@ import io.realm.RealmConfiguration
 
 /**
  * Created by Andrey Berezhnoi on 14.03.2019.
- * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
 class RealmUtils(context: Context?, private val callback: RealmCallback?){

@@ -7,7 +7,6 @@ import java.util.ArrayList
 
 /**
  * Created by Andrey Berezhnoi on 21.03.2019.
- * Copyright (c) 2019 mova.io. All rights reserved.
  */
 
 

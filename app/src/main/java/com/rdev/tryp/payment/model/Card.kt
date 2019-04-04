@@ -8,7 +8,6 @@ import java.io.Serializable
 
 /**
  * Created by Andrey Berezhnoi on 14.03.2019.
- * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
 @RealmClass

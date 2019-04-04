@@ -16,7 +16,6 @@ import com.rdev.tryp.payment.model.Card
 
 /**
  * Created by Andrey Berezhnoi on 14.03.2019.
- * Copyright (c) 2019 Andrey Berezhnoi. All rights reserved.
  */
 
 class PaymentCardsAdapter(private val itemList: ArrayList<Card>, private val context: Activity): RecyclerView.Adapter<PaymentCardsAdapter.ViewHolder>() {

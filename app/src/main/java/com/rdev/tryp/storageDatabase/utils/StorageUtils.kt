@@ -7,7 +7,6 @@ import com.rdev.tryp.storageDatabase.OnFileLoadCallback
 
 /**
  * Created by Andrey Berezhnoi on 29.03.2019.
- * Copyright (c) 2019 mova.io. All rights reserved.
  */
 
 

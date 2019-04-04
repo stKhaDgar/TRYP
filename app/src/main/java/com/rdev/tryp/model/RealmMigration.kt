@@ -4,11 +4,9 @@ import android.util.Log
 import io.realm.DynamicRealm
 import io.realm.RealmMigration
 import io.realm.RealmSchema
-import java.util.*
 
 /**
  * Created by Andrey Berezhnoi on 14.03.2019.
- * Copyright (c) 2019 mova.io. All rights reserved.
  */
 
 
