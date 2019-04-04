@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import afu.org.checkerframework.checker.nullness.qual.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
+
 
 public class RewardProfileFragment extends BaseFragment implements View.OnClickListener {
     private static final int PICK_IMAGE = 958;
