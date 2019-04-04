@@ -121,4 +121,5 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

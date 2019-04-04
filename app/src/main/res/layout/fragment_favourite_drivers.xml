@@ -20,16 +20,16 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
+			android:scrollbars="none"
+			android:overScrollMode="never"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
 
     </LinearLayout>
 
@@ -44,7 +44,8 @@
         android:elevation="5dp"
         android:focusable="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_keyboard_backspace_black_24dp" />
+        android:src="@drawable/ic_keyboard_backspace_black_24dp"
+        android:contentDescription="@string/content_description" />
 
     <RelativeLayout
         android:id="@+id/confirm_layout"
@@ -99,10 +100,15 @@
                         android:layout_width="115dp"
                         android:layout_height="61dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_confirm_button" />
+                        android:src="@drawable/ic_confirm_button"
+                        android:contentDescription="@string/content_description" />
 
                 </androidx.cardview.widget.CardView>
+
             </RelativeLayout>
+
         </androidx.cardview.widget.CardView>
+
     </RelativeLayout>
+
 </RelativeLayout>

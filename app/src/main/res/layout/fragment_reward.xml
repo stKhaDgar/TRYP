@@ -37,7 +37,7 @@
 
 			<LinearLayout
 				android:id="@+id/layout_points"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
 				android:layout_marginTop="22dp"
@@ -45,9 +45,10 @@
 				android:orientation="horizontal">
 
 				<LinearLayout
-					android:layout_width="wrap_content"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:gravity="end"
+					android:layout_weight="1"
 					android:orientation="vertical">
 
 					<TextView
@@ -78,10 +79,11 @@
 
 				<TextView
 					android:id="@+id/balance_points_sum_textVIew"
-					android:layout_width="wrap_content"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:text="@string/balance_points_money"
 					android:textAlignment="textStart"
+					android:layout_weight="1"
 					android:textColor="@android:color/white"
 					android:textSize="30sp" />
 
