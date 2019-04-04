@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.blocks.connect.ConnectFragment;
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase;
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener;
 import com.rdev.tryp.firebaseDatabase.model.AvailableDriver;
@@ -43,6 +44,8 @@ import com.rdev.tryp.network.NetworkService;
 import com.rdev.tryp.utils.BearingInterpolator;
 import com.rdev.tryp.utils.CarAnimation;
 import com.rdev.tryp.utils.LatLngInterpolator;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -300,6 +303,17 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                     if(currentCar != null) {
                                         CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
                                         ((ContentActivity) activity).mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()), ((ContentActivity) activity).mMap.getCameraPosition().zoom));
+                                    }
+                                }
+
+                                @Override
+                                public void timeUpdated(@NotNull String time) {
+                                    List<Fragment> list = ((ContentActivity) activity).getSupportFragmentManager().getFragments();
+
+                                    for(int i=0; i<list.size(); i++){
+                                        if(list.get(i) instanceof ConnectFragment){
+                                            ((ConnectFragment) list.get(i)).setTime(time);
+                                        }
                                     }
                                 }
 

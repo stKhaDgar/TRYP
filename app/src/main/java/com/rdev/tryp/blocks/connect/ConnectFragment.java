@@ -26,8 +26,8 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
 
     private View root;
     private ImageView backBtn, cancelButton, supportIv, shareRideIv;
-    private TextView supportTv, shareRideTv, driverName, carNum, rating, plateNumber;
-    private CardView contactCv;
+    private TextView supportTv, shareRideTv, driverName, carNum, rating, plateNumber, tvTime;
+    private CardView contactCv, timeLayout;
     private Driver driver;
     private CircleImageView driverIv;
 
@@ -59,6 +59,8 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         driverIv = root.findViewById(R.id.driver_iv);
         rating = root.findViewById(R.id.tv_rating);
         plateNumber = root.findViewById(R.id.tv_plate_number);
+        timeLayout = root.findViewById(R.id.time_layout);
+        tvTime = root.findViewById(R.id.tv_time);
 
         backBtn.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
@@ -78,6 +80,13 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         rating.setText(String.valueOf(driver.getRating()));
         Glide.with(getContext()).load(driver.getImage()).into(driverIv);
+    }
+
+    public void setTime(String time){
+        if(timeLayout.getVisibility() == View.GONE){
+            timeLayout.setVisibility(View.VISIBLE);
+        }
+        tvTime.setText(time);
     }
 
     @Override

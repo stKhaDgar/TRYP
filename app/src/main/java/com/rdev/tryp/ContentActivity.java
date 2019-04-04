@@ -821,7 +821,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         List<Fragment> list = getSupportFragmentManager().getFragments();
 
-        for(int i=0; i<list.size()-1; i++){
+        for(int i=0; i<list.size(); i++){
             if(list.get(i) instanceof MapNextTrip){
                 ((MapNextTrip) list.get(i)).initUI();
             }

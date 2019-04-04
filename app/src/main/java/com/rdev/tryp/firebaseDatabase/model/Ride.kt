@@ -19,4 +19,5 @@ class Ride(
         var fare: Float? = null
 ) {
     var status: Int? = null
+    var predictedTime: String? = null
 }

@@ -32,7 +32,7 @@ public class DetailFragment extends Fragment  implements View.OnClickListener {
     private CardView trypNowBtn, imageCard;
 
     @SuppressLint("ValidFragment")
-    public DetailFragment(Driver driver) {
+    DetailFragment(Driver driver) {
         this.driver = driver;
     }
 

@@ -197,6 +197,7 @@ class TrypDatabase{
                             if(item.status != null){
                                 item.status?.let{ status -> listener.statusChanged(status, item) }
                             }
+                            item.predictedTime?.let { time -> listener.timeUpdated(time) }
                         }
                     } else {
                         listener.isDeclined()
@@ -318,7 +319,6 @@ class TrypDatabase{
                             override fun onCancelled(p0: DatabaseError) {}
                         })
             }
-
         })
 
         this.listener = object: AvailableDriversChanged{
