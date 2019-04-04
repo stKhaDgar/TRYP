@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.blocks.helper.BaseFragment;
 import com.rdev.tryp.firebaseDatabase.utils.DatabaseUtils;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FavouriteDriversFragment extends Fragment implements View.OnClickListener {
+public class FavouriteDriversFragment extends BaseFragment implements View.OnClickListener {
 
     private View root;
     private RecyclerView recyclerView;

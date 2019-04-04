@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.blocks.helper.BaseFragment;
 import com.rdev.tryp.firebaseDatabase.model.Client;
 import com.rdev.tryp.model.RealmCallback;
 import com.rdev.tryp.model.RealmUtils;
@@ -39,7 +41,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-public class RewardProfileFragment extends Fragment implements View.OnClickListener {
+public class RewardProfileFragment extends BaseFragment implements View.OnClickListener {
     private static final int PICK_IMAGE = 958;
 
     private ImageView mainPhoto;

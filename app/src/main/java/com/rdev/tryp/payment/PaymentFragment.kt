@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rdev.tryp.ContentActivity
 import com.rdev.tryp.R
+import com.rdev.tryp.blocks.helper.BaseFragment
 import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.payment.model.Card
 import io.realm.Realm
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_payment.view.*
  * Created by Andrey Berezhnoi on 14.03.2019.
  */
 
-class PaymentFragment : Fragment() {
+class PaymentFragment : BaseFragment() {
     private lateinit var arrayList: ArrayList<Card>
     private lateinit var adapter: PaymentCardsAdapter
 

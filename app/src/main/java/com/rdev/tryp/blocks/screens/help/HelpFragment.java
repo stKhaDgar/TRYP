@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.rdev.tryp.ContentActivity;
 import com.rdev.tryp.R;
+import com.rdev.tryp.blocks.helper.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Alexey Matrosov on 04.03.2019.
  */
-public class HelpFragment extends Fragment implements View.OnClickListener {
+
+
+public class HelpFragment extends BaseFragment implements View.OnClickListener {
 
     @Nullable
     @Override

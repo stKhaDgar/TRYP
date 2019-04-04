@@ -690,7 +690,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private DrawerLayout mDrawerLayout;
-    private NavigationView navigationView;
+    public NavigationView navigationView;
     NavigationView.OnNavigationItemSelectedListener listener;
 
     public void initMenu() {
@@ -785,7 +785,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void openMap() {
+    public void openMap() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
         while (count != 1) {
             popBackStack();
@@ -794,10 +794,11 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void goHome() {
-        navigationView.getMenu().getItem(0).setChecked(true);
-        openMap();
-        clearMap();
-        zoomToCurrentLocation();
+        popBackStack();
+//        navigationView.getMenu().getItem(0).setChecked(true);
+//        openMap();
+//        clearMap();
+//        zoomToCurrentLocation();
     }
 
     public void goHomeOneTransition(){
