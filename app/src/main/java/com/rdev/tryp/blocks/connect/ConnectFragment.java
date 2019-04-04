@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,9 @@ public class ConnectFragment extends Fragment implements View.OnClickListener {
     public void setTime(String time){
         if(timeLayout.getVisibility() == View.GONE){
             timeLayout.setVisibility(View.VISIBLE);
+
+            Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_right);
+            timeLayout.startAnimation(anim);
         }
         tvTime.setText(time);
     }
