@@ -264,7 +264,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                         connectIsShown = true;
                                     }
 
-                                    Log.e(ConstantsFirebase.TAG, ride.getDriver().getLocation().getLat() + " : " + ride.getDriver().getLocation().getLng());
+                                    ((ContentActivity) activity).currentRide = ride;
                                 }
 
                                 @Override
@@ -274,7 +274,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                         showAlertDialod("Driver waiting", "Please get in the car", activity);
 
-                                        ((ContentActivity) activity).currentRide = ride;
+                                        Log.e("DebugSome", ride.getId());
                                     } else if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 150 ){
                                         status = ConstantsFirebase.STATUS_ROAD_STARTED;
                                         ((ContentActivity) activity).popBackStack();
