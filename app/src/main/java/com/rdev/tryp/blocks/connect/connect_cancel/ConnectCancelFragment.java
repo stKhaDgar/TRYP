@@ -54,7 +54,7 @@ public class ConnectCancelFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.confirm_button:
                 String idTemp = ((ContentActivity) getActivity()).currentRide.getId();
-                ((ContentActivity) getActivity()).database.cancelRide(idTemp);
+                ((ContentActivity) getActivity()).database.cancelRide(idTemp, getCurrentChecked());
                 ((ContentActivity) Objects.requireNonNull(getActivity())).clearBackStack();
                 ((ContentActivity)getActivity()).clearMap();
                 ((ContentActivity)getActivity()).initMap();
@@ -72,6 +72,18 @@ public class ConnectCancelFragment extends Fragment implements View.OnClickListe
                 return radioBtn3.getText().toString();
         }
         return radioBtn1.getText().toString();
+    }
+
+    private String getCurrentChecked(){
+        if(radioBtn1.isChecked()){
+            return radioBtn1.getText().toString();
+        } else if(radioBtn2.isChecked()){
+            return radioBtn2.getText().toString();
+        } else if(radioBtn3.isChecked()){
+            return radioBtn3.getText().toString();
+        } else {
+            return null;
+        }
     }
 
 }

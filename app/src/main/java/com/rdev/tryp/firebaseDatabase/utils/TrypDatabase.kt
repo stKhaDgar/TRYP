@@ -279,8 +279,13 @@ class TrypDatabase{
         item.setValue(feedback)
     }
 
-    fun cancelRide(id: String){
-        database.reference.child(const.RIDES).child(id).child(const.RIDE_STATUS_PARAM).setValue(const.STATUS_ROAD_CANCELED)
+    fun cancelRide(id: String?, reason: String?){
+        id?.let { field ->
+            database.reference.child(const.RIDES).child(field).child(const.RIDE_STATUS_PARAM).setValue(const.STATUS_ROAD_CANCELED)
+            reason?.let { reasonTemp ->
+                database.reference.child(const.RIDES).child(field).child(const.RIDE_CANCEL_PARAM).setValue(reasonTemp)
+            }
+        }
     }
 
     fun setAvailableDrivers(callback: AvailableDriversChanged.DataChange){

@@ -13,6 +13,7 @@ object ConstantsFirebase {
     const val DRIVERS = "driversDb"
     const val RIDES = "rides"
     const val RIDE_STATUS_PARAM = "status"
+    const val RIDE_CANCEL_PARAM = "cancelReason"
     const val FEEDBACKS_ARRAY_PARAM = "feedbacks"
     const val FAVORITES_ARRAY_PARAM = "favorites"
 
