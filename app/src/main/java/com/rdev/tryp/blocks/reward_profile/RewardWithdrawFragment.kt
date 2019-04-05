@@ -24,4 +24,5 @@ class RewardWithdrawFragment : Fragment(), View.OnClickListener {
             R.id.back_btn -> { (activity as? ContentActivity)?.startFragment(ContentActivity.TYPE_REWARD_POINTS) }
         }
     }
+
 }
