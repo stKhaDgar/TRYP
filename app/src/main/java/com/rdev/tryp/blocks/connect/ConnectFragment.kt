@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-
 import com.bumptech.glide.Glide
 import com.rdev.tryp.ContentActivity
 import com.rdev.tryp.R
