@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     AddressNetworkService.INSTANCE.initFavoriteAddresses();
 
-                    AccountManager.getInstance().signIn(body.getData().getUsers().getUserId());
+                    AccountManager.Companion.getInstance().signIn(body.getData().getUsers().getUserId());
 
                     new RealmUtils(getApplicationContext(), new RealmCallback() {
                         @Override

@@ -217,7 +217,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     toAddress.get(0),
                     false,
                     driversItem,
-                    AccountManager.getInstance().getUserId());
+                    AccountManager.Companion.getInstance().getUserId());
 
             Ride ride = new Ride(null,
                     new RealmUtils(activity, null).getCurrentUser().getUserId().toString(),
