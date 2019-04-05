@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
-                    AddressNetworkService.initFavoriteAddresses();
+                    AddressNetworkService.INSTANCE.initFavoriteAddresses();
 
                     AccountManager.getInstance().signIn(body.getData().getUsers().getUserId());
 
