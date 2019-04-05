@@ -7,8 +7,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -44,6 +49,7 @@ import com.rdev.tryp.network.NetworkService;
 import com.rdev.tryp.utils.BearingInterpolator;
 import com.rdev.tryp.utils.CarAnimation;
 import com.rdev.tryp.utils.LatLngInterpolator;
+import com.rdev.tryp.utils.NotificationHelper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -67,6 +73,7 @@ import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP;
 import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_ASSIST;
 import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_EXTRA;
 import static com.rdev.tryp.trip.tryp_car.TrypCarFragment.TYPE_TRYP_PRIME;
+import static io.realm.internal.SyncObjectServerFacade.getApplicationContext;
 
 @SuppressLint("ValidFragment")
 public class TripFragment extends Fragment implements View.OnClickListener {
@@ -244,6 +251,8 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 }
 
                                 if(currentCar == null){
+                                    NotificationHelper.INSTANCE.approvedFromDriver(getApplicationContext());
+
                                     currentCar = new Pair<>(((ContentActivity) activity).addGroundOverlay(new TripPlace(Locale.getDefault().getDisplayCountry(), new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()))),
                                             ride.getDriver());
                                     currentCar.first.setZIndex(15);
@@ -272,12 +281,16 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 if(currentStatus == ConstantsFirebase.STATUS_ROAD_PREPARED && status == 0){
                                     status = ConstantsFirebase.STATUS_ROAD_PREPARED;
 
+                                    NotificationHelper.INSTANCE.statusChanged(getApplicationContext());
+
                                     showAlertDialod("Driver waiting", "Please get in the car", activity);
 
                                     Log.e("DebugSome", ride.getId());
                                 } else if(currentStatus == ConstantsFirebase.STATUS_ROAD_STARTED && status == 150 ){
                                     status = ConstantsFirebase.STATUS_ROAD_STARTED;
                                     ((ContentActivity) activity).popBackStack();
+
+                                    NotificationHelper.INSTANCE.statusChanged(getApplicationContext());
 
                                     LatLng startPos = new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng());
                                     LatLng endPos = new LatLng(ride.getDestinationLocation().getLat(), ride.getDestinationLocation().getLng());
@@ -293,6 +306,9 @@ public class TripFragment extends Fragment implements View.OnClickListener {
 
                                 } else if (currentStatus == ConstantsFirebase.STATUS_ROAD_FINISHED && status == 100){
                                     status = ConstantsFirebase.STATUS_ROAD_FINISHED;
+
+                                    NotificationHelper.INSTANCE.statusChanged(getApplicationContext());
+
                                     ((ContentActivity) activity).myCurrentLocationMarker.setVisible(true);
                                     ((ContentActivity) activity).zoomToCurrentLocation();
                                     currentCar = null;
