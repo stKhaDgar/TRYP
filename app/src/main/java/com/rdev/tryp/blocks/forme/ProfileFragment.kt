@@ -88,7 +88,7 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        initView()
+        initView(view)
         setSmallImage(view.context)
         initRecentRoutes()
         initAutoComplete()
@@ -113,22 +113,22 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         return view
     }
 
-    private fun initView() {
-        adressTv = view?.findViewById(R.id.adress_tv)
-        adressTv2 = view?.findViewById(R.id.adress_tv_2)
-        cardView = view?.findViewById(R.id.top_card_view)
-        autoCompleteRv = view?.findViewById(R.id.autoCompleteRv)
-        btnBack = view?.findViewById(R.id.back_btn)
-        recentFirst = view?.findViewById(R.id.recent_relative_layout)
-        recentSecond = view?.findViewById(R.id.recent_relative_layout_2)
-        homeAddress = view?.findViewById(R.id.home_location_relative_layout)
-        workAddress = view?.findViewById(R.id.work_location_relative_layout)
-        homeEditText = view?.findViewById(R.id.home_tv)
-        workEditText = view?.findViewById(R.id.work_tv)
-        btnEdit = view?.findViewById(R.id.edit_btn)
-        editLayout = view?.findViewById(R.id.edit_layout)
-        routeBtn = view?.findViewById(R.id.route_btn)
-        mainPhoto = view?.findViewById(R.id.main_img)
+    private fun initView(view: View) {
+        adressTv = view.findViewById(R.id.adress_tv)
+        adressTv2 = view.findViewById(R.id.adress_tv_2)
+        cardView = view.findViewById(R.id.top_card_view)
+        autoCompleteRv = view.findViewById(R.id.autoCompleteRv)
+        btnBack = view.findViewById(R.id.back_btn)
+        recentFirst = view.findViewById(R.id.recent_relative_layout)
+        recentSecond = view.findViewById(R.id.recent_relative_layout_2)
+        homeAddress = view.findViewById(R.id.home_location_relative_layout)
+        workAddress = view.findViewById(R.id.work_location_relative_layout)
+        homeEditText = view.findViewById(R.id.home_tv)
+        workEditText = view.findViewById(R.id.work_tv)
+        btnEdit = view.findViewById(R.id.edit_btn)
+        editLayout = view.findViewById(R.id.edit_layout)
+        routeBtn = view.findViewById(R.id.route_btn)
+        mainPhoto = view.findViewById(R.id.main_img)
 
         cardView?.setBackgroundResource(R.drawable.card_view_bg)
         autoCompleteRv?.layoutManager = LinearLayoutManager(context)
@@ -230,11 +230,11 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                placesClient = Places.createClient(Objects.requireNonNull<Context>(context))
+                context?.let { ctx -> placesClient = Places.createClient(ctx) }
                 val request = FindAutocompletePredictionsRequest.builder()
                         .setQuery(charSequence.toString())
                         .build()
-                placesClient?.findAutocompletePredictions(request)?.addOnCompleteListener { task -> adapter?.setData(task.result?.autocompletePredictions) }
+                placesClient?.findAutocompletePredictions(request)?.addOnCompleteListener { task -> task.result?.autocompletePredictions?.let { predictions -> adapter?.setData(predictions) } }
             }
 
             override fun afterTextChanged(s: Editable) {
@@ -250,7 +250,7 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                placesClient = Places.createClient(Objects.requireNonNull<Context>(context))
+                context?.let { ctx -> placesClient = Places.createClient(ctx) }
                 val request = FindAutocompletePredictionsRequest.builder()
                         .setQuery(charSequence.toString())
                         .build()
