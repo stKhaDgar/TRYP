@@ -412,7 +412,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
     public void showDirectionPicker(TripPlace destination) {
 
-        if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+        if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                 ProfileFragment.class.getName())) {
             getSupportFragmentManager().popBackStackImmediate(ProfileFragment.class.getName(), 0);
         } else {
@@ -875,7 +875,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (type) {
             case TYPE_RECAP:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         RecapFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(RecapFragment.class.getName(), 0);
                 } else {
@@ -886,7 +886,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_LEGAL:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         LegalFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(LegalFragment.class.getName(), 0);
                 } else {
@@ -897,7 +897,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_INVITE1:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         InviteFriendsFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(InviteFriendsFragment.class.getName(), 0);
                 } else {
@@ -908,7 +908,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_INVITE2:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         Invite2Fragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(Invite2Fragment.class.getName(), 0);
                 } else {
@@ -919,7 +919,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_INVITE3:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         Invite3Fragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(Invite3Fragment.class.getName(), 0);
                 } else {
@@ -930,7 +930,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_HELP:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         HelpFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(HelpFragment.class.getName(), 0);
                 } else {
@@ -941,7 +941,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_NOTIFICATIONS:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         NotificationsFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(NotificationsFragment.class.getName(), 0);
                 } else {
@@ -952,7 +952,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_FAVORITE:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         FavouriteDriversFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(FavouriteDriversFragment.class.getName(), 0);
                 } else {
@@ -963,7 +963,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_REWARDS:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         RewardProfileFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(RewardProfileFragment.class.getName(), 0);
                 } else {
@@ -974,7 +974,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_REWARD_POINTS:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         RewardPointsFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(RewardPointsFragment.class.getName(), 0);
                 } else {
@@ -985,7 +985,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_PAYMENT_NEW_ENTRY:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         AddCardFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(AddCardFragment.class.getName(), 0);
                 } else {
@@ -996,7 +996,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_PAYMENT:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         PaymentFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(PaymentFragment.class.getName(), 0);
                 } else {
@@ -1007,7 +1007,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_CONNECT:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         ConnectFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(ConnectFragment.class.getName(), 0);
                 } else {
@@ -1018,7 +1018,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_REWARDS_WITHDRAW:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         RewardWithdrawFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(RewardWithdrawFragment.class.getName(), 0);
                 } else {
@@ -1029,7 +1029,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_RIDE_COMPLETED:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         CompletedRideFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(CompletedRideFragment.class.getName(), 0);
                 } else {
@@ -1040,7 +1040,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case TYPE_WRITE_FEEDBACK:
-                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+                if (Utils.INSTANCE.isFragmentInBackStack(getSupportFragmentManager(),
                         FeedbackDriverFragment.class.getName())) {
                     getSupportFragmentManager().popBackStackImmediate(FeedbackDriverFragment.class.getName(), 0);
                 } else {
@@ -1051,7 +1051,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
 //            case TYPE_TRIP_HISTORY:
-//                if (Utils.isFragmentInBackstack(getSupportFragmentManager(),
+//                if (Utils.isFragmentInBackStack(getSupportFragmentManager(),
 //                        ProfileFragment.class.getName())) {
 //                    getSupportFragmentManager().popBackStackImmediate(ProfileFragment.class.getName(), 0);
 //                } else {

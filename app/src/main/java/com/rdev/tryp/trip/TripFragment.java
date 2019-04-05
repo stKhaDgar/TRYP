@@ -265,7 +265,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                             new TripPlace(Locale.getDefault().getDisplayCountry(), endPos));
 
                                 } else {
-                                    CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
+                                    CarAnimation.INSTANCE.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
                                 }
 
                                 if(!connectIsShown){
@@ -317,7 +317,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                                 }
 
                                 if(currentCar != null) {
-                                    CarAnimation.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
+                                    CarAnimation.INSTANCE.animateMarkerToGB(currentCar.first, ride.getDriver().getLocation(), new LatLngInterpolator.Spherical(), new BearingInterpolator.Degree());
                                     ((ContentActivity) activity).mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ride.getDriver().getLocation().getLat(), ride.getDriver().getLocation().getLng()), ((ContentActivity) activity).mMap.getCameraPosition().zoom));
                                 }
                             }

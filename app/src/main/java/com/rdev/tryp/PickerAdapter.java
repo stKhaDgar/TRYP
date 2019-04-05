@@ -39,7 +39,7 @@ class PickerAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        String country = getCountryName(data[position]) + " (+" + getDialingCode(data[position]) + ")";
+        String country = INSTANCE.getCountryName(data[position]) + " (+" + INSTANCE.getDialingCode(data[position]) + ")";
         ((ItemHolder) holder).countryTv.setText(country);
     }
 
