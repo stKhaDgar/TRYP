@@ -42,7 +42,7 @@ object AddressNetworkService {
             model.type = Utils.HOME_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
-            NetworkService.getApiService().remove_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
+            NetworkService.getApiService()?.remove_favorite_address(model)?.enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
                     val body = response.body()
                     if (body != null) {
@@ -67,7 +67,7 @@ object AddressNetworkService {
             model.type = Utils.HOME_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
-            NetworkService.getApiService().add_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
+            NetworkService.getApiService()?.add_favorite_address(model)?.enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
                     val body = response.body()
                     if (body != null) {
@@ -99,7 +99,7 @@ object AddressNetworkService {
             model.type = Utils.WORK_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
-            NetworkService.getApiService().remove_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
+            NetworkService.getApiService()?.remove_favorite_address(model)?.enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
                     val body = response.body()
                     if (body != null) {
@@ -123,7 +123,7 @@ object AddressNetworkService {
             model.type = Utils.WORK_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
-            NetworkService.getApiService().add_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
+            NetworkService.getApiService()?.add_favorite_address(model)?.enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
                     val body = response.body()
                     if (body != null) {
@@ -146,7 +146,7 @@ object AddressNetworkService {
 
     private fun setUpWorkAddress() {
         AccountManager.getInstance()?.userId?.let { userId ->
-            NetworkService.getApiService().get_favourite_address(userId, Utils.WORK_ADDRESS).enqueue(object : Callback<FavoriteAddress> {
+            NetworkService.getApiService()?.get_favourite_address(userId, Utils.WORK_ADDRESS)?.enqueue(object : Callback<FavoriteAddress> {
                 override fun onResponse(call: Call<FavoriteAddress>, response: Response<FavoriteAddress>) {
                     if (response.body()?.data?.favoriteAddresses == null) {
                         return
@@ -172,7 +172,7 @@ object AddressNetworkService {
 
     private fun setUpHomeAddress() {
         AccountManager.getInstance()?.userId?.let { userId ->
-            NetworkService.getApiService().get_favourite_address(userId, Utils.HOME_ADDRESS).enqueue(object : Callback<FavoriteAddress> {
+            NetworkService.getApiService()?.get_favourite_address(userId, Utils.HOME_ADDRESS)?.enqueue(object : Callback<FavoriteAddress> {
                 override fun onResponse(call: Call<FavoriteAddress>, response: Response<FavoriteAddress>) {
                     if (response.body()?.data?.favoriteAddresses == null) {
                         return

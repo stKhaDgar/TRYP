@@ -31,7 +31,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var fm: FragmentManager
-    private lateinit var apiService: ApiService
+    private var apiService: ApiService? = null
     private lateinit var loginModel: LoginModel
     lateinit var number: UserPhoneNumber
 
@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
         fm.beginTransaction().add(R.id.login_container, LoginFragment())
                 .commit()
 
-        apiService = ApiClient.getInstance().create(ApiService::class.java)
+        apiService = ApiClient.getInstance()?.create(ApiService::class.java)
         number = UserPhoneNumber()
         number.country_code = "USA"
         number.dialing_code = "1"
@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun onSendCode() {
         if (isNetworkOnline && number.phone_number.length >= 7 && number.phone_number.length <= 13) {
-            apiService.sendSms(number).enqueue(object : Callback<LoginResponse> {
+            apiService?.sendSms(number)?.enqueue(object : Callback<LoginResponse> {
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     fm.beginTransaction().replace(R.id.login_container, ConfirmLoginFragment())
                             .addToBackStack("login").commit()
@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
         loginModel = LoginModel(number)
         loginModel.verification_code = verification_code
         if (isNetworkOnline && loginModel.verification_code?.length == 4) {
-            apiService.verifySms(loginModel).enqueue(object : Callback<VerifySmsResponse> {
+            apiService?.verifySms(loginModel)?.enqueue(object : Callback<VerifySmsResponse> {
                 override fun onResponse(call: Call<VerifySmsResponse>, response: Response<VerifySmsResponse>) {
                     val body = response.body()
                     Log.i("response", response.toString())

@@ -54,8 +54,8 @@ class CreateActivity : AppCompatActivity() {
     }
 
     fun signUp() {
-        val apiService = ApiClient.getInstance().create(ApiService::class.java)
-        apiService.createAccount(createUser).enqueue(object : Callback<SignUpResponse> {
+        val apiService = ApiClient.getInstance()?.create(ApiService::class.java)
+        apiService?.createAccount(createUser)?.enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 if (response.isSuccessful
                         && response.body() != null

@@ -14,7 +14,7 @@ import java.util.Date
 import java.util.Locale
 
 
-class RequestRideBody(from: Address, destination: Address, isAsap: Boolean, driver: Driver, var user_id: Int) {
+class RequestRideBody(from: Address?, destination: Address?, isAsap: Boolean, driver: Driver, var user_id: Int?) {
 
     private var to_lat: String? = null
     private var driver_id: String? = null
@@ -36,10 +36,10 @@ class RequestRideBody(from: Address, destination: Address, isAsap: Boolean, driv
     private val currentDate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH).format(Calendar.getInstance().time)
 
     init {
-        from_lng = formatLocation(from.longitude)
-        from_lat = formatLocation(from.latitude)
-        to_lng = formatLocation(destination.longitude)
-        to_lat = formatLocation(destination.latitude)
+        from_lng = formatLocation(from?.longitude)
+        from_lat = formatLocation(from?.latitude)
+        to_lng = formatLocation(destination?.longitude)
+        to_lat = formatLocation(destination?.latitude)
         asap = if (isAsap) "1" else "0"
         this.from = getFullAddress(from)
         to = getFullAddress(destination)
@@ -68,25 +68,25 @@ class RequestRideBody(from: Address, destination: Address, isAsap: Boolean, driv
                 "}"
     }
 
-    private fun getFullAddress(address: Address): String {
+    private fun getFullAddress(address: Address?): String {
         val builder = StringBuilder()
 
-        if (address.thoroughfare != null) {
+        if (address?.thoroughfare != null) {
             if (address.subThoroughfare != null)
                 builder.append(address.subThoroughfare).append(" ")
             builder.append(address.thoroughfare)
-        } else if (address.featureName != null) {
+        } else if (address?.featureName != null) {
             builder.append(address.featureName)
         }
 
-        builder.append(", ").append(address.locality)
-        builder.append(", ").append(address.adminArea)
-        builder.append(", ").append(address.countryName)
+        builder.append(", ").append(address?.locality)
+        builder.append(", ").append(address?.adminArea)
+        builder.append(", ").append(address?.countryName)
 
         return builder.toString()
     }
 
-    private fun formatLocation(location: Double): String {
+    private fun formatLocation(location: Double?): String {
         val nf = NumberFormat.getNumberInstance(Locale.US)
         val df = nf as DecimalFormat
         df.applyPattern("0.0###")
