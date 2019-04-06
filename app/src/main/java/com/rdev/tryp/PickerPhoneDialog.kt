@@ -12,14 +12,14 @@ class PickerPhoneDialog {
     private lateinit var tvPicker: RecyclerView
     private lateinit var dialog1: AlertDialog
 
-    fun showDialog(context: Context, listener: SelectCountryListener) {
+    fun showDialog(context: Context?, listener: SelectCountryListener) {
         val v = LayoutInflater.from(context).inflate(R.layout.picker_dialog, null)
         dialog1 = AlertDialog.Builder(context)
                 .setView(v).create()
 
         tvPicker = v.findViewById(R.id.picker_rv)
         tvPicker.layoutManager = LinearLayoutManager(context)
-        context.resources.getStringArray(R.array.CountryCodes).let { mTestArray ->
+        context?.resources?.getStringArray(R.array.CountryCodes)?.let { mTestArray ->
             tvPicker.adapter = PickerAdapter(mTestArray, listener)
         }
 

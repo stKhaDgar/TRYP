@@ -95,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun verifySms(verification_code: String) {
+    fun verifySms(verification_code: String?) {
         loginModel = LoginModel(number)
         loginModel.verification_code = verification_code
         if (isNetworkOnline && loginModel.verification_code.length == 4) {

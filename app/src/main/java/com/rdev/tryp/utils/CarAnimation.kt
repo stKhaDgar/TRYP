@@ -13,7 +13,7 @@ object CarAnimation {
     private lateinit var carMarker: GroundOverlay
     private lateinit var handler: Handler
 
-    fun animateMarkerToGB(marker: GroundOverlay, finalPosition: Location, latLngInterpolator: LatLngInterpolator, bearingInterpolator: BearingInterpolator) {
+    fun animateMarkerToGB(marker: GroundOverlay, finalPosition: Location?, latLngInterpolator: LatLngInterpolator, bearingInterpolator: BearingInterpolator) {
         carMarker = marker
         val lastBearing = marker.bearing
         val startPosition = marker.position
@@ -28,7 +28,7 @@ object CarAnimation {
 
             override fun run() {
                 // Calculate progress using interpolator
-                finalPosition.lat?.let { lat ->
+                finalPosition?.lat?.let { lat ->
                     finalPosition.lng?.let { lng ->
                         elapsed = SystemClock.uptimeMillis() - start
                         t = elapsed / durationInMs

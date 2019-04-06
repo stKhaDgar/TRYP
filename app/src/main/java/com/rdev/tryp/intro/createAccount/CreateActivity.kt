@@ -23,7 +23,7 @@ import retrofit2.Response
 
 
 class CreateActivity : AppCompatActivity() {
-    private val createUser = CreateUser()
+    val createUser = CreateUser()
     private lateinit var fm: FragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {

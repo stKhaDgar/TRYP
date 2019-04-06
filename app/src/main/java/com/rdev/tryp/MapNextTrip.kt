@@ -50,7 +50,7 @@ class MapNextTrip : Fragment(), View.OnClickListener {
         initUI()
     }
 
-    private fun initUI() {
+    fun initUI() {
         val user = RealmUtils(activity, null).getCurrentUser()
         val img = user?.image
 

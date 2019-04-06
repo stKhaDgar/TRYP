@@ -68,7 +68,7 @@ object PreferenceManager {
         edit?.commit()
     }
 
-    fun setTripPlace(key: String, `object`: TripPlace) {
+    fun setTripPlace(key: String, `object`: TripPlace?) {
         val gson = Gson()
         val json = gson.toJson(`object`)
         edit?.putString(key, json)

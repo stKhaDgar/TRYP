@@ -14,6 +14,7 @@ import com.rdev.tryp.R
 import com.rdev.tryp.intro.createAccount.CreateActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.rdev.tryp.SelectCountryListener
 
 import com.rdev.tryp.utils.Utils.getCountryCode
 import com.rdev.tryp.utils.Utils.getCountryName
@@ -52,13 +53,15 @@ class EnterPhoneFragment : Fragment(), View.OnClickListener {
             }
             R.id.cardView2 -> {
                 val dialog = PickerPhoneDialog()
-                dialog.showDialog(context) { data ->
-                    dialog.hideDialog()
-                    val number = (activity as? CreateActivity)?.createUser
-                    number?.dialing_code = getDialingCode(data)
-                    number?.country_code = getCountryCode(data)
-                    tvCountryPhone.text = "${getCountryName(data)} (+${number?.dialing_code})"
-                }
+                dialog.showDialog(context, object : SelectCountryListener{
+                    override fun onSelect(data: String) {
+                        dialog.hideDialog()
+                        val number = (activity as? CreateActivity)?.createUser
+                        number?.dialing_code = getDialingCode(data)
+                        number?.country_code = getCountryCode(data)
+                        tvCountryPhone.text = "${getCountryName(data)} (+${number?.dialing_code})"
+                    }
+                })
             }
         }
     }

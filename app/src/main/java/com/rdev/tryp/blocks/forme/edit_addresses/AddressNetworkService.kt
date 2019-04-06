@@ -40,7 +40,7 @@ object AddressNetworkService {
             model.lat = lastHome.coord.latitude.toString()
             model.lng = lastHome.coord.longitude.toString()
             model.type = Utils.HOME_ADDRESS
-            model.userId = AccountManager.getInstance().userId
+            model.userId = AccountManager.getInstance()?.userId
 
             NetworkService.getApiService().remove_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
@@ -65,7 +65,7 @@ object AddressNetworkService {
             model.lat = newAddress.coord.latitude.toString()
             model.lng = newAddress.coord.longitude.toString()
             model.type = Utils.HOME_ADDRESS
-            model.userId = AccountManager.getInstance().userId
+            model.userId = AccountManager.getInstance()?.userId
 
             NetworkService.getApiService().add_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
@@ -97,7 +97,7 @@ object AddressNetworkService {
             model.lat = lastWork.coord.latitude.toString()
             model.lng = lastWork.coord.longitude.toString()
             model.type = Utils.WORK_ADDRESS
-            model.userId = AccountManager.getInstance().userId
+            model.userId = AccountManager.getInstance()?.userId
 
             NetworkService.getApiService().remove_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
@@ -121,7 +121,7 @@ object AddressNetworkService {
             model.lat = newAddress.coord.latitude.toString()
             model.lng = newAddress.coord.longitude.toString()
             model.type = Utils.WORK_ADDRESS
-            model.userId = AccountManager.getInstance().userId
+            model.userId = AccountManager.getInstance()?.userId
 
             NetworkService.getApiService().add_favorite_address(model).enqueue(object : Callback<FavoriteAddressResponse> {
                 override fun onResponse(call: Call<FavoriteAddressResponse>, response: Response<FavoriteAddressResponse>) {
@@ -145,43 +145,47 @@ object AddressNetworkService {
     }
 
     private fun setUpWorkAddress() {
-        NetworkService.getApiService().get_favourite_address(AccountManager.getInstance().userId, Utils.WORK_ADDRESS).enqueue(object : Callback<FavoriteAddress> {
-            override fun onResponse(call: Call<FavoriteAddress>, response: Response<FavoriteAddress>) {
-                if (response.body()?.data?.favoriteAddresses == null) {
-                    return
+        AccountManager.getInstance()?.userId?.let { userId ->
+            NetworkService.getApiService().get_favourite_address(userId, Utils.WORK_ADDRESS).enqueue(object : Callback<FavoriteAddress> {
+                override fun onResponse(call: Call<FavoriteAddress>, response: Response<FavoriteAddress>) {
+                    if (response.body()?.data?.favoriteAddresses == null) {
+                        return
+                    }
+                    val address = response.body()?.data?.favoriteAddresses?.address ?: return
+                    val tripPlace = TripPlace()
+                    tripPlace.locale = address.address
+                    tripPlace.coord = LatLng(address.lat.toDouble(), address.lng)
+                    PreferenceManager.setTripPlace(KEY_WORK, tripPlace)
+                    Log.i("get work address", address.address)
                 }
-                val address = response.body()?.data?.favoriteAddresses?.address ?: return
-                val tripPlace = TripPlace()
-                tripPlace.locale = address.address
-                tripPlace.coord = LatLng(address.lat.toDouble(), address.lng)
-                PreferenceManager.setTripPlace(KEY_WORK, tripPlace)
-                Log.i("get work address", address.address)
-            }
 
-            override fun onFailure(call: Call<FavoriteAddress>, t: Throwable) {
-                Log.i("get work address", "failure")
-            }
-        })
+                override fun onFailure(call: Call<FavoriteAddress>, t: Throwable) {
+                    Log.i("get work address", "failure")
+                }
+            })
+        }
     }
 
     private fun setUpHomeAddress() {
-        NetworkService.getApiService().get_favourite_address(AccountManager.getInstance().userId, Utils.HOME_ADDRESS).enqueue(object : Callback<FavoriteAddress> {
-            override fun onResponse(call: Call<FavoriteAddress>, response: Response<FavoriteAddress>) {
-                if (response.body()?.data?.favoriteAddresses == null) {
-                    return
+        AccountManager.getInstance()?.userId?.let { userId ->
+            NetworkService.getApiService().get_favourite_address(userId, Utils.HOME_ADDRESS).enqueue(object : Callback<FavoriteAddress> {
+                override fun onResponse(call: Call<FavoriteAddress>, response: Response<FavoriteAddress>) {
+                    if (response.body()?.data?.favoriteAddresses == null) {
+                        return
+                    }
+                    val address = response.body()?.data?.favoriteAddresses?.address ?: return
+                    val tripPlace = TripPlace()
+                    tripPlace.locale = address.address
+                    tripPlace.coord = LatLng(address.lat.toDouble(), address.lng)
+                    PreferenceManager.setTripPlace(KEY_HOME, tripPlace)
+                    Log.i("get home address", address.address)
                 }
-                val address = response.body()?.data?.favoriteAddresses?.address ?: return
-                val tripPlace = TripPlace()
-                tripPlace.locale = address.address
-                tripPlace.coord = LatLng(address.lat.toDouble(), address.lng)
-                PreferenceManager.setTripPlace(KEY_HOME, tripPlace)
-                Log.i("get home address", address.address)
-            }
 
-            override fun onFailure(call: Call<FavoriteAddress>, t: Throwable) {
-                Log.i("get home address", "failure")
-            }
-        })
+                override fun onFailure(call: Call<FavoriteAddress>, t: Throwable) {
+                    Log.i("get home address", "failure")
+                }
+            })
+        }
     }
 
 }

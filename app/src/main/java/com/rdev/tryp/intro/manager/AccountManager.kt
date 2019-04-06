@@ -34,7 +34,7 @@ class AccountManager {
         fun getInstance(): AccountManager? {
             if (instance == null)
                 instance = AccountManager()
-            instance?.userId = PreferenceManager.getInt("USER_ID_KEY")
+            PreferenceManager.getInt("USER_ID_KEY")?.let { userId -> instance?.userId = userId }
 
             return instance
         }
