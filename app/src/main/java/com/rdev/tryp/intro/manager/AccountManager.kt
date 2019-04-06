@@ -1,7 +1,6 @@
 package com.rdev.tryp.intro.manager
 
 import android.content.Context
-import android.util.Log
 import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.utils.PreferenceManager
 
