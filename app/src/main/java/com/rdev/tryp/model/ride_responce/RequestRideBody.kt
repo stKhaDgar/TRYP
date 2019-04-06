@@ -49,7 +49,7 @@ class RequestRideBody(from: Address, destination: Address, isAsap: Boolean, driv
         category = driver.category
         fare = driver.fare
         pickup_time = currentDate
-        ip_address = Utils.getIPAddress()
+        ip_address = Utils.ipAddress
     }
 
     override fun toString(): String {

@@ -91,7 +91,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        service = ApiClient.getInstance().create(ApiService.class);
+        service = ApiClient.INSTANCE.getInstance().create(ApiService.class);
     }
 
     @SuppressLint("ValidFragment")
@@ -228,7 +228,7 @@ public class TripFragment extends Fragment implements View.OnClickListener {
                     toAddress.get(0).getAddressLine(0),
                     ((ContentActivity) activity).getCurrentFare());
 
-            NetworkService.getApiService().ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
+            NetworkService.INSTANCE.getApiService().ride_request(requestRideBody).enqueue(new Callback<RideResponse>() {
                 @Override
                 public void onResponse(Call<RideResponse> call, final Response<RideResponse> response) {
                     RideResponse body = response.body();
