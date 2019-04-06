@@ -17,7 +17,6 @@ class AccountManager {
     var isUserSignIn = userId != -1
 
     fun signIn(userId: Int) {
-        Log.e("SignInProblem", userId.toString())
         this.userId = userId
         PreferenceManager.setInt(USER_ID_KEY, userId)
     }
@@ -31,12 +30,12 @@ class AccountManager {
 
     companion object {
         private var instance: AccountManager? = null
-        private val USER_ID_KEY = "USER_ID_KEY"
+        private const val USER_ID_KEY = "USER_ID_KEY"
 
         fun getInstance(): AccountManager? {
             if (instance == null)
                 instance = AccountManager()
-            PreferenceManager.getInt("USER_ID_KEY")?.let { userId ->
+            PreferenceManager.getInt(USER_ID_KEY)?.let { userId ->
                 instance?.userId = userId
             }
             instance?.isUserSignIn = instance?.userId != -1
