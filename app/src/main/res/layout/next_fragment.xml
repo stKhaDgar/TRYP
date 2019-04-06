@@ -129,18 +129,19 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <ImageButton
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/circle_button_revert_time"
-                android:clickable="true"
-                android:elevation="8dp"
-                android:focusable="true"
-                android:src="@drawable/ic_timer"
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+			<ImageButton
+				android:id="@+id/btnRecentRides"
+				android:layout_width="36dp"
+				android:layout_height="36dp"
+				android:layout_marginEnd="24dp"
+				android:background="@drawable/circle_button_revert_time"
+				android:clickable="true"
+				android:elevation="8dp"
+				android:focusable="true"
+				android:src="@drawable/ic_timer"
+				app:layout_constraintBottom_toBottomOf="@+id/textView7"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

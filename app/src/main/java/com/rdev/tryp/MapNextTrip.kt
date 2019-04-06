@@ -3,7 +3,6 @@ package com.rdev.tryp
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-
+import androidx.core.content.ContextCompat
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment
 import com.rdev.tryp.model.RealmUtils
-import com.rdev.tryp.model.login_response.Users
 import com.squareup.picasso.Picasso
-
-import java.util.Objects
 import androidx.fragment.app.Fragment
+
 
 class MapNextTrip : Fragment(), View.OnClickListener {
 
@@ -27,12 +24,11 @@ class MapNextTrip : Fragment(), View.OnClickListener {
     private var shareBtn: ImageView? = null
     private var nextBtn: RelativeLayout? = null
     private var tvWelcome: TextView? = null
+    private var btnRecentRides: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.next_fragment, container, false)
-
         initView(v)
-
         return v
     }
 
@@ -42,15 +38,17 @@ class MapNextTrip : Fragment(), View.OnClickListener {
         nextBtn = v.findViewById(R.id.next_layout_btn)
         shareBtn = v.findViewById(R.id.share_btn)
         tvWelcome = v.findViewById(R.id.welcome_name)
+        btnRecentRides = v.findViewById(R.id.btnRecentRides)
 
         locationBtn?.setOnClickListener(this)
         nextBtn?.setOnClickListener(this)
         shareBtn?.setOnClickListener(this)
+        btnRecentRides?.setOnClickListener(this)
 
-        initUI()
+        initUI(v)
     }
 
-    fun initUI() {
+    fun initUI(v: View) {
         val user = RealmUtils(activity, null).getCurrentUser()
         val img = user?.image
 
@@ -59,7 +57,7 @@ class MapNextTrip : Fragment(), View.OnClickListener {
         } else {
             val height = 100
             val width = 100
-            val bitmapDraw = resources.getDrawable(R.drawable.small_person) as BitmapDrawable
+            val bitmapDraw = ContextCompat.getDrawable(v.context, R.drawable.small_person) as BitmapDrawable
             val b = bitmapDraw.bitmap
             val bitmap = Bitmap.createScaledBitmap(b, width, height, false)
             smallImage?.setImageBitmap(bitmap)
