@@ -36,10 +36,10 @@ class TrypCarHostFragment : Fragment() {
         return v
     }
 
-    fun setDrivers(drivers: List<*>, currentPos: Int) {
-        this.drivers = drivers
-        this.currentPos = currentPos
-        if (adapter != null) {
+    fun setDrivers(drivers: List<*>?, currentPos: Int) {
+        drivers?.let { list ->
+            this.drivers = list
+            this.currentPos = currentPos
             adapter?.setDrivers(drivers)
         }
     }

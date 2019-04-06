@@ -87,8 +87,8 @@ class FeedbackDriverFragment : Fragment() {
 
         view.btnSubmit.setOnClickListener {
             (activity as? ContentActivity)?.let { act ->
-                act.database?.let { db ->
-                    act.currentRide.driver?.id?.let { id ->
+                act.database.let { db ->
+                    act.currentRide?.driver?.id?.let { id ->
                         val feedback = Feedback()
                         val user = RealmUtils(view.context, null).getCurrentUser()
                         feedback.clientId = user?.userId.toString()

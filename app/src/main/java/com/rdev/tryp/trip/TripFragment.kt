@@ -60,7 +60,7 @@ import io.realm.internal.SyncObjectServerFacade.getApplicationContext
 
 @SuppressLint("ValidFragment")
 class TripFragment @SuppressLint("ValidFragment")
-constructor(private val currentPosition: LatLng, private val destinationPosition: LatLng) : Fragment(), View.OnClickListener {
+constructor() : Fragment(), View.OnClickListener {
     
     private var tripRv: RecyclerView? = null
     private var service: ApiService? = null
@@ -189,17 +189,17 @@ constructor(private val currentPosition: LatLng, private val destinationPosition
 
     companion object {
 
-        fun orderTrip(activity: Activity, driversItem: Driver, start: TripPlace, end: TripPlace) {
+        fun orderTrip(activity: Activity, driversItem: Driver, start: TripPlace?, end: TripPlace?) {
             val geocoder = Geocoder(activity)
             try {
                 var fromAddress: List<Address>? = null
-                start.coord?.latitude?.let { lat ->
+                start?.coord?.latitude?.let { lat ->
                     start.coord?.longitude?.let { lng ->
                         fromAddress = geocoder.getFromLocation(lat, lng, 1)
                     }
                 }
                 var toAddress: List<Address>? = null
-                end.coord?.latitude?.let { lat ->
+                end?.coord?.latitude?.let { lat ->
                     end.coord?.longitude?.let { lng ->
                         toAddress = geocoder.getFromLocation(lat, lng, 1)
                     }
@@ -215,8 +215,8 @@ constructor(private val currentPosition: LatLng, private val destinationPosition
 
                 val ride = Ride(null,
                         RealmUtils(activity, null).getCurrentUser()?.userId?.toString(),
-                        Location(end.coord?.latitude, end.coord?.longitude),
-                        Location(start.coord?.latitude, start.coord?.longitude), null,
+                        Location(end?.coord?.latitude, end?.coord?.longitude),
+                        Location(start?.coord?.latitude, start?.coord?.longitude), null,
                         fromAddress?.get(0)?.getAddressLine(0),
                         toAddress?.get(0)?.getAddressLine(0),
                         (activity as ContentActivity).currentFare)
@@ -290,7 +290,7 @@ constructor(private val currentPosition: LatLng, private val destinationPosition
                                                 TripPlace(Locale.getDefault().displayCountry, endPos),
                                                 false)
 
-                                        activity.myCurrentLocationMarker.isVisible = false
+                                        activity.myCurrentLocationMarker?.isVisible = false
 
                                         showAlertDialod("Trip started!", "The driver started the trip", activity)
 
@@ -299,7 +299,7 @@ constructor(private val currentPosition: LatLng, private val destinationPosition
 
                                         NotificationHelper.statusChanged(getApplicationContext())
 
-                                        activity.myCurrentLocationMarker.isVisible = true
+                                        activity.myCurrentLocationMarker?.isVisible = true
                                         activity.zoomToCurrentLocation()
                                         currentCar = null
 

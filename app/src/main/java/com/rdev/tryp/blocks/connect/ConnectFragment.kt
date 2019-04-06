@@ -21,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 @SuppressLint("ValidFragment")
 class ConnectFragment @SuppressLint("ValidFragment")
-constructor(private val driver: Driver) : Fragment(), View.OnClickListener {
+constructor(private val driver: Driver?) : Fragment(), View.OnClickListener {
 
     private var root:           View? = null
     private var backBtn:        ImageView? = null
@@ -71,13 +71,13 @@ constructor(private val driver: Driver) : Fragment(), View.OnClickListener {
         supportIv?.setOnClickListener(this)
         contactCv?.setOnClickListener(this)
 
-        driver.vehicle?.plateNumber?.let { plateText -> carNum?.text = plateText }
+        driver?.vehicle?.plateNumber?.let { plateText -> carNum?.text = plateText }
 
-        val tempName = "${driver.firstName} ${driver.lastName}"
+        val tempName = "${driver?.firstName} ${driver?.lastName}"
         plateNumber?.text = tempName
         driverName?.text = tempName
-        rating?.text = driver.rating.toString()
-        Glide.with(context).load(driver.image).into(driverIv)
+        rating?.text = driver?.rating.toString()
+        Glide.with(context).load(driver?.image).into(driverIv)
     }
 
     fun setTime(time: String) {
