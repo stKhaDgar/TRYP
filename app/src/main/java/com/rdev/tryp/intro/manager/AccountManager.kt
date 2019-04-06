@@ -1,6 +1,7 @@
 package com.rdev.tryp.intro.manager
 
 import android.content.Context
+import android.util.Log
 import com.rdev.tryp.model.RealmUtils
 import com.rdev.tryp.utils.PreferenceManager
 
@@ -11,11 +12,12 @@ import com.rdev.tryp.utils.PreferenceManager
 
 class AccountManager {
 
-    var userId: Int = 0
+    var userId: Int = -1
 
-    val isUserSignIn = userId != -1
+    var isUserSignIn = userId != -1
 
     fun signIn(userId: Int) {
+        Log.e("SignInProblem", userId.toString())
         this.userId = userId
         PreferenceManager.setInt(USER_ID_KEY, userId)
     }
@@ -34,7 +36,10 @@ class AccountManager {
         fun getInstance(): AccountManager? {
             if (instance == null)
                 instance = AccountManager()
-            PreferenceManager.getInt("USER_ID_KEY")?.let { userId -> instance?.userId = userId }
+            PreferenceManager.getInt("USER_ID_KEY")?.let { userId ->
+                instance?.userId = userId
+            }
+            instance?.isUserSignIn = instance?.userId != -1
 
             return instance
         }
