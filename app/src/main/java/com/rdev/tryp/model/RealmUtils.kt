@@ -31,10 +31,10 @@ class RealmUtils(context: Context?, private val callback: RealmCallback?){
         return realm
     }
 
-    fun pushUser(temp: Users) {
+    fun pushUser(temp: Users?) {
         realm.executeTransactionAsync({ bgRealm ->
 
-            bgRealm.copyToRealmOrUpdate(temp)
+            temp?.let { user -> bgRealm.copyToRealmOrUpdate(user) }
 
         }, {
             Log.e(TAG, "User was updated")

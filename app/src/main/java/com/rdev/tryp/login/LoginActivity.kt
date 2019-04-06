@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                     if (netInfo != null && netInfo.state == NetworkInfo.State.CONNECTED)
                         status = true
                 }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
                 return false
             }
@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
     fun verifySms(verification_code: String?) {
         loginModel = LoginModel(number)
         loginModel.verification_code = verification_code
-        if (isNetworkOnline && loginModel.verification_code.length == 4) {
+        if (isNetworkOnline && loginModel.verification_code?.length == 4) {
             apiService.verifySms(loginModel).enqueue(object : Callback<VerifySmsResponse> {
                 override fun onResponse(call: Call<VerifySmsResponse>, response: Response<VerifySmsResponse>) {
                     val body = response.body()
@@ -112,12 +112,12 @@ class LoginActivity : AppCompatActivity() {
 
                     AddressNetworkService.initFavoriteAddresses()
 
-                    AccountManager.getInstance()?.signIn(body.data.users.userId)
+                    body.data?.users?.userId?.let { id -> AccountManager.getInstance()?.signIn(id) }
 
                     RealmUtils(applicationContext, object : RealmCallback {
                         override fun dataUpdated() {
 
-                            TrypDatabase().getOrCreateUser(body.data.users, this@LoginActivity, object : RealmCallback {
+                            TrypDatabase().getOrCreateUser(body.data?.users, this@LoginActivity, object : RealmCallback {
                                 override fun dataUpdated() {
                                     val intent = Intent(this@LoginActivity, ContentActivity::class.java)
                                     intent.putExtra("tag", "f")
@@ -141,14 +141,14 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         }
 
-                    }).pushUser(body.data.users)
+                    }).pushUser(body.data?.users)
                 }
 
                 override fun onFailure(call: Call<VerifySmsResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, t.message, Toast.LENGTH_LONG).show()
                 }
             })
-        } else if (loginModel.verification_code.length < 4) {
+        } else if ("${loginModel.verification_code}".length < 4) {
             Toast.makeText(this@LoginActivity, "Please enter verification code", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this@LoginActivity, "No Internet Connection", Toast.LENGTH_SHORT).show()

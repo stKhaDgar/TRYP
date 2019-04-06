@@ -37,8 +37,8 @@ object AddressNetworkService {
 
         if (lastHome != null) {
             model.address = lastHome.locale
-            model.lat = lastHome.coord.latitude.toString()
-            model.lng = lastHome.coord.longitude.toString()
+            model.lat = lastHome.coord?.latitude.toString()
+            model.lng = lastHome.coord?.longitude.toString()
             model.type = Utils.HOME_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
@@ -62,8 +62,8 @@ object AddressNetworkService {
             }
 
             model.address = newAddress.locale
-            model.lat = newAddress.coord.latitude.toString()
-            model.lng = newAddress.coord.longitude.toString()
+            model.lat = newAddress.coord?.latitude.toString()
+            model.lng = newAddress.coord?.longitude.toString()
             model.type = Utils.HOME_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
@@ -94,8 +94,8 @@ object AddressNetworkService {
 
         if (lastWork != null) {
             model.address = lastWork.locale
-            model.lat = lastWork.coord.latitude.toString()
-            model.lng = lastWork.coord.longitude.toString()
+            model.lat = lastWork.coord?.latitude.toString()
+            model.lng = lastWork.coord?.longitude.toString()
             model.type = Utils.WORK_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
@@ -118,8 +118,8 @@ object AddressNetworkService {
                 return
             }
             model.address = newAddress.locale
-            model.lat = newAddress.coord.latitude.toString()
-            model.lng = newAddress.coord.longitude.toString()
+            model.lat = newAddress.coord?.latitude.toString()
+            model.lng = newAddress.coord?.longitude.toString()
             model.type = Utils.WORK_ADDRESS
             model.userId = AccountManager.getInstance()?.userId
 
@@ -154,7 +154,11 @@ object AddressNetworkService {
                     val address = response.body()?.data?.favoriteAddresses?.address ?: return
                     val tripPlace = TripPlace()
                     tripPlace.locale = address.address
-                    tripPlace.coord = LatLng(address.lat.toDouble(), address.lng)
+                    address.lat?.let { lat ->
+                        address.lng?.let { lng ->
+                            tripPlace.coord = LatLng(lat.toDouble(), lng)
+                        }
+                    }
                     PreferenceManager.setTripPlace(KEY_WORK, tripPlace)
                     Log.i("get work address", address.address)
                 }
@@ -176,7 +180,11 @@ object AddressNetworkService {
                     val address = response.body()?.data?.favoriteAddresses?.address ?: return
                     val tripPlace = TripPlace()
                     tripPlace.locale = address.address
-                    tripPlace.coord = LatLng(address.lat.toDouble(), address.lng)
+                    address.lat?.let { lat ->
+                        address.lng?.let { lng ->
+                            tripPlace.coord = LatLng(lat.toDouble(), lng)
+                        }
+                    }
                     PreferenceManager.setTripPlace(KEY_HOME, tripPlace)
                     Log.i("get home address", address.address)
                 }

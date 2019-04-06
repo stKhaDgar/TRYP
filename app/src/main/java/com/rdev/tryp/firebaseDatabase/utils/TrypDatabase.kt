@@ -132,19 +132,19 @@ class TrypDatabase{
         })
     }
 
-    fun getOrCreateUser(user: Users, context: Context?, callback: RealmCallback?){
+    fun getOrCreateUser(user: Users?, context: Context?, callback: RealmCallback?){
         val clients = database.reference.child(const.CLIENTS)
 
-        clients.child(user.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+        clients.child(user?.userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) { callback?.error() }
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val client = clients.child(user.userId.toString())
+                val client = clients.child(user?.userId.toString())
 
                 if(dataSnapshot.exists()){
                     val item = dataSnapshot.getValue(Client::class.java)
                     RealmUtils(context, null).updateUser(item)
                 } else {
-                    val temp = Client(user.userId.toString(), user.firstName, user.lastName, null, 5.0F)
+                    val temp = Client(user?.userId.toString(), user?.firstName, user?.lastName, null, 5.0F)
                     client.setValue(temp)
                 }
 
