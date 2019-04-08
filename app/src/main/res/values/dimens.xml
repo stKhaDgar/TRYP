@@ -208,5 +208,7 @@
 	<dimen name="height200">250dp</dimen>
 	<dimen name="height354">354dp</dimen>
 
+    <dimen name="height_margin_top_card_recent_rides">-200dp</dimen>
+    <dimen name="max_height_card_view_recent_rides">150dp</dimen>
     <dimen name="dimen16">16dp</dimen>
 </resources>

@@ -1,0 +1,22 @@
+package com.rdev.tryp.firebaseDatabase.model
+
+import com.google.firebase.database.IgnoreExtraProperties
+import java.text.SimpleDateFormat
+import java.util.*
+
+/**
+ * Created by Andrey Berezhnoi on 08.04.2019.
+ */
+
+
+@IgnoreExtraProperties
+class RecentDestination(var createdAt: String?){
+    var id: String? = null
+    var address: String? = null
+    var dateCreatedAt: Date? = null
+    var destinationLocation: Location? = null
+
+    init {
+        dateCreatedAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(createdAt)
+    }
+}

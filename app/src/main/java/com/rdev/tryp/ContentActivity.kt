@@ -780,7 +780,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
         for (i in list.indices) {
             if (list[i] is MapNextTrip) {
-                (list[i] as MapNextTrip).initUI()
+                list[i].view?.let { v -> (list[i] as MapNextTrip).initUI(v) }
             }
         }
 

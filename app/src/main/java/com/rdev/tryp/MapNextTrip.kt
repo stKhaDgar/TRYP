@@ -1,5 +1,7 @@
 package com.rdev.tryp
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -10,11 +12,16 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment
 import com.rdev.tryp.model.RealmUtils
 import com.squareup.picasso.Picasso
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.rdev.tryp.adapters.RecentRidesAdapter
+import com.rdev.tryp.firebaseDatabase.model.RecentDestination
 
 
 class MapNextTrip : Fragment(), View.OnClickListener {
@@ -24,12 +31,28 @@ class MapNextTrip : Fragment(), View.OnClickListener {
     private var shareBtn: ImageView? = null
     private var nextBtn: RelativeLayout? = null
     private var tvWelcome: TextView? = null
-    private var btnRecentRides: TextView? = null
+    private var btnRecentRides: ImageButton? = null
+    private lateinit var cvRecentRides: CardView
+    private lateinit var rvRecentRides: RecyclerView
+    private var recentRidesIsOpen = false
+    private var isFirstOpenedRecentRides = true
+
+    private lateinit var adapter: RecentRidesAdapter
+    private val itemList = ArrayList<RecentDestination>()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.next_fragment, container, false)
         initView(v)
+        initAdapters(v)
         return v
+    }
+
+    private fun initAdapters(v: View){
+        adapter = RecentRidesAdapter(itemList, v.context)
+
+        rvRecentRides.adapter = adapter
+        rvRecentRides.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
     private fun initView(v: View) {
@@ -39,6 +62,8 @@ class MapNextTrip : Fragment(), View.OnClickListener {
         shareBtn = v.findViewById(R.id.share_btn)
         tvWelcome = v.findViewById(R.id.welcome_name)
         btnRecentRides = v.findViewById(R.id.btnRecentRides)
+        cvRecentRides = v.findViewById(R.id.cvRecentRides)
+        rvRecentRides = v.findViewById(R.id.rvRecentRides)
 
         locationBtn?.setOnClickListener(this)
         nextBtn?.setOnClickListener(this)
@@ -79,6 +104,70 @@ class MapNextTrip : Fragment(), View.OnClickListener {
                     ?.add(R.id.screenContainer, InviteFriendsFragment())
                     ?.addToBackStack("share")
                     ?.commit()
+            R.id.btnRecentRides -> {
+
+                if(isFirstOpenedRecentRides){
+
+                    val itemList = ArrayList<RecentDestination>()
+                    val recent = RecentDestination("2018-09-24T18:01:24.520Z")
+                    recent.address = "Мост-Сити центр, калиновая 5а"
+                    val recent2 = RecentDestination("2018-09-24T18:01:24.520Z")
+                    recent2.address = "Пуерто Рико, заводская 10а"
+                    val recent3 = RecentDestination("2018-09-24T18:01:24.520Z")
+                    recent3.address = "Парус-2, альпийский 67в"
+                    val recent4 = RecentDestination("2018-09-24T18:01:24.520Z")
+                    recent4.address = "Одесса, центральный вокзал, чебуречная"
+                    itemList.add(recent)
+                    itemList.add(recent2)
+                    itemList.add(recent3)
+                    itemList.add(recent4)
+                    itemList.add(recent2)
+                    itemList.add(recent3)
+                    itemList.add(recent)
+                    itemList.add(recent4)
+                    itemList.add(recent3)
+
+                    if(itemList.size > 3){
+                        rvRecentRides.layoutParams.height = view.resources.getDimensionPixelSize(R.dimen.max_height_card_view_recent_rides)
+                    }
+
+                    for(item in itemList){
+                        this.itemList.add(item)
+                    }
+
+                    adapter.notifyDataSetChanged()
+
+                }
+
+                if(recentRidesIsOpen){
+
+                    val va = ValueAnimator.ofFloat(cvRecentRides.translationY, view.resources.getDimension(R.dimen.height_margin_top_card_recent_rides))
+
+                    va.duration = 600
+
+                    va.addUpdateListener { animation ->
+                        val value = animation.animatedValue as Float
+                        cvRecentRides.translationY = value
+                    }
+                    va.start()
+                    recentRidesIsOpen = false
+
+                } else {
+
+                    val va = ValueAnimator.ofFloat(cvRecentRides.translationY, 0F)
+
+                    va.duration = 600
+
+                    va.addUpdateListener { animation ->
+                        val value = animation.animatedValue as Float
+                        cvRecentRides.translationY = value
+                    }
+                    va.start()
+                    recentRidesIsOpen = true
+                    isFirstOpenedRecentRides = false
+
+                }
+            }
         }
     }
     
