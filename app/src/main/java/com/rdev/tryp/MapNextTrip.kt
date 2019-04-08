@@ -1,6 +1,5 @@
 package com.rdev.tryp
 
-import android.animation.Animator
 import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -122,17 +121,14 @@ class MapNextTrip : Fragment(), View.OnClickListener {
                     itemList.add(recent3)
                     itemList.add(recent4)
                     itemList.add(recent2)
-                    itemList.add(recent3)
                     itemList.add(recent)
-                    itemList.add(recent4)
-                    itemList.add(recent3)
-
-                    if(itemList.size > 3){
-                        rvRecentRides.layoutParams.height = view.resources.getDimensionPixelSize(R.dimen.max_height_card_view_recent_rides)
-                    }
 
                     for(item in itemList){
                         this.itemList.add(item)
+                    }
+
+                    if(this.itemList.size > 3){
+                        rvRecentRides.layoutParams.height = view.resources.getDimensionPixelSize(R.dimen.max_height_card_view_recent_rides)
                     }
 
                     adapter.notifyDataSetChanged()
@@ -170,5 +166,5 @@ class MapNextTrip : Fragment(), View.OnClickListener {
             }
         }
     }
-    
+
 }

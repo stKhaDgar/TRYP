@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rdev.tryp.R
@@ -27,15 +28,16 @@ class RecentRidesAdapter(private val itemList: ArrayList<RecentDestination>, pri
 
         holder.name?.text = item.address
 
-        Log.e("DebugRecycler", item.address)
-    }
+        if(position == itemCount-1){
+            (holder.mainLayout?.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
+        }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
+        Log.e("DebugRecycler", item.address)
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.findViewById(R.id.tvName) as? TextView
+        val mainLayout = itemView.findViewById(R.id.mainLayout) as? LinearLayout
     }
 
 }
