@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rdev.tryp.adapters.RecentRidesAdapter
+import com.rdev.tryp.firebaseDatabase.RecentDriversCallback
 import com.rdev.tryp.firebaseDatabase.model.RecentDestination
 
 
@@ -107,31 +109,23 @@ class MapNextTrip : Fragment(), View.OnClickListener {
 
                 if(isFirstOpenedRecentRides){
 
-                    val itemList = ArrayList<RecentDestination>()
-                    val recent = RecentDestination("2018-09-24T18:01:24.520Z")
-                    recent.address = "Мост-Сити центр, калиновая 5а"
-                    val recent2 = RecentDestination("2018-09-24T18:01:24.520Z")
-                    recent2.address = "Пуерто Рико, заводская 10а"
-                    val recent3 = RecentDestination("2018-09-24T18:01:24.520Z")
-                    recent3.address = "Парус-2, альпийский 67в"
-                    val recent4 = RecentDestination("2018-09-24T18:01:24.520Z")
-                    recent4.address = "Одесса, центральный вокзал, чебуречная"
-                    itemList.add(recent)
-                    itemList.add(recent2)
-                    itemList.add(recent3)
-                    itemList.add(recent4)
-                    itemList.add(recent2)
-                    itemList.add(recent)
+                    (activity as ContentActivity).database.getRecentDestinationsRides(object : RecentDriversCallback{
+                        override fun onUpdated(list: ArrayList<RecentDestination>) {
+                            Log.e("DebugSOmeRecent", list.size.toString())
 
-                    for(item in itemList){
-                        this.itemList.add(item)
-                    }
+                            this@MapNextTrip.itemList.clear()
 
-                    if(this.itemList.size > 3){
-                        rvRecentRides.layoutParams.height = view.resources.getDimensionPixelSize(R.dimen.max_height_card_view_recent_rides)
-                    }
+                            for(item in list){
+                                this@MapNextTrip.itemList.add(item)
+                            }
 
-                    adapter.notifyDataSetChanged()
+                            if(this@MapNextTrip.itemList.size > 3){
+                                rvRecentRides.layoutParams.height = view.resources.getDimensionPixelSize(R.dimen.max_height_card_view_recent_rides)
+                            }
+
+                            adapter.notifyDataSetChanged()
+                        }
+                    })
 
                 }
 

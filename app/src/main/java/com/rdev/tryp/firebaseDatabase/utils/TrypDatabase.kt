@@ -13,6 +13,7 @@ import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.DriverApproveListener
+import com.rdev.tryp.firebaseDatabase.RecentDriversCallback
 import com.rdev.tryp.firebaseDatabase.model.*
 import com.rdev.tryp.model.RealmCallback
 import com.rdev.tryp.model.RealmUtils
@@ -270,7 +271,27 @@ class TrypDatabase{
                     override fun onCancelled(p0: DatabaseError) {}
 
                 })
+    }
 
+    fun getRecentDestinationsRides(callback: RecentDriversCallback){
+
+        database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.RECENT_DESTINATION_ARRAY_PARAM)
+                .addValueEventListener(object : ValueEventListener{
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val tempArr = ArrayList<RecentDestination>()
+
+                        for(postSnapshot in dataSnapshot.children){
+                            postSnapshot.getValue(RecentDestination::class.java)?.let { item ->
+                                tempArr.add(item)
+                            }
+                        }
+
+                        callback.onUpdated(tempArr)
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {}
+                })
     }
 
     fun sendFeedback(id: String, feedback: Feedback) {
