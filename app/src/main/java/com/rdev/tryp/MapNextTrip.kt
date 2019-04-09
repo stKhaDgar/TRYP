@@ -4,14 +4,10 @@ import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.rdev.tryp.blocks.invite_friends.InviteFriendsFragment
@@ -49,7 +45,13 @@ class MapNextTrip : Fragment(), View.OnClickListener {
     }
 
     private fun initAdapters(v: View){
-        adapter = RecentRidesAdapter(itemList, v.context)
+        adapter = RecentRidesAdapter(itemList, v.context, object: MapNextTripListener.OnItemClickListener{
+
+            override fun onItemClicked(position: Int) {
+                Toast.makeText(v.context, itemList[position].address, Toast.LENGTH_LONG).show()
+            }
+
+        })
 
         rvRecentRides.adapter = adapter
         rvRecentRides.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -107,7 +109,6 @@ class MapNextTrip : Fragment(), View.OnClickListener {
             R.id.btnRecentRides -> {
 
                 if(isFirstOpenedRecentRides){
-
                     (activity as ContentActivity).database.getRecentDestinationsRides(object : RecentDriversCallback{
                         override fun onUpdated(list: ArrayList<RecentDestination>) {
                             this@MapNextTrip.itemList.clear()
@@ -123,7 +124,6 @@ class MapNextTrip : Fragment(), View.OnClickListener {
                             adapter.notifyDataSetChanged()
                         }
                     })
-
                 }
 
                 if(recentRidesIsOpen){

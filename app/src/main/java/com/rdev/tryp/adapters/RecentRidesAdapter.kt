@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.rdev.tryp.MapNextTripListener
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.model.RecentDestination
 
@@ -16,7 +17,7 @@ import com.rdev.tryp.firebaseDatabase.model.RecentDestination
  */
 
 
-class RecentRidesAdapter(private val itemList: ArrayList<RecentDestination>, private val context: Context) : RecyclerView.Adapter<RecentRidesAdapter.Holder>(){
+class RecentRidesAdapter(private val itemList: ArrayList<RecentDestination>, private val context: Context, private val listener: MapNextTripListener.OnItemClickListener) : RecyclerView.Adapter<RecentRidesAdapter.Holder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             Holder(LayoutInflater.from(parent.context).inflate(R.layout.item_recent_ride, parent, false))
@@ -31,6 +32,8 @@ class RecentRidesAdapter(private val itemList: ArrayList<RecentDestination>, pri
         if(position == itemCount-1){
             (holder.mainLayout?.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
         }
+
+        holder.mainLayout?.setOnClickListener { listener.onItemClicked(position) }
 
         Log.e("DebugRecycler", item.address)
     }
