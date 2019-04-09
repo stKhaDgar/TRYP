@@ -139,6 +139,10 @@ class MapNextTrip : Fragment(), View.OnClickListener {
                     va.start()
                     recentRidesIsOpen = false
 
+                    val padding = view.resources.getDimensionPixelSize(R.dimen.padding6)
+                    btnRecentRides?.setPadding(padding, padding, padding, padding)
+                    btnRecentRides?.setImageResource(R.drawable.ic_timer)
+
                 } else {
 
                     val va = ValueAnimator.ofFloat(cvRecentRides.translationY, 0F)
@@ -153,6 +157,9 @@ class MapNextTrip : Fragment(), View.OnClickListener {
                     recentRidesIsOpen = true
                     isFirstOpenedRecentRides = false
 
+                    val padding = view.resources.getDimensionPixelSize(R.dimen.padding10)
+                    btnRecentRides?.setPadding(padding, padding, padding, padding)
+                    btnRecentRides?.setImageResource(R.drawable.ic_krest)
                 }
             }
         }

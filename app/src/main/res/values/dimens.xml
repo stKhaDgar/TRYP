@@ -199,6 +199,10 @@
     <dimen name="recent_date_margin_right">12dp</dimen>
     <dimen name="recent_message_text_size">12sp</dimen>
 
+    <!-- Some Paddings -->
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="padding6">6dp</dimen>
+
     <!-- Price Size -->
     <dimen name="price_less_than_five">72sp</dimen>
     <dimen name="price_less_than_seven">48sp</dimen>

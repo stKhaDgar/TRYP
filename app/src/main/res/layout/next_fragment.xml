@@ -154,6 +154,7 @@
                     </LinearLayout>
 
                 </RelativeLayout>
+
             </androidx.cardview.widget.CardView>
 
 			<ImageButton
@@ -165,6 +166,9 @@
 				android:clickable="true"
 				android:elevation="8dp"
 				android:focusable="true"
+				android:tint="@color/white"
+				android:scaleType="centerCrop"
+				android:padding="6dp"
 				android:src="@drawable/ic_timer"
 				app:layout_constraintBottom_toBottomOf="@+id/textView7"
 				app:layout_constraintEnd_toEndOf="parent"
