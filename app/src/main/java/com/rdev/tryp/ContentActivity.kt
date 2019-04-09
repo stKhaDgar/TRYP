@@ -662,7 +662,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         })
     }
 
-    fun initMenu() {
+    private fun initMenu() {
         mDrawerLayout = findViewById(R.id.drawer_layout)
 
         navigationView = findViewById(R.id.nav_view)

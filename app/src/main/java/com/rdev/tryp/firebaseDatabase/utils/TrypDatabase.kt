@@ -305,6 +305,19 @@ class TrypDatabase{
                 })
     }
 
+    fun pushRecentDestination(ride: Ride) {
+        val item = database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.RECENT_DESTINATION_ARRAY_PARAM).push()
+
+        val recentDestination = RecentDestination()
+
+        recentDestination.id = item.key
+        recentDestination.address = ride.toAddress
+        recentDestination.destinationLocation = ride.destinationLocation
+        recentDestination.createdAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).format(Calendar.getInstance().time)
+
+        item.setValue(recentDestination)
+    }
+
     fun sendFeedback(id: String, feedback: Feedback) {
         val item = database.reference.child(const.DRIVERS).child(id).child(const.FEEDBACKS_ARRAY_PARAM).push()
         feedback.id = item.key

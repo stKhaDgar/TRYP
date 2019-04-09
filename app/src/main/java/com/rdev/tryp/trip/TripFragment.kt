@@ -232,9 +232,9 @@ constructor() : Fragment(), View.OnClickListener {
 
                             ride.id = rideRequest?.requestId
                             activity.database.startRide(ride, driversItem.driverId, object : DriverApproveListener {
-                                internal var connectIsShown = false
-                                internal var status = 0
-                                internal var currentCar: Pair<GroundOverlay, AvailableDriver>? = null
+                                var connectIsShown = false
+                                var status = 0
+                                var currentCar: Pair<GroundOverlay, AvailableDriver>? = null
 
                                 override fun isApproved(ride: Ride?) {
                                     if (status != 0) {
@@ -304,6 +304,7 @@ constructor() : Fragment(), View.OnClickListener {
                                         currentCar = null
 
                                         activity.startFragment(ContentActivity.TYPE_RIDE_COMPLETED)
+                                        activity.database.pushRecentDestination(ride)
                                     }
 
                                     if (currentCar != null) {
