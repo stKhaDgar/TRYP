@@ -111,7 +111,8 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
             })
 
         }
-        showKeyboard(Objects.requireNonNull<Context>(context))
+
+        showKeyboard(context)
 
         return view
     }

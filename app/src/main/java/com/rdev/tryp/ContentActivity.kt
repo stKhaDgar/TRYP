@@ -334,15 +334,15 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
     }
 
     private fun updateCurrentLocation(currentPos: LatLng?) {
-        if (currentPos != null) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17f))
+        currentPos?.let { pos ->
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 17f))
 
             if (currentPosMarker != null && currentPosMarker?.isVisible == true) {
                 currentPosMarker?.remove()
             }
 
             isLocationFound = true
-            pickUpLocation = currentPos
+            pickUpLocation = pos
         }
     }
 
