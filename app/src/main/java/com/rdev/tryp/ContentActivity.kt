@@ -172,11 +172,9 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                     updateCurrentLocation(location)
                 }
             } catch (e: NullPointerException) {
-
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
         }
 
         override fun onStatusChanged(s: String, i: Int, bundle: Bundle) {}
@@ -220,6 +218,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
             "connect" -> fragment = ConnectFragment(driver)
             else -> fragment = MapNextTrip()
         }
+
         supportFragmentManager.beginTransaction()
                 .add(R.id.container, fragment)
                 .addToBackStack("detail")
@@ -246,7 +245,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         } catch (e: Resources.NotFoundException) {
             Log.e(TAG, "Can't find style. Error: ", e)
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -315,21 +313,20 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
         val height = 270
         val width = 225
-        val bitmapdraw = ContextCompat.getDrawable(this@ContentActivity, R.drawable.current_location_marker) as BitmapDrawable
-        val b = bitmapdraw.bitmap
+        val bitmapDraw = ContextCompat.getDrawable(this@ContentActivity, R.drawable.current_location_marker) as BitmapDrawable
+        val b = bitmapDraw.bitmap
         val markerBitmap = Bitmap.createScaledBitmap(b, width, height, false)
 
         if (myCurrentLocationMarker == null) {
             myCurrentLocationMarker = mMap.addMarker(MarkerOptions().position(currentPos)
                     .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)))
-
         } else {
             myCurrentLocationMarker?.position = currentPos
         }
 
         isLocationFound = true
-        val geocoder = Geocoder(this@ContentActivity)
-        val addressList = geocoder.getFromLocation(currentPos.latitude, currentPos.longitude, 1)
+        val geoCoder = Geocoder(this@ContentActivity)
+        val addressList = geoCoder.getFromLocation(currentPos.latitude, currentPos.longitude, 1)
         currentLocate = (addressList[0].thoroughfare + " " + addressList[0].locality + ", "
                 + addressList[0].adminArea + ", " + addressList[0].countryName)
         Log.d("tag", addressList.toString())
@@ -412,12 +409,12 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
         val height = 270
         val width = 225
-        val bitmapdraw = ContextCompat.getDrawable(this@ContentActivity, R.drawable.destination_marker) as BitmapDrawable
-        val b = bitmapdraw.bitmap
+        val bitmapDraw = ContextCompat.getDrawable(this@ContentActivity, R.drawable.destination_marker) as BitmapDrawable
+        val b = bitmapDraw.bitmap
         val markerBitmap = Bitmap.createScaledBitmap(b, width, height, false)
 
-        destination?.coord?.let { coord ->
-            pickAddressMarker = mMap.addMarker(MarkerOptions().position(coord)
+        destination?.coord?.let { cord ->
+            pickAddressMarker = mMap.addMarker(MarkerOptions().position(cord)
                     .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)))
         }
 
@@ -507,8 +504,8 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         val markerBitmap = Bitmap.createScaledBitmap(b, width, height, false)
 
         if (myCurrentLocationMarker == null) {
-            destination.coord?.let { coord ->
-                myCurrentLocationMarker = mMap.addMarker(MarkerOptions().position(coord)
+            destination.coord?.let { cord ->
+                myCurrentLocationMarker = mMap.addMarker(MarkerOptions().position(cord)
                         .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)))
             }
         }
@@ -545,7 +542,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                                 builder.include(pickUpLocation)
 
                                 /*initialize the padding for map boundary
-                            create the bounds from latlngBuilder to set into map camera*/
+                            create the bounds from latLngBuilder to set into map camera*/
                                 val bounds = builder.build()
 
                                 /*create the camera with bounds and padding to set into map*/
@@ -586,10 +583,10 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                 val currentPos = LatLng(location.latitude, location.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15f))
 
-                val geocoder = Geocoder(this@ContentActivity, Locale.getDefault())
+                val geoCoder = Geocoder(this@ContentActivity, Locale.getDefault())
                 var address: String? = null
                 try {
-                    address = geocoder.getFromLocation(location.latitude, location.longitude, 1)[0].getAddressLine(0)
+                    address = geoCoder.getFromLocation(location.latitude, location.longitude, 1)[0].getAddressLine(0)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -647,7 +644,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                             .icon(BitmapDescriptorFactory.fromBitmap(b)))
                 }
             }
-
         })
     }
 
@@ -983,7 +979,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                 go = mMap.addGroundOverlay(GroundOverlayOptions().position(LatLng(lat, lng), 200f).image(BitmapDescriptorFactory.fromResource(R.drawable.marker_car)))
             }
         }
-
 
         mMap.setOnCameraMoveListener {
             val zoom = mMap.cameraPosition.zoom
