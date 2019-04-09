@@ -95,7 +95,7 @@ constructor() : Fragment(), View.OnClickListener {
 
         // set UI
         tvFavorite?.setTextColor(Color.WHITE)
-        tvOnDemand?.setTextColor(ContextCompat.getColor(context!!, R.color.unselect_tv_color))
+        context?.let { ctx -> tvOnDemand?.setTextColor(ContextCompat.getColor(ctx, R.color.unselect_tv_color)) }
         onDemandCard?.setCardBackgroundColor(Color.WHITE)
         favouriteCard?.setCardBackgroundColor(Color.BLUE)
 
@@ -124,7 +124,7 @@ constructor() : Fragment(), View.OnClickListener {
         onDemandCard?.setCardBackgroundColor(Color.BLUE)
         favouriteCard?.setCardBackgroundColor(Color.WHITE)
         tvOnDemand?.setTextColor(Color.WHITE)
-        tvFavorite?.setTextColor(ContextCompat.getColor(context!!, R.color.unselect_tv_color))
+        context?.let { ctx -> tvFavorite?.setTextColor(ContextCompat.getColor(ctx, R.color.unselect_tv_color)) }
 
         val listener = object : TripAdapter.OnItemClickListener{
             override fun onItemClick(item: Any) {
@@ -244,12 +244,29 @@ constructor() : Fragment(), View.OnClickListener {
                                     if (currentCar == null) {
                                         NotificationHelper.approvedFromDriver(getApplicationContext())
 
-                                        currentCar = Pair<GroundOverlay, AvailableDriver>(activity.addGroundOverlay(TripPlace(Locale.getDefault().displayCountry, LatLng(ride?.driver?.location?.lat!!, ride.driver?.location?.lng!!))),
-                                                ride.driver)
+                                        ride?.driver?.location?.lat?.let { lat ->
+                                            ride.driver?.location?.lng?.let { lng ->
+                                                currentCar = Pair<GroundOverlay, AvailableDriver>(activity.addGroundOverlay(TripPlace(Locale.getDefault().displayCountry, LatLng(lat, lng))),
+                                                        ride.driver)
+                                            }
+                                        }
+
                                         currentCar?.first?.zIndex = 15f
 
-                                        val startPos = LatLng(ride.driver?.location?.lat!!, ride.driver?.location?.lng!!)
-                                        val endPos = LatLng(ride.pickUpLocation?.lat!!, ride.pickUpLocation?.lng!!)
+                                        var startPos = LatLng(0.0, 0.0)
+                                        var endPos = LatLng(10.0, 10.0)
+
+                                        ride?.driver?.location?.lat?.let { lat ->
+                                            ride.driver?.location?.lng?.let { lng ->
+                                                startPos = LatLng(lat, lng)
+                                            }
+                                        }
+
+                                        ride?.pickUpLocation?.lat?.let { lat ->
+                                            ride.pickUpLocation?.lng?.let { lng ->
+                                                endPos = LatLng(lat, lng)
+                                            }
+                                        }
 
                                         activity.onDriverRoad(
                                                 TripPlace(Locale.getDefault().displayCountry, startPos),
@@ -282,8 +299,20 @@ constructor() : Fragment(), View.OnClickListener {
 
                                         NotificationHelper.statusChanged(getApplicationContext())
 
-                                        val startPos = LatLng(ride.driver?.location?.lat!!, ride.driver?.location?.lng!!)
-                                        val endPos = LatLng(ride.destinationLocation?.lat!!, ride.destinationLocation?.lng!!)
+                                        var startPos = LatLng(0.0, 0.0)
+                                        var endPos = LatLng(10.0, 10.0)
+
+                                        ride.driver?.location?.lat?.let { lat ->
+                                            ride.driver?.location?.lng?.let { lng ->
+                                                startPos = LatLng(lat, lng)
+                                            }
+                                        }
+
+                                        ride.destinationLocation?.lat?.let { lat ->
+                                            ride.destinationLocation?.lng?.let { lng ->
+                                                endPos = LatLng(lat, lng)
+                                            }
+                                        }
 
                                         activity.onDestinationPicked(
                                                 TripPlace(Locale.getDefault().displayCountry, startPos),
@@ -309,7 +338,11 @@ constructor() : Fragment(), View.OnClickListener {
 
                                     if (currentCar != null) {
                                         currentCar?.first?.let { temp -> CarAnimation.animateMarkerToGB(temp, ride.driver?.location, LatLngInterpolator.Spherical(), BearingInterpolator.Degree()) }
-                                        activity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(ride.driver?.location?.lat!!, ride.driver?.location?.lng!!), activity.mMap.cameraPosition.zoom))
+                                        ride.driver?.location?.lat?.let { lat ->
+                                            ride.driver?.location?.lng?.let { lng ->
+                                                activity.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat, lng), activity.mMap.cameraPosition.zoom))
+                                            }
+                                        }
                                     }
                                 }
 
@@ -332,16 +365,13 @@ constructor() : Fragment(), View.OnClickListener {
                         }
                     }
 
-                    override fun onFailure(call: Call<RideResponse>, t: Throwable) {
-
-                    }
+                    override fun onFailure(call: Call<RideResponse>, t: Throwable) {}
                 })
 
             } catch (ex: Exception) {
                 showAlertDialod("Ride request failed", "Error at trip order", activity)
                 ex.printStackTrace()
             }
-
         }
 
         //    private static void updateStatus(Activity activity, final String requestId) {

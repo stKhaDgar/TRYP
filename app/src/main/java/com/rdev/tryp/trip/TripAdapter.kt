@@ -69,11 +69,10 @@ class TripAdapter(var drivers: ArrayList<Driver>, var type: Int, private val lis
         if (holder is CarHolder) {
             val item = drivers[position]
 
-            if (item.vehicle != null) {
-                if (item.vehicle!!.image != null) {
-                    Glide.with(holder.itemView).load(item.vehicle!!.image).into(holder.ivCar)
-                }
+            item.vehicle?.image?.let { field ->
+                Glide.with(holder.itemView).load(field).into(holder.ivCar)
             }
+
             //            carHolder.ivCar.setImageDrawable(ContextCompat.getDrawable(context,
             //                    TrypCarFragment.getImageByType(item.getCategory())));
             //Log.i("adapter", "" + item.getCategory());
@@ -81,7 +80,7 @@ class TripAdapter(var drivers: ArrayList<Driver>, var type: Int, private val lis
             holder.tvTypeCar.text = item.type
             holder.tvNumOfPassengers.text = "${item.maxPassenger}"
             holder.tvNumOfBaggage.text = "${item.maxLuggage}"
-            holder.tvFare.text = PaymentUtils.priceToPresentableFormat(fare!! * ConstantsFirebase.TRYP_CAR_FARE)
+            fare?.let { num -> holder.tvFare.text = PaymentUtils.priceToPresentableFormat(num * ConstantsFirebase.TRYP_CAR_FARE) }
 
             val lp = holder.mainLayout.layoutParams as RecyclerView.LayoutParams
             if (position == 0) {
@@ -89,6 +88,7 @@ class TripAdapter(var drivers: ArrayList<Driver>, var type: Int, private val lis
             } else if (position == drivers.size - 1) {
                 lp.rightMargin = context.resources.getDimensionPixelOffset(R.dimen.dimen16)
             }
+
             holder.mainLayout.requestLayout()
 
         } else {
@@ -100,7 +100,7 @@ class TripAdapter(var drivers: ArrayList<Driver>, var type: Int, private val lis
             Glide.with(holder.itemView).load(item.image).into(ivAvatar)
             tvDriver.text = "${item.firstName} ${item.lastName}"
             tvCategory.text = item.category
-            driverHolder.tvFare.text = PaymentUtils.priceToPresentableFormat(fare!! * ConstantsFirebase.TRYP_CAR_FARE)
+            fare?.let { num -> driverHolder.tvFare.text = PaymentUtils.priceToPresentableFormat(num * ConstantsFirebase.TRYP_CAR_FARE) }
             driverHolder.tvNumOfPassengers.text = "${item.maxPassenger}"
             driverHolder.tvNumOfBaggage.text = "${item.maxLuggage}"
 

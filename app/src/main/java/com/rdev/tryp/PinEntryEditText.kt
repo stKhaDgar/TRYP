@@ -55,7 +55,7 @@ class PinEntryEditText : AppCompatEditText {
         mLineStroke *= multi
         mLineStrokeSelected *= multi
         mLinesPaint = Paint(paint)
-        mLinesPaint!!.strokeWidth = mLineStroke
+        mLinesPaint?.strokeWidth = mLineStroke
         if (!isInEditMode) {
             val outValue = TypedValue()
             context.theme.resolveAttribute(R.attr.colorControlActivated,
@@ -96,9 +96,9 @@ class PinEntryEditText : AppCompatEditText {
         })
         // When tapped, move cursor to end of text.
         super.setOnClickListener { v ->
-            setSelection(text!!.length)
+            text?.length?.let { length -> setSelection(length) }
             if (mClickListener != null) {
-                mClickListener!!.onClick(v)
+                mClickListener?.onClick(v)
             }
         }
     }
@@ -124,19 +124,20 @@ class PinEntryEditText : AppCompatEditText {
         val bottom = height - paddingBottom
 
         //Text Width
-        val text = text
-        val textLength = text!!.length
-        val textWidths = FloatArray(textLength)
-        paint.getTextWidths(getText(), 0, textLength, textWidths)
+        val textLength = length()
+        val textWidths = FloatArray(length())
+        paint.getTextWidths(text, 0, textLength, textWidths)
 
         var i = 0
         while (i < mNumChars) {
             updateColorForLines(i == textLength)
-            canvas.drawLine(startX.toFloat(), bottom.toFloat(), startX + mCharSize, bottom.toFloat(), mLinesPaint!!)
+            canvas.drawLine(startX.toFloat(), bottom.toFloat(), startX + mCharSize, bottom.toFloat(), mLinesPaint)
 
-            if (getText()!!.length > i) {
-                val middle = startX + mCharSize / 2
-                canvas.drawText(text, i, i + 1, middle - textWidths[0] / 2, bottom - mLineSpacing, paint)
+            text?.let { editable ->
+                if (editable.length > i) {
+                    val middle = startX + mCharSize / 2
+                    canvas.drawText(editable, i, i + 1, middle - textWidths[0] / 2, bottom - mLineSpacing, paint)
+                }
             }
 
             startX += if (mSpace < 0) {
@@ -148,24 +149,20 @@ class PinEntryEditText : AppCompatEditText {
         }
     }
 
-
     private fun getColorForState(vararg states: Int): Int {
         return mColorStates.getColorForState(states, Color.GRAY)
     }
 
-    /**
-     * @param next Is the current char the next character to be input?
-     */
     private fun updateColorForLines(next: Boolean) {
         if (isFocused) {
-            mLinesPaint!!.strokeWidth = mLineStrokeSelected
-            mLinesPaint!!.color = getColorForState(android.R.attr.state_focused)
+            mLinesPaint?.strokeWidth = mLineStrokeSelected
+            mLinesPaint?.color = getColorForState(android.R.attr.state_focused)
             if (next) {
-                mLinesPaint!!.color = getColorForState(android.R.attr.state_selected)
+                mLinesPaint?.color = getColorForState(android.R.attr.state_selected)
             }
         } else {
-            mLinesPaint!!.strokeWidth = mLineStroke
-            mLinesPaint!!.color = getColorForState(-android.R.attr.state_focused)
+            mLinesPaint?.strokeWidth = mLineStroke
+            mLinesPaint?.color = getColorForState(-android.R.attr.state_focused)
         }
     }
 

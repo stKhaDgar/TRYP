@@ -64,7 +64,11 @@ class NotificationsAdapter(private val context: Context?, private val items: Lis
                 promoHolder.promoImage.setImageResource(item.phomoImage)
                 promoHolder.title.text = item.title
                 promoHolder.time.text = item.time
-                changeCodePart(promoHolder.description, item.description!!, item.code)
+                item.description?.let { description ->
+                    item.code?.let { code ->
+                        changeCodePart(promoHolder.description, description, code)
+                    }
+                }
             }
             else -> throw IllegalStateException("Unknown item type")
         }
@@ -72,8 +76,8 @@ class NotificationsAdapter(private val context: Context?, private val items: Lis
 
     override fun getItemCount() = items.size
 
-    private fun changeCodePart(description: TextView, text: String, code: String?) {
-        val coloredPart1Index = text.indexOf(code!!)
+    private fun changeCodePart(description: TextView, text: String, code: String) {
+        val coloredPart1Index = text.indexOf(code)
 
         val spannable = SpannableString(text)
         if (coloredPart1Index != -1 && context != null) {

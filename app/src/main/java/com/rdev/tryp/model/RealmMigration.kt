@@ -11,7 +11,10 @@ import io.realm.RealmSchema
 
 
 class RealmMigration: RealmMigration{
-    private val TAG = "RealmMigration"
+
+    companion object {
+        const val TAG = "RealmMigration"
+    }
     private var version: Int = 0
 
     override fun migrate(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
@@ -37,4 +40,5 @@ class RealmMigration: RealmMigration{
     override fun equals(other: Any?): Boolean {
         return other is com.rdev.tryp.model.RealmMigration
     }
+
 }
