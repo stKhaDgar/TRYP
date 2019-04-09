@@ -10,16 +10,11 @@ import java.util.*
 
 
 @IgnoreExtraProperties
-class RecentDestination{
+class RecentDestination {
     var id: String? = null
     var address: String? = null
-    var dateCreatedAt: Date? = null
     var destinationLocation: Location? = null
-
-    constructor()
-
-    constructor(createdAt: String?){
-        dateCreatedAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(createdAt)
-    }
+    var createdAt: String? = null
+    var dateCreatedAt: Date? = null
 
 }

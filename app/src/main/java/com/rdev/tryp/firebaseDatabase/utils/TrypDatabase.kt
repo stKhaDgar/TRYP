@@ -21,7 +21,9 @@ import com.rdev.tryp.model.login_response.Users
 import com.rdev.tryp.utils.BearingInterpolator
 import com.rdev.tryp.utils.CarAnimation
 import com.rdev.tryp.utils.LatLngInterpolator
-import java.util.ArrayList
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Andrey Berezhnoi on 20.03.2019.
@@ -283,8 +285,17 @@ class TrypDatabase{
 
                         for(postSnapshot in dataSnapshot.children){
                             postSnapshot.getValue(RecentDestination::class.java)?.let { item ->
+                                try {
+                                    item.dateCreatedAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(item.createdAt)
+                                } catch (e: Exception){}
                                 tempArr.add(item)
                             }
+                        }
+
+                        tempArr.sortByDescending { it.dateCreatedAt }
+
+                        for(item in tempArr){
+                            Log.e(const.TAG, SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(item.dateCreatedAt))
                         }
 
                         callback.onUpdated(tempArr)

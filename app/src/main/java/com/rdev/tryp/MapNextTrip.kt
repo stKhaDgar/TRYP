@@ -41,7 +41,6 @@ class MapNextTrip : Fragment(), View.OnClickListener {
     private lateinit var adapter: RecentRidesAdapter
     private val itemList = ArrayList<RecentDestination>()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.next_fragment, container, false)
         initView(v)
@@ -111,8 +110,6 @@ class MapNextTrip : Fragment(), View.OnClickListener {
 
                     (activity as ContentActivity).database.getRecentDestinationsRides(object : RecentDriversCallback{
                         override fun onUpdated(list: ArrayList<RecentDestination>) {
-                            Log.e("DebugSOmeRecent", list.size.toString())
-
                             this@MapNextTrip.itemList.clear()
 
                             for(item in list){
