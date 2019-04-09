@@ -57,6 +57,18 @@
                 app:layout_constraintTop_toTopOf="@+id/textView2"
 				android:contentDescription="@string/content_description" />
 
+			<com.airbnb.lottie.LottieAnimationView
+				android:id="@+id/pb_loader"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:lottie_rawRes="@raw/loader_white"
+				android:visibility="gone"
+				app:layout_constraintTop_toTopOf="@id/main_img"
+				app:layout_constraintBottom_toBottomOf="@id/main_img"
+				app:layout_constraintStart_toStartOf="@id/main_img"
+				app:layout_constraintEnd_toEndOf="@id/main_img"
+				app:lottie_loop="true" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/main_img"
                 android:layout_width="72dp"

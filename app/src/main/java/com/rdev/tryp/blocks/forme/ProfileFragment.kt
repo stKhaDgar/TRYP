@@ -39,6 +39,7 @@ import java.util.Arrays
 import java.util.Objects
 
 import android.location.Location
+import android.os.Handler
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -46,6 +47,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.libraries.places.api.net.*
 import com.rdev.tryp.utils.LocationUpdatedListener
 
@@ -57,6 +59,7 @@ import com.rdev.tryp.utils.Utils.KEY_RECENT_TO_2
 import com.rdev.tryp.utils.Utils.KEY_WORK
 import com.rdev.tryp.utils.Utils.closeKeyboard
 import com.rdev.tryp.utils.Utils.showKeyboard
+import com.squareup.picasso.Callback
 
 
 @SuppressLint("ValidFragment")
@@ -84,6 +87,7 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
     private var routeBtn: ImageView? = null
     private var editor: Editor.IEditor? = null
     private var mainPhoto: ImageView? = null
+    private lateinit var pbMainPhoto: LottieAnimationView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
@@ -129,6 +133,7 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         editLayout = view.findViewById(R.id.edit_layout)
         routeBtn = view.findViewById(R.id.route_btn)
         mainPhoto = view.findViewById(R.id.main_img)
+        pbMainPhoto = view.findViewById(R.id.pb_loader)
 
         cardView?.setBackgroundResource(R.drawable.card_view_bg)
         autoCompleteRv?.layoutManager = LinearLayoutManager(context)
@@ -161,6 +166,25 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         val img = RealmUtils(activity, null).getCurrentUser()?.image
 
         if (img != null && img != "null") {
+            mainPhoto?.visibility = View.INVISIBLE
+            pbMainPhoto.visibility = View.VISIBLE
+            pbMainPhoto.playAnimation()
+
+            Picasso.get().load(img).into(mainPhoto, object : Callback {
+                override fun onSuccess() {
+                    mainPhoto?.visibility = View.VISIBLE
+                    pbMainPhoto.visibility = View.GONE
+                    pbMainPhoto.clearAnimation()
+                }
+
+                override fun onError(e: Exception) {
+                    mainPhoto?.visibility = View.VISIBLE
+                    pbMainPhoto.visibility = View.GONE
+                    pbMainPhoto.clearAnimation()
+                    mainPhoto?.setImageResource(R.drawable.img)
+                }
+            })
+
             Picasso.get().load(img).centerCrop().resize(300, 300).into(mainPhoto)
         } else {
             val height = 100
