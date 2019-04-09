@@ -52,7 +52,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
-import com.rdev.tryp.autocomplete.AdressListFragment
 import com.rdev.tryp.blocks.connect.ConnectFragment
 import com.rdev.tryp.blocks.favourite_drivers.FavouriteDriversFragment
 import com.rdev.tryp.blocks.forme.ProfileFragment
@@ -106,10 +105,8 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
     companion object {
 
-        const val TYPE_PICK_POSITION = 1
         const val TYPE_VIEWER = 2
 
-        private const val EXTRA_CONTENT = "content_key"
         const val IS_EDIT_CARD = "is_edit_card"
 
         const val TYPE_RECAP = 0
@@ -119,7 +116,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         const val TYPE_INVITE3 = 4
         const val TYPE_HELP = 5
         const val TYPE_NOTIFICATIONS = 6
-        const val TYPE_TRIP_HISTORY = 7
         const val TYPE_PAYMENT = 8
         const val TYPE_REWARDS = 9
         const val TYPE_FAVORITE = 10
@@ -149,7 +145,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
     internal var type = 2
     private var currentLocate: String? = null
-    private lateinit var listFragment: AdressListFragment
     private var pickAddressMarker: Marker? = null
     var myCurrentLocationMarker: Marker? = null
     private var currentCar: GroundOverlay? = null
@@ -366,13 +361,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         for (i in 0 until fm.backStackEntryCount) {
             fm.popBackStack()
         }
-    }
-
-    fun pickAdress() {
-        listFragment = AdressListFragment()
-        fm.beginTransaction().replace(R.id.container, listFragment)
-                .addToBackStack("adress").commit()
-        type = TYPE_PICK_POSITION
     }
 
     fun showDirectionPicker(destination: TripPlace?) {
@@ -790,25 +778,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
-    }
-
-    private fun createFragment(): Fragment {
-        val type = intent.getIntExtra(EXTRA_CONTENT, TYPE_RECAP)
-        return when (type) {
-            TYPE_RECAP -> RecapFragment()
-            TYPE_LEGAL -> LegalFragment()
-            TYPE_INVITE1 -> InviteFriendsFragment()
-            TYPE_INVITE2 -> Invite2Fragment()
-            TYPE_INVITE3 -> Invite3Fragment()
-            TYPE_HELP -> HelpFragment()
-            TYPE_NOTIFICATIONS -> NotificationsFragment()
-            TYPE_TRIP_HISTORY -> ProfileFragment(null, null)
-            TYPE_PAYMENT -> {
-                Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show()
-                throw IllegalStateException("Unknown screen type")
-            }
-            else -> throw IllegalStateException("Unknown screen type")
-        }
     }
 
     fun openDetailHost(drivers: List<*>?, currentPos: Int) {
