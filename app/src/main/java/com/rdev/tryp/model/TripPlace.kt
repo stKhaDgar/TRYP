@@ -8,7 +8,7 @@ class TripPlace {
 
     constructor()
 
-    constructor(locale: String, coord: LatLng) {
+    constructor(locale: String?, coord: LatLng) {
         this.locale = locale
         this.coord = coord
     }

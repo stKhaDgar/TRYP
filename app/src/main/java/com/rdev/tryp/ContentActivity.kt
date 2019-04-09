@@ -158,9 +158,9 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
     lateinit var currentLocation: CurrentLocation
     var currentAddress: String? = null
 
-    internal var currentPosMarker: Marker? = null
+    private var currentPosMarker: Marker? = null
 
-    internal val mLocationListener: LocationListener = object : LocationListener {
+    private val mLocationListener: LocationListener = object : LocationListener {
         @SuppressLint("MissingPermission")
         override fun onLocationChanged(location: Location) {
             Log.d("tag", "onLocation changed")

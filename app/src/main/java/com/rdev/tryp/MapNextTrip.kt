@@ -1,5 +1,6 @@
 package com.rdev.tryp
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -16,9 +17,11 @@ import com.squareup.picasso.Picasso
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
 import com.rdev.tryp.adapters.RecentRidesAdapter
 import com.rdev.tryp.firebaseDatabase.RecentDriversCallback
 import com.rdev.tryp.firebaseDatabase.model.RecentDestination
+import com.rdev.tryp.model.TripPlace
 
 
 class MapNextTrip : Fragment(), View.OnClickListener {
@@ -48,9 +51,29 @@ class MapNextTrip : Fragment(), View.OnClickListener {
         adapter = RecentRidesAdapter(itemList, v.context, object: MapNextTripListener.OnItemClickListener{
 
             override fun onItemClicked(position: Int) {
-                Toast.makeText(v.context, itemList[position].address, Toast.LENGTH_LONG).show()
-            }
 
+                changeStateRecentDestinationsLayout(v, true, object : Animator.AnimatorListener{
+                    override fun onAnimationRepeat(animation: Animator?) {}
+                    override fun onAnimationStart(animation: Animator?) {}
+                    override fun onAnimationCancel(animation: Animator?) {}
+                    override fun onAnimationEnd(animation: Animator?) {
+                        (activity as? ContentActivity)?.myCurrentLocationMarker?.position?.let { location ->
+                            val item = itemList[position].destinationLocation
+
+                            val start = TripPlace("", location)
+                            val end = TripPlace()
+                            end.locale = ""
+                            item?.lat?.let { lat ->
+                                item.lng?.let { lng ->
+                                    end.coord = LatLng(lat, lng)
+                                }
+                            }
+
+                            (activity as? ContentActivity)?.onDestinationPicked(start, end, true)
+                        }
+                    }
+                })
+            }
         })
 
         rvRecentRides.adapter = adapter
@@ -126,43 +149,51 @@ class MapNextTrip : Fragment(), View.OnClickListener {
                     })
                 }
 
-                if(recentRidesIsOpen){
-
-                    val va = ValueAnimator.ofFloat(cvRecentRides.translationY, view.resources.getDimension(R.dimen.height_margin_top_card_recent_rides))
-
-                    va.duration = 600
-
-                    va.addUpdateListener { animation ->
-                        val value = animation.animatedValue as Float
-                        cvRecentRides.translationY = value
-                    }
-                    va.start()
-                    recentRidesIsOpen = false
-
-                    val padding = view.resources.getDimensionPixelSize(R.dimen.padding6)
-                    btnRecentRides?.setPadding(padding, padding, padding, padding)
-                    btnRecentRides?.setImageResource(R.drawable.ic_timer)
-
-                } else {
-
-                    val va = ValueAnimator.ofFloat(cvRecentRides.translationY, 0F)
-
-                    va.duration = 600
-
-                    va.addUpdateListener { animation ->
-                        val value = animation.animatedValue as Float
-                        cvRecentRides.translationY = value
-                    }
-                    va.start()
-                    recentRidesIsOpen = true
-                    isFirstOpenedRecentRides = false
-
-                    val padding = view.resources.getDimensionPixelSize(R.dimen.padding10)
-                    btnRecentRides?.setPadding(padding, padding, padding, padding)
-                    btnRecentRides?.setImageResource(R.drawable.ic_krest)
-                }
+                changeStateRecentDestinationsLayout(view, recentRidesIsOpen, null)
             }
         }
+    }
+
+    private fun changeStateRecentDestinationsLayout(view: View, isOpen: Boolean, listener: Animator.AnimatorListener?){
+
+        if(isOpen){
+
+            val va = ValueAnimator.ofFloat(cvRecentRides.translationY, view.resources.getDimension(R.dimen.height_margin_top_card_recent_rides))
+
+            va.duration = 600
+
+            va.addUpdateListener { animation ->
+                val value = animation.animatedValue as Float
+                cvRecentRides.translationY = value
+            }
+            listener?.let { va.addListener(it) }
+            va.start()
+            recentRidesIsOpen = false
+
+            val padding = view.resources.getDimensionPixelSize(R.dimen.padding6)
+            btnRecentRides?.setPadding(padding, padding, padding, padding)
+            btnRecentRides?.setImageResource(R.drawable.ic_timer)
+
+        } else {
+
+            val va = ValueAnimator.ofFloat(cvRecentRides.translationY, 0F)
+
+            va.duration = 600
+
+            va.addUpdateListener { animation ->
+                val value = animation.animatedValue as Float
+                cvRecentRides.translationY = value
+            }
+            listener?.let { va.addListener(it) }
+            va.start()
+            recentRidesIsOpen = true
+            isFirstOpenedRecentRides = false
+
+            val padding = view.resources.getDimensionPixelSize(R.dimen.padding10)
+            btnRecentRides?.setPadding(padding, padding, padding, padding)
+            btnRecentRides?.setImageResource(R.drawable.ic_krest)
+        }
+
     }
 
 }
