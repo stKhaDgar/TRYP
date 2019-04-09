@@ -106,6 +106,9 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
     companion object {
 
+        const val TYPE_PICK_POSITION = 1
+        const val TYPE_VIEWER = 2
+
         private const val EXTRA_CONTENT = "content_key"
         const val IS_EDIT_CARD = "is_edit_card"
 
@@ -143,11 +146,10 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
     lateinit var mMap: GoogleMap
     lateinit var fm: FragmentManager
     var pickUpLocation: LatLng? = null
-    private var TYPE_PICK_POSITION = 1
-    private var TYPE_VIEWER = 2
+
     internal var type = 2
     private var currentLocate: String? = null
-    lateinit var listFragment: AdressListFragment
+    private lateinit var listFragment: AdressListFragment
     private var pickAddressMarker: Marker? = null
     var myCurrentLocationMarker: Marker? = null
     private var currentCar: GroundOverlay? = null
@@ -159,6 +161,12 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
     var currentAddress: String? = null
 
     private var currentPosMarker: Marker? = null
+
+    internal var route: Polyline? = null
+
+    private var mDrawerLayout: DrawerLayout? = null
+    private lateinit var navigationView: NavigationView
+    lateinit var listener: NavigationView.OnNavigationItemSelectedListener
 
     private val mLocationListener: LocationListener = object : LocationListener {
         @SuppressLint("MissingPermission")
@@ -180,12 +188,6 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         override fun onProviderEnabled(s: String) {}
         override fun onProviderDisabled(s: String) {}
     }
-
-    internal var route: Polyline? = null
-
-    private var mDrawerLayout: DrawerLayout? = null
-    lateinit var navigationView: NavigationView
-    lateinit var listener: NavigationView.OnNavigationItemSelectedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -259,7 +261,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
             super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun checkLocationInSettings() {
+    private fun checkLocationInSettings() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
@@ -288,16 +290,16 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
             }
         }
         
-        task.addOnSuccessListener(this) { locationSettingsResponse ->
+        task.addOnSuccessListener(this) {
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            val gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-            val network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+            val gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            val networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
             var location: Location? = null
-            if (gps_enabled)
+            if (gpsEnabled)
                 location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            if (network_enabled)
+            if (networkEnabled)
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
 
             location?.let { loc -> updateCurrentLocation(loc) }
@@ -318,7 +320,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
         val height = 270
         val width = 225
-        val bitmapdraw = resources.getDrawable(R.drawable.current_location_marker) as BitmapDrawable
+        val bitmapdraw = ContextCompat.getDrawable(this@ContentActivity, R.drawable.current_location_marker) as BitmapDrawable
         val b = bitmapdraw.bitmap
         val markerBitmap = Bitmap.createScaledBitmap(b, width, height, false)
 
@@ -339,7 +341,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         pickUpLocation = currentPos
     }
 
-    internal fun updateCurrentLocation(currentPos: LatLng?) {
+    private fun updateCurrentLocation(currentPos: LatLng?) {
         if (currentPos != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 17f))
 
@@ -422,8 +424,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
         val height = 270
         val width = 225
-
-        val bitmapdraw = resources.getDrawable(R.drawable.destination_marker) as BitmapDrawable
+        val bitmapdraw = ContextCompat.getDrawable(this@ContentActivity, R.drawable.destination_marker) as BitmapDrawable
         val b = bitmapdraw.bitmap
         val markerBitmap = Bitmap.createScaledBitmap(b, width, height, false)
 
@@ -532,7 +533,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                     .to(destination.coord)
                     .transportMode(TransportMode.DRIVING)
                     .execute(object : DirectionCallback {
-                        internal var cameraIsUpdated = false
+                        var cameraIsUpdated = false
 
                         override fun onDirectionSuccess(direction: Direction, rawBody: String) {
                             if (direction.isOK) {
@@ -593,14 +594,14 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
         currentLocation.onStartLocationUpdate(object : LocationUpdatedListener{
             override fun locationUpdated(location: Location) {
-                Log.e("GeoLocation", "find current Location = " + location.getLatitude() + " : " + location.getLongitude())
-                val currentPos = LatLng(location.getLatitude(), location.getLongitude())
+                Log.e("GeoLocation", "find current Location = ${location.latitude} : ${location.longitude}")
+                val currentPos = LatLng(location.latitude, location.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15f))
 
                 val geocoder = Geocoder(this@ContentActivity, Locale.getDefault())
                 var address: String? = null
                 try {
-                    address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1)[0].getAddressLine(0)
+                    address = geocoder.getFromLocation(location.latitude, location.longitude, 1)[0].getAddressLine(0)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -793,15 +794,15 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
 
     private fun createFragment(): Fragment {
         val type = intent.getIntExtra(EXTRA_CONTENT, TYPE_RECAP)
-        when (type) {
-            TYPE_RECAP -> return RecapFragment()
-            TYPE_LEGAL -> return LegalFragment()
-            TYPE_INVITE1 -> return InviteFriendsFragment()
-            TYPE_INVITE2 -> return Invite2Fragment()
-            TYPE_INVITE3 -> return Invite3Fragment()
-            TYPE_HELP -> return HelpFragment()
-            TYPE_NOTIFICATIONS -> return NotificationsFragment()
-            TYPE_TRIP_HISTORY -> return ProfileFragment(null, null)
+        return when (type) {
+            TYPE_RECAP -> RecapFragment()
+            TYPE_LEGAL -> LegalFragment()
+            TYPE_INVITE1 -> InviteFriendsFragment()
+            TYPE_INVITE2 -> Invite2Fragment()
+            TYPE_INVITE3 -> Invite3Fragment()
+            TYPE_HELP -> HelpFragment()
+            TYPE_NOTIFICATIONS -> NotificationsFragment()
+            TYPE_TRIP_HISTORY -> ProfileFragment(null, null)
             TYPE_PAYMENT -> {
                 Toast.makeText(this, "Payment", Toast.LENGTH_SHORT).show()
                 throw IllegalStateException("Unknown screen type")
