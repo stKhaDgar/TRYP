@@ -25,18 +25,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".MapsActivity" />
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/container"></FrameLayout>
 
-            <!--<fragment-->
-            <!--android:id="@+id/trip"-->
-            <!--android:name="com.rdev.tryp.trip.detailFragment.DetailHostFragment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent" />-->
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,7 +47,8 @@
             android:layout_marginStart="10dp"
             android:layout_width="34dp"
             android:layout_height="34dp"
-            android:src="@drawable/ic_menu"/>
+            android:src="@drawable/ic_menu"
+			android:contentDescription="@string/content_description" />
 
 		<de.hdodenhof.circleimageview.CircleImageView
 			android:id="@+id/currentLocationMarker"

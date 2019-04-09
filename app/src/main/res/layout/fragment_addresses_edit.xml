@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/edit_layout"
@@ -44,8 +43,8 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginBottom="60dp"
                 android:elevation="8dp"
-                android:src="@drawable/ic_rectangl_small" />
-
+                android:src="@drawable/ic_rectangl_small"
+                android:contentDescription="@string/content_description" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -62,9 +61,8 @@
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-
-                    android:src="@drawable/ic_location_small" />
-
+                    android:src="@drawable/ic_location_small"
+                    android:contentDescription="@string/content_description" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -93,7 +91,6 @@
                         android:selectAllOnFocus="true"
                         android:textColor="@color/black" />
 
-
                 </LinearLayout>
 
             </RelativeLayout>
@@ -110,16 +107,13 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"
-
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-
-                    android:src="@drawable/ic_blue_home" />
-
+                    android:src="@drawable/ic_blue_home"
+                    android:contentDescription="@string/content_description" />
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -149,9 +143,7 @@
 
             </RelativeLayout>
 
-
         </RelativeLayout>
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewEdit"
@@ -165,20 +157,20 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/complete_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-            </androidx.recyclerview.widget.RecyclerView>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/confirm_edit_btn"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:layout_weight="2"
             android:clickable="true"
+			android:focusable="true"
             app:cardBackgroundColor="@color/trip_accent_color"
             app:cardCornerRadius="17dp"
             app:cardElevation="8dp">
@@ -191,6 +183,9 @@
                 android:textAllCaps="false"
                 android:textColor="#FFF"
                 android:textSize="18sp" />
+
         </androidx.cardview.widget.CardView>
-    </androidx.cardview.widget.CardView>
+
+	</androidx.cardview.widget.CardView>
+
 </RelativeLayout>

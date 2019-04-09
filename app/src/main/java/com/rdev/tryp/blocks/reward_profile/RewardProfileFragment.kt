@@ -163,9 +163,9 @@ class RewardProfileFragment : BaseFragment(), View.OnClickListener {
                 val uriImage = data?.data
                 val inputStream = activity?.contentResolver?.openInputStream(uriImage)
                 val bitmap = BitmapFactory.decodeStream(inputStream)
-                val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val b = baos.toByteArray()
+                val byteArray = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray)
+                val b = byteArray.toByteArray()
                 mainPhoto?.setImageBitmap(bitmap)
 
                 btnSave?.setOnClickListener {
@@ -210,7 +210,6 @@ class RewardProfileFragment : BaseFragment(), View.OnClickListener {
                 e.printStackTrace()
                 Toast.makeText(view?.context, "Image was not found", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
@@ -224,6 +223,7 @@ class RewardProfileFragment : BaseFragment(), View.OnClickListener {
                 RealmUtils(null, null).getCurrentUser()?.let { user ->
                     (activity as ContentActivity).database.updateUser(user, null, null)
                 }
+                
                 initEditor(false)
                 view?.let { v -> initUI(v) }
 

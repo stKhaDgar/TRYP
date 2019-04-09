@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".screens.invite3.Invite3Fragment"
     android:background="@color/white">
 
     <TextView
@@ -37,13 +36,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_1_size"
                 android:layout_height="@dimen/tabs_invite_icon_1_size"
                 android:src="@drawable/invite_icon_1"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+                android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon1"
+                android:layout_alignEnd="@id/icon1"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -62,13 +62,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_2_width"
                 android:layout_height="@dimen/tabs_invite_icon_2_height"
                 android:src="@drawable/invite_icon_2"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+                android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon2"
+                android:layout_alignEnd="@id/icon2"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -87,13 +88,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_3_size"
                 android:layout_height="@dimen/tabs_invite_icon_3_size"
                 android:src="@drawable/invite_icon_3"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+                android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon3"/>
+                android:layout_alignEnd="@id/icon3"/>
 
         </RelativeLayout>
 
@@ -113,8 +115,9 @@
             android:layout_height="@dimen/facebook_icon_size"
             android:src="@drawable/facebook_icon"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/facebook_icon_margin_right"
-            android:layout_toLeftOf="@id/connect_facebook_tv"/>
+            android:layout_marginEnd="@dimen/facebook_icon_margin_right"
+            android:layout_toStartOf="@id/connect_facebook_tv"
+            android:contentDescription="@string/content_description" />
 
         <TextView
             android:id="@+id/connect_facebook_tv"
@@ -124,7 +127,7 @@
             android:textColor="@color/white"
             android:text="@string/connect_facebook"
             android:textSize="@dimen/facebook_label_text_size"
-            fontPath="fonts/OpenSans-Semibold.ttf"
+            android:fontFamily="@font/opensans_semibold"
             tools:ignore="MissingPrefix"/>
 
     </RelativeLayout>
@@ -140,7 +143,7 @@
         android:text="@string/invite_3_label"
         android:textColor="@color/text_default"
         android:textSize="@dimen/invite_3_label_text_size"
-        fontPath="fonts/OpenSans-Regular.ttf"
+		android:fontFamily="@font/opensans_regular"
         tools:ignore="MissingPrefix"/>
 
     <include layout="@layout/part_back_button"/>

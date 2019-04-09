@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:textSize="@dimen/recap_date_text_size"
                 android:text="@string/recap_date_example"
                 android:gravity="center"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"/>
 
             <TextView
@@ -55,7 +55,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/recap_description_text_size"
                 android:text="@string/recap_description_example"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"/>
 
             <LinearLayout
@@ -82,8 +82,8 @@
                         android:layout_marginTop="@dimen/recap_info_number_text_margin_top"
                         android:textColor="@color/black"
                         android:text="6"
+						android:fontFamily="@font/opensans_regular"
                         android:textSize="@dimen/recap_info_number_text_size"
-                        fontPath="fonts/OpenSans-Regular.ttf"
                         tools:ignore="MissingPrefix"/>
 
                     <TextView
@@ -96,7 +96,7 @@
                         android:text="@string/link_shared"
                         android:textSize="@dimen/recap_info_label_text_size"
                         android:textColor="@color/text_default"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix,SmallSp"/>
 
                 </RelativeLayout>
@@ -120,8 +120,8 @@
                         android:layout_marginTop="@dimen/recap_info_number_text_margin_top"
                         android:textColor="@color/black"
                         android:text="4"
+						android:fontFamily="@font/opensans_regular"
                         android:textSize="@dimen/recap_info_number_text_size"
-                        fontPath="fonts/OpenSans-Regular.ttf"
                         tools:ignore="MissingPrefix"/>
 
                     <TextView
@@ -134,7 +134,7 @@
                         android:text="@string/account_sign_up"
                         android:textSize="@dimen/recap_info_label_text_size"
                         android:textColor="@color/text_default"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix,SmallSp"/>
 
                 </RelativeLayout>
@@ -158,8 +158,8 @@
                         android:layout_marginTop="@dimen/recap_info_number_text_margin_top"
                         android:textColor="@color/black"
                         android:text="7"
+						android:fontFamily="@font/opensans_regular"
                         android:textSize="@dimen/recap_info_number_text_size"
-                        fontPath="fonts/OpenSans-Regular.ttf"
                         tools:ignore="MissingPrefix"/>
 
                     <TextView
@@ -172,7 +172,7 @@
                         android:text="@string/friends_trips"
                         android:textSize="@dimen/recap_info_label_text_size"
                         android:textColor="@color/text_default"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix"/>
 
                 </RelativeLayout>
@@ -197,16 +197,16 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/recap_graph_title_text_size"
                     android:layout_marginTop="@dimen/recap_graph_title_margin"
-                    android:layout_marginLeft="@dimen/recap_graph_title_margin"
-                    android:text="Month Rewards"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+                    android:layout_marginStart="@dimen/recap_graph_title_margin"
+                    android:text="@string/month_rewards"
+					android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"/>
 
                 <Spinner
                     android:id="@+id/recap_graph_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/recap_graph_title_margin"
                     android:entries="@array/recap_graph_spinner_items"
                     android:spinnerMode="dropdown"/>
@@ -224,9 +224,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/recap_chart"
-                    android:layout_alignRight="@id/recap_chart"
+                    android:layout_alignEnd="@id/recap_chart"
                     android:layout_marginTop="@dimen/legend_margin_top"
-                    android:layout_marginRight="@dimen/legend_margin_right">
+                    android:layout_marginEnd="@dimen/legend_margin_right">
 
                     <RelativeLayout
                         android:id="@+id/legend_first_line"
@@ -246,10 +246,10 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_default"
                             android:textSize="@dimen/legend_friends_text_size"
-                            android:layout_toRightOf="@id/legend_friends_icon"
-                            android:layout_marginLeft="@dimen/chart_legend_text_margin_left"
+                            android:layout_toEndOf="@id/legend_friends_icon"
+                            android:layout_marginStart="@dimen/chart_legend_text_margin_left"
                             android:text="@string/friends_trips"
-                            fontPath="fonts/OpenSans-Regular.ttf"
+							android:fontFamily="@font/opensans_regular"
                             tools:ignore="MissingPrefix"/>
 
                     </RelativeLayout>
@@ -272,10 +272,10 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_default"
                             android:textSize="@dimen/legend_friends_text_size"
-                            android:layout_toRightOf="@id/legend_links_icon"
-                            android:layout_marginLeft="@dimen/chart_legend_text_margin_left"
+                            android:layout_toEndOf="@id/legend_links_icon"
+                            android:layout_marginStart="@dimen/chart_legend_text_margin_left"
                             android:text="@string/link_shared"
-                            fontPath="fonts/OpenSans-Regular.ttf"
+							android:fontFamily="@font/opensans_regular"
                             tools:ignore="MissingPrefix"/>
 
                     </RelativeLayout>

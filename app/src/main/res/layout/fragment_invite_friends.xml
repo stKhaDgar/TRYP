@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -37,13 +36,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_1_size"
                 android:layout_height="@dimen/tabs_invite_icon_1_size"
                 android:src="@drawable/invite_icon_1"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+                android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon1" />
+                android:layout_alignEnd="@id/icon1" />
 
         </RelativeLayout>
 
@@ -61,13 +61,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_2_width"
                 android:layout_height="@dimen/tabs_invite_icon_2_height"
                 android:src="@drawable/invite_icon_2"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+                android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon2"
+                android:layout_alignEnd="@id/icon2"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -86,13 +87,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_3_size"
                 android:layout_height="@dimen/tabs_invite_icon_3_size"
                 android:src="@drawable/invite_icon_3"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+                android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon3"
+                android:layout_alignEnd="@id/icon3"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -121,7 +123,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/invite_1_friends_text_size"
                 android:textColor="@color/black"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"
                 android:text="@string/invite_1_got_friends"/>
 
@@ -136,7 +138,7 @@
                 android:layout_below="@id/got_friends_tv"
                 android:gravity="center"
                 android:textSize="@dimen/invite_1_text_size"
-                fontPath="fonts/OpenSans-Bold.ttf"
+				android:fontFamily="@font/opensans_bold"
                 tools:ignore="MissingPrefix"
                 android:text="@string/invite_1_tv"/>
 
@@ -176,7 +178,8 @@
                         android:layout_width="@dimen/invite_1_twitter_image_width"
                         android:layout_height="@dimen/invite_1_twitter_image_height"
                         android:src="@drawable/twitter_img"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+						android:contentDescription="@string/content_description" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -185,7 +188,7 @@
                         android:layout_below="@id/twitter_img"
                         android:textColor="@color/text_default"
                         android:gravity="center_horizontal"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix"
                         android:text="@string/invite_1_twitter"/>
 
@@ -204,7 +207,8 @@
                         android:layout_width="@dimen/message_image_size"
                         android:layout_height="@dimen/message_image_size"
                         android:src="@drawable/messages_img"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+						android:contentDescription="@string/content_description" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -213,7 +217,7 @@
                         android:textColor="@color/text_default"
                         android:gravity="center_horizontal"
                         android:layout_marginTop="@dimen/invite_1_action_margin_top"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix"
                         android:text="@string/invite_1_message"/>
 
@@ -232,7 +236,8 @@
                         android:layout_width="@dimen/whatsapp_image_size"
                         android:layout_height="@dimen/whatsapp_image_size"
                         android:src="@drawable/whatsapp_img"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+						android:contentDescription="@string/content_description" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -241,7 +246,7 @@
                         android:textColor="@color/text_default"
                         android:layout_marginTop="@dimen/invite_1_action_margin_top"
                         android:gravity="center_horizontal"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix"
                         android:text="@string/invite_1_whatsapp"/>
 
@@ -268,7 +273,8 @@
                             android:layout_width="@dimen/more_image_content_size"
                             android:layout_height="@dimen/more_image_content_size"
                             android:src="@drawable/invite_more_icon"
-                            android:layout_centerInParent="true"/>
+                            android:layout_centerInParent="true"
+							android:contentDescription="@string/content_description" />
 
                     </RelativeLayout>
 
@@ -279,7 +285,7 @@
                         android:textColor="@color/text_default"
                         android:gravity="center_horizontal"
                         android:layout_marginTop="@dimen/invite_1_action_margin_top"
-                        fontPath="fonts/OpenSans-Regular.ttf"
+						android:fontFamily="@font/opensans_regular"
                         tools:ignore="MissingPrefix"
                         android:text="@string/invite_1_more"/>
 
@@ -297,7 +303,7 @@
                 android:layout_marginTop="@dimen/invite_1_share_title_margin_top"
                 android:textColor="@color/black"
                 android:textSize="@dimen/invite_1_share_text_size"
-                fontPath="fonts/OpenSans-Bold.ttf"
+				android:fontFamily="@font/opensans_bold"
                 tools:ignore="MissingPrefix"
                 android:text="@string/invite_1_share"/>
 
@@ -314,10 +320,10 @@
                     android:id="@+id/invite_1_share_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/share_button"
-                    android:layout_marginRight="@dimen/invite_1_share_link_margin_right"
+                    android:layout_toStartOf="@id/share_button"
+                    android:layout_marginEnd="@dimen/invite_1_share_link_margin_right"
                     android:text="@string/copied"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+					android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"
                     android:background="@drawable/background_share_text"
                     android:layout_centerVertical="true"/>
@@ -327,7 +333,8 @@
                     android:layout_width="@dimen/share_button_size"
                     android:layout_height="@dimen/share_button_size"
                     android:src="@drawable/invite_share_button"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentEnd="true"
+					android:contentDescription="@string/content_description" />
 
             </RelativeLayout>
 
@@ -341,7 +348,7 @@
                 android:layout_marginBottom="100dp"
                 android:gravity="center"
                 android:textSize="@dimen/invite_1_bottom_text_size"
-                fontPath="fonts/OpenSans-Regular.ttf"
+				android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"
                 android:textColor="@color/black"
                 android:text="@string/invite_1_invite"/>

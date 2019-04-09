@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +31,8 @@
                 android:src="@drawable/help_logo"
                 android:layout_below="@id/title"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="42dp"/>
+                android:layout_marginTop="42dp"
+                android:contentDescription="@string/content_description" />
 
             <TextView
                 android:id="@+id/help_version"
@@ -43,7 +44,7 @@
                 android:textSize="@dimen/help_version_text_size"
                 android:textColor="@color/text_default"
                 android:text="v.6.0.1"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"/>
 
             <RelativeLayout
@@ -67,7 +68,7 @@
                     android:text="@string/get_help_with_recent_trips"
                     android:textSize="@dimen/help_recent_title_text_size"
                     android:textColor="@color/black"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+					android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"/>
 
                 <View
@@ -101,18 +102,19 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/help_items_text_size"
                     android:text="@string/frequently_asked_questions"
-                    android:layout_toLeftOf="@id/questions_icon"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+                    android:layout_toStartOf="@id/questions_icon"
+					android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"/>
-                
+
                 <ImageView
                     android:id="@+id/questions_icon"
                     android:layout_width="@dimen/right_arrow_width"
                     android:layout_height="@dimen/right_arrow_height"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+					android:contentDescription="@string/content_description" />
 
             </RelativeLayout>
 
@@ -131,18 +133,19 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/help_items_text_size"
                     android:text="@string/terms_of_services"
-                    android:layout_toLeftOf="@id/terms_icon"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+                    android:layout_toStartOf="@id/terms_icon"
+					android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"/>
 
                 <ImageView
                     android:id="@+id/terms_icon"
                     android:layout_width="@dimen/right_arrow_width"
                     android:layout_height="@dimen/right_arrow_height"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+					android:contentDescription="@string/content_description" />
 
             </RelativeLayout>
 
@@ -162,18 +165,19 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/help_items_text_size"
                     android:text="@string/contact_support"
-                    android:layout_toLeftOf="@id/support_icon"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+                    android:layout_toStartOf="@id/support_icon"
+					android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"/>
 
                 <ImageView
                     android:id="@+id/support_icon"
                     android:layout_width="@dimen/right_arrow_width"
                     android:layout_height="@dimen/right_arrow_height"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+					android:contentDescription="@string/content_description" />
 
             </RelativeLayout>
 

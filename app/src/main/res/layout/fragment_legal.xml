@@ -35,7 +35,7 @@
             android:layout_marginRight="@dimen/legal_text_margin_side"
             android:layout_marginLeft="@dimen/legal_text_margin_side"
             android:textSize="@dimen/legal_text_size"
-            fontPath="fonts/OpenSans-Regular.ttf"
+            android:fontFamily="@font/opensans_regular"
             tools:ignore="MissingPrefix"/>
 
     </ScrollView>

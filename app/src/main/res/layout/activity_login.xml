@@ -10,14 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/login_background" />
+        android:src="@drawable/login_background"
+        android:contentDescription="@string/content_description" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/login_gradient"
-        />
+        android:contentDescription="@string/content_description" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -35,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@drawable/logo_tryp" />
+        app:srcCompat="@drawable/logo_tryp"
+        android:contentDescription="@string/content_description" />
 
     <TextView
         android:id="@+id/driver_category"
@@ -86,6 +88,7 @@
         android:background="@drawable/rounded_button"
         android:text="@string/login"
         android:clickable="true"
+        android:focusable="true"
         android:textAllCaps="false"
         android:textColor="#ffff"
         android:textStyle="bold"
@@ -103,6 +106,7 @@
         android:background="@drawable/rounded_button2"
         android:text="@string/i_m_new"
         android:clickable="true"
+        android:focusable="true"
         android:textAllCaps="false"
         android:textColor="#333333"
         android:textStyle="bold"
@@ -110,6 +114,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -129,6 +134,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

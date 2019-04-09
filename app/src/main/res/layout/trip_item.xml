@@ -4,12 +4,13 @@
     android:layout_width="@dimen/trip_item_width"
     android:id="@+id/main_layout"
     android:layout_height="200dp"
-	android:layout_marginStart="4dp"
-	android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="5dp"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/avatar_iv"
@@ -19,57 +20,59 @@
         android:src="@drawable/person"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_description" />
 
     <ImageView
         android:id="@+id/isActive"
         android:padding="5dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/circle_button"
         android:tint="@color/trip_is_active_color"
         app:layout_constraintEnd_toEndOf="@+id/avatar_iv"
-        app:layout_constraintTop_toTopOf="@+id/avatar_iv" />
+        app:layout_constraintTop_toTopOf="@+id/avatar_iv"
+        android:contentDescription="@string/content_description" />
 
-        <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:paddingBottom="6dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp">
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/driver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="Jackson Pollock"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"/>
 
-            <RelativeLayout
-                android:paddingBottom="6dp"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/driver_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Tryp"
+                android:textSize="14sp"
+                android:layout_centerHorizontal="true"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="50dp"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/driver_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:text="Jackson Pollock"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentTop="true"/>
-
-                <TextView
-                    android:id="@+id/driver_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:text="Tryp"
-                    android:textSize="14sp"
-                    android:layout_centerHorizontal="true"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -82,7 +85,8 @@
                     android:src="@drawable/ic_person"
                     app:layout_constraintBottom_toBottomOf="@+id/num_of_passangers"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/num_of_passangers" />
+                    app:layout_constraintTop_toTopOf="@+id/num_of_passangers"
+                    android:contentDescription="@string/content_description" />
 
                 <TextView
                     android:id="@+id/num_of_passangers"
@@ -98,8 +102,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/imageView3"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/car_type" />
+                    app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -114,7 +117,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/num_of_baggage"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/num_of_passangers"
-                    app:layout_constraintTop_toTopOf="@+id/num_of_baggage" />
+                    app:layout_constraintTop_toTopOf="@+id/num_of_baggage"
+                    android:contentDescription="@string/content_description" />
 
                 <TextView
                     android:id="@+id/num_of_baggage"
@@ -128,7 +132,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/num_of_door"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/car_type" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
                     android:id="@+id/num_of_door"
@@ -142,13 +146,13 @@
                     app:layout_constraintBottom_toBottomOf="@+id/num_of_door_tv"
                     app:layout_constraintEnd_toStartOf="@+id/num_of_door_tv"
                     app:layout_constraintStart_toEndOf="@+id/num_of_baggage"
-                    app:layout_constraintTop_toTopOf="@+id/num_of_door_tv" />
+                    app:layout_constraintTop_toTopOf="@+id/num_of_door_tv"
+                    android:contentDescription="@string/content_description" />
 
                 <TextView
                     android:id="@+id/num_of_door_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="4/4"
                     android:paddingTop="2dp"
@@ -156,34 +160,38 @@
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/num_of_door"
-                    app:layout_constraintTop_toBottomOf="@+id/car_type" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/trip_accent_color"
+                android:layout_alignParentBottom="true"
+                app:cardCornerRadius="8dp"
+                android:id="@+id/price_card_view"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                app:cardElevation="5dp"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/trip_accent_color"
-                    android:layout_alignParentBottom="true"
-                    app:cardCornerRadius="8dp"
-                    android:id="@+id/price_card_view"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    app:cardElevation="5dp"
-                    android:layout_centerHorizontal="true">
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:id="@+id/fare"
+                    android:text="$7"
+                    android:textColor="#FFF" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:id="@+id/fare"
-                        android:text="$7"
-                        android:textColor="#FFF" />
             </androidx.cardview.widget.CardView>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-</androidx.cardview.widget.CardView>
 
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.cardview.widget.CardView>

@@ -30,7 +30,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="For Me"
+                android:text="@string/for_me"
                 android:textColor="#ffff"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -190,7 +190,6 @@
                             android:src="@drawable/ic_location_small"
 							android:contentDescription="@string/content_description" />
 
-
                         <LinearLayout
 
                             android:layout_width="match_parent"
@@ -246,12 +245,10 @@
                 app:layout_constraintStart_toStartOf="@+id/cardView_main"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_main">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/autoCompleteRv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/autoCompleteRv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" />
 
             </androidx.cardview.widget.CardView>
 
@@ -278,7 +275,8 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="17dp"
                         android:layout_marginTop="26dp"
-                        android:src="@drawable/ic_blue_home" />
+                        android:src="@drawable/ic_blue_home"
+						android:contentDescription="@string/content_description" />
 
                     <TextView
                         android:id="@+id/home_tv"
@@ -288,9 +286,9 @@
                         android:layout_marginTop="22dp"
                         android:layout_marginEnd="25dp"
                         android:padding="5dp"
-                        android:text="Set Home Address"
+                        android:text="@string/set_home_address"
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                        android:textSize="13sp" />
 
                 </RelativeLayout>
 
@@ -335,9 +333,9 @@
                         android:layout_marginTop="22dp"
                         android:layout_marginEnd="25dp"
                         android:padding="5dp"
-                        android:text="Set Home Address"
+                        android:text="@string/set_home_address"
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                        android:textSize="13sp" />
 
                 </RelativeLayout>
 
@@ -349,7 +347,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="17dp"
-                android:text="Recent Destination"
+                android:text="@string/recent_destination"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -391,7 +389,6 @@
                         android:layout_marginStart="42dp"
                         android:layout_marginTop="19dp"
                         android:layout_marginBottom="13dp"
-                        android:inputType="text"
                         android:maxLines="1"
                         android:text="333 Roling Park"
                         android:textColor="@color/black"
@@ -421,7 +418,6 @@
                         android:layout_marginStart="195dp"
                         android:layout_marginTop="19dp"
                         android:layout_marginBottom="13dp"
-                        android:inputType="text"
                         android:maxLines="1"
                         android:text="7025 Washing Apt"
                         android:textColor="@color/black"
@@ -467,7 +463,6 @@
                         android:layout_marginStart="42dp"
                         android:layout_marginTop="19dp"
                         android:layout_marginBottom="13dp"
-                        android:inputType="text"
                         android:maxLines="1"
                         android:text="333 Roling Park"
                         android:textColor="@color/black"
@@ -497,7 +492,6 @@
                         android:layout_marginStart="195dp"
                         android:layout_marginTop="19dp"
                         android:layout_marginBottom="13dp"
-                        android:inputType="text"
                         android:maxLines="1"
                         android:text="7025 Washing Apt"
                         android:textColor="@color/black"

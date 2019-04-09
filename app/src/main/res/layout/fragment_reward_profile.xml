@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:background="@color/white"
 	android:layout_height="match_parent">
@@ -166,7 +167,8 @@
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
 							android:gravity="center"
-							android:orientation="vertical">
+							android:orientation="vertical"
+							tools:ignore="NestedWeights">
 
 							<TextView
 								android:id="@+id/total_tryps_tv"
@@ -184,7 +186,6 @@
 								android:text="@string/total_tryps"
 								android:textColor="@color/gray"
 								android:textSize="13sp" />
-
 
 						</LinearLayout>
 
@@ -218,7 +219,6 @@
 								android:textColor="@color/gray"
 								android:textSize="13sp" />
 
-
 						</LinearLayout>
 
 						<View
@@ -251,10 +251,10 @@
 								android:textColor="@color/gray"
 								android:textSize="13sp" />
 
-
 						</LinearLayout>
 
 					</LinearLayout>
+
 				</LinearLayout>
 
 			</androidx.cardview.widget.CardView>
@@ -303,7 +303,7 @@
 							<com.google.android.material.textfield.TextInputLayout
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								android:hint="First Name">
+								android:hint="@string/first_name">
 
 								<EditText
 									android:id="@+id/etFirstName"
@@ -329,7 +329,7 @@
 						<com.google.android.material.textfield.TextInputLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:hint="Last Name">
+							android:hint="@string/last_name">
 
 							<EditText
 								android:id="@+id/etLastName"
@@ -365,12 +365,10 @@
 					app:cardCornerRadius="6dp"
 					app:cardElevation="2dp">
 
-
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:orientation="horizontal">
-
 
 						<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 							xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -411,7 +409,9 @@
 							android:layout_marginEnd="16dp"
 							android:src="@drawable/ic_keyboard_arrow_right"
 							android:contentDescription="@string/content_description" />
+
 					</LinearLayout>
+
 				</androidx.cardview.widget.CardView>
 
 				<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -430,7 +430,6 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:orientation="horizontal">
-
 
 						<androidx.cardview.widget.CardView
 							xmlns:android="http://schemas.android.com/apk/res/android"
@@ -451,7 +450,6 @@
 								android:contentDescription="@string/content_description" />
 
 						</androidx.cardview.widget.CardView>
-
 
 						<TextView
 							android:layout_width="0dp"

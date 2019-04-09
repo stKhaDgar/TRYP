@@ -14,7 +14,8 @@
         android:src="@drawable/logo_tryp_shite_gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_description" />
 
     <TextView
         android:id="@+id/textView17"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Let’s get your account set up!"
+        android:text="@string/let_s_get_your_account_set_up"
         android:textColor="#000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="First Name"
+        android:text="@string/first_name"
         android:textColor="#000"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -58,14 +59,15 @@
             android:id="@+id/sign_up_first_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@null"
-            android:hint="Test"
+            android:hint="@string/first_name"
             android:inputType="text"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:textColor="#000"
             android:textSize="14sp" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -74,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Last Name"
+        android:text="@string/last_name"
         android:textColor="#000"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -98,14 +100,15 @@
             android:id="@+id/sign_up_last_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@null"
-            android:hint="Test"
+            android:hint="@string/last_name"
             android:inputType="text"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:textColor="#000"
             android:textSize="14sp" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -114,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Email"
+        android:text="@string/email"
         android:textColor="#000"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -138,14 +141,15 @@
             android:id="@+id/sign_up_email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@null"
-            android:hint="email@test"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:textColor="#000"
             android:textSize="14sp" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -154,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Reffered by"
+        android:text="@string/referred_by"
         android:textColor="#000"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -178,14 +182,15 @@
             android:id="@+id/sign_up_reffered_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@null"
-            android:hint="test111"
+            android:hint="@string/referred_by"
             android:inputType="text"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:textColor="#000"
             android:textSize="14sp" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -196,6 +201,7 @@
         android:layout_marginEnd="16dp"
         android:layout_weight="2"
         android:clickable="true"
+		android:focusable="true"
         app:cardBackgroundColor="@color/trip_accent_color"
         app:cardCornerRadius="18dp"
         app:cardElevation="8dp"
@@ -213,6 +219,7 @@
             android:textColor="#FFF"
             android:textSize="18sp"
             android:textStyle="bold" />
+
     </androidx.cardview.widget.CardView>
 
     <ImageButton
@@ -228,6 +235,7 @@
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_keyboard_backspace_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+		android:contentDescription="@string/content_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

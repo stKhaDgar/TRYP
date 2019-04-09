@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -26,16 +26,17 @@
                 android:layout_height="@dimen/item_invite_friends_icon_size"
                 android:layout_marginTop="@dimen/item_invite_friends_icon_margin_top"
                 android:layout_marginBottom="@dimen/item_invite_friends_icon_margin_top"
-                android:layout_marginLeft="@dimen/item_invite_friends_icon_margin_left"
-                android:src="@drawable/invite_default_icon"/>
+                android:layout_marginStart="@dimen/item_invite_friends_icon_margin_left"
+                android:src="@drawable/invite_default_icon"
+				android:contentDescription="@string/content_description" />
 
             <RelativeLayout
                 android:id="@+id/item_invite_action_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/item_invite_actionContainer_margin_right">
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/item_invite_actionContainer_margin_right">
 
                 <TextView
                     android:id="@+id/not_invited_container"
@@ -45,8 +46,8 @@
                     android:textColor="@color/not_invited_container_text_color"
                     android:textSize="@dimen/not_invited_container_text_size"
                     android:gravity="center"
+					android:fontFamily="@font/opensans_regular"
                     android:background="@drawable/background_not_invited"
-                    fontPath="fonts/OpenSans-Regular.ttf"
                     tools:ignore="MissingPrefix"
                     android:visibility="gone"/>
 
@@ -55,7 +56,8 @@
                     android:layout_width="@dimen/followed_container_size"
                     android:layout_height="@dimen/followed_container_size"
                     android:src="@drawable/invite_followed_icon"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+					android:contentDescription="@string/content_description" />
 
                 <TextView
                     android:id="@+id/invited_container"
@@ -65,8 +67,8 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/not_invited_container_text_size"
                     android:gravity="center"
+                    android:fontFamily="@font/opensans_regular"
                     android:background="@drawable/background_invited"
-                    fontPath="fonts/OpenSans-Regular.ttf"
                     tools:ignore="MissingPrefix"/>
 
             </RelativeLayout>
@@ -75,8 +77,8 @@
                 android:id="@+id/item_invite_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/item_invite_icon_container"
-                android:layout_toLeftOf="@id/item_invite_action_container"
+                android:layout_toEndOf="@id/item_invite_icon_container"
+                android:layout_toStartOf="@id/item_invite_action_container"
                 android:lines="1"
                 android:ellipsize="end"
                 android:layout_marginTop="@dimen/item_invite_title_margin_top"
@@ -84,7 +86,7 @@
                 android:layout_marginRight="@dimen/item_invite_text_margin_side"
                 android:textSize="@dimen/item_invite_text_size"
                 android:textColor="@color/black"
-                fontPath="fonts/OpenSans-Bold.ttf"
+                android:fontFamily="@font/opensans_bold"
                 tools:ignore="MissingPrefix"
                 tools:text="Alex Bingo"/>
 
@@ -92,8 +94,8 @@
                 android:id="@+id/item_invite_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/item_invite_icon_container"
-                android:layout_toLeftOf="@id/item_invite_action_container"
+                android:layout_toEndOf="@id/item_invite_icon_container"
+                android:layout_toStartOf="@id/item_invite_action_container"
                 android:layout_below="@id/item_invite_title"
                 android:layout_marginLeft="@dimen/item_invite_text_margin_side"
                 android:layout_marginRight="@dimen/item_invite_text_margin_side"
@@ -102,7 +104,7 @@
                 android:ellipsize="end"
                 android:textSize="@dimen/item_invite_text_size"
                 android:textColor="@color/text_default"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"
                 tools:text="+1-200-4000-2525"/>
 

@@ -126,10 +126,31 @@
 	<string name="bank_account_text">Bank Account</string>
 	<string name="authorize_your_deposits_selection_text">Authorize your deposits selection</string>
 	<string name="bt_select_another_account">Select Another Account</string>
-	<string name="sos_text">sos</string>
 
 	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="contact">Contact</string>
+	<string name="time">Time</string>
+	<string name="_45_min">45 min</string>
+	<string name="booking_succesfull">Booking Succesfull</string>
+	<string name="your_booking_has_been_confirmed_driver_will_pickup_you_in_5_minutes">Your booking has been confirmed. Driver will pickup you in 5 minutes.</string>
+	<string name="please_pay_the_driver">Please pay the driver.</string>
+	<string name="you_have_successfully_completed_your_ride">You have successfully completed your ride.</string>
+	<string name="ride_completed">Ride Completed</string>
+	<string name="share_ride">Share Ride</string>
+	<string name="support">Support</string>
+	<string name="write_review">Write Review</string>
+	<string name="submit">Submit</string>
+	<string name="for_me">For Me</string>
+	<string name="set_home_address">Set Home Address</string>
+	<string name="recent_destination">Recent Destination</string>
+	<string name="month_rewards">Month Rewards</string>
+	<string name="first_name">First Name</string>
+	<string name="last_name">Last Name</string>
+	<string name="welcome_back_you_can_login_securely_below">Welcome back, you can login securely below</string>
+	<string name="ready_for_your_next_tryp">Ready for your next tryp?</string>
+	<string name="where_to">Where to?</string>
+	<string name="let_s_get_your_account_set_up">Let’s get your account set up!</string>
+	<string name="email">Email</string>
+	<string name="referred_by">Referred by</string>
 
 </resources>

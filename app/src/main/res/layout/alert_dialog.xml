@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Booking Succesfull"
+        android:text="@string/booking_succesfull"
         android:textColor="#000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,8 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Your booking has been confirmed.
-Driver will pickup you in 5 minutes."
+        android:text="@string/your_booking_has_been_confirmed_driver_will_pickup_you_in_5_minutes"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +53,7 @@ Driver will pickup you in 5 minutes."
         android:src="@drawable/ic_keyboard_backspace_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_message" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+        android:contentDescription="@string/content_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

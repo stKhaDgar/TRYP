@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -26,19 +26,20 @@
                 android:layout_height="@dimen/notification_icon_size"
                 android:layout_marginTop="@dimen/notification_icon_margin_top"
                 android:layout_marginBottom="@dimen/notification_icon_margin_top"
-                android:layout_marginLeft="@dimen/notification_icon_margin_left"
-                android:src="@drawable/invite_default_icon"/>
+                android:layout_marginStart="@dimen/notification_icon_margin_left"
+                android:src="@drawable/invite_default_icon"
+				android:contentDescription="@string/content_description" />
 
             <TextView
                 android:id="@+id/notification_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/notification_time_text_size"
-                android:layout_marginRight="@dimen/notification_time_margin_right"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:layout_marginEnd="@dimen/notification_time_margin_right"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"
                 tools:text="10min ago"/>
 
@@ -46,8 +47,8 @@
                 android:id="@+id/item_notification_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/notification_icon_container"
-                android:layout_toLeftOf="@id/notification_time"
+                android:layout_toEndOf="@id/notification_icon_container"
+                android:layout_toStartOf="@id/notification_time"
                 android:lines="1"
                 android:ellipsize="end"
                 android:layout_marginTop="@dimen/item_invite_title_margin_top"
@@ -55,7 +56,7 @@
                 android:layout_marginRight="@dimen/item_invite_text_margin_side"
                 android:textSize="@dimen/item_invite_text_size"
                 android:textColor="@color/black"
-                fontPath="fonts/OpenSans-Bold.ttf"
+                android:fontFamily="@font/opensans_bold"
                 tools:ignore="MissingPrefix"
                 tools:text="Alex Bingo"/>
 
@@ -63,8 +64,8 @@
                 android:id="@+id/item_notification_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/notification_icon_container"
-                android:layout_toLeftOf="@id/notification_time"
+                android:layout_toEndOf="@id/notification_icon_container"
+                android:layout_toStartOf="@id/notification_time"
                 android:layout_below="@id/item_notification_title"
                 android:layout_marginLeft="@dimen/item_invite_text_margin_side"
                 android:layout_marginRight="@dimen/item_invite_text_margin_side"
@@ -73,7 +74,7 @@
                 android:ellipsize="end"
                 android:textSize="@dimen/item_invite_text_size"
                 android:textColor="@color/text_default"
-                fontPath="fonts/OpenSans-Regular.ttf"
+                android:fontFamily="@font/opensans_regular"
                 tools:ignore="MissingPrefix"
                 tools:text="I am waiting"/>
 

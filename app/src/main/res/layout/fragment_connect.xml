@@ -121,7 +121,7 @@
                         android:tint="@color/trip_is_active_color"
                         app:layout_constraintEnd_toEndOf="@+id/driver_iv"
                         app:layout_constraintTop_toTopOf="@+id/driver_iv"
-						android:contentDescription="TODO" />
+						android:contentDescription="@string/content_description" />
 
                     <TextView
                         android:id="@+id/driver_name_tv"
@@ -213,7 +213,7 @@
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Share Ride"
+                android:text="@string/share_ride"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/share_ride_iv"
@@ -225,7 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="48dp"
-                android:text="Support"
+                android:text="@string/support"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/support_iv"
@@ -346,6 +346,7 @@
         android:layout_height="56dp"
         android:layout_weight="2"
         android:clickable="true"
+		android:focusable="true"
         android:elevation="8dp"
 		android:visibility="gone"
         app:cardBackgroundColor="@color/trip_accent_color"

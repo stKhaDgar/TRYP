@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Ready for your next tryp?"
+                android:text="@string/ready_for_your_next_tryp"
                 android:textColor="#000"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -105,13 +105,13 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:clickable="true"
+				android:focusable="true"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7">
-
 
                 <RelativeLayout
                     android:id="@+id/next_layout_btn"
@@ -127,9 +127,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="21dp"
                         android:layout_marginBottom="8dp"
-
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
-
+                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+						android:contentDescription="@string/content_description" />
 
                     <LinearLayout
                         android:id="@+id/where_text_layout"
@@ -148,7 +147,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
-                            android:text="Where to?"
+                            android:text="@string/where_to"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -194,4 +193,3 @@
 		android:contentDescription="@string/content_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

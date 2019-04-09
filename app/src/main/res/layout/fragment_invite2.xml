@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/white">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/title"
@@ -35,13 +35,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_1_size"
                 android:layout_height="@dimen/tabs_invite_icon_1_size"
                 android:src="@drawable/invite_icon_1"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+				android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon1"
+                android:layout_alignEnd="@id/icon1"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -60,13 +61,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_2_width"
                 android:layout_height="@dimen/tabs_invite_icon_2_height"
                 android:src="@drawable/invite_icon_2"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+				android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon2"/>
+                android:layout_alignEnd="@id/icon2"/>
 
         </RelativeLayout>
 
@@ -84,13 +86,14 @@
                 android:layout_width="@dimen/tabs_invite_icon_3_size"
                 android:layout_height="@dimen/tabs_invite_icon_3_size"
                 android:src="@drawable/invite_icon_3"
-                android:padding="@dimen/tabs_invite_icon_container_padding"/>
+                android:padding="@dimen/tabs_invite_icon_container_padding"
+				android:contentDescription="@string/content_description" />
 
             <View
                 android:layout_width="@dimen/invite_badge_size"
                 android:layout_height="@dimen/invite_badge_size"
                 android:background="@drawable/background_invite_tabs_badge"
-                android:layout_alignRight="@id/icon3"
+                android:layout_alignEnd="@id/icon3"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -119,7 +122,7 @@
                 android:layout_marginRight="@dimen/invite_2_content_margin_side"
                 android:layout_marginTop="@dimen/invite_2_here_text_margin_top"
                 android:text="@string/invite_2_already_here"
-                fontPath="fonts/OpenSans-Bold.ttf"
+				android:fontFamily="@font/opensans_bold"
                 tools:ignore="MissingPrefix"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -142,7 +145,7 @@
                 android:layout_marginLeft="@dimen/invite_2_content_margin_side"
                 android:layout_marginRight="@dimen/invite_2_content_margin_side"
                 android:layout_marginTop="@dimen/invite_2_invite_text_margin_top"
-                fontPath="fonts/OpenSans-Bold.ttf"
+				android:fontFamily="@font/opensans_bold"
                 tools:ignore="MissingPrefix"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -170,12 +173,12 @@
                     android:id="@+id/search_view_edititext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/invite_search_icon"
+                    android:layout_toStartOf="@id/invite_search_icon"
                     android:hint="@string/search_friends_hint"
                     android:textColorHint="@color/text_default"
                     android:background="@android:color/transparent"
                     android:textSize="@dimen/search_view_edititext_text_size"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+                    android:fontFamily="@font/opensans_regular"
                     tools:ignore="MissingPrefix"
                     android:layout_marginLeft="@dimen/search_view_edititext_margin_side"
                     android:layout_marginRight="@dimen/search_view_edititext_margin_side"
@@ -187,9 +190,10 @@
                     android:layout_width="@dimen/invite_search_icon_size"
                     android:layout_height="@dimen/invite_search_icon_size"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/invite_search_icon_margin_right"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/search_icon"/>
+                    android:layout_marginEnd="@dimen/invite_search_icon_margin_right"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/search_icon"
+					android:contentDescription="@string/content_description" />
 
             </RelativeLayout>
 

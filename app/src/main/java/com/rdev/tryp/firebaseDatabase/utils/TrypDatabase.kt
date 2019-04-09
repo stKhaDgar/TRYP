@@ -294,10 +294,6 @@ class TrypDatabase{
 
                         tempArr.sortByDescending { it.dateCreatedAt }
 
-                        for(item in tempArr){
-                            Log.e(const.TAG, SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(item.dateCreatedAt))
-                        }
-
                         callback.onUpdated(tempArr)
                     }
 

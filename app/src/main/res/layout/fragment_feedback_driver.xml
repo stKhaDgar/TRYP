@@ -144,7 +144,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="Write Review"
+						android:text="@string/write_review"
 						android:layout_marginStart="23dp"
 						android:layout_marginTop="23dp"
 						android:fontFamily="@font/opensans_bold"
@@ -167,7 +167,7 @@
 							android:lines="3"
 							android:textColor="@android:color/black"
 							android:textSize="13sp"
-							android:gravity="top|left"
+							android:gravity="top|start"
 							android:fontFamily="@font/opensans_regular"
 							android:focusableInTouchMode="true"/>
 
@@ -215,8 +215,6 @@
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
 	<ImageButton
 		android:id="@+id/back_btn"
 		android:layout_width="@dimen/map_navigation_btn_size"
@@ -244,7 +242,7 @@
 		android:layout_gravity="bottom|end"
 		android:elevation="5dp"
 		android:background="@drawable/background_button_accent"
-		android:text="Submit"
+		android:text="@string/submit"
 		android:textColor="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

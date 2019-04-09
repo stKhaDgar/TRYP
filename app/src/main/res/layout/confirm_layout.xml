@@ -12,7 +12,8 @@
         android:src="@drawable/logo_tryp_shite_gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_description" />
 
     <TextView
         android:id="@+id/textView24"
@@ -78,7 +79,7 @@
         android:layout_height="@dimen/map_navigation_btn_size"
         android:layout_marginEnd="16dp"
         android:background="@drawable/circle_button"
-        android:backgroundTint="#0172FF"
+        android:backgroundTint="@color/colorAccent"
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
@@ -86,8 +87,8 @@
         android:src="@drawable/ic_arrow_right"
         app:layout_constraintBottom_toBottomOf="@+id/resend"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/resend" />
-
+        app:layout_constraintTop_toTopOf="@+id/resend"
+        android:contentDescription="@string/content_description" />
 
     <ImageButton
         android:id="@+id/back_btn"
@@ -102,5 +103,7 @@
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_keyboard_backspace_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/content_description" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
