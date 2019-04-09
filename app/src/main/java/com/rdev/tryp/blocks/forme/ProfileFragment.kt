@@ -39,7 +39,6 @@ import java.util.Arrays
 import java.util.Objects
 
 import android.location.Location
-import android.os.Handler
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -71,8 +70,8 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
     private var adapter: AutoCompleteAdapter? = null
     private var editLayout: RelativeLayout? = null
 
-    private var adressTv: AppCompatEditText? = null
-    private var adressTv2: AppCompatEditText? = null
+    private var addressTv: AppCompatEditText? = null
+    private var addressTv2: AppCompatEditText? = null
     private var autoCompleteRv: RecyclerView? = null
     private var btnBack: ImageButton? = null
     private var btnEdit: ImageButton? = null
@@ -99,10 +98,10 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         editor = AddressEditor()
         showFavoriteAddresses()
 
-        adressTv2?.requestFocus()
+        addressTv2?.requestFocus()
         val currentAddress = (Objects.requireNonNull<FragmentActivity>(activity) as ContentActivity).currentAddress
         if (currentAddress != null) {
-            adressTv?.setText(currentAddress)
+            addressTv?.setText(currentAddress)
 
             (activity as ContentActivity).currentLocation.onStartLocationUpdate(object : LocationUpdatedListener{
                 override fun locationUpdated(location: Location) {
@@ -118,8 +117,8 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
     }
 
     private fun initView(view: View) {
-        adressTv = view.findViewById(R.id.adress_tv)
-        adressTv2 = view.findViewById(R.id.adress_tv_2)
+        addressTv = view.findViewById(R.id.adress_tv)
+        addressTv2 = view.findViewById(R.id.adress_tv_2)
         cardView = view.findViewById(R.id.top_card_view)
         autoCompleteRv = view.findViewById(R.id.autoCompleteRv)
         btnBack = view.findViewById(R.id.back_btn)
@@ -146,18 +145,18 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         routeBtn?.setOnClickListener(this)
         homeEditText?.text = PreferenceManager.getString(KEY_HOME)
         workEditText?.text = PreferenceManager.getString(KEY_WORK)
-        adressTv?.setOnFocusChangeListener { _, _ ->
-            resetAddressView(adressTv2)
+        addressTv?.setOnFocusChangeListener { _, _ ->
+            resetAddressView(addressTv2)
             adapter?.setData(ArrayList())
-            mainEditText = adressTv
-            setCursorEnd(adressTv)
+            mainEditText = addressTv
+            setCursorEnd(addressTv)
         }
 
-        adressTv2?.setOnFocusChangeListener { _, _ ->
-            resetAddressView(adressTv)
+        addressTv2?.setOnFocusChangeListener { _, _ ->
+            resetAddressView(addressTv)
             adapter?.setData(ArrayList())
-            mainEditText = adressTv2
-            setCursorEnd(adressTv2)
+            mainEditText = addressTv2
+            setCursorEnd(addressTv2)
         }
     }
 
@@ -197,19 +196,19 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
     }
 
     private fun resetAddressView(textView: TextView?) {
-        if (textView == adressTv) {
+        if (textView == addressTv) {
             if (startPos != null) {
-                adressTv?.setText(startPos?.locale)
+                addressTv?.setText(startPos?.locale)
             } else {
-                adressTv?.setText("")
+                addressTv?.setText("")
             }
         }
 
-        if (textView == adressTv2) {
+        if (textView == addressTv2) {
             if (destination != null) {
-                adressTv2?.setText(destination?.locale)
+                addressTv2?.setText(destination?.locale)
             } else {
-                adressTv2?.setText("")
+                addressTv2?.setText("")
             }
         }
     }
@@ -241,16 +240,16 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
             destination = TripPlace()
         }
 
-        adressTv?.setText(startPos?.locale)
-        adressTv2?.setText(destination?.locale)
+        addressTv?.setText(startPos?.locale)
+        addressTv2?.setText(destination?.locale)
 
         adapter = AutoCompleteAdapter(ArrayList(), this@ProfileFragment)
         autoCompleteRv?.adapter = adapter
 
         //Autocomplete Realisation
-        adressTv?.addTextChangedListener(object : TextWatcher {
+        addressTv?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                mainEditText = adressTv
+                mainEditText = addressTv
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -266,10 +265,10 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
             }
         })
 
-        adressTv2?.addTextChangedListener(object : TextWatcher {
+        addressTv2?.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                mainEditText = adressTv2
+                mainEditText = addressTv2
                 adapter?.setData(ArrayList())
             }
 
@@ -380,16 +379,16 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         }
 
         if (mainEditText == null) {
-            mainEditText = adressTv
+            mainEditText = addressTv
         }
 
-        if (mainEditText == adressTv2) {
+        if (mainEditText == addressTv2) {
             destination = tripPlace
-            resetAddressView(adressTv2)
+            resetAddressView(addressTv2)
         }
-        if (mainEditText == adressTv) {
+        if (mainEditText == addressTv) {
             startPos = tripPlace
-            resetAddressView(adressTv)
+            resetAddressView(addressTv)
         }
 
         setCursorEnd(mainEditText)
@@ -407,11 +406,11 @@ constructor(private var startPos: TripPlace?, private var destination: TripPlace
         val placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME)
         val request = FetchPlaceRequest.newInstance(prediction.placeId, placeFields)
         placesClient?.fetchPlace(request)?.addOnCompleteListener { task ->
-            if (mainEditText == adressTv2) {
+            if (mainEditText == addressTv2) {
                 destination?.coord = Objects.requireNonNull<FetchPlaceResponse>(task.result).place.latLng
                 destination?.locale = prediction.getFullText(null).toString()
             }
-            if (mainEditText == adressTv) {
+            if (mainEditText == addressTv) {
                 (Objects.requireNonNull<FragmentActivity>(activity) as ContentActivity).currentAddress = null
                 startPos?.coord = Objects.requireNonNull<FetchPlaceResponse>(task.result).place.latLng
                 startPos?.locale = prediction.getFullText(null).toString()
