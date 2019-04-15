@@ -28,4 +28,9 @@
 		<item name="boxStrokeColor">#E0E0E0</item>
 	</style>
 
+    <style name="TextAppearance.Tabs" parent="TextAppearance.MaterialComponents.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
+    </style>
+
 </resources>

@@ -29,6 +29,8 @@
     <color name="gray">#E6AFAFAF</color>
     <color name="back">#1b000000</color>
     <color name="color_delete">#C41B1B</color>
+    <color name="confirmed">#2CD05F</color>
+    <color name="cancelled">#EB5757</color>
 
     <array name="recap_gradient">
         <item>#E53E32EA</item>

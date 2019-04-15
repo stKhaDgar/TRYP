@@ -1,0 +1,74 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:background="@android:color/white">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appbar_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:elevation="0dp"
+			android:background="@android:color/white">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="64dp"
+				android:fontFamily="@font/opensans_regular"
+				android:gravity="center_horizontal"
+				android:text="@string/your_trips"
+				android:textColor="@android:color/black"
+				android:textSize="18sp" />
+
+			<com.google.android.material.tabs.TabLayout
+				android:id="@+id/trips_tabs"
+				style="@style/Widget.MaterialComponents.TabLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginTop="20dp"
+				app:tabIndicatorColor="@color/colorAccent"
+				app:tabIndicatorHeight="3dp"
+				app:tabTextAppearance="@style/TextAppearance.Tabs"
+				app:tabSelectedTextColor="@color/black">
+
+			</com.google.android.material.tabs.TabLayout>
+
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/trips_pager"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:layout_marginBottom="80dp"
+			android:layout_below="@+id/appbar_layout">
+
+		</androidx.viewpager.widget.ViewPager>
+
+	</RelativeLayout>
+
+	<ImageButton
+		android:id="@+id/back_btn"
+		android:layout_width="@dimen/map_navigation_btn_size"
+		android:layout_height="@dimen/map_navigation_btn_size"
+		android:layout_marginStart="32dp"
+		android:layout_marginBottom="32dp"
+		android:background="@drawable/circle_button"
+		android:layout_gravity="bottom|start"
+		android:clickable="true"
+		android:elevation="5dp"
+		android:focusable="true"
+		android:layout_alignParentBottom="true"
+		android:src="@drawable/ic_keyboard_backspace_black_24dp"
+		android:contentDescription="@string/content_description" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

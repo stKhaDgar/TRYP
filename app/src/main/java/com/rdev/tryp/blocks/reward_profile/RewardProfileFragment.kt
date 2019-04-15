@@ -206,7 +206,7 @@ class RewardProfileFragment : BaseFragment(), View.OnClickListener {
                         }
                     })
                 }
-            } catch (e: FileNotFoundException) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
                 Toast.makeText(view?.context, "Image was not found", Toast.LENGTH_SHORT).show()
             }

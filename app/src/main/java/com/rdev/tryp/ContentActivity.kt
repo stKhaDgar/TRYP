@@ -92,6 +92,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.rdev.tryp.blocks.trip_history.TripHistoryFragment
 import com.rdev.tryp.utils.LocationUpdatedListener
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.realm.Realm
@@ -125,6 +126,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
         const val TYPE_REWARDS_WITHDRAW = 14
         const val TYPE_RIDE_COMPLETED = 15
         const val TYPE_WRITE_FEEDBACK = 16
+        const val TYPE_TRIP_HISTORY = 17
 
         private const val REQUEST_CHECK_SETTINGS = 1001
 
@@ -685,6 +687,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                 //                                Toast.makeText(getApplicationContext(), "Notification", Toast.LENGTH_SHORT).show();
                 //                                //startFragment(TYPE_NOTIFICATION);
                 //                                break;
+                R.id.nav_trip_history -> startFragment(TYPE_TRIP_HISTORY)
                 R.id.nav_rewards -> startFragment(TYPE_REWARDS)
                 //                            case R.id.nav_emergency_contact:
                 //                                Toast.makeText(getApplicationContext(), "Emergency contact", Toast.LENGTH_SHORT).show();
@@ -858,6 +861,15 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                 val fragment = FavouriteDriversFragment()
                 transaction.replace(R.id.screenContainer, fragment)
                         .addToBackStack(FavouriteDriversFragment::class.java.name)
+                        .commit()
+            }
+            TYPE_TRIP_HISTORY -> if (Utils.isFragmentInBackStack(supportFragmentManager,
+                            TripHistoryFragment::class.java.name)) {
+                supportFragmentManager.popBackStackImmediate(TripHistoryFragment::class.java.name, 0)
+            } else {
+                val fragment = TripHistoryFragment()
+                transaction.replace(R.id.screenContainer, fragment)
+                        .addToBackStack(TripHistoryFragment::class.java.name)
                         .commit()
             }
             TYPE_REWARDS -> if (Utils.isFragmentInBackStack(supportFragmentManager,

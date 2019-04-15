@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/cardView"
+	android:layout_width="match_parent"
+	android:layout_height="120dp"
+	android:layout_marginStart="16dp"
+	android:layout_marginBottom="8dp"
+
+	android:layout_marginEnd="16dp"
+	app:cardCornerRadius="8dp"
+	app:cardElevation="4dp">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<LinearLayout
+			android:id="@+id/linearLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="12dp"
+			android:layout_marginTop="16dp"
+			android:orientation="vertical"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<de.hdodenhof.circleimageview.CircleImageView
+				android:id="@+id/avatar_imageview"
+				android:layout_width="56dp"
+				android:layout_height="56dp"
+				android:layout_marginStart="6dp"
+				android:layout_marginEnd="6dp" />
+
+			<TextView
+				android:id="@+id/client_name_textView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginTop="6dp"
+				android:fontFamily="@font/opensans_bold"
+				android:text="Clint"
+				android:textAlignment="center"
+				android:textColor="@color/black"
+				android:textSize="12sp" />
+
+		</LinearLayout>
+
+		<ImageView
+			android:id="@+id/start_icon_imageView"
+			android:layout_width="11dp"
+			android:layout_height="18dp"
+			android:layout_marginStart="10dp"
+			android:layout_marginTop="18dp"
+			app:layout_constraintStart_toEndOf="@+id/linearLayout"
+			app:layout_constraintTop_toTopOf="parent"
+			android:src="@drawable/ic_vector" />
+
+		<TextView
+			android:id="@+id/from_textView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="9dp"
+			android:layout_marginTop="16dp"
+			android:fontFamily="@font/opensans_regular"
+			android:text="333 Rolling Park, New York"
+			android:textColor="#828282"
+			android:textSize="13sp"
+			app:layout_constraintStart_toEndOf="@+id/start_icon_imageView"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<ImageView
+			android:id="@+id/end_icon_imageView"
+			android:layout_width="17dp"
+			android:layout_height="14dp"
+			android:layout_marginStart="7dp"
+			android:layout_marginTop="18dp"
+			app:layout_constraintStart_toEndOf="@+id/linearLayout"
+			app:layout_constraintTop_toBottomOf="@+id/start_icon_imageView"
+			android:src="@drawable/ic_home" />
+
+		<TextView
+			android:id="@+id/to_textView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="6dp"
+			android:layout_marginTop="14dp"
+			android:fontFamily="@font/opensans_regular"
+			android:text="7025 Washing Apt, Feltonport"
+			android:textColor="#828282"
+			android:textSize="13sp"
+			app:layout_constraintStart_toEndOf="@+id/end_icon_imageView"
+			app:layout_constraintTop_toBottomOf="@+id/from_textView" />
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/date_button"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="150dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:fontFamily="@font/opensans_regular"
+			android:textAppearance="@style/AppTheme"
+			android:text="21 Jun at 5:30 PM"
+			android:textAllCaps="false"
+			android:textColor="#333333"
+			android:textSize="12sp"
+			app:layout_constraintStart_toEndOf="@+id/linearLayout"
+			app:layout_constraintTop_toBottomOf="@+id/to_textView" />
+
+		<TextView
+			android:id="@+id/status_textView"
+			android:layout_width="123dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="8dp"
+			android:fontFamily="@font/opensans_bold"
+			android:text="Confirmed"
+			android:textAlignment="center"
+			android:textColor="#2CD05F"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/date_button"
+			app:layout_constraintTop_toBottomOf="@+id/to_textView" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

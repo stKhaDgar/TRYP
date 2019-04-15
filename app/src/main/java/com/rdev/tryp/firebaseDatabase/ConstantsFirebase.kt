@@ -18,6 +18,9 @@ object ConstantsFirebase {
     const val FAVORITES_ARRAY_PARAM = "favorites"
     const val RECENT_DESTINATION_ARRAY_PARAM = "recentDestinations"
 
+    const val STATUS_RIDE_CONFIRMED = 1
+    const val STATUS_RIDE_CANCELLED = 2
+
     const val TRYP_CAR_FARE: Float = 0.8F
 
     const val STATUS_ROAD_STARTED = 100

@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_home"
             android:title="@string/home"/>
         <item
+            android:id="@+id/nav_trip_history"
+            android:icon="@drawable/ic_timer"
+            android:title="@string/trip_history"/>
+        <item
             android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_like_off"
             android:title="@string/favorite" />

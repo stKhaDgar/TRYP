@@ -153,4 +153,11 @@
 	<string name="email">Email</string>
 	<string name="referred_by">Referred by</string>
 
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="your_trips">Your Trips</string>
+	<string name="trip_history">Trip History</string>
+	<string name="past_trips">Past</string>
+	<string name="upcoming_trips">Upcoming</string>
+
 </resources>
