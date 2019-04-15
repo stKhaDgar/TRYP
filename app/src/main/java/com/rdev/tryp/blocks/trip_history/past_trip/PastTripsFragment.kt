@@ -30,7 +30,7 @@ class PastTripsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter(view)
-        initTrips(view)
+        initTrips()
     }
 
     private fun initAdapter(view: View){
@@ -39,13 +39,18 @@ class PastTripsFragment : Fragment() {
         view.trips_recycler_view.adapter = adapter
     }
 
-    private fun initTrips(view: View){
+    private fun initTrips() {
         (activity as ContentActivity).database.getRecentRides(object : RecentRidesCallback {
-            override fun onUpdated(list: ArrayList<RecentRide>) {
-                mList.clear()
+            override fun onUpdated(ride: RecentRide) {
 
-                for(item in list){
-                    mList.add(item)
+                if(mList.any { it.id == ride.id}){
+                    for((index, item) in mList.withIndex()){
+                        if(item.id == ride.id){
+                            mList[index] = ride
+                        }
+                    }
+                } else {
+                    mList.add(ride)
                 }
 
                 adapter.notifyDataSetChanged()

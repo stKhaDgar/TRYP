@@ -8,6 +8,6 @@ import com.rdev.tryp.firebaseDatabase.model.RecentRide
 
 
 interface RecentRidesCallback {
-    fun onUpdated(list: ArrayList<RecentRide>)
+    fun onUpdated(ride: RecentRide)
 
 }

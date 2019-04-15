@@ -316,7 +316,6 @@ class TrypDatabase{
                 .addValueEventListener(object : ValueEventListener{
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val tempArr = ArrayList<RecentRide>()
 
                         for(postSnapshot in dataSnapshot.children){
                             postSnapshot.getValue(RecentRide::class.java)?.let { item ->
@@ -324,14 +323,17 @@ class TrypDatabase{
                                     item.dateCreatedAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(item.createdAt)
                                 } catch (e: Exception){}
 
-                                
-                                tempArr.add(item)
+                                item.driverId?.let { id ->
+                                    getDriver(id, object : AvailableDriversChanged.GetData.Driver{
+                                        override fun onCompleted(driver: Driver?) {
+                                            item.driver = driver
+
+                                            callback.onUpdated(item)
+                                        }
+                                    })
+                                }
                             }
                         }
-
-                        tempArr.sortByDescending { it.dateCreatedAt }
-
-                        callback.onUpdated(tempArr)
                     }
 
                     override fun onCancelled(p0: DatabaseError) {}
