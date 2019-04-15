@@ -56,8 +56,9 @@ class ConnectCancelFragment : Fragment(), View.OnClickListener {
         when (v.id) {
             R.id.back_btn -> (Objects.requireNonNull<FragmentActivity>(activity) as ContentActivity).popBackStack()
             R.id.confirm_button -> {
-                val idTemp = (activity as ContentActivity).currentRide?.id
-                (activity as ContentActivity).database.cancelRide(idTemp, currentChecked)
+                val currentRide = (activity as ContentActivity).currentRide
+                (activity as ContentActivity).database.cancelRide(currentRide?.id, currentChecked)
+                currentRide?.let { ride -> (activity as ContentActivity).database.pushRecentRide(ride, false) }
                 (Objects.requireNonNull<FragmentActivity>(activity) as ContentActivity).clearBackStack()
                 (activity as ContentActivity).clearMap()
                 (activity as ContentActivity).initMap()
