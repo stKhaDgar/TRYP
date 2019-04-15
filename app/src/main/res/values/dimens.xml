@@ -212,4 +212,6 @@
     <dimen name="height_margin_top_card_recent_rides">-300dp</dimen>
     <dimen name="max_height_card_view_recent_rides">158dp</dimen>
     <dimen name="dimen16">16dp</dimen>
+    <dimen name="dimen24">24dp</dimen>
+    <dimen name="dimen2">2dp</dimen>
 </resources>

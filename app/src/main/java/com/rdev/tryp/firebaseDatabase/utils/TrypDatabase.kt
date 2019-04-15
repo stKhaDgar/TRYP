@@ -10,10 +10,7 @@ import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.*
 import com.rdev.tryp.R
-import com.rdev.tryp.firebaseDatabase.AvailableDriversChanged
-import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
-import com.rdev.tryp.firebaseDatabase.DriverApproveListener
-import com.rdev.tryp.firebaseDatabase.RecentDriversCallback
+import com.rdev.tryp.firebaseDatabase.*
 import com.rdev.tryp.firebaseDatabase.model.*
 import com.rdev.tryp.model.RealmCallback
 import com.rdev.tryp.model.RealmUtils
@@ -28,6 +25,7 @@ import java.util.*
 /**
  * Created by Andrey Berezhnoi on 20.03.2019.
  */
+
 
 class TrypDatabase{
 
@@ -276,7 +274,6 @@ class TrypDatabase{
     }
 
     fun getRecentDestinationsRides(callback: RecentDriversCallback){
-
         database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.RECENT_DESTINATION_ARRAY_PARAM)
                 .addValueEventListener(object : ValueEventListener{
 
@@ -312,6 +309,31 @@ class TrypDatabase{
         recentDestination.createdAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).format(Calendar.getInstance().time)
 
         item.setValue(recentDestination)
+    }
+
+    fun getRecentRides(callback: RecentRidesCallback) {
+        database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.RECENT_RIDES_ARRAY_PARAM)
+                .addValueEventListener(object : ValueEventListener{
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val tempArr = ArrayList<RecentRide>()
+
+                        for(postSnapshot in dataSnapshot.children){
+                            postSnapshot.getValue(RecentRide::class.java)?.let { item ->
+                                try {
+                                    item.dateCreatedAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(item.createdAt)
+                                } catch (e: Exception){}
+                                tempArr.add(item)
+                            }
+                        }
+
+                        tempArr.sortByDescending { it.dateCreatedAt }
+
+                        callback.onUpdated(tempArr)
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {}
+                })
     }
 
     fun sendFeedback(id: String, feedback: Feedback) {
