@@ -323,6 +323,8 @@ class TrypDatabase{
                                 try {
                                     item.dateCreatedAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(item.createdAt)
                                 } catch (e: Exception){}
+
+                                
                                 tempArr.add(item)
                             }
                         }
@@ -334,6 +336,23 @@ class TrypDatabase{
 
                     override fun onCancelled(p0: DatabaseError) {}
                 })
+    }
+
+    fun pushRecentRide(ride: Ride, isConfirmed: Boolean) {
+        val item = database.reference.child(const.CLIENTS).child(RealmUtils(null, null).getCurrentUser()?.userId.toString()).child(const.RECENT_RIDES_ARRAY_PARAM).push()
+
+        val recentRide = RecentRide()
+
+        recentRide.id = item.key
+        recentRide.fromAddress = ride.fromAddress
+        recentRide.fromLocation = ride.pickUpLocation
+        recentRide.destinationAddress = ride.toAddress
+        recentRide.destinationLocation = ride.destinationLocation
+        recentRide.createdAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).format(Calendar.getInstance().time)
+        recentRide.status = if(isConfirmed) const.STATUS_RIDE_CONFIRMED else const.STATUS_RIDE_CANCELLED
+        recentRide.driverId = ride.driver?.id
+
+        item.setValue(recentRide)
     }
 
     fun sendFeedback(id: String, feedback: Feedback) {

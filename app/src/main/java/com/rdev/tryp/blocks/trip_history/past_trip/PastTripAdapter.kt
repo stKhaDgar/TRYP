@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
@@ -52,13 +53,21 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
             }
         }
 
-        if(position == 0){
-            (holder.cardView?.layoutParams as LinearLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
-        } else if (position == mList.size-1) {
-            (holder.cardView?.layoutParams as LinearLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
-            (holder.cardView.layoutParams as LinearLayout.LayoutParams).bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
-        } else {
-            (holder.cardView?.layoutParams as LinearLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
+        when (position) {
+            0 -> {
+                (holder.cardView?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
+                (holder.mainLayout?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
+            }
+            mList.size-1 -> {
+                (holder.cardView?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
+                (holder.cardView.layoutParams as ConstraintLayout.LayoutParams).bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
+                (holder.mainLayout?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
+                (holder.mainLayout.layoutParams as ConstraintLayout.LayoutParams).bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
+            }
+            else -> {
+                (holder.cardView?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
+                (holder.mainLayout?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
+            }
         }
     }
 
@@ -72,6 +81,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
         val mDateButton = itemView.findViewById(R.id.date_button) as? Button
         val mNameTextView = itemView.findViewById(R.id.client_name_textView) as? TextView
         val cardView = itemView.findViewById(R.id.cardView) as? CardView
+        val mainLayout = itemView.findViewById(R.id.main_layout) as? ConstraintLayout
     }
 
 }

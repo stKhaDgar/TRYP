@@ -18,5 +18,6 @@ class RecentRide {
     var createdAt: String? = null
     var dateCreatedAt: Date? = null
     var status: Int? = null
+    var driverId: String? = null
     var driver: Driver? = null
 }

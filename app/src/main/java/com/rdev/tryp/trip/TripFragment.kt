@@ -334,6 +334,7 @@ constructor() : Fragment(), View.OnClickListener {
 
                                         activity.startFragment(ContentActivity.TYPE_RIDE_COMPLETED)
                                         activity.database.pushRecentDestination(ride)
+                                        activity.database.pushRecentRide(ride, true)
                                     }
 
                                     if (currentCar != null) {

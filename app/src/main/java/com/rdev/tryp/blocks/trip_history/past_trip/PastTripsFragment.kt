@@ -10,14 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rdev.tryp.ContentActivity
 
 import com.rdev.tryp.R
-import com.rdev.tryp.firebaseDatabase.RecentDriversCallback
 import com.rdev.tryp.firebaseDatabase.RecentRidesCallback
-import com.rdev.tryp.firebaseDatabase.model.Driver
-import com.rdev.tryp.firebaseDatabase.model.Location
-import com.rdev.tryp.firebaseDatabase.model.RecentDestination
 import com.rdev.tryp.firebaseDatabase.model.RecentRide
 import kotlinx.android.synthetic.main.fragment_past_trips.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
