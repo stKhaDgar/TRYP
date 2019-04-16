@@ -99,6 +99,7 @@ class FeedbackDriverFragment : Fragment() {
                     }
                 }
             }
+            (activity as ContentActivity).goHomeOneTransition()
         }
 
         view.btnFavourite.setOnCheckedChangeListener { _, isChecked ->
