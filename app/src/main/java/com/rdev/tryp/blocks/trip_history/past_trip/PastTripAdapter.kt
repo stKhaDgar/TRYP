@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +27,7 @@ import kotlin.collections.ArrayList
 class PastTripAdapter(private val context: Context, private val mList: ArrayList<RecentRide>) : RecyclerView.Adapter<PastTripAdapter.TripsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripsHolder {
-        val inflater = LayoutInflater.from(context).inflate(R.layout.list_item, null)
+        val inflater = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
 
         return TripsHolder(inflater)
     }
@@ -63,10 +62,6 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
                 (holder.cardView.layoutParams as ConstraintLayout.LayoutParams).bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
                 (holder.mainLayout?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
                 (holder.mainLayout.layoutParams as ConstraintLayout.LayoutParams).bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen24)
-            }
-            else -> {
-                (holder.cardView?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
-                (holder.mainLayout?.layoutParams as ConstraintLayout.LayoutParams).topMargin = context.resources.getDimensionPixelSize(R.dimen.dimen2)
             }
         }
     }
