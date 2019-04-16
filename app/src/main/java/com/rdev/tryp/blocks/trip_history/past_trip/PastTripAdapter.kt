@@ -45,10 +45,14 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
             ConstantsFirebase.STATUS_RIDE_CONFIRMED -> {
                 holder.mStatusTextView?.setTextColor(ContextCompat.getColor(context, R.color.confirmed))
                 holder.mStatusTextView?.text = "Confirmed"
+                (holder.mStatusTextView?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen8)
+                holder.tvPrice?.visibility = View.VISIBLE
             }
             ConstantsFirebase.STATUS_RIDE_CANCELLED -> {
                 holder.mStatusTextView?.setTextColor(ContextCompat.getColor(context, R.color.cancelled))
                 holder.mStatusTextView?.text = "Cancelled"
+                (holder.mStatusTextView?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin = 0
+                holder.tvPrice?.visibility = View.GONE
             }
         }
 
@@ -73,6 +77,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
         val mTripFromTextView = itemView.findViewById(R.id.from_textView) as? TextView
         val mTripToTextView = itemView.findViewById(R.id.to_textView) as? TextView
         val mStatusTextView = itemView.findViewById(R.id.status_textView) as? TextView
+        val tvPrice = itemView.findViewById(R.id.tvPrice) as? TextView
         val mDateButton = itemView.findViewById(R.id.date_button) as? Button
         val mNameTextView = itemView.findViewById(R.id.client_name_textView) as? TextView
         val cardView = itemView.findViewById(R.id.cardView) as? CardView
