@@ -41,7 +41,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
         holder.mTripToTextView?.text = model.destinationAddress
         model.dateCreatedAt?.let { date -> holder.mDateButton?.text = SimpleDateFormat("d MMM 'at' h:mm a", Locale.ENGLISH).format(date) }
         holder.mNameTextView?.text = model.driver?.firstName
-        model.distance?.let { distance -> holder.tvDistance?.text = ViewUtils.distanceToPresentableFormat(distance) }
+        model.distance?.let { distance -> holder.tvDistance?.text = ViewUtils.distanceToPresentableFormat(distance / 1000) }
 
         when(model.status){
             ConstantsFirebase.STATUS_RIDE_CONFIRMED -> {

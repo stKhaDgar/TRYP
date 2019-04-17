@@ -14,4 +14,5 @@ object ViewUtils{
     fun distanceToPresentableFormat(distance: Double): String {
         return if(distance % 1 == 0.0) "${distance.toInt()} km" else "${String.format("%.2f", distance)} km"
     }
+
 }
