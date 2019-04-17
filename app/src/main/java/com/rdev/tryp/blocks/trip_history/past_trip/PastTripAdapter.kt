@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.RecentRide
+import com.rdev.tryp.payment.utils.PaymentUtils
+import com.rdev.tryp.utils.Utils
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,6 +49,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
                 holder.mStatusTextView?.text = "Confirmed"
                 (holder.mStatusTextView?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen8)
                 holder.tvPrice?.visibility = View.VISIBLE
+                model.fare?.let { fare -> holder.tvPrice?.text = PaymentUtils.priceToPresentableFormat(fare * 0.8F) }
             }
             ConstantsFirebase.STATUS_RIDE_CANCELLED -> {
                 holder.mStatusTextView?.setTextColor(ContextCompat.getColor(context, R.color.cancelled))

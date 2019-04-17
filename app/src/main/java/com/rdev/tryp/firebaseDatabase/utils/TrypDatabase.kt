@@ -353,6 +353,7 @@ class TrypDatabase{
         recentRide.createdAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).format(Calendar.getInstance().time)
         recentRide.status = if(isConfirmed) const.STATUS_RIDE_CONFIRMED else const.STATUS_RIDE_CANCELLED
         recentRide.driverId = ride.driver?.id
+        recentRide.fare = ride.fare
 
         item.setValue(recentRide)
     }
