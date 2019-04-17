@@ -11,7 +11,7 @@ import com.rdev.tryp.ContentActivity
 
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
-import com.rdev.tryp.payment.utils.PaymentUtils
+import com.rdev.tryp.utils.ViewUtils
 import kotlinx.android.synthetic.main.fragment_completed_ride.view.*
 
 class CompletedRideFragment : Fragment() {
@@ -31,7 +31,7 @@ class CompletedRideFragment : Fragment() {
     private fun initUI(view: View){
         (activity as? ContentActivity)?.currentFare?.let { price ->
             val fare = price * ConstantsFirebase.TRYP_CAR_FARE
-            val textPrice = PaymentUtils.priceToPresentableFormat(fare)
+            val textPrice = ViewUtils.priceToPresentableFormat(fare)
             view.tvFare.text = textPrice
 
             when {

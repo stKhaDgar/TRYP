@@ -219,7 +219,8 @@ constructor() : Fragment(), View.OnClickListener {
                         Location(start?.coord?.latitude, start?.coord?.longitude), null,
                         fromAddress?.get(0)?.getAddressLine(0),
                         toAddress?.get(0)?.getAddressLine(0),
-                        (activity as ContentActivity).currentFare)
+                        (activity as? ContentActivity)?.currentFare,
+                        (activity as? ContentActivity)?.currentDistance)
 
                 NetworkService.getApiService()?.ride_request(requestRideBody)?.enqueue(object : Callback<RideResponse> {
                     override fun onResponse(call: Call<RideResponse>, response: Response<RideResponse>) {
@@ -231,7 +232,7 @@ constructor() : Fragment(), View.OnClickListener {
                             showAlertDialod("Ride request Successful", "Your ride request succesffully send", activity)
 
                             ride.id = rideRequest?.requestId
-                            activity.database.startRide(ride, driversItem.driverId, object : DriverApproveListener {
+                            (activity as? ContentActivity)?.database?.startRide(ride, driversItem.driverId, object : DriverApproveListener {
                                 var connectIsShown = false
                                 var status = 0
                                 var currentCar: Pair<GroundOverlay, AvailableDriver>? = null

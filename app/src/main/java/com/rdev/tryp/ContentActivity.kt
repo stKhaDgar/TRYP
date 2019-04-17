@@ -153,6 +153,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
     var currentFare = 0f
         private set
     var currentRide: Ride? = null
+    var currentDistance: Double? = null
 
     lateinit var currentLocation: CurrentLocation
     var currentAddress: String? = null
@@ -435,6 +436,7 @@ class ContentActivity : AppCompatActivity(), View.OnClickListener, OnMapReadyCal
                                     val directionPositionList = leg.directionPoint
                                     if (isShowCars) {
                                         currentFare = (Integer.parseInt(leg.distance.value) / 1000).toFloat()
+                                        currentDistance = leg.distance.value.toDouble()
                                     }
                                     val polylineOptions = DirectionConverter.createPolyline(this@ContentActivity, directionPositionList, 5, Color.BLUE)
                                     route = mMap.addPolyline(polylineOptions)

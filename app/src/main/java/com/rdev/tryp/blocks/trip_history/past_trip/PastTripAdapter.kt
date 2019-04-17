@@ -14,8 +14,7 @@ import androidx.core.content.ContextCompat
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.RecentRide
-import com.rdev.tryp.payment.utils.PaymentUtils
-import com.rdev.tryp.utils.Utils
+import com.rdev.tryp.utils.ViewUtils
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,6 +41,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
         holder.mTripToTextView?.text = model.destinationAddress
         model.dateCreatedAt?.let { date -> holder.mDateButton?.text = SimpleDateFormat("d MMM 'at' h:mm a", Locale.ENGLISH).format(date) }
         holder.mNameTextView?.text = model.driver?.firstName
+        model.distance?.let { distance -> holder.tvDistance?.text = ViewUtils.distanceToPresentableFormat(distance) }
 
         when(model.status){
             ConstantsFirebase.STATUS_RIDE_CONFIRMED -> {
@@ -49,7 +49,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
                 holder.mStatusTextView?.text = "Confirmed"
                 (holder.mStatusTextView?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin = context.resources.getDimensionPixelSize(R.dimen.dimen8)
                 holder.tvPrice?.visibility = View.VISIBLE
-                model.fare?.let { fare -> holder.tvPrice?.text = PaymentUtils.priceToPresentableFormat(fare * 0.8F) }
+                model.fare?.let { fare -> holder.tvPrice?.text = ViewUtils.priceToPresentableFormat(fare * 0.8F) }
             }
             ConstantsFirebase.STATUS_RIDE_CANCELLED -> {
                 holder.mStatusTextView?.setTextColor(ContextCompat.getColor(context, R.color.cancelled))
@@ -81,6 +81,7 @@ class PastTripAdapter(private val context: Context, private val mList: ArrayList
         val mTripToTextView = itemView.findViewById(R.id.to_textView) as? TextView
         val mStatusTextView = itemView.findViewById(R.id.status_textView) as? TextView
         val tvPrice = itemView.findViewById(R.id.tvPrice) as? TextView
+        val tvDistance = itemView.findViewById(R.id.tvDistance) as? TextView
         val mDateButton = itemView.findViewById(R.id.date_button) as? Button
         val mNameTextView = itemView.findViewById(R.id.client_name_textView) as? TextView
         val cardView = itemView.findViewById(R.id.cardView) as? CardView

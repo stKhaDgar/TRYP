@@ -15,7 +15,7 @@ import com.rdev.tryp.ContentActivity
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.Driver
-import com.rdev.tryp.payment.utils.PaymentUtils
+import com.rdev.tryp.utils.ViewUtils
 import com.rdev.tryp.trip.TripFragment
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -52,7 +52,7 @@ internal constructor(private val driver: Driver) : Fragment() {
         tvTrypType?.text = driver.category
         tvNumOfDoor?.text = "4/4"
         tvNumOfPassengers?.text = "${driver.maxPassenger}"
-        tvPrice?.text = PaymentUtils.priceToPresentableFormat((activity as ContentActivity).currentFare * ConstantsFirebase.TRYP_CAR_FARE)
+        tvPrice?.text = ViewUtils.priceToPresentableFormat((activity as ContentActivity).currentFare * ConstantsFirebase.TRYP_CAR_FARE)
         tvNumOfBaggage?.text = "${driver.maxLuggage}"
 
         val trypNowBtn = v?.findViewById<CardView>(R.id.tryp_now_btn)

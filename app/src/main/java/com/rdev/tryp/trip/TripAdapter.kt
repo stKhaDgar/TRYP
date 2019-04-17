@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.rdev.tryp.R
 import com.rdev.tryp.firebaseDatabase.ConstantsFirebase
 import com.rdev.tryp.firebaseDatabase.model.Driver
-import com.rdev.tryp.payment.utils.PaymentUtils
+import com.rdev.tryp.utils.ViewUtils
 
 import java.util.ArrayList
 import androidx.cardview.widget.CardView
@@ -80,7 +80,7 @@ class TripAdapter(var drivers: ArrayList<Driver>, var type: Int, private val lis
             holder.tvTypeCar.text = item.type
             holder.tvNumOfPassengers.text = "${item.maxPassenger}"
             holder.tvNumOfBaggage.text = "${item.maxLuggage}"
-            fare?.let { num -> holder.tvFare.text = PaymentUtils.priceToPresentableFormat(num * ConstantsFirebase.TRYP_CAR_FARE) }
+            fare?.let { num -> holder.tvFare.text = ViewUtils.priceToPresentableFormat(num * ConstantsFirebase.TRYP_CAR_FARE) }
 
             val lp = holder.mainLayout.layoutParams as RecyclerView.LayoutParams
             if (position == 0) {
@@ -100,7 +100,7 @@ class TripAdapter(var drivers: ArrayList<Driver>, var type: Int, private val lis
             Glide.with(holder.itemView).load(item.image).into(ivAvatar)
             tvDriver.text = "${item.firstName} ${item.lastName}"
             tvCategory.text = item.category
-            fare?.let { num -> driverHolder.tvFare.text = PaymentUtils.priceToPresentableFormat(num * ConstantsFirebase.TRYP_CAR_FARE) }
+            fare?.let { num -> driverHolder.tvFare.text = ViewUtils.priceToPresentableFormat(num * ConstantsFirebase.TRYP_CAR_FARE) }
             driverHolder.tvNumOfPassengers.text = "${item.maxPassenger}"
             driverHolder.tvNumOfBaggage.text = "${item.maxLuggage}"
 

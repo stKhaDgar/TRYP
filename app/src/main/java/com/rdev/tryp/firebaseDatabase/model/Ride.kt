@@ -16,7 +16,8 @@ class Ride(
         var driver: AvailableDriver? = null,
         var fromAddress: String? = null,
         var toAddress: String? = null,
-        var fare: Float? = null
+        var fare: Float? = null,
+        var distance: Double? = null
 ) {
     var status: Int? = null
     var predictedTime: String? = null

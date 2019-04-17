@@ -21,4 +21,5 @@ class RecentRide {
     var driverId: String? = null
     var driver: Driver? = null
     var fare: Float? = null
+    var distance: Double? = null
 }

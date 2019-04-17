@@ -354,6 +354,7 @@ class TrypDatabase{
         recentRide.status = if(isConfirmed) const.STATUS_RIDE_CONFIRMED else const.STATUS_RIDE_CANCELLED
         recentRide.driverId = ride.driver?.id
         recentRide.fare = ride.fare
+        recentRide.distance = ride.distance
 
         item.setValue(recentRide)
     }
